@@ -1,0 +1,74 @@
+html {
+	-ms-content-zooming: none;
+}
+
+body {
+	font-family: 微软雅黑;
+	font-size: 0.8rem;
+}
+
+p {
+	text-align: justify;
+	text-justify: inter-ideograph;
+	margin-bottom: 2.5em;
+}
+
+a {
+	text-decoration: none;
+}
+
+em {
+	color: gray;
+	font-size: 80%;
+	font-style: normal;
+}
+
+img { 
+	max-width: 100%; 
+	width: 100%; 
+	height: auto; 
+}
+
+iframe {
+	width: 100%; 
+	height: auto; 
+}
+
+embed {
+	width: 100%; 
+	height: auto; 
+}
+
+span {
+	background-color: White;
+}
+
+blockquote {
+	border-style: none none none solid;
+	border-width: thick;
+	border-color: Silver;
+	background-color: WhiteSmoke; 
+	padding: 10px;
+	box-shadow: 3px 3px 10px #888888;
+}
+
+.FreshTitle {
+	color: red;
+	padding-left: 0.5em;
+	border-left-style: solid;
+	border-left-width: 0.2em;
+	border-left-color: blue;
+}
+
+.pullquote {
+	border-style: none none none solid;
+	border-width: thick;
+	border-color: Chocolate;
+	background-color: Lavender; 
+	padding: 10px;
+	box-shadow: 3px 3px 10px #888888;
+}
+
+.share-links {
+	width: 30%;
+}

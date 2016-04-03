@@ -1,0 +1,102 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Jandan">
+
+    <!--页面顶端标题栏相关资源-->
+    <Style x:Key="TitleBarTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="微软雅黑"/>
+        <Setter Property="FontSize" Value="24"/>
+    </Style>
+    
+    <!--页面中部内容呈现相关资源-->
+    <Style x:Key="ContentPanelListViewStyle" TargetType="ListView">
+        <Setter Property="SelectionMode" Value="None"/>
+        <Setter Property="IsTapEnabled" Value="False"/>
+        <Setter Property="IsRightTapEnabled" Value="False"/>
+        <Setter Property="IsHoldingEnabled" Value="False"/>
+        <Setter Property="IsDoubleTapEnabled" Value="False"/>
+        <Setter Property="IsItemClickEnabled" Value="True"/>
+        <Setter Property="Padding" Value="10,10,10,10"/>
+    </Style>
+    <Style x:Key="ContentPanelGridViewStyle" TargetType="GridView">
+        <Setter Property="SelectionMode" Value="None"/>
+        <Setter Property="IsTapEnabled" Value="False"/>
+        <Setter Property="IsRightTapEnabled" Value="False"/>
+        <Setter Property="IsHoldingEnabled" Value="False"/>
+        <Setter Property="IsDoubleTapEnabled" Value="False"/>
+        <Setter Property="IsItemClickEnabled" Value="True"/>
+        <Setter Property="Padding" Value="10,10,10,10"/>
+    </Style>    
+    <Style x:Key="ItemAuthorTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    <Style x:Key="ItemIDTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="Gray"/>
+    </Style>
+    <Style x:Key="ItemDateTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="Gray"/>
+    </Style>
+    <Style x:Key="ItemContentTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    <Style x:Key="RateBarButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="微软雅黑"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <SolidColorBrush Color="{ThemeResource SystemBaseMediumColor}"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="White" Opacity="0"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="RateBarTextStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="微软雅黑"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    <x:String x:Key="RateBarOO">OO</x:String>
+    <x:String x:Key="RateBarXX">XX</x:String>
+    <x:String x:Key="RateBarComment">吐槽</x:String>
+
+    <!--进度条-->
+    <Style x:Key="LoadingProgressStyle" TargetType="ProgressRing">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+    </Style>
+
+    <x:Double x:Key="AdaptiveItemWidth">220</x:Double>
+
+    <!--关于页面相关资源-->
+    <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="微软雅黑"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Padding" Value="0,4,0,2"/>
+    </Style>
+    <Style x:Key="ContentTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="微软雅黑"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="TextWrapping" Value="WrapWholeWords"/>
+    </Style>
+
+
+    
+</ResourceDictionary>

@@ -1,0 +1,1 @@
+https://github.com/ZhaoKaiQiang/JianDan/tree/master/app/src/main/java/com/socks/jiandan/model
