@@ -21,6 +21,9 @@ namespace Jandan.UWP.ViewModels
         private FreshDetail _freshDetails;
         public FreshDetail FreshDetails { get { return _freshDetails; } set { _freshDetails = value; OnPropertyChanged(); } }
 
+        private double _freshWidth;
+        public double FreshWidth { get { return _freshWidth; } set { _freshWidth = value; OnPropertyChanged(); } }
+
         public FreshDetailViewModel(Fresh fresh)
         {
             _freshDetails = new FreshDetail() { FreshInfo = fresh, FreshContentSlim = "", FreshContentEx = "" };
