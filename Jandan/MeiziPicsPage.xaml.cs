@@ -98,5 +98,22 @@ namespace Jandan
 
             DuanSplitView.IsPaneOpen = true;
         }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double margin = BoringGridView.Padding.Left + BoringGridView.Padding.Right;
+
+            double currentWidth = this.ActualWidth - margin;
+            int columnCount = (int)Math.Floor(currentWidth / 230);
+            double setWidth = (currentWidth - (columnCount - 1) * 10) / columnCount;
+
+            var s = BoringGridView.ItemContainerStyle;
+            Setter s4 = new Setter(GridViewItem.WidthProperty, setWidth);
+
+            Style s_new = new Style(typeof(GridViewItem));
+            s_new.Setters.Add(s4);
+
+            BoringGridView.ItemContainerStyle = s_new;
+        }
     }
 }

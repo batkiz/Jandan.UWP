@@ -68,8 +68,26 @@ namespace Jandan
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
-        {        
-            Application.Current.Resources["AdaptiveItemWidth"] = 300;
+        {
+            double margin = FreshGridView.Padding.Left + FreshGridView.Padding.Right;
+
+            double currentWidth = this.ActualWidth - margin;
+            int columnCount = (int)Math.Floor(currentWidth / 230);
+            double setWidth = (currentWidth - (columnCount - 1) * 10) / columnCount;
+
+            var s = FreshGridView.ItemContainerStyle;
+            //Setter s1 = new Setter(GridViewItem.MarginProperty, new Thickness(4));
+            //Setter s2 = new Setter(GridViewItem.PaddingProperty, new Thickness(5));
+            //Setter s3 = new Setter(GridViewItem.VerticalContentAlignmentProperty, VerticalAlignment.Top);
+            Setter s4 = new Setter(GridViewItem.WidthProperty, setWidth);
+
+            Style s_new = new Style(typeof(GridViewItem));
+            //s_new.Setters.Add(s1);
+            //s_new.Setters.Add(s2);
+            //s_new.Setters.Add(s3);
+            s_new.Setters.Add(s4);
+
+            FreshGridView.ItemContainerStyle = s_new;
         }
     }
 }

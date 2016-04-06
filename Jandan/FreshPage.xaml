@@ -7,16 +7,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" NavigationCacheMode="Enabled" SizeChanged="Page_SizeChanged">
 
-    <Page.Resources>
+    <!--<Page.Resources>
         <ResourceDictionary>
             <Style x:Key="GridViewItemStyle" TargetType="GridViewItem">
                 <Setter Property="Margin" Value="4"></Setter>
                 <Setter Property="Padding" Value="5"></Setter>
-                <Setter Property="Width" Value="{StaticResource AdaptiveItemWidth}"></Setter>
+                --><!--<Setter Property="Width" Value="{StaticResource AdaptiveItemWidth}"></Setter>--><!--
+                <Setter Property="Width" Value="{Binding Source={StaticResource AdaptiveItemWidth},Mode=TwoWay}"></Setter>
                 <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
             </Style>
         </ResourceDictionary>
-    </Page.Resources>
+    </Page.Resources>-->
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
@@ -165,8 +166,8 @@
                   IsItemClickEnabled="True"
                   SelectionMode="None"
                   ItemClick="FreshListView_ItemClick"
-                  Visibility="Collapsed"
-                  ItemContainerStyle="{StaticResource GridViewItemStyle}">
+                  Visibility="Collapsed" HorizontalAlignment="Center">
+            <!--ItemContainerStyle="{StaticResource GridViewItemStyle}">-->
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Grid Name="gridListItems" BorderBrush="Black">
@@ -216,7 +217,15 @@
                         </RelativePanel>
                     </Grid>
                 </DataTemplate>
-            </GridView.ItemTemplate>            
+            </GridView.ItemTemplate>
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="Margin" Value="4"></Setter>
+                    <Setter Property="Padding" Value="5"></Setter>
+                    <!--<Setter Property="Width" Value="{Binding Source={StaticResource AdaptiveItemWidth},Mode=TwoWay}"></Setter>-->
+                    <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
+                </Style>
+            </GridView.ItemContainerStyle>
         </GridView>
         <ProgressRing Grid.Row="1"
                       Name="Loading"

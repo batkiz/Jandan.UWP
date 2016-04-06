@@ -53,27 +53,30 @@
                     Click="PicDownload_Click">
             </Button>
         </RelativePanel>
-        <ListView Grid.Row="1"
-                  ItemsSource="{Binding BoringPicture.Urls}" 
-                  SelectionMode="None" 
-                  IsSwipeEnabled="False" 
-                  IsMultiSelectCheckBoxEnabled="False">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ScrollViewer HorizontalScrollMode="Auto" VerticalScrollMode="Auto" VerticalScrollBarVisibility="Disabled">
-                        <Controls:ImageView Name="ImageDetail" UriSource="{Binding URL}" Stretch="Uniform" />
-                    </ScrollViewer>                    
-                    <!--<Image Source="{Binding URL}"></Image>-->
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                    <Setter Property="Padding" Value="0"></Setter>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                    <Setter Property="MinHeight" Value="0"></Setter>
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
+        <RelativePanel Grid.Row="1">
+            <ListView ItemsSource="{Binding BoringPicture.Urls}"
+                      SelectionMode="None"
+                      IsSwipeEnabled="False"
+                      IsMultiSelectCheckBoxEnabled="False"
+                      RelativePanel.AlignLeftWithPanel="True" HorizontalAlignment="Left"
+                      MaxWidth="500">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ScrollViewer HorizontalScrollMode="Auto" VerticalScrollMode="Auto" VerticalScrollBarVisibility="Disabled" ZoomMode="Enabled">
+                            <Controls:ImageView Name="ImageDetail" UriSource="{Binding URL}" Stretch="Uniform" />
+                        </ScrollViewer>
+                        <!--<Image Source="{Binding URL}"></Image>-->
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                        <Setter Property="Padding" Value="0"></Setter>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                        <Setter Property="MinHeight" Value="0"></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </RelativePanel>        
     </Grid>
 </Page>

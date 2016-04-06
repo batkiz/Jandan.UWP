@@ -89,14 +89,12 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Documents\version-0.1.0.txt" />
     <Content Include="Style\jandan_desktop.css" />
     <Content Include="Style\jandan_desktop_ex.css" />
     <Content Include="Style\jandan_mobile.css" />
     <Content Include="Style\jandan_mobile_ex.css" />
+    <None Include="Jandan_TemporaryKey.pfx" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -174,7 +172,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="Jandan_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Square150x150Logo.scale-100.png" />

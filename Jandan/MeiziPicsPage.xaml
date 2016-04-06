@@ -5,8 +5,93 @@
     xmlns:local="using:Jandan"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" NavigationCacheMode="Enabled">
+    mc:Ignorable="d" NavigationCacheMode="Enabled" SizeChanged="Page_SizeChanged">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="MeiziPicsDataStyle">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <RelativePanel Grid.Row="0" Margin="0,4,0,0">
+                        <TextBlock Name="BoringAuthor" Style="{StaticResource ItemAuthorTextStyle}" Text="{Binding Author}"/>
+                        <TextBlock Name="BoringID" Style="{StaticResource ItemIDTextStyle}" Text="{Binding PicID}" RelativePanel.AlignRightWithPanel="True"/>
+                        <TextBlock Name="BoringDate" Style="{StaticResource ItemDateTextStyle}" Text="{Binding Date}" RelativePanel.Below="BoringAuthor"/>
+
+                    </RelativePanel>
+                    <StackPanel Grid.Row="1" Margin="0,0,0,4" Height="200">
+                        <TextBlock Name="BoringContent" 
+                                                   Style="{StaticResource ItemContentTextStyle}"
+                                                   Text="{Binding Content}">
+                        </TextBlock>
+                        <ListView ItemsSource="{Binding Urls}" 
+                                                  SelectionMode="None"
+                                                  ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                                                  ShowsScrollingPlaceholders="False" 
+                                                  VerticalContentAlignment="Top">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding URL}">
+                                    </Image>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                    <Setter Property="Padding" Value="0"></Setter>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                    <Setter Property="MinHeight" Value="0"></Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    </StackPanel>
+                    <RelativePanel Grid.Row="2" Margin="0,5">
+                        <Button Name="DuanVotePositiveIcon" 
+                                                Content="{StaticResource RateBarOO}" 
+                                                RelativePanel.AlignLeftWithPanel="True" 
+                                                MaxWidth="40" MinWidth="40"
+                                                Style="{StaticResource RateBarButtonStyle}">
+                        </Button>
+                        <TextBlock Name="DuanVotePositive" 
+                                               Text="{Binding VotePositive}" 
+                                               RelativePanel.AlignVerticalCenterWithPanel="True" 
+                                               RelativePanel.RightOf="DuanVotePositiveIcon" 
+                                               Style="{StaticResource RateBarTextStyle}">
+                        </TextBlock>
+                        <Button Name="DuanVoteNegativeIcon" 
+                                                Content="{StaticResource RateBarXX}" 
+                                                RelativePanel.RightOf="DuanVotePositive" 
+                                                MaxWidth="40" MinWidth="40" 
+                                                Style="{StaticResource RateBarButtonStyle}">
+                        </Button>
+                        <TextBlock Name="DuanVoteNegative" 
+                                               Text="{Binding VoteNegative}" 
+                                               RelativePanel.AlignVerticalCenterWithPanel="True"
+                                               RelativePanel.RightOf="DuanVoteNegativeIcon" 
+                                               Style="{StaticResource RateBarTextStyle}">
+                        </TextBlock>
+                        <Button Name="DuanViewComment" 
+                                            Content="{StaticResource RateBarComment}" 
+                                            Click="Tucao_Click"
+                                            RelativePanel.RightOf="DuanVoteNegative" 
+                                            MaxWidth="50" MinWidth="50" 
+                                            Style="{StaticResource RateBarButtonStyle}">
+                        </Button>
+                        <TextBlock Name="DuanCommentCount" 
+                                               Text="{Binding CommentCount}" 
+                                               RelativePanel.AlignVerticalCenterWithPanel="True"
+                                               RelativePanel.RightOf="DuanViewComment" 
+                                               Style="{StaticResource RateBarTextStyle}">
+                        </TextBlock>
+                    </RelativePanel>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -73,9 +158,11 @@
                     Background="Transparent"
                     Click="RefreshButton_Click">
             </Button>
-        </RelativePanel>        
+        </RelativePanel>
 
+        <!--SplitView.Content放无聊图, Pane放评论-->
         <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped">
+            <!--SplitView.Pane放评论, 分为两行, 第一行为标题栏, 第二行为评论-->
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -124,111 +211,15 @@
                     </ListView>
                 </Grid>
             </SplitView.Pane>
+            <!--SplitView.Pane放无聊图正文, 分为listview/gridview两种模式-->
             <SplitView.Content>
                 <Grid>
                     <ListView Grid.Row="1"
                               Name="BoringListView"
                               ItemsSource="{Binding Meizi}" 
                               ItemClick="BoringListView_ItemClick"
-                              Style="{StaticResource ContentPanelListViewStyle}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="*"></RowDefinition>
-                                    </Grid.RowDefinitions>
-                                    <RelativePanel Grid.Row="0" Margin="0,4,0,0">
-                                        <TextBlock Name="BoringAuthor"
-                                       FontSize="12"
-                                       TextWrapping="Wrap"
-                                       Text="{Binding Author}">
-                                        </TextBlock>
-                                        <TextBlock Name="BoringID"
-                                       FontSize="12"
-                                       TextWrapping="Wrap"
-                                       Text="{Binding PicID}"
-                                       RelativePanel.AlignRightWithPanel="True">
-                                        </TextBlock>
-                                        <TextBlock Name="BoringDate"
-                                       FontSize="12"
-                                       TextWrapping="Wrap"
-                                       Text="{Binding Date}"
-                                       RelativePanel.Below="BoringAuthor">
-                                        </TextBlock>
-                                    </RelativePanel>
-                                    <StackPanel Grid.Row="1" Margin="0,0,0,4">
-                                        <TextBlock Name="BoringContent" 
-                                       FontSize="16"
-                                       TextWrapping="Wrap"
-                                       Text="{Binding Content}">
-                                        </TextBlock>
-                                        <ListView ItemsSource="{Binding Urls}"                                              
-                                              SelectionMode="None"
-                                              MaxHeight="200" 
-                                              MinHeight="200"
-                                              ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                                              ShowsScrollingPlaceholders="False" 
-                                              VerticalContentAlignment="Top">
-                                            <ListView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Image Source="{Binding URL}">
-                                                    </Image>
-                                                </DataTemplate>
-                                            </ListView.ItemTemplate>
-                                            <ListView.ItemContainerStyle>
-                                                <Style TargetType="ListViewItem">
-                                                    <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                                    <Setter Property="Padding" Value="0"></Setter>
-                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                                                    <Setter Property="MinHeight" Value="0"></Setter>
-                                                </Style>
-                                            </ListView.ItemContainerStyle>
-                                        </ListView>
-                                    </StackPanel>
-                                    <RelativePanel Grid.Row="2" Margin="0,5">
-                                        <Button Name="DuanVotePositiveIcon" 
-                                                Content="{StaticResource RateBarOO}" 
-                                                RelativePanel.AlignLeftWithPanel="True" 
-                                                MaxWidth="40" MinWidth="40"
-                                                Style="{StaticResource RateBarButtonStyle}">
-                                        </Button>
-                                        <TextBlock Name="DuanVotePositive" 
-                                               Text="{Binding VotePositive}" 
-                                               RelativePanel.AlignVerticalCenterWithPanel="True" 
-                                               RelativePanel.RightOf="DuanVotePositiveIcon" 
-                                               Style="{StaticResource RateBarTextStyle}">
-                                        </TextBlock>
-                                        <Button Name="DuanVoteNegativeIcon" 
-                                                Content="{StaticResource RateBarXX}" 
-                                                RelativePanel.RightOf="DuanVotePositive" 
-                                                MaxWidth="40" MinWidth="40" 
-                                                Style="{StaticResource RateBarButtonStyle}">
-                                        </Button>
-                                        <TextBlock Name="DuanVoteNegative" 
-                                               Text="{Binding VoteNegative}" 
-                                               RelativePanel.AlignVerticalCenterWithPanel="True"
-                                               RelativePanel.RightOf="DuanVoteNegativeIcon" 
-                                               Style="{StaticResource RateBarTextStyle}">
-                                        </TextBlock>
-                                        <Button Name="VoteSplitter" 
-                                            Content="{StaticResource RateBarComment}" 
-                                            Click="Tucao_Click"
-                                            RelativePanel.RightOf="DuanVoteNegative" 
-                                            MaxWidth="50" MinWidth="50" 
-                                            Style="{StaticResource RateBarButtonStyle}">
-                                        </Button>
-                                        <TextBlock Name="DuanCommentCount" 
-                                               Text="{Binding CommentCount}" 
-                                               RelativePanel.AlignVerticalCenterWithPanel="True"
-                                               RelativePanel.RightOf="VoteSplitter" 
-                                               Style="{StaticResource RateBarTextStyle}">
-                                        </TextBlock>
-                                    </RelativePanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
+                              Style="{StaticResource ContentPanelListViewStyle}"
+                              ItemTemplate="{StaticResource MeiziPicsDataStyle}">                        
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="Margin" Value="8,4,8,4"></Setter>
@@ -243,105 +234,8 @@
                               ItemsSource="{Binding Meizi}"                              
                               ItemClick="BoringListView_ItemClick"
                               Style="{StaticResource ContentPanelGridViewStyle}"
-                              Visibility="Collapsed">
-                        <GridView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="*"></RowDefinition>
-                                    </Grid.RowDefinitions>
-                                    <RelativePanel Grid.Row="0" Margin="0,4,0,0">
-                                        <TextBlock Name="BoringAuthor"
-                                       FontSize="12"
-                                       TextWrapping="Wrap"
-                                       Text="{Binding Author}">
-                                        </TextBlock>
-                                        <TextBlock Name="BoringID"
-                                       FontSize="12"
-                                       TextWrapping="Wrap"
-                                       Text="{Binding PicID}"
-                                       RelativePanel.AlignRightWithPanel="True">
-                                        </TextBlock>
-                                        <TextBlock Name="BoringDate"
-                                       FontSize="12"
-                                       TextWrapping="Wrap"
-                                       Text="{Binding Date}"
-                                       RelativePanel.Below="BoringAuthor">
-                                        </TextBlock>
-                                    </RelativePanel>
-                                    <StackPanel Grid.Row="1" Margin="0,0,0,4">
-                                        <TextBlock Name="BoringContent" 
-                                       FontSize="16"
-                                       TextWrapping="Wrap"
-                                       Text="{Binding Content}">
-                                        </TextBlock>
-                                        <ListView ItemsSource="{Binding Urls}"                                              
-                                              SelectionMode="None"
-                                              MaxHeight="200" 
-                                              MinHeight="200"
-                                              ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                                              ShowsScrollingPlaceholders="False" 
-                                              VerticalContentAlignment="Top">
-                                            <ListView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Image Source="{Binding URL}">
-                                                    </Image>
-                                                </DataTemplate>
-                                            </ListView.ItemTemplate>
-                                            <ListView.ItemContainerStyle>
-                                                <Style TargetType="ListViewItem">
-                                                    <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                                    <Setter Property="Padding" Value="0"></Setter>
-                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                                                    <Setter Property="MinHeight" Value="0"></Setter>
-                                                </Style>
-                                            </ListView.ItemContainerStyle>
-                                        </ListView>
-                                    </StackPanel>
-                                    <RelativePanel Grid.Row="2" Margin="0,5">
-                                        <Button Name="DuanVotePositiveIcon" 
-                                                Content="{StaticResource RateBarOO}" 
-                                                RelativePanel.AlignLeftWithPanel="True" 
-                                                MaxWidth="40" MinWidth="40"
-                                                Style="{StaticResource RateBarButtonStyle}">
-                                        </Button>
-                                        <TextBlock Name="DuanVotePositive" 
-                                               Text="{Binding VotePositive}" 
-                                               RelativePanel.AlignVerticalCenterWithPanel="True" 
-                                               RelativePanel.RightOf="DuanVotePositiveIcon" 
-                                               Style="{StaticResource RateBarTextStyle}">
-                                        </TextBlock>
-                                        <Button Name="DuanVoteNegativeIcon" 
-                                                Content="{StaticResource RateBarXX}" 
-                                                RelativePanel.RightOf="DuanVotePositive" 
-                                                MaxWidth="40" MinWidth="40" 
-                                                Style="{StaticResource RateBarButtonStyle}">
-                                        </Button>
-                                        <TextBlock Name="DuanVoteNegative" 
-                                               Text="{Binding VoteNegative}" 
-                                               RelativePanel.AlignVerticalCenterWithPanel="True"
-                                               RelativePanel.RightOf="DuanVoteNegativeIcon" 
-                                               Style="{StaticResource RateBarTextStyle}">
-                                        </TextBlock>
-                                        <Button Name="VoteSplitter" 
-                                            Content="{StaticResource RateBarComment}" 
-                                            Click="Tucao_Click"
-                                            RelativePanel.RightOf="DuanVoteNegative" 
-                                            MaxWidth="50" MinWidth="50" 
-                                            Style="{StaticResource RateBarButtonStyle}">
-                                        </Button>
-                                        <TextBlock Name="DuanCommentCount" 
-                                               Text="{Binding CommentCount}" 
-                                               RelativePanel.AlignVerticalCenterWithPanel="True"
-                                               RelativePanel.RightOf="VoteSplitter" 
-                                               Style="{StaticResource RateBarTextStyle}">
-                                        </TextBlock>
-                                    </RelativePanel>
-                                </Grid>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
+                              Visibility="Collapsed"
+                              ItemTemplate="{StaticResource MeiziPicsDataStyle}" HorizontalAlignment="Center">
                         <GridView.ItemContainerStyle>
                             <Style TargetType="GridViewItem">
                                 <Setter Property="Margin" Value="8,4,8,4"></Setter>

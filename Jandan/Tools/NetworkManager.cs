@@ -125,6 +125,10 @@ namespace Jandan.UWP.Tools
                 {
                     return 3;
                 }
+                else if (!string.IsNullOrEmpty(profile.ProfileName))
+                {
+                    return 3; // PC or something?
+                }
                 return 4;
             }
             catch (Exception)

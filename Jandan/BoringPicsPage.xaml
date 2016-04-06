@@ -234,7 +234,7 @@
                               Style="{StaticResource ContentPanelGridViewStyle}"
                               ItemClick="BoringListView_ItemClick"
                               Visibility="Collapsed"
-                              ItemTemplate="{StaticResource BoringPicsDataStyle}">
+                              ItemTemplate="{StaticResource BoringPicsDataStyle}" HorizontalAlignment="Center">
                         <GridView.ItemContainerStyle>
                             <Style TargetType="GridViewItem">
                                 <Setter Property="Margin" Value="8,4,8,4"></Setter>
