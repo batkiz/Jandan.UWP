@@ -25,10 +25,21 @@ namespace Jandan
     public sealed partial class PicDetailPage : Page
     {
         PicDetailViewModel _viewModel;
-        
+        DuanCommentViewModel _dViewModel;
+
         public PicDetailPage()
         {
             this.InitializeComponent();
+            
+            var platformFamily = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
+            if (string.Equals(platformFamily, "Windows.Mobile"))
+            {
+                PicListView.MinWidth = PicDetailPanel.ActualWidth;
+            }
+            else
+            {
+                PicListView.MinWidth = 500;
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -40,6 +51,9 @@ namespace Jandan
             if (parameters != null)
             {
                 this.DataContext = _viewModel = new PicDetailViewModel(parameters[0] as BoringPic);
+                DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
+
+                _dViewModel.Update(_viewModel.BoringPicture.PicID);
             }
         }
 

@@ -28,6 +28,8 @@ namespace Jandan
     {
         FreshViewModel _viewModel;
 
+        private bool just_returned = false;
+
         public FreshPage()
         {
             this.InitializeComponent();
@@ -41,6 +43,7 @@ namespace Jandan
 
             if (e.NavigationMode == NavigationMode.Back)
             {
+                just_returned = true;
                 return;
             }
             base.OnNavigatedTo(e);
@@ -69,6 +72,12 @@ namespace Jandan
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            if (just_returned)
+            {
+                just_returned = false;
+                return;
+            }
+
             double margin = FreshGridView.Padding.Left + FreshGridView.Padding.Right;
 
             double currentWidth = this.ActualWidth - margin;

@@ -17,7 +17,7 @@ namespace Jandan.UWP.ViewModels
             Update(b);
         }
 
-        public async void Update(BoringPic b)
+        public void Update(BoringPic b)
         {
             BoringPicture = b;
         }

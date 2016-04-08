@@ -27,6 +27,8 @@ namespace Jandan
         MeiziViewModel _viewModel;
         DuanCommentViewModel _dViewModel;
 
+        private bool just_returned = false;
+
         public MeiziPicsPage()
         {
             this.InitializeComponent();
@@ -38,6 +40,7 @@ namespace Jandan
 
             if (e.NavigationMode == NavigationMode.Back)
             {
+                just_returned = true;
                 return;
             }
             base.OnNavigatedTo(e);
@@ -66,17 +69,13 @@ namespace Jandan
             this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic });
         }
 
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        private void ListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            var list = sender as ListView;
-
-            if (list.MaxHeight == 200)
+            var platformFamily = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
+            if (string.Equals(platformFamily, "Windows.Mobile"))
             {
-                list.MaxHeight = double.PositiveInfinity;
-            }
-            else
-            {
-                list.MaxHeight = 200;
+                var li = sender as ListView;
+                this.Frame.Navigate(typeof(PicDetailPage), new object[] { li.DataContext as BoringPic });
             }
         }
 
@@ -101,6 +100,12 @@ namespace Jandan
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            if (just_returned)
+            {
+                just_returned = false;
+                return;
+            }
+
             double margin = BoringGridView.Padding.Left + BoringGridView.Padding.Right;
 
             double currentWidth = this.ActualWidth - margin;

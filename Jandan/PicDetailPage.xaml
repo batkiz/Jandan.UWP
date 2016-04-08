@@ -9,6 +9,29 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="vs_720">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="750"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="CommentGrid.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="vs_100">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="CommentGrid.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
@@ -53,30 +76,103 @@
                     Click="PicDownload_Click">
             </Button>
         </RelativePanel>
-        <RelativePanel Grid.Row="1">
-            <ListView ItemsSource="{Binding BoringPicture.Urls}"
+        <RelativePanel Grid.Row="1" Name="PicDetailPanel">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" 
+                               Text="{Binding Path=BoringPicture.Content}"
+                               Style="{StaticResource ItemContentTextStyle}"
+                               Padding="8"></TextBlock>
+                    <ScrollViewer Grid.Row="1" 
+                                  ZoomMode="Enabled">
+                        <ListView
+                      Name="PicListView"
+                      ItemsSource="{Binding BoringPicture.Urls}"
                       SelectionMode="None"
                       IsSwipeEnabled="False"
                       IsMultiSelectCheckBoxEnabled="False"
-                      RelativePanel.AlignLeftWithPanel="True" HorizontalAlignment="Left"
-                      MaxWidth="500">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ScrollViewer HorizontalScrollMode="Auto" VerticalScrollMode="Auto" VerticalScrollBarVisibility="Disabled" ZoomMode="Enabled">
-                            <Controls:ImageView Name="ImageDetail" UriSource="{Binding URL}" Stretch="Uniform" />
-                        </ScrollViewer>
-                        <!--<Image Source="{Binding URL}"></Image>-->
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                        <Setter Property="Padding" Value="0"></Setter>
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                        <Setter Property="MinHeight" Value="0"></Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
+                      HorizontalAlignment="Left">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <!--<Controls:ImageView Name="ImageDetail" UriSource="{Binding URL}" Stretch="Uniform" />-->
+                                    <Controls:ImageView Name="ImageDetail" UriSource="{Binding Path=URL}" Stretch="Uniform"/>
+                                    <!--<Grid></Grid>-->
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                    <Setter Property="Padding" Value="0"></Setter>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                    <Setter Property="MinHeight" Value="0"></Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    </ScrollViewer>
+                </Grid>
+                
+                
+
+                <Grid Grid.Column="1" 
+                      Name="CommentGrid"
+                      HorizontalAlignment="Right"
+                      Width="360">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <!--顶部 评论列表-->
+                    <RelativePanel Grid.Row="0"
+                                   Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"
+                                   Padding="0,9,0,9" >
+                        <TextBlock Name="CommentTitle" Text="评论列表" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="18" Padding="20,0,0,0"></TextBlock>
+                    </RelativePanel>
+                    <ListView Grid.Row="1"
+                              Name="DuanCommentListView"
+                              Padding="8,10"
+                              SelectionMode="None"
+                              ItemsSource="{Binding DuanComments}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <RelativePanel Grid.Column="0">
+                                        <Image MinWidth="50" Source="{Binding AuthorAvatar}" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4"></Image>
+                                    </RelativePanel>
+                                    <RelativePanel Grid.Column="1">
+                                        <TextBlock Name="DuanCommentAuthor" Text="{Binding AuthorName}" TextWrapping="Wrap" FontSize="12"></TextBlock>
+                                        <TextBlock Name="DuanCommentDate" Text="{Binding PostDate}" RelativePanel.Below="DuanCommentAuthor" FontSize="10" IsColorFontEnabled="True" Foreground="Gray"></TextBlock>
+                                        <TextBlock Name="DuanCommentContent" Text="{Binding Message}" RelativePanel.Below="DuanCommentDate" TextWrapping="Wrap" Margin="0,0,0,2" Padding="0,0,0,2"></TextBlock>
+                                    </RelativePanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                <Setter Property="Padding" Value="0"></Setter>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                <Setter Property="MinHeight" Value="0"></Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </Grid>
+            </Grid>
+            
+            
         </RelativePanel>        
     </Grid>
 </Page>

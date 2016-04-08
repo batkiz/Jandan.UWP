@@ -28,8 +28,8 @@ namespace Jandan
     public sealed partial class FreshDetailPage : Page
     {
         private FreshDetailViewModel _viewModel;
-        FreshCommentViewModel _dViewModel;
-        
+        FreshCommentViewModel _dViewModel;        
+
         public FreshDetailPage()
         {
             this.InitializeComponent();

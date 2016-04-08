@@ -28,6 +28,7 @@ namespace Jandan
         DuanCommentViewModel _dViewModel;
 
         private int secret_count;
+        private bool just_returned = false;
 
         public BoringPicsPage()
         {
@@ -40,6 +41,7 @@ namespace Jandan
 
             if (e.NavigationMode == NavigationMode.Back)
             {
+                just_returned = true;
                 return;
             }
             base.OnNavigatedTo(e);
@@ -64,24 +66,19 @@ namespace Jandan
 
         }
 
-        //private void BoringListView_ItemClick(object sender, ItemClickEventArgs e)
-        //{
-        //    DuanSplitView.IsPaneOpen = true;
-
-        //    var d = e.ClickedItem as BoringPic;
-        //    var commentId = d.PicID;
-
-        //    _dViewModel.Update(commentId);
-        //}
-
         private void BoringListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic });
         }
 
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        private void ListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic });
+            var platformFamily = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
+            if (string.Equals(platformFamily, "Windows.Mobile"))
+            {
+                var li = sender as ListView;
+                this.Frame.Navigate(typeof(PicDetailPage), new object[] { li.DataContext as BoringPic });
+            }           
         }
 
         private void DuanSplitView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
@@ -116,6 +113,12 @@ namespace Jandan
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            if (just_returned)
+            {
+                just_returned = false;
+                return;
+            }
+
             double margin = BoringGridView.Padding.Left + BoringGridView.Padding.Right;
 
             double currentWidth = this.ActualWidth - margin;
@@ -130,5 +133,7 @@ namespace Jandan
 
             BoringGridView.ItemContainerStyle = s_new;
         }
+
+       
     }
 }

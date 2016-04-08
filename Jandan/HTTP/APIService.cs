@@ -201,7 +201,7 @@ namespace Jandan.UWP.HTTP
                                 {
                                     PicID = (j.GetObject())["comment_ID"].GetString(),
                                     Author = (j.GetObject())["comment_author"].GetString(),
-                                    Content = (j.GetObject())["text_content"].GetString(),
+                                    Content = (j.GetObject())["text_content"].GetString().Replace("\n", "").Replace("\r", ""),
                                     Urls = BoringPic.parse((j.GetObject())["pics"].ToString()),
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
@@ -258,7 +258,7 @@ namespace Jandan.UWP.HTTP
                                 {
                                     PicID = (j.GetObject())["comment_ID"].GetString(),
                                     Author = (j.GetObject())["comment_author"].GetString(),
-                                    Content = (j.GetObject())["text_content"].GetString(),
+                                    Content = (j.GetObject())["text_content"].GetString().Replace(@"\n", "").Replace(@"\r", ""),
                                     Urls = BoringPic.parse((j.GetObject())["pics"].ToString()),
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),

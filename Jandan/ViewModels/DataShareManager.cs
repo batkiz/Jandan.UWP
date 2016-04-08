@@ -18,6 +18,8 @@ namespace Jandan.UWP.ViewModels
         // 妹子图的页数
         public int MeiziItemPage { get; set; }
 
+        public bool IsPicDetailPageSizeChanged { get; set; } = false;
+
         // 当前页面索引值
         private PageIndex _previousPageIndex = PageIndex.MainPage;
         private PageIndex _currentPageIndex = PageIndex.MainPage;

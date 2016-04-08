@@ -162,6 +162,12 @@ namespace Jandan
                 this.RequestedTheme = ElementTheme.Light;
                 DataShareManager.Current.UpdateAPPTheme(false);
             }
+
+            if (DataShareManager.Current.CurrentPageIndex == PageIndex.FreshDetailPage)
+            {
+                var mf = this.mainFrame.Content as FreshDetailPage;
+                
+            }
         }
 
         private void SecBtnAbout_Click(object sender, RoutedEventArgs e)
