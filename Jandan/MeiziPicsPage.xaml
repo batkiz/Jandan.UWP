@@ -5,6 +5,7 @@
     xmlns:local="using:Jandan"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="using:PullToRefresh.UWP"
     mc:Ignorable="d" NavigationCacheMode="Enabled" SizeChanged="Page_SizeChanged">
 
     <Page.Resources>
@@ -213,39 +214,41 @@
             </SplitView.Pane>
             <!--SplitView.Pane放无聊图正文, 分为listview/gridview两种模式-->
             <SplitView.Content>
-                <Grid>
-                    <ListView Grid.Row="1"
+                <Controls:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
+                    <Grid>
+                        <ListView Grid.Row="1"
                               Name="BoringListView"
                               ItemsSource="{Binding Meizi}" 
                               ItemClick="BoringListView_ItemClick"
                               Style="{StaticResource ContentPanelListViewStyle}"
-                              ItemTemplate="{StaticResource MeiziPicsDataStyle}">                        
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                <Setter Property="Padding" Value="0"></Setter>
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                                <Setter Property="MinHeight" Value="0"></Setter>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
-                    <GridView Grid.Row="1"
+                              ItemTemplate="{StaticResource MeiziPicsDataStyle}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                    <Setter Property="Padding" Value="0"></Setter>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                    <Setter Property="MinHeight" Value="0"></Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                        <GridView Grid.Row="1"
                               Name="BoringGridView"
                               ItemsSource="{Binding Meizi}"                              
                               ItemClick="BoringListView_ItemClick"
                               Style="{StaticResource ContentPanelGridViewStyle}"
                               Visibility="Collapsed"
                               ItemTemplate="{StaticResource MeiziPicsDataStyle}" HorizontalAlignment="Center">
-                        <GridView.ItemContainerStyle>
-                            <Style TargetType="GridViewItem">
-                                <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                <Setter Property="Padding" Value="0"></Setter>
-                                <Setter Property="Width" Value="230"></Setter>
-                                <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
-                            </Style>
-                        </GridView.ItemContainerStyle>
-                    </GridView>
-                </Grid>
+                            <GridView.ItemContainerStyle>
+                                <Style TargetType="GridViewItem">
+                                    <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                    <Setter Property="Padding" Value="0"></Setter>
+                                    <Setter Property="Width" Value="230"></Setter>
+                                    <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
+                                </Style>
+                            </GridView.ItemContainerStyle>
+                        </GridView>
+                    </Grid>
+                </Controls:PullToRefreshBox>
             </SplitView.Content>
         </SplitView>
         <ProgressRing Grid.Row="1"

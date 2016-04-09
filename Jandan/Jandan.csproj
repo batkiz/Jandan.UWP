@@ -110,9 +110,6 @@
     <Compile Include="BoringPicsPage.xaml.cs">
       <DependentUpon>BoringPicsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\NewsContentPanel.cs" />
-    <Compile Include="Control\WaterfallPanel2.cs" />
-    <Compile Include="Control\WaterfallPanel.cs" />
     <Compile Include="Data\BoringIncrementalLoadingCollection.cs" />
     <Compile Include="Data\Delegates.cs" />
     <Compile Include="Data\DuanIncrementalLoadingCollection.cs" />
@@ -260,6 +257,9 @@
       <Project>{13258fbc-ed4a-476c-a0f3-bccf82177476}</Project>
       <Name>ImageLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Control\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -120,5 +120,10 @@ namespace Jandan
 
             BoringGridView.ItemContainerStyle = s_new;
         }
+
+        private void pullToRefreshBar_RefreshInvoked(DependencyObject sender, object args)
+        {
+            RefreshPage();
+        }
     }
 }

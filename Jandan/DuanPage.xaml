@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:PanelControls="using:Jandan.UWP.Control"
     xmlns:Controls="using:PullToRefresh.UWP" 
     NavigationCacheMode="Enabled">
 
@@ -194,38 +193,38 @@
             </SplitView.Pane>
             <!--SplitView.Pane放段子正文, 分为listview/gridview两种模式-->
             <SplitView.Content>
-                <!--<Controls:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">-->
-                <Grid>
-                    <ListView Name="DuanListView"
+                <Controls:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
+                    <Grid>
+                        <ListView Name="DuanListView"
                               ItemsSource="{Binding Duans}"
                               Style="{StaticResource ContentPanelListViewStyle}"
-                              ItemTemplate="{StaticResource DuanDataStyle}">                        
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                <Setter Property="Padding" Value="0"></Setter>
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                                <Setter Property="MinHeight" Value="0"></Setter>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
-                    <GridView Name="DuanGridView"
+                              ItemTemplate="{StaticResource DuanDataStyle}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                    <Setter Property="Padding" Value="0"></Setter>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                    <Setter Property="MinHeight" Value="0"></Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                        <GridView Name="DuanGridView"
                               ItemsSource="{Binding Duans}"
                               Style="{StaticResource ContentPanelGridViewStyle}"
                               Visibility="Collapsed"
                               ItemTemplate="{StaticResource DuanDataStyle}">
-                        <GridView.ItemContainerStyle>
-                            <Style TargetType="GridViewItem">
-                                <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                <Setter Property="Padding" Value="0"></Setter>
-                                <Setter Property="Width" Value="230"></Setter>
-                                <Setter Property="MinHeight" Value="0"></Setter>
-                                <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
-                            </Style>
-                        </GridView.ItemContainerStyle>
-                    </GridView>
-                </Grid>                
-                <!--</Controls:PullToRefreshBox>-->
+                            <GridView.ItemContainerStyle>
+                                <Style TargetType="GridViewItem">
+                                    <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                    <Setter Property="Padding" Value="0"></Setter>
+                                    <Setter Property="Width" Value="230"></Setter>
+                                    <Setter Property="MinHeight" Value="0"></Setter>
+                                    <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
+                                </Style>
+                            </GridView.ItemContainerStyle>
+                        </GridView>
+                    </Grid>
+                </Controls:PullToRefreshBox>
             </SplitView.Content>
         </SplitView>
         <ProgressRing Grid.Row="1"

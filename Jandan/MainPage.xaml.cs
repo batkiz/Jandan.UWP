@@ -125,6 +125,10 @@ namespace Jandan
             {
                 appView.TryEnterFullScreenMode();
             }
+            else
+            {
+                Hot.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void SecBtnDarkMode_Click(object sender, RoutedEventArgs e)

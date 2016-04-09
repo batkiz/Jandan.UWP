@@ -48,8 +48,8 @@
             <TextBlock Name="Quote" Text="引用" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="UpdateText"/>
             <TextBlock Name="QuoteJandan" Text="源数据：煎蛋网" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Quote"/>
             <HyperlinkButton Name="LinkJandan" Content="Jandan" NavigateUri="http://jandan.net/" RelativePanel.Below="QuoteJandan" Background="Transparent"/>
-            <TextBlock Name="QuoteImageList" Text="插件：ImageList" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="LinkJandan"/>
-            <HyperlinkButton Name="LinkImageList" Content="Github" NavigateUri="http://jandan.net/" RelativePanel.Below="QuoteImageList" Background="Transparent"/>
+            <TextBlock Name="QuoteImageLib" Text="插件：ImageLib" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="LinkJandan"/>
+            <HyperlinkButton Name="LinkImageLib" Content="Github" NavigateUri="https://github.com/chenrensong/ImageLib.UWP" RelativePanel.Below="QuoteImageLib" Background="Transparent"/>
         </RelativePanel>
     </Grid>
 </Page>
