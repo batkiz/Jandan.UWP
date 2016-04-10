@@ -14,7 +14,7 @@ namespace Jandan.UWP.Models
     public class ImageUrl
     {
         [DataMember]
-        public string URL { get; set; }
+        public string URL { get; set; } = "ms-appx:///Assets/Square150x150Logo.scale-200.png";
 
         public ImageUrl(string url)
         {

@@ -88,5 +88,24 @@ namespace Jandan
         {
             DuanSplitView.IsPaneOpen = false;
         }
+
+        private void DuanSplitView_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double margin = DuanGridView.Padding.Left + DuanGridView.Padding.Right;
+
+            double currentWidth = this.ActualWidth - margin;
+            int columnCount = (int)Math.Floor(currentWidth / 230);
+            double setWidth = (currentWidth - (columnCount - 1) * 10) / columnCount;
+
+            var s = DuanGridView.ItemContainerStyle;
+            Setter s4 = new Setter(GridViewItem.WidthProperty, setWidth);
+            Setter s3 = new Setter(GridViewItem.VerticalContentAlignmentProperty, VerticalAlignment.Top);
+
+            Style s_new = new Style(typeof(GridViewItem));
+            s_new.Setters.Add(s3);
+            s_new.Setters.Add(s4);
+
+            DuanGridView.ItemContainerStyle = s_new;
+        }
     }
 }

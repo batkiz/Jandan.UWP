@@ -104,9 +104,7 @@
                       HorizontalAlignment="Left">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <!--<Controls:ImageView Name="ImageDetail" UriSource="{Binding URL}" Stretch="Uniform" />-->
                                     <Controls:ImageView Name="ImageDetail" UriSource="{Binding Path=URL}" Stretch="Uniform"/>
-                                    <!--<Grid></Grid>-->
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                             <ListView.ItemContainerStyle>
@@ -120,8 +118,6 @@
                         </ListView>
                     </ScrollViewer>
                 </Grid>
-                
-                
 
                 <Grid Grid.Column="1" 
                       Name="CommentGrid"

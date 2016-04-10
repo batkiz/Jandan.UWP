@@ -87,16 +87,23 @@ namespace Jandan
             var s = FreshGridView.ItemContainerStyle;
             //Setter s1 = new Setter(GridViewItem.MarginProperty, new Thickness(4));
             //Setter s2 = new Setter(GridViewItem.PaddingProperty, new Thickness(5));
-            //Setter s3 = new Setter(GridViewItem.VerticalContentAlignmentProperty, VerticalAlignment.Top);
+            Setter s3 = new Setter(GridViewItem.VerticalContentAlignmentProperty, VerticalAlignment.Top);
             Setter s4 = new Setter(GridViewItem.WidthProperty, setWidth);
+            Setter s5 = new Setter(GridViewItem.HeightProperty, 240);
 
             Style s_new = new Style(typeof(GridViewItem));
             //s_new.Setters.Add(s1);
             //s_new.Setters.Add(s2);
-            //s_new.Setters.Add(s3);
+            s_new.Setters.Add(s3);
             s_new.Setters.Add(s4);
+            s_new.Setters.Add(s5);
 
             FreshGridView.ItemContainerStyle = s_new;
+        }
+
+        private void pullToRefreshBar_RefreshInvoked(DependencyObject sender, object args)
+        {
+            RefreshPage();
         }
     }
 }

@@ -18,7 +18,7 @@
                     ClosedDisplayMode="Minimal">
             <CommandBar.SecondaryCommands>
                 <AppBarButton Name="SecBtnDarkMode" Label="夜间模式" Click="SecBtnDarkMode_Click" />
-                <AppBarButton Name="SecBtnSetting" Label="设置"/>
+                <AppBarButton Name="SecBtnSetting" Label="设置(并没有)"/>
                 <AppBarButton Name="SecBtnAbout" Label="关于" Click="SecBtnAbout_Click"/>
             </CommandBar.SecondaryCommands>
             <CommandBar.Content>

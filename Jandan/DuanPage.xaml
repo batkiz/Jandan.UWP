@@ -138,7 +138,7 @@
         </RelativePanel>
 
         <!--SplitView.Content放段子, Pane放评论-->
-        <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped">
+        <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped" SizeChanged="DuanSplitView_SizeChanged">
             <!--SplitView.Pane放评论, 分为两行, 第一行为标题栏, 第二行为评论-->
             <SplitView.Pane>
                 <Grid>
