@@ -81,8 +81,8 @@
             </Button>
         </RelativePanel>        
         <!--下面新鲜事列表-->
-        <Controls:PullToRefreshBox Grid.Row="1" Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
-            <Grid>
+        <!--<Controls:PullToRefreshBox Grid.Row="1" Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">-->
+        <Grid Grid.Row="1">
                 <ListView
                       Name="FreshListView"
                       Padding="10,10,10,10"
@@ -232,7 +232,7 @@
                     </GridView.ItemContainerStyle>
                 </GridView>
             </Grid>
-        </Controls:PullToRefreshBox>
+        <!--</Controls:PullToRefreshBox>-->
         
         <ProgressRing Grid.Row="1"
                       Name="Loading"

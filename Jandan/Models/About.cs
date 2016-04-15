@@ -17,7 +17,7 @@ namespace Jandan.UWP.Models
         [DataMember]
         public string AuthorName { get; } = "Ray Litchi";
         [DataMember]
-        public string HelpAndSuggestion { get; } = "如果您有任何好的意见或者建议，欢迎发邮件至ray8_3@aliyun.com反馈";
+        public string HelpAndSuggestion { get; } = "如果您有任何好的意见或者建议，欢迎发邮件至raysworld@qq.com反馈";
         [DataMember]
         public string DenoteText { get; } = "如果觉得好用，请赏赐一碗泡面钱，谢谢支持\n支付婊:\nraysworld@qq.com, *睿";
         [DataMember]

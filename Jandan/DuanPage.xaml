@@ -193,7 +193,7 @@
             </SplitView.Pane>
             <!--SplitView.Pane放段子正文, 分为listview/gridview两种模式-->
             <SplitView.Content>
-                <Controls:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
+                <!--<Controls:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">-->
                     <Grid>
                         <ListView Name="DuanListView"
                               ItemsSource="{Binding Duans}"
@@ -224,7 +224,7 @@
                             </GridView.ItemContainerStyle>
                         </GridView>
                     </Grid>
-                </Controls:PullToRefreshBox>
+                <!--</Controls:PullToRefreshBox>-->
             </SplitView.Content>
         </SplitView>
         <ProgressRing Grid.Row="1"
