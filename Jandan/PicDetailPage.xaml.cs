@@ -71,7 +71,7 @@ namespace Jandan
 
         }
 
-        private async void PicDownload_Click(object sender, RoutedEventArgs e)
+        private async void PicDownload_Click1(object sender, RoutedEventArgs e)
         {
             var pics = PicListView.Items;
             foreach (ImageUrl url in pics)
@@ -95,6 +95,41 @@ namespace Jandan
 
                 await FileIO.WriteBytesAsync(saveFile, allBytes.ToArray());
                 //var file = await folder.CreateFileAsync(imageUrl, CreationCollisionOption.ReplaceExisting);
+            }
+        }
+
+        private async void PicDownload_Click(object sender, RoutedEventArgs e)
+        {
+            var pics = _viewModel.BoringPicture;
+
+            foreach (var url in pics.Urls)
+            {
+                var fileName = Regex.Replace(url.URL, @".+?/", "");
+
+                List<Byte> allBytes = new List<Byte>();
+                var path = Windows.Storage.ApplicationData.Current.LocalFolder;
+                var folder = await path.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
+                try
+                {
+                    var fileStream = await folder.OpenStreamForReadAsync(fileName);
+                    
+                    byte[] buffer = new byte[4000];
+                    int bytesRead = 0;
+                    while ((bytesRead = await fileStream.ReadAsync(buffer, 0, 4000)) > 0)
+                    {
+                        allBytes.AddRange(buffer.Take(bytesRead));
+                    }
+                }
+                catch (Exception)
+                {
+                    return;
+                }                
+                
+                StorageFolder sf = KnownFolders.SavedPictures;
+                string newName = pics.PicID + $"-[{pics.Urls.IndexOf(url)}]" + Path.GetExtension(fileName);
+                var saveFile = await sf.CreateFileAsync(newName, CreationCollisionOption.ReplaceExisting);
+
+                await FileIO.WriteBytesAsync(saveFile, allBytes.ToArray());
             }
         }
     }

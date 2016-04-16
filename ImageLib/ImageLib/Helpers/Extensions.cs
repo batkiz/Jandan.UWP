@@ -66,7 +66,7 @@ namespace ImageLib.Helpers
                             RandomAccessStreamReference streamRef = RandomAccessStreamReference.CreateFromUri(uri);
                             return await streamRef.OpenReadAsync().AsTask(cancellationToken).ConfigureAwait(false);
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             try
                             {
@@ -74,7 +74,7 @@ namespace ImageLib.Helpers
                                 var rsp = await httpClient.Uri(uri).Get();
                                 return await rsp.GetRandomStream();
                             }
-                            catch (Exception hex)
+                            catch (Exception)
                             {
                                 return null;
                             }

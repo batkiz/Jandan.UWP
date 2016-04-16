@@ -420,5 +420,18 @@ namespace Jandan.UWP.HTTP
                 return null;
             }
         }
+
+        public async Task Vote(string vote, string ID)
+        {
+            try
+            {
+                string json = await BaseService.SendPostRequest(string.Format(ServiceURL.URL_VOTE, vote, ID),"");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

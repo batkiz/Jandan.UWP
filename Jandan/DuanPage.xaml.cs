@@ -72,15 +72,10 @@ namespace Jandan
 
         private void Tucao_Click(object sender, RoutedEventArgs e)
         {
-            var b = e.OriginalSource as Button;
-            var r = b.Parent as RelativePanel;
-            var g = r.Parent as Grid;
-            var c = g.Children[0] as RelativePanel;
-            var t = c.Children[1] as TextBlock;
-            var id = t.Text;
+            var b = sender as Button;
+            var duan = b.DataContext as Duan;
 
-            _dViewModel.Update(id);
-
+            _dViewModel.Update(duan.DuanID);
             DuanSplitView.IsPaneOpen = true;
         }
 
@@ -111,6 +106,13 @@ namespace Jandan
             s_new.Setters.Add(s4);
 
             DuanGridView.ItemContainerStyle = s_new;
+        }
+
+        private void DuanVotePositiveIcon_Click(object sender, RoutedEventArgs e)
+        {
+            var b = sender as Button;
+            var duan = b.DataContext as Duan;
+            
         }
     }
 }

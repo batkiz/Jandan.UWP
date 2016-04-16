@@ -242,7 +242,7 @@ namespace ImageLib
 
                 return randStream;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ImageLog.Log("[error] failed to save loaded image: " + imageUrl);
             }
@@ -345,7 +345,7 @@ namespace ImageLib
                     var result = LoadImageStreamFromCacheInternal(imageUri).Result;
                     return result;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return null;
                 }

@@ -29,6 +29,9 @@ namespace Jandan.UWP.HTTP
         //// 发表评论
         //public static string URL_PUSH_COMMENT = "http://jandan.duoshuo.com/api/posts/create.json";
 
+        // 投票
+        public static string URL_VOTE = "http://jandan.net/index.php?acv_ajax=true&option={0}&ID={1}";
+
         // 段子
         public static string URL_DUANZI = "http://jandan.net/?oxwlxojflwblxbsapi=jandan.get_duan_comments&page={0}";
 

@@ -93,5 +93,10 @@ namespace Jandan.UWP.ViewModels
         {
             IsLoading = false;
         }
+
+        public void Vote(string vote, string ID)
+        {
+
+        }
     }
 }

@@ -29,7 +29,7 @@
                                                 Content="{StaticResource RateBarOO}" 
                                                 RelativePanel.AlignLeftWithPanel="True" 
                                                 MaxWidth="40" MinWidth="40"
-                                                Style="{StaticResource RateBarButtonStyle}">
+                                                Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click">
                         </Button>
                         <TextBlock Name="DuanVotePositive" 
                                                Text="{Binding VotePositive}" 
@@ -227,7 +227,7 @@
             </SplitView.Content>
         </SplitView>
         <ProgressRing Grid.Row="1"
-                      Name="Loading"
+                      Name="LoadingRing"
                       Style="{StaticResource LoadingProgressStyle}"
                       IsActive="{Binding IsLoading}">
         </ProgressRing>

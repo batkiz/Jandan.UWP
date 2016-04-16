@@ -86,14 +86,17 @@ namespace Jandan
 
         private void Tucao_Click(object sender, RoutedEventArgs e)
         {
-            var b = e.OriginalSource as Button;
-            var r = b.Parent as RelativePanel;
-            var g = r.Parent as Grid;
-            var c = g.Children[0] as RelativePanel;
-            var t = c.Children[1] as TextBlock;
-            var id = t.Text;
+            //var b = e.OriginalSource as Button;
+            //var r = b.Parent as RelativePanel;
+            //var g = r.Parent as Grid;
+            //var c = g.Children[0] as RelativePanel;
+            //var t = c.Children[1] as TextBlock;
+            //var id = t.Text;
 
-            _dViewModel.Update(id);
+            var b = sender as Button;
+            var bp = b.DataContext as BoringPic;
+
+            _dViewModel.Update(bp.PicID);
 
             DuanSplitView.IsPaneOpen = true;
         }

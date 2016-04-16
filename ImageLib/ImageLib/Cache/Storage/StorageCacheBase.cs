@@ -129,7 +129,7 @@ namespace ImageLib.Cache.Storage
                     return cacheFileMemoryStream;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ImageLog.Log("[error] can not load file stream from: " + fullFilePath);
                 return null;

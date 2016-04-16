@@ -61,9 +61,8 @@ namespace Jandan.UWP.ViewModels
             list?.ForEach((t) =>
             {
                 string msg = t.Message;
-                Regex.Replace(msg, "<.+?>", "");
-                t.Message = msg;
-                       
+                t.Message = Regex.Replace(msg.Replace("<br/>", "\n"), "<.+?>", "");
+
                 c.Add(t);
             });
 

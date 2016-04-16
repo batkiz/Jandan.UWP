@@ -92,7 +92,7 @@ namespace ImageLib.Cache.Storage.CacheImpl
                     var storageFolder = await SF.GetFolderAsync(CacheDirectory);
                     cacheFiles = await storageFolder.GetFilesAsync();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return;
                 }
@@ -150,7 +150,7 @@ namespace ImageLib.Cache.Storage.CacheImpl
                     ImageLog.Log("[error] can not delete oldest cache file: " + oldestCacheFilePath);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ImageLog.Log("[error] can not get olders cache's file size: " + oldestCacheFilePath);
             }

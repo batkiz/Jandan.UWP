@@ -61,7 +61,7 @@
 
         <!--加载进度条-->
         <ProgressRing Grid.Row="1"
-                      Name="Loading"
+                      Name="LoadingRing"
                       Style="{StaticResource LoadingProgressStyle}"
                       IsActive="{Binding IsLoading}">
         </ProgressRing>
@@ -70,11 +70,11 @@
         <Popup Name="popTips"
                IsOpen="False" 
                Margin="0,0,0,100" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
-            <Grid BorderThickness="5" Margin="-45,0,0,0" HorizontalAlignment="Center">
+            <Grid BorderThickness="5" Margin="-49,0,0,0" HorizontalAlignment="Center">
                 <Grid.Background>
                     <SolidColorBrush Color="Black" Opacity="0.8"/>
                 </Grid.Background>
-                <TextBlock Foreground="White" Text="再按一次退出" HorizontalAlignment="Center"/>
+                <TextBlock Foreground="White" Text="  再按一次退出  " HorizontalAlignment="Center"/>
             </Grid>
         </Popup>
     </Grid>

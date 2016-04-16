@@ -251,7 +251,7 @@
             </SplitView.Content>
         </SplitView>
         <ProgressRing Grid.Row="1"
-                      Name="Loading"
+                      Name="LoadingRing"
                       Style="{StaticResource LoadingProgressStyle}"
                       IsActive="{Binding IsLoading}">
         </ProgressRing>
