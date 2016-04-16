@@ -14,6 +14,10 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Jandan.UWP.ViewModels;
 using Jandan.UWP.Models;
+using ImageLib.Controls;
+using Windows.Storage;
+using Windows.ApplicationModel;
+using System.Text.RegularExpressions;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -67,9 +71,31 @@ namespace Jandan
 
         }
 
-        private void PicDownload_Click(object sender, RoutedEventArgs e)
+        private async void PicDownload_Click(object sender, RoutedEventArgs e)
         {
+            var pics = PicListView.Items;
+            foreach (ImageUrl url in pics)
+            {
+                var fileName = Regex.Replace(url.URL, @".+?/", "");
 
+                var path = Windows.Storage.ApplicationData.Current.LocalFolder;
+                var folder = await path.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
+                var fileStream = await folder.OpenStreamForReadAsync(fileName);
+
+                List<Byte> allBytes = new List<Byte>();
+                byte[] buffer = new byte[4000];
+                int bytesRead = 0;
+                while((bytesRead=await fileStream.ReadAsync(buffer, 0, 4000))>0)
+                {
+                    allBytes.AddRange(buffer.Take(bytesRead));
+                }
+
+                StorageFolder sf = KnownFolders.SavedPictures;
+                var saveFile = await sf.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+
+                await FileIO.WriteBytesAsync(saveFile, allBytes.ToArray());
+                //var file = await folder.CreateFileAsync(imageUrl, CreationCollisionOption.ReplaceExisting);
+            }
         }
     }
 }

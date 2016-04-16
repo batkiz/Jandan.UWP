@@ -240,8 +240,8 @@ namespace ImageLib.Controls
                 this.PixelWidth = bitmapImage.PixelWidth;
                 imageSource = bitmapImage;
             }
-            return imageSource;
 
+            return imageSource;
         }
 
 

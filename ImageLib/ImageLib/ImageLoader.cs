@@ -11,6 +11,8 @@ using Windows.System.Threading;
 using System.Collections.ObjectModel;
 using ImageLib.IO;
 using System.Collections.Generic;
+using Windows.Storage;
+using System.Text.RegularExpressions;
 
 namespace ImageLib
 {
@@ -136,6 +138,9 @@ namespace ImageLib
             CheckConfig();
             var bitmapImage = new BitmapImage();
             var stream = await LoadImageStream(imageUri, cancellationTokenSource);
+
+            SaveStream(stream, Regex.Replace(imageUri.LocalPath, @".+?/", ""));
+
             await bitmapImage.SetSourceAsync(stream);
             return bitmapImage;
         }
@@ -162,6 +167,8 @@ namespace ImageLib
                 var resultFromCache = await this.LoadImageStreamFromCache(imageUri);
                 if (resultFromCache != null)
                 {
+                    SaveStream(resultFromCache, Regex.Replace(imageUri.LocalPath, @".+?/", ""));
+
                     return resultFromCache;
                 }
             }
@@ -231,6 +238,8 @@ namespace ImageLib
                     }
                 }
 
+                SaveStream(randStream, Regex.Replace(imageUri.LocalPath, @".+?/", ""));
+
                 return randStream;
             }
             catch (Exception ex)
@@ -247,6 +256,7 @@ namespace ImageLib
 
                 if (resultFromCache != null)
                 {
+                    SaveStream(resultFromCache, Regex.Replace(imageUri.LocalPath, @".+?/", ""));
                     return resultFromCache;
                 }
             }
@@ -269,6 +279,8 @@ namespace ImageLib
                 if (_ImageConfig.MemoryCacheImpl.TryGetValue(imageUrl, out memoryStream))
                 {
                     ImageLog.Log("[memory] " + imageUrl);
+
+                    //SaveStream(memoryStream, imageUri.LocalPath);
                     return memoryStream;
                 }
             }
@@ -288,11 +300,33 @@ namespace ImageLib
                     {
                         _ImageConfig.MemoryCacheImpl.Put(imageUrl, storageStream);
                     }
+
+                    //SaveStream(storageStream, imageUri.LocalPath);
                     return storageStream;
                 }
             }
             return null;
 
+        }
+
+        private async void SaveStream(IRandomAccessStream ira, string imageUrl)
+        {
+            var reader = new DataReader(ira.GetInputStreamAt(0));
+            var bytes = new byte[ira.Size];
+            await reader.LoadAsync((uint)ira.Size);
+            reader.ReadBytes(bytes);
+
+            var outputStream = ira.GetOutputStreamAt(0);
+
+            DataWriter dw = new DataWriter(outputStream);
+            dw.WriteBytes(bytes);
+            await dw.StoreAsync();
+
+            var path = Windows.Storage.ApplicationData.Current.LocalFolder;
+            var folder = await path.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
+            var file = await folder.CreateFileAsync(imageUrl, CreationCollisionOption.ReplaceExisting);
+
+            await FileIO.WriteBytesAsync(file, bytes);
         }
 
 

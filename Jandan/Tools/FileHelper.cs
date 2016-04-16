@@ -119,6 +119,12 @@ namespace Jandan.UWP.Tools
 
             }
         }
+
+        //public async Task SaveToImageCacheAsync(WriteableBitmap image, string filename)
+        //{
+
+        //}
+
         public async Task DeleteCacheFile()
         {
             try
