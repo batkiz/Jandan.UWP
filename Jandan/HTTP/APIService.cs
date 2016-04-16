@@ -328,7 +328,8 @@ namespace Jandan.UWP.HTTP
                                 {
                                     PostID = postItem.GetNamedString("post_id"),
                                     ThreadID = postItem.GetNamedString("thread_id"),
-                                    Message = postItem.GetNamedString("message").Replace("<br />", ""),
+                                    //Message = postItem.GetNamedString("message").Replace("<br />", ""),
+                                    Message = postItem.GetNamedString("message"),
                                     ParentID = postItem["parent_id"].ValueType == JsonValueType.String ? postItem.GetNamedString("parent_id") : "0",
                                     PostDate = postItem.GetNamedString("created_at"),
                                     AuthorName = postItem["author"].GetObject().GetNamedString("name"),

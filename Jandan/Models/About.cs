@@ -13,7 +13,7 @@ namespace Jandan.UWP.Models
     public class About
     {
         [DataMember]
-        public string VersionNumber { get; } = "0.1.0";
+        public string VersionNumber { get; } = "0.1.1";
         [DataMember]
         public string AuthorName { get; } = "Ray Litchi";
         [DataMember]
@@ -22,20 +22,6 @@ namespace Jandan.UWP.Models
         public string DenoteText { get; } = "如果觉得好用，请赏赐一碗泡面钱，谢谢支持\n支付婊:\nraysworld@qq.com, *睿";
         [DataMember]
         public string UpdateTextSource { get; set; } = "";
-
-        //public About()
-        //{
-        //    LoadUpdateInfo();
-        //}
-
-        //public async void LoadUpdateInfo()
-        //{
-        //    var file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri(string.Format("ms-appx:///Documents/version-{0}.txt", VersionNumber)));
-
-        //    string fileContent = await FileIO.ReadTextAsync(file);
-
-        //    UpdateTextSource = fileContent;
-        //}
-
+        
     }
 }

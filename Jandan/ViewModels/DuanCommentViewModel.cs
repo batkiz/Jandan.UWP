@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Jandan.UWP.Data;
 using Jandan.UWP.HTTP;
 using Jandan.UWP.Models;
+using System.Text.RegularExpressions;
 
 namespace Jandan.UWP.ViewModels
 {
@@ -56,9 +57,13 @@ namespace Jandan.UWP.ViewModels
             var list = await _api.GetDuanComments(commentID);
             
             ObservableCollection<DuanComment> c = new ObservableCollection<Models.DuanComment>();
-
+            
             list?.ForEach((t) =>
             {
+                string msg = t.Message;
+                Regex.Replace(msg, "<.+?>", "");
+                t.Message = msg;
+                       
                 c.Add(t);
             });
 

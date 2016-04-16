@@ -91,6 +91,11 @@ namespace Jandan
 
         private void DuanSplitView_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            if (DuanGridView.Visibility == Visibility.Collapsed)
+            {
+                return;
+            }
+
             double margin = DuanGridView.Padding.Left + DuanGridView.Padding.Right;
 
             double currentWidth = this.ActualWidth - margin;

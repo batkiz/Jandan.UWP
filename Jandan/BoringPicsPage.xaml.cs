@@ -113,6 +113,11 @@ namespace Jandan
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            if (BoringGridView.Visibility == Visibility.Collapsed)
+            {
+                return;
+            }
+
             if (just_returned)
             {
                 just_returned = false;

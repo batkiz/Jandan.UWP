@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Jandan.UWP.Data;
 using Jandan.UWP.HTTP;
 using Jandan.UWP.Models;
+using System.Text.RegularExpressions;
 
 namespace Jandan.UWP.ViewModels
 {
@@ -65,6 +66,9 @@ namespace Jandan.UWP.ViewModels
             DuanIncrementalLoadingCollection c = new DuanIncrementalLoadingCollection();
             list?.ForEach((t) =>
             {
+                var msg = t.Content;                
+                t.Content = Regex.Replace(msg, "<.+?>", "");
+
                 c.Add(t);
             });
 

@@ -5,7 +5,6 @@
     xmlns:local="using:Jandan"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Controls="using:PullToRefresh.UWP"
     mc:Ignorable="d" NavigationCacheMode="Enabled" SizeChanged="Page_SizeChanged">
 
     <Page.Resources>
