@@ -124,6 +124,8 @@
     <Content Include="Style\jandan_mobile_ex.css" />
     <None Include="Jandan_TemporaryKey.pfx" />
     <None Include="project.json" />
+    <PRIResource Include="String\zh-CN\Resources.resw" />
+    <PRIResource Include="String\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutPage.xaml.cs">
