@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 
@@ -23,6 +24,8 @@ namespace Jandan.UWP.Models
         [DataMember]
         public List<ImageUrl> Urls { get; set; }
         [DataMember]
+        public List<ImageUrl> Thumb { get; set; }
+        [DataMember]
         public string Date { get; set; }
         [DataMember]
         public int VotePositive { get; set; }
@@ -39,6 +42,20 @@ namespace Jandan.UWP.Models
             foreach (var j in jsonArray)
             {
                 ImageUrl imageUrl = new ImageUrl(j.GetString());
+                url_list.Add(imageUrl);
+            }
+
+            return url_list;
+        }
+
+        public static List<ImageUrl> parseThumb(string JSONString)
+        {
+            List<ImageUrl> url_list = new List<ImageUrl>();
+
+            JsonArray jsonArray = JsonArray.Parse(JSONString);
+            foreach (var j in jsonArray)
+            {
+                ImageUrl imageUrl = new ImageUrl(Regex.Replace(j.GetString(), @"(sinaimg\.cn/.+?/)", "sinaimg.cn/thumb180/"));
                 url_list.Add(imageUrl);
             }
 

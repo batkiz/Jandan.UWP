@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Jandan.UWP.Models;
 using Jandan.UWP.Tools;
 using Jandan.UWP.ViewModels;
+using System.Text.RegularExpressions;
 
 namespace Jandan.UWP.HTTP
 {
@@ -203,6 +204,7 @@ namespace Jandan.UWP.HTTP
                                     Author = (j.GetObject())["comment_author"].GetString(),
                                     Content = (j.GetObject())["text_content"].GetString().Replace("\n", "").Replace("\r", ""),
                                     Urls = BoringPic.parse((j.GetObject())["pics"].ToString()),
+                                    Thumb = BoringPic.parseThumb((j.GetObject())["pics"].ToString()),
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
@@ -260,6 +262,7 @@ namespace Jandan.UWP.HTTP
                                     Author = (j.GetObject())["comment_author"].GetString(),
                                     Content = (j.GetObject())["text_content"].GetString().Replace(@"\n", "").Replace(@"\r", ""),
                                     Urls = BoringPic.parse((j.GetObject())["pics"].ToString()),
+                                    Thumb = BoringPic.parseThumb((j.GetObject())["pics"].ToString()),
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),

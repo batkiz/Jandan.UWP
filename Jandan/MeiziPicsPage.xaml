@@ -27,7 +27,7 @@
                                                    Style="{StaticResource ItemContentTextStyle}"
                                                    Text="{Binding Content}">
                         </TextBlock>
-                        <ListView ItemsSource="{Binding Urls}" 
+                        <ListView ItemsSource="{Binding Thumb}" 
                                                   SelectionMode="None"
                                                   ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                                                   ShowsScrollingPlaceholders="False" 
