@@ -94,9 +94,9 @@ namespace Jandan.UWP.ViewModels
             IsLoading = false;
         }
 
-        public void Vote(string vote, string ID)
+        public async Task<string> Vote(string ID, bool isLike)
         {
-
+            return await _api.Vote(ID, isLike);
         }
     }
 }

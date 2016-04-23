@@ -424,16 +424,21 @@ namespace Jandan.UWP.HTTP
             }
         }
 
-        public async Task Vote(string vote, string ID)
+        public async Task<string> Vote(string ID, bool isLike)
         {
+            int like = isLike ? 1 : 0;
+
             try
             {
-                string json = await BaseService.SendPostRequest(string.Format(ServiceURL.URL_VOTE, vote, ID),"");
+                string url = string.Format(ServiceURL.URL_VOTE, like);
+                string body = $"ID={ID}";
+                string returned_msg = await BaseService.SendPostRequestUrlEncoded(url, body);
+
+                return returned_msg;
             }
             catch (Exception)
             {
-
-                throw;
+                return "Failed.";
             }
         }
     }

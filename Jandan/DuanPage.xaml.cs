@@ -108,11 +108,24 @@ namespace Jandan
             DuanGridView.ItemContainerStyle = s_new;
         }
 
-        private void DuanVotePositiveIcon_Click(object sender, RoutedEventArgs e)
+        private async void DuanVotePositiveIcon_Click(object sender, RoutedEventArgs e)
         {
             var b = sender as Button;
             var duan = b.DataContext as Duan;
-            
+
+            var msg = await _viewModel.Vote(duan.DuanID, true);
+            duan.VotePositive = duan.VotePositive + 1;
+            b.DataContext = duan;
+        }
+
+        private async void DuanVoteNegativeIcon_Click(object sender, RoutedEventArgs e)
+        {
+            var b = sender as Button;
+            var duan = b.DataContext as Duan;
+
+           var msg = await _viewModel.Vote(duan.DuanID, false);
+            duan.VoteNegative = duan.VoteNegative + 1;
+            b.DataContext = duan;
         }
     }
 }
