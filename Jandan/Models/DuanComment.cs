@@ -23,10 +23,29 @@ namespace Jandan.UWP.Models
         [DataMember]
         public string ParentID { get; set; }
         [DataMember]
+        public ParentDuanComment ParentComment { get; set; }
+        [DataMember]
         public string AuthorName { get; set; }
         [DataMember]
         public string AuthorAvatar { get; set; }
         [DataMember]
         public string PostDate { get; set; }
+        [DataMember]
+        public int Like { get; set; }
+        [DataMember]
+        public int Dislike { get; set; }
+        [DataMember]
+        public bool IsHot { get; set; } = false;
+    }
+
+    [DataContract]
+    public class ParentDuanComment
+    {
+        [DataMember]
+        public string ThreadID { get; set; }
+        [DataMember]
+        public string AuthorName { get; set; }
+        [DataMember]
+        public string Message { get; set; }
     }
 }

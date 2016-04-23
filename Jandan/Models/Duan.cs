@@ -21,6 +21,8 @@ namespace Jandan.UWP.Models
         [DataMember]
         public string Content { get; set; }
         [DataMember]
+        public string Date { get; set; }
+        [DataMember]
         public int VotePositive { get; set; }
         [DataMember]
         public int VoteNegative { get; set; }

@@ -57,7 +57,7 @@
     <!--页面主要呈现内容-->
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <!--主页面,显示各个板块-->
-        <Frame Name="mainFrame"/>
+        <Frame Name="mainFrame" Margin="0,0,0,25"/>
 
         <!--加载进度条-->
         <ProgressRing Grid.Row="1"

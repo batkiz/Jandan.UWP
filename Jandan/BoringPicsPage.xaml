@@ -173,31 +173,23 @@
                     <RelativePanel Grid.Row="0"
                                    Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"
                                    Padding="0,9,0,9" >
-                        <TextBlock Name="CommentTitle" Text="评论列表" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="18" Padding="20,0,0,0"></TextBlock>
+                        <TextBlock Name="CommentTitle" RelativePanel.AlignVerticalCenterWithPanel="True"  Style="{StaticResource CommentListTitleTextStyle}"></TextBlock>
                     </RelativePanel>
                     <ListView Grid.Row="1"
                               Name="DuanCommentListView"
                               Padding="8,10"
                               SelectionMode="None"
-                              ItemsSource="{Binding DuanComments}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="20*"></ColumnDefinition>
-                                        <ColumnDefinition Width="80*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <RelativePanel Grid.Column="0">
-                                        <Image MinWidth="50" Source="{Binding AuthorAvatar}" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4"></Image>
-                                    </RelativePanel>
-                                    <RelativePanel Grid.Column="1">
-                                        <TextBlock Name="DuanCommentAuthor" Text="{Binding AuthorName}" TextWrapping="Wrap" FontSize="12"></TextBlock>
-                                        <TextBlock Name="DuanCommentDate" Text="{Binding PostDate}" RelativePanel.Below="DuanCommentAuthor" FontSize="10" IsColorFontEnabled="True" Foreground="Gray"></TextBlock>
-                                        <TextBlock Name="DuanCommentContent" Text="{Binding Message}" RelativePanel.Below="DuanCommentDate" TextWrapping="Wrap" Margin="0,0,0,2" Padding="0,0,0,2"></TextBlock>
-                                    </RelativePanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
+                              ItemsSource="{Binding CommentList.View}"
+                              ItemTemplate="{StaticResource CommentListDateTemplateStyle}">
+                        <ListView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Key}" Style="{StaticResource CommentGroupTitleTextStyle}"/>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ListView.GroupStyle>
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="Margin" Value="8,4,8,4"></Setter>

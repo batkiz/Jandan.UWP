@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Jandan.UWP.Data;
 using Jandan.UWP.HTTP;
 using Jandan.UWP.Models;
+using Jandan.UWP.Tools;
 
 namespace Jandan.UWP.ViewModels
 {
@@ -44,6 +45,7 @@ namespace Jandan.UWP.ViewModels
 
         public BoringViewModel()
         {
+            LoadCache();
             Update();
 
             //DataShareManager.Current.ShareDataChanged += Current_ShareDataChanged;
@@ -53,6 +55,21 @@ namespace Jandan.UWP.ViewModels
         //{
         //    Stories.ToList().ForEach((s) => s.Readed = s.Readed);
         //}
+
+        public async void LoadCache()
+        {
+            IsLoading = true;
+
+            var list = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("boring_list.json");
+            BoringIncrementalLoadingCollection c = new BoringIncrementalLoadingCollection();
+            list?.ForEach((t) =>
+            {
+                c.Add(t);
+            });
+            Boring = c;
+
+            IsLoading = false;
+        }
 
         /// <summary>
         /// 刷新数据

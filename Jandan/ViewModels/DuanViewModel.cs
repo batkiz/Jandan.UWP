@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Jandan.UWP.Data;
 using Jandan.UWP.HTTP;
 using Jandan.UWP.Models;
+using Jandan.UWP.Tools;
 using System.Text.RegularExpressions;
 
 namespace Jandan.UWP.ViewModels
@@ -45,9 +46,25 @@ namespace Jandan.UWP.ViewModels
 
         public DuanViewModel()
         {
-            Update();
-
+            //Update();
             //DataShareManager.Current.ShareDataChanged += Current_ShareDataChanged;
+            LoadCache();
+            Update();
+        }
+
+        public async void LoadCache()
+        {
+            IsLoading = true;
+
+            var list = await FileHelper.Current.ReadObjectAsync<List<Duan>>("duan_list.json");
+            DuanIncrementalLoadingCollection c = new DuanIncrementalLoadingCollection();
+            list?.ForEach((t) =>
+            {
+                c.Add(t);
+            });
+            Duans = c;
+
+            IsLoading = false;
         }
 
         //private void Current_ShareDataChanged()

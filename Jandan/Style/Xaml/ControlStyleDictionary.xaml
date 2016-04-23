@@ -5,7 +5,6 @@
 
     <!--页面顶端标题栏相关资源-->
     <Style x:Key="TitleBarTextBlockStyle" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="微软雅黑"/>
         <Setter Property="FontSize" Value="24"/>
     </Style>
     
@@ -46,9 +45,9 @@
     <Style x:Key="ItemContentTextStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,8,0,0"/>
     </Style>
     <Style x:Key="RateBarButtonStyle" TargetType="Button">
-        <Setter Property="FontFamily" Value="微软雅黑"/>
         <Setter Property="FontSize" Value="13"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center" />
@@ -65,7 +64,6 @@
         </Setter>
     </Style>
     <Style x:Key="RateBarTextStyle" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="微软雅黑"/>
         <Setter Property="FontSize" Value="13"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalAlignment" Value="Center" />
@@ -87,15 +85,40 @@
 
     <!--关于页面相关资源-->
     <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="微软雅黑"/>
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Padding" Value="0,4,0,2"/>
     </Style>
     <Style x:Key="ContentTextBlockStyle" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="微软雅黑"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Foreground" Value="Gray"/>
         <Setter Property="TextWrapping" Value="WrapWholeWords"/>
     </Style>
-    
+
+    <!--关于评论列表-->
+    <Style x:Key="CommentGroupTitleTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+    <Style x:Key="CommentListTitleTextStyle" TargetType="TextBlock">
+        <Setter Property="Text" Value="评论列表" />
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="20,0,0,0"/>
+    </Style>
+    <Style x:Key="CommentAuthorTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+    <Style x:Key="CommentDateTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="Gray"/>
+    </Style>
+    <Style x:Key="CommentContentTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,0,0,2"/>
+        <Setter Property="Padding" Value="0,0,0,2"/>
+    </Style>
+
 </ResourceDictionary>

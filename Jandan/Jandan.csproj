@@ -165,6 +165,7 @@
       <DependentUpon>MeiziPicsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\About.cs" />
+    <Compile Include="Models\DuanCommentInGroup.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\BoringPic.cs" />
