@@ -322,7 +322,7 @@ namespace ImageLib
             dw.WriteBytes(bytes);
             await dw.StoreAsync();
 
-            var path = Windows.Storage.ApplicationData.Current.LocalFolder;
+            var path = Windows.Storage.ApplicationData.Current.LocalCacheFolder;
             var folder = await path.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
             var file = await folder.CreateFileAsync(imageUrl, CreationCollisionOption.ReplaceExisting);
 

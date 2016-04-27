@@ -199,6 +199,11 @@
                             </Style>
                         </ListView.ItemContainerStyle>
                     </ListView>
+                    <ProgressRing Grid.Row="1"
+                                  Name="LoadingCommentProgressBar" 
+                                  IsActive="{Binding IsLoadingComments}" 
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
                 </Grid>
             </SplitView.Pane>
             <!--SplitView.Pane放无聊图正文, 分为listview/gridview两种模式-->

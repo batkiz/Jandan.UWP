@@ -342,7 +342,6 @@ namespace Jandan.UWP.HTTP
                                 string authorURL;
                                 try
                                 {
-                                    //authorURL = postItem["author"].GetObject().GetNamedString("avatar_url");
                                     var jsonAuthor = postItem["author"].GetObject();
                                     authorURL = jsonAuthor["avatar_url"].ValueType == JsonValueType.String ? jsonAuthor.GetNamedString("avatar_url") : "null";
                                 }
@@ -356,12 +355,11 @@ namespace Jandan.UWP.HTTP
                                 {
                                     PostID = postItem.GetNamedString("post_id"),
                                     ThreadID = postItem.GetNamedString("thread_id"),
-                                    //Message = postItem.GetNamedString("message").Replace("<br />", ""),
                                     Message = postItem.GetNamedString("message"),
                                     ParentID = postItem["parent_id"].ValueType == JsonValueType.String ? postItem.GetNamedString("parent_id") : "0",
                                     PostDate = postItem.GetNamedString("created_at"),
                                     AuthorName = postItem["author"].GetObject().GetNamedString("name"),
-                                    AuthorAvatar = authorURL.Equals("null") ? "ms-appx:///Assets/Square150x150Logo.scale-400.png" : authorURL,
+                                    AuthorAvatarUri = new Uri((authorURL.Equals("null") || authorURL.Equals("")) ? "ms-appx:///Icons/jandan-400.png" : authorURL),
                                     Like = (int)postItem.GetNamedNumber("likes"),
                                     Dislike = (int)postItem.GetNamedNumber("dislikes")
                                 });
@@ -439,7 +437,7 @@ namespace Jandan.UWP.HTTP
                                 ParentID = "0",
                                 PostDate = (c.GetObject()).GetNamedString("date"),
                                 AuthorName = (c.GetObject()).GetNamedString("name"),
-                                AuthorAvatar = (authorURL.Equals("null")||authorURL.Equals("")) ? "ms-appx:///Assets/Square150x150Logo.scale-400.png" : authorURL
+                                AuthorAvatarUri = new Uri((authorURL.Equals("null")||authorURL.Equals("")) ? "ms-appx:///Icons/jandan-400.png" : authorURL)
                             });
                         }
 

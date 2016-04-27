@@ -178,5 +178,17 @@ namespace Jandan
         {
             this.mainFrame.Navigate(typeof(AboutPage));
         }
+
+        private async void SecBtnSetting_Click(object sender, RoutedEventArgs e)
+        {            
+            await FileHelper.Current.DeleteCacheFile();
+        }
+
+        private async void MainCommandBar_Opening(object sender, object e)
+        {
+            // 检查当前缓存使用
+            var size = await FileHelper.Current.GetCacheSize();
+            SecBtnSetting.Label = $"清理缓存（{FileHelper.Current.GetFormatSize(size)}）";
+        }
     }
 }

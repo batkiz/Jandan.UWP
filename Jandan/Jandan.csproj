@@ -118,6 +118,7 @@
     <Content Include="Documents\version-0.1.2.txt" />
     <None Include="Jandan_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Icons\jandan-400.png" />
     <Content Include="Style\jandan_desktop.css" />
     <Content Include="Style\jandan_desktop_ex.css" />
     <Content Include="Style\jandan_mobile.css" />

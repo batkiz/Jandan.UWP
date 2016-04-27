@@ -198,7 +198,7 @@
                                     <Setter Property="MinHeight" Value="0"></Setter>
                                 </Style>
                             </ListView.ItemContainerStyle>
-                        </ListView>
+                    </ListView>
                     <ProgressRing Grid.Row="1"
                                   Name="LoadingCommentProgressBar" 
                                   IsActive="{Binding IsLoadingComments}" 

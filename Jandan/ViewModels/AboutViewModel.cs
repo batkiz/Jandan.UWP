@@ -27,7 +27,7 @@ namespace Jandan.UWP.ViewModels
         {
             About a = new About();
 
-            var file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri(string.Format("ms-appx:///Documents/version-{0}.txt", a.VersionNumber)));
+            var file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Documents/version-{a.VersionNumber}.txt"));
 
             string fileContent = await FileIO.ReadTextAsync(file);
 

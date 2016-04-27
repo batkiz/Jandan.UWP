@@ -30,18 +30,25 @@ namespace Jandan.UWP.Tools
             }
         }
 
-        private Windows.Storage.StorageFolder _local_folder;
+        private StorageFolder _local_folder;
+        private List<StorageFolder> _local_cache_folders;
 
         public FileHelper()
         {
-            _local_folder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            _local_folder = ApplicationData.Current.LocalCacheFolder;
+            _local_cache_folders = new List<StorageFolder>();
             Init();
         }
 
         private async void Init()
         {
-            await _local_folder.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
-            await _local_folder.CreateFolderAsync("data_cache", CreationCollisionOption.OpenIfExists);
+            var folder_1 = await _local_folder.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
+            var folder_2 = await _local_folder.CreateFolderAsync("data_cache", CreationCollisionOption.OpenIfExists);
+            var folder_3 = await _local_folder.CreateFolderAsync("cache", CreationCollisionOption.OpenIfExists);
+
+            _local_cache_folders.Add(folder_1);
+            _local_cache_folders.Add(folder_2);
+            _local_cache_folders.Add(folder_3);
         }
         public async Task WriteObjectAsync<T>(T obj, string filename)
         {
@@ -120,30 +127,28 @@ namespace Jandan.UWP.Tools
             }
         }
 
-        //public async Task SaveToImageCacheAsync(WriteableBitmap image, string filename)
-        //{
-
-        //}
-
         public async Task DeleteCacheFile()
         {
             try
             {
-                StorageFolder folder = await _local_folder.GetFolderAsync("images_cache");
-                if (folder != null)
+                //StorageFolder folder = await _local_folder.GetFolderAsync("images_cache");
+                foreach (var folder in _local_cache_folders)
                 {
-                    IReadOnlyCollection<StorageFile> files = await folder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.DefaultQuery);
-                    //files.ToList().ForEach(async (f) => await f.DeleteAsync(StorageDeleteOption.PermanentDelete));
-                    List<IAsyncAction> list = new List<IAsyncAction>();
-                    foreach (var f in files)
+                    if (folder != null)
                     {
-                        list.Add(f.DeleteAsync(StorageDeleteOption.PermanentDelete));
-                    }
-                    List<Task> list2 = new List<Task>();
-                    list.ForEach((t) => list2.Add(t.AsTask()));
+                        IReadOnlyCollection<StorageFile> files = await folder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.DefaultQuery);
+                        //files.ToList().ForEach(async (f) => await f.DeleteAsync(StorageDeleteOption.PermanentDelete));
+                        List<IAsyncAction> list = new List<IAsyncAction>();
+                        foreach (var f in files)
+                        {
+                            list.Add(f.DeleteAsync(StorageDeleteOption.PermanentDelete));
+                        }
+                        List<Task> list2 = new List<Task>();
+                        list.ForEach((t) => list2.Add(t.AsTask()));
 
-                    await Task.Run(() => { Task.WaitAll(list2.ToArray()); });
-                }
+                        await Task.Run(() => { Task.WaitAll(list2.ToArray()); });
+                    }
+                }                
             }
             catch
             {
@@ -154,14 +159,17 @@ namespace Jandan.UWP.Tools
         {
             try
             {
-                StorageFolder folder = await _local_folder.GetFolderAsync("images_cache");
-                var files = await folder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.DefaultQuery);
+                //StorageFolder folder = await _local_folder.GetFolderAsync("images_cache");
                 double size = 0; BasicProperties p;
-                foreach (var f in files)
+                foreach (var folder in _local_cache_folders)
                 {
-                    p = await f.GetBasicPropertiesAsync();
-                    size += p.Size;
-                }
+                    var files = await folder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.DefaultQuery);
+                    foreach (var f in files)
+                    {
+                        p = await f.GetBasicPropertiesAsync();
+                        size += p.Size;
+                    }
+                }                
                 return size;
             }
             catch
@@ -195,6 +203,26 @@ namespace Jandan.UWP.Tools
             catch
             {
                 return false;
+            }
+        }
+
+        public string GetFormatSize(double size)
+        {
+            if (size < 1024)
+            {
+                return size + "byte";
+            }
+            else if (size < 1024 * 1024)
+            {
+                return Math.Round(size / 1024, 2) + "KB";
+            }
+            else if (size < 1024 * 1024 * 1024)
+            {
+                return Math.Round(size / 1024 / 1024, 2) + "MB";
+            }
+            else
+            {
+                return Math.Round(size / 1024 / 1024 / 2014, 2) + "GB";
             }
         }
     }

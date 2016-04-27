@@ -178,9 +178,8 @@
                         </ListView.ItemContainerStyle>
                     </ListView>
                     <ProgressRing Grid.Row="1"
-                                  Name="CommentLoading"
-                                  Style="{StaticResource LoadingProgressStyle}"
-                                  IsActive="{Binding IsLoading}" 
+                                  Name="LoadingCommentProgressBar" 
+                                  IsActive="{Binding IsLoadingComments}" 
                                   HorizontalAlignment="Center" 
                                   VerticalAlignment="Center"/>
                 </Grid>

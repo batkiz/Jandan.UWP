@@ -30,20 +30,6 @@ namespace Jandan.UWP.ViewModels
             }
         }
 
-        //private ObservableCollection<DuanComment> _duanComments;
-        //public ObservableCollection<DuanComment> DuanComments
-        //{
-        //    get { return _duanComments; }
-        //    set { _duanComments = value; OnPropertyChanged(); }
-        //}
-
-        //private ObservableCollection<DuanComment> _hotDuanComments;
-        //public ObservableCollection<DuanComment> HotDuanComments
-        //{
-        //    get { return _hotDuanComments; }
-        //    set { _hotDuanComments = value; OnPropertyChanged(); }
-        //}
-
         private CollectionViewSource _commentList;
         public CollectionViewSource CommentList
         {
@@ -97,6 +83,7 @@ namespace Jandan.UWP.ViewModels
 
                 ObservableCollection<DuanCommentInGroup> groups = new ObservableCollection<DuanCommentInGroup>();
 
+                // 将评论根据热否为热评分为两类
                 var query = from item in list
                             group item by item.IsHot into newItems
                             orderby newItems.Key descending

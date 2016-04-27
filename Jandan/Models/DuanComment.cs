@@ -27,7 +27,7 @@ namespace Jandan.UWP.Models
         [DataMember]
         public string AuthorName { get; set; }
         [DataMember]
-        public string AuthorAvatar { get; set; }
+        public Uri AuthorAvatarUri { get; set; }
         [DataMember]
         public string PostDate { get; set; }
         [DataMember]
