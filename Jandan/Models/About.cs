@@ -13,7 +13,7 @@ namespace Jandan.UWP.Models
     public class About
     {
         [DataMember]
-        public string VersionNumber { get; } = "0.1.2";
+        public string VersionNumber { get; } = "0.1.3";
         [DataMember]
         public string AuthorName { get; } = "Ray Litchi";
         [DataMember]
