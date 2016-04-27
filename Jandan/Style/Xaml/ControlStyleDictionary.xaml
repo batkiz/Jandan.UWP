@@ -98,6 +98,7 @@
     <Style x:Key="CommentGroupTitleTextStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
     </Style>
     <Style x:Key="CommentListTitleTextStyle" TargetType="TextBlock">
         <Setter Property="Text" Value="评论列表" />

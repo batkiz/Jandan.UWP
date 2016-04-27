@@ -47,6 +47,7 @@ namespace Jandan
             base.OnNavigatedTo(e);
             this.DataContext = _viewModel = new BoringViewModel();
             DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
+            LoadingCommentProgressBar.DataContext = _dViewModel;
 
             secret_count = 0;
         }

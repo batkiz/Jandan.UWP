@@ -180,8 +180,9 @@
                     <ProgressRing Grid.Row="1"
                                   Name="CommentLoading"
                                   Style="{StaticResource LoadingProgressStyle}"
-                                  IsActive="{Binding IsLoading}">
-                    </ProgressRing>
+                                  IsActive="{Binding IsLoading}" 
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
                 </Grid>
             </SplitView.Pane>
             <!--SplitView.Pane放段子正文, 分为listview/gridview两种模式-->

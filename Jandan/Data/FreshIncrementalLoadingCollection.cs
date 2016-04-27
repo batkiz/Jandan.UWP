@@ -18,7 +18,6 @@ namespace Jandan.UWP.Data
 
         private bool _buzy = false;
         private bool _has_more_items = false;
-        private string _last_fresh_id;
 
         public bool HasMoreItems
         {
@@ -47,9 +46,8 @@ namespace Jandan.UWP.Data
             return InnerLoadMoreItemsAsync(count).AsAsyncOperation();
         }
 
-        public FreshIncrementalLoadingCollection(string last_fresh_id)
+        public FreshIncrementalLoadingCollection()
         {
-            _last_fresh_id = last_fresh_id;
             HasMoreItems = true;
         }
 
@@ -60,10 +58,7 @@ namespace Jandan.UWP.Data
             List<Fresh> list = null;
             try
             {
-                if (DataLoading != null)
-                {
-                    DataLoading();
-                }
+                DataLoading?.Invoke();
                 list = await _api.GetFresh(DataShareManager.Current.FreshNewsPage++);
             }
             catch (Exception)
@@ -82,17 +77,13 @@ namespace Jandan.UWP.Data
                     //}
                     Add(t);
                 });
-                _last_fresh_id = list.Last().ID;
                 HasMoreItems = true;
             }
             else
             {
                 HasMoreItems = false;
             }
-            if (DataLoaded != null)
-            {
-                DataLoaded();
-            }
+            DataLoaded?.Invoke();
             _buzy = false;
 
             return new LoadMoreItemsResult { Count = (uint)actualCount };

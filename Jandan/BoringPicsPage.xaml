@@ -31,7 +31,7 @@
                                                   SelectionMode="None"
                                                   ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                                                   ShowsScrollingPlaceholders="False" 
-                                                  VerticalContentAlignment="Top">
+                                                  VerticalContentAlignment="Top" IsHitTestVisible="False" IsSwipeEnabled="False">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Image Source="{Binding URL}">
@@ -181,24 +181,29 @@
                               SelectionMode="None"
                               ItemsSource="{Binding CommentList.View}"
                               ItemTemplate="{StaticResource CommentListDateTemplateStyle}">
-                        <ListView.GroupStyle>
-                            <GroupStyle>
-                                <GroupStyle.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Key}" Style="{StaticResource CommentGroupTitleTextStyle}"/>
-                                    </DataTemplate>
-                                </GroupStyle.HeaderTemplate>
-                            </GroupStyle>
-                        </ListView.GroupStyle>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                <Setter Property="Padding" Value="0"></Setter>
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                                <Setter Property="MinHeight" Value="0"></Setter>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Key}" Style="{StaticResource CommentGroupTitleTextStyle}"/>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                    <Setter Property="Padding" Value="0"></Setter>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                    <Setter Property="MinHeight" Value="0"></Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    <ProgressRing Grid.Row="1"
+                                  Name="LoadingCommentProgressBar" 
+                                  IsActive="{Binding IsLoadingComments}" 
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
                 </Grid>
             </SplitView.Pane>
             <!--SplitView.Pane放无聊图正文, 分为listview/gridview两种模式-->

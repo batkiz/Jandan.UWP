@@ -58,8 +58,6 @@ namespace Jandan.UWP.ViewModels
 
         public async void LoadCache()
         {
-            IsLoading = true;
-
             var list = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("girl_list.json");
             MeiziIncrementalLoadingCollection c = new MeiziIncrementalLoadingCollection();
             list?.ForEach((t) =>
@@ -67,8 +65,6 @@ namespace Jandan.UWP.ViewModels
                 c.Add(t);
             });
             Meizi = c;
-
-            IsLoading = false;
         }
 
         /// <summary>

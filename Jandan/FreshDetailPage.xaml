@@ -94,7 +94,7 @@
                     <RelativePanel Grid.Row="0"
                                    Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"
                                    Padding="0,9,0,9" >
-                        <TextBlock Name="CommentTitle" Text="评论列表" RelativePanel.AlignVerticalCenterWithPanel="True" FontSize="18" Padding="20,0,0,0"></TextBlock>
+                        <TextBlock Name="CommentTitle" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource CommentListTitleTextStyle}"></TextBlock>
                     </RelativePanel>
                     <ListView Grid.Row="1"
                               Name="DuanCommentListView"
@@ -112,9 +112,9 @@
                                         <Image MinWidth="50" Source="{Binding AuthorAvatar}" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4"></Image>
                                     </RelativePanel>
                                     <RelativePanel Grid.Column="1">
-                                        <TextBlock Name="DuanCommentAuthor" Text="{Binding AuthorName}" TextWrapping="Wrap" FontSize="12"></TextBlock>
-                                        <TextBlock Name="DuanCommentDate" Text="{Binding PostDate}" RelativePanel.Below="DuanCommentAuthor" FontSize="10" IsColorFontEnabled="True" Foreground="Gray"></TextBlock>
-                                        <TextBlock Name="DuanCommentContent" Text="{Binding Message}" RelativePanel.Below="DuanCommentDate" TextWrapping="Wrap" Margin="0,0,0,2" Padding="0,0,0,2"></TextBlock>
+                                        <TextBlock Name="DuanCommentAuthor" Text="{Binding AuthorName}" Style="{StaticResource CommentAuthorTextStyle}"></TextBlock>
+                                        <TextBlock Name="DuanCommentDate" Text="{Binding PostDate}" RelativePanel.Below="DuanCommentAuthor" Style="{StaticResource CommentDateTextStyle}"></TextBlock>
+                                        <TextBlock Name="DuanCommentContent" Text="{Binding Message}" RelativePanel.Below="DuanCommentDate" Style="{StaticResource CommentContentTextStyle}"></TextBlock>
                                     </RelativePanel>
                                 </Grid>
                             </DataTemplate>

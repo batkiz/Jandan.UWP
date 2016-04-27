@@ -54,10 +54,13 @@ namespace Jandan
             object[] parameters = e.Parameter as object[];
             if (parameters != null)
             {
-                this.DataContext = _viewModel = new PicDetailViewModel(parameters[0] as BoringPic);
+                var p = parameters[0] as BoringPic;
                 DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
+                this.DataContext = _viewModel = new PicDetailViewModel(p);
 
-                _dViewModel.Update(_viewModel.BoringPicture.PicID);
+                //_dViewModel.Update(_viewModel.BoringPicture.PicID);
+                //_dViewModel = new DuanCommentViewModel();
+                _dViewModel.Update(p.PicID);
             }
         }
 
@@ -69,33 +72,6 @@ namespace Jandan
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private async void PicDownload_Click1(object sender, RoutedEventArgs e)
-        {
-            var pics = PicListView.Items;
-            foreach (ImageUrl url in pics)
-            {
-                var fileName = Regex.Replace(url.URL, @".+?/", "");
-
-                var path = Windows.Storage.ApplicationData.Current.LocalFolder;
-                var folder = await path.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
-                var fileStream = await folder.OpenStreamForReadAsync(fileName);
-
-                List<Byte> allBytes = new List<Byte>();
-                byte[] buffer = new byte[4000];
-                int bytesRead = 0;
-                while((bytesRead=await fileStream.ReadAsync(buffer, 0, 4000))>0)
-                {
-                    allBytes.AddRange(buffer.Take(bytesRead));
-                }
-
-                StorageFolder sf = KnownFolders.SavedPictures;
-                var saveFile = await sf.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-
-                await FileIO.WriteBytesAsync(saveFile, allBytes.ToArray());
-                //var file = await folder.CreateFileAsync(imageUrl, CreationCollisionOption.ReplaceExisting);
-            }
         }
 
         private async void PicDownload_Click(object sender, RoutedEventArgs e)

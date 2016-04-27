@@ -60,12 +60,6 @@ namespace Jandan
 
         private void BoringListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            //DuanSplitView.IsPaneOpen = true;
-
-            //var d = e.ClickedItem as BoringPic;
-            //var commentId = d.PicID;
-
-            //_dViewModel.Update(commentId);
             this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic });
         }
 
@@ -86,13 +80,6 @@ namespace Jandan
 
         private void Tucao_Click(object sender, RoutedEventArgs e)
         {
-            //var b = e.OriginalSource as Button;
-            //var r = b.Parent as RelativePanel;
-            //var g = r.Parent as Grid;
-            //var c = g.Children[0] as RelativePanel;
-            //var t = c.Children[1] as TextBlock;
-            //var id = t.Text;
-
             var b = sender as Button;
             var bp = b.DataContext as BoringPic;
 

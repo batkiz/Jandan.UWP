@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Jandan.UWP.Data;
 using Jandan.UWP.HTTP;
 using Jandan.UWP.Models;
+using Jandan.UWP.Tools;
 
 namespace Jandan.UWP.ViewModels
 {
@@ -59,6 +60,7 @@ namespace Jandan.UWP.ViewModels
 
         public FreshViewModel()
         {
+            LoadCache();
             Update();
 
             //DataShareManager.Current.ShareDataChanged += Current_ShareDataChanged;
@@ -69,6 +71,17 @@ namespace Jandan.UWP.ViewModels
         //    Stories.ToList().ForEach((s) => s.Readed = s.Readed);
         //}
 
+        public async void LoadCache()
+        {
+            var list = await FileHelper.Current.ReadObjectAsync<List<Fresh>>("fresh_list.json");
+            FreshIncrementalLoadingCollection c = new FreshIncrementalLoadingCollection();
+            list?.ForEach((t) =>
+            {
+                c.Add(t);
+            });
+            News = c;
+        }
+
         /// <summary>
         /// 刷新数据
         /// </summary>
@@ -77,7 +90,7 @@ namespace Jandan.UWP.ViewModels
             IsLoading = true;
             var list = await _api.GetFresh(1);
 
-            FreshIncrementalLoadingCollection c = new FreshIncrementalLoadingCollection("");
+            FreshIncrementalLoadingCollection c = new FreshIncrementalLoadingCollection();
 
             list?.ForEach((t) =>
                         {

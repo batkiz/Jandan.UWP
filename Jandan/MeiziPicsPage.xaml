@@ -31,7 +31,7 @@
                                                   SelectionMode="None"
                                                   ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                                                   ShowsScrollingPlaceholders="False" 
-                                                  VerticalContentAlignment="Top">
+                                                  VerticalContentAlignment="Top" IsHitTestVisible="False" IsSwipeEnabled="False">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Image Source="{Binding URL}">
@@ -187,7 +187,7 @@
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Key}" Style="{StaticResource CommentGroupTitleTextStyle}"/>
                                     </DataTemplate>
-                                </GroupStyle.HeaderTemplate>
+                                </GroupStyle.HeaderTemplate>                               
                             </GroupStyle>
                         </ListView.GroupStyle>
                         <ListView.ItemContainerStyle>

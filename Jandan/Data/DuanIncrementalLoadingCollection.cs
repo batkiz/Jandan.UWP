@@ -58,10 +58,7 @@ namespace Jandan.UWP.Data
             List<Duan> list = null;
             try
             {
-                if (DataLoading != null)
-                {
-                    DataLoading();
-                }
+                DataLoading?.Invoke();
                 list = await _api.GetDuan(DataShareManager.Current.DuanItemPage++);
             }
             catch (Exception)
@@ -86,10 +83,7 @@ namespace Jandan.UWP.Data
             {
                 HasMoreItems = false;
             }
-            if (DataLoaded != null)
-            {
-                DataLoaded();
-            }
+            DataLoaded?.Invoke();
             _buzy = false;
 
             return new LoadMoreItemsResult { Count = (uint)actualCount };

@@ -13,6 +13,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        
         <RelativePanel Grid.Row="0"
                        Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"
                        Padding="0,9,0,9" >
@@ -33,23 +34,25 @@
                        Padding="20,0,0,0">                
             </TextBlock>            
         </RelativePanel>
-        <RelativePanel Grid.Row="1"
-                       Padding="5" Margin="5,0">
-            <TextBlock Name="Version" Text="版本" Style="{StaticResource HeaderTextBlockStyle}"/>
-            <TextBlock Name="VersionNumber" Text="{Binding Path=Abouts.VersionNumber}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Version"/>
-            <TextBlock Name="Author" Text="作者" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="VersionNumber"/>
-            <TextBlock Name="AuthorName" Text="{Binding Path=Abouts.AuthorName}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Author"/>
-            <TextBlock Name="HelpSuggestion" Text="帮助与建议" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="AuthorName"/>
-            <TextBlock Name="HelpSuggestionText" Text="{Binding Path=Abouts.HelpAndSuggestion}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="HelpSuggestion"/>
-            <TextBlock Name="Denote" Text="捐赠" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="HelpSuggestionText"/>
-            <TextBlock Name="DenoteText" Text="{Binding Path=Abouts.DenoteText}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Denote"/>
-            <TextBlock Name="Update" Text="版本更新" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="DenoteText"/>
-            <TextBlock Name="UpdateText" Text="{Binding Path=Abouts.UpdateTextSource}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Update"/>
-            <TextBlock Name="Quote" Text="引用" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="UpdateText"/>
-            <TextBlock Name="QuoteJandan" Text="源数据：煎蛋网" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Quote"/>
-            <HyperlinkButton Name="LinkJandan" Content="Jandan" NavigateUri="http://jandan.net/" RelativePanel.Below="QuoteJandan" Background="Transparent"/>
-            <TextBlock Name="QuoteImageLib" Text="插件：ImageLib" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="LinkJandan"/>
-            <HyperlinkButton Name="LinkImageLib" Content="Github" NavigateUri="https://github.com/chenrensong/ImageLib.UWP" RelativePanel.Below="QuoteImageLib" Background="Transparent"/>
-        </RelativePanel>
+        <ScrollViewer Grid.Row="1">
+            <RelativePanel Padding="5" Margin="5,0">
+                <TextBlock Name="Version" Text="版本" Style="{StaticResource HeaderTextBlockStyle}"/>
+                <TextBlock Name="VersionNumber" Text="{Binding Path=Abouts.VersionNumber}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Version"/>
+                <TextBlock Name="Author" Text="作者" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="VersionNumber"/>
+                <TextBlock Name="AuthorName" Text="{Binding Path=Abouts.AuthorName}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Author"/>
+                <TextBlock Name="HelpSuggestion" Text="帮助与建议" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="AuthorName"/>
+                <TextBlock Name="HelpSuggestionText" Text="{Binding Path=Abouts.HelpAndSuggestion}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="HelpSuggestion"/>
+                <TextBlock Name="Denote" Text="捐赠" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="HelpSuggestionText"/>
+                <TextBlock Name="DenoteText" Text="{Binding Path=Abouts.DenoteText}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Denote"/>
+                <TextBlock Name="Update" Text="版本更新" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="DenoteText"/>
+                <TextBlock Name="UpdateText" Text="{Binding Path=Abouts.UpdateTextSource}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Update"/>
+                <TextBlock Name="Quote" Text="引用" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="UpdateText"/>
+                <TextBlock Name="QuoteJandan" Text="源数据：煎蛋网" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Quote"/>
+                <HyperlinkButton Name="LinkJandan" Content="Jandan" NavigateUri="http://jandan.net/" RelativePanel.Below="QuoteJandan" Background="Transparent"/>
+                <TextBlock Name="QuoteImageLib" Text="插件：ImageLib" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="LinkJandan"/>
+                <HyperlinkButton Name="LinkImageLib" Content="Github" NavigateUri="https://github.com/chenrensong/ImageLib.UWP" RelativePanel.Below="QuoteImageLib" Background="Transparent"/>
+            </RelativePanel>
+        </ScrollViewer>
+        
     </Grid>
 </Page>

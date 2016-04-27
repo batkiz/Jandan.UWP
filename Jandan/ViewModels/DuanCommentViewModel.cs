@@ -16,16 +16,16 @@ namespace Jandan.UWP.ViewModels
     {
         private APIService _api = new APIService();
 
-        private bool _is_loading;
-        public bool IsLoading
+        private bool _is_loading_comments;
+        public bool IsLoadingComments
         {
             get
             {
-                return _is_loading;
+                return _is_loading_comments;
             }
             set
             {
-                _is_loading = value;
+                _is_loading_comments = value;
                 OnPropertyChanged();
             }
         }
@@ -56,20 +56,14 @@ namespace Jandan.UWP.ViewModels
         {
             _commentList = new CollectionViewSource();
             _commentList.IsSourceGrouped = true;
-            //DataShareManager.Current.ShareDataChanged += Current_ShareDataChanged;
-        }
-
-        //private void Current_ShareDataChanged()
-        //{
-        //    Stories.ToList().ForEach((s) => s.Readed = s.Readed);
-        //}
+        }        
 
         /// <summary>
         /// 刷新数据
         /// </summary>
         public async void Update(string commentID)
         {
-            IsLoading = true;
+            IsLoadingComments = true;
             //DuanComments?.Clear();
             //HotDuanComments?.Clear();
 
@@ -121,26 +115,8 @@ namespace Jandan.UWP.ViewModels
 
                 CommentList.Source = groups;
             }
-
-
-            //ObservableCollection<DuanComment> c = new ObservableCollection<DuanComment>();
-            //ObservableCollection<DuanComment> hot = new ObservableCollection<DuanComment>();
-
-            //list?.ForEach((t) =>
-            //{
-            //    string msg = t.Message;
-            //    t.Message = Regex.Replace(msg.Replace("<br/>", "\n"), "<.+?>", "");
-
-            //    c.Add(t);
-            //    if (t.IsHot)
-            //    {
-            //        hot.Add(t);
-            //    }
-            //});
-
-            //DuanComments = c;
-            //HotDuanComments = hot;
-            IsLoading = false;
+            
+            IsLoadingComments = false;
         }
     }
 }

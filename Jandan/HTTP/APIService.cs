@@ -266,22 +266,29 @@ namespace Jandan.UWP.HTTP
                         if (posts != null)
                         {
                             JsonArray ja = posts.GetArray();
+
+                            string CommentIDList = "";
                             foreach (var j in ja)
                             {
                                 string CommentID = "comment-" + (j.GetObject())["comment_ID"].GetString();
-                                JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentID);
+                                CommentIDList = $"{CommentIDList},{CommentID}";
+                            }
 
+                            JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
+                            foreach (var j in ja)
+                            {
+                                string ID = (j.GetObject())["comment_ID"].GetString();
                                 list.Add(new BoringPic
                                 {
-                                    PicID = (j.GetObject())["comment_ID"].GetString(),
+                                    PicID = ID,
                                     Author = (j.GetObject())["comment_author"].GetString(),
-                                    Content = (j.GetObject())["text_content"].GetString().Replace(@"\n", "").Replace(@"\r", ""),
+                                    Content = (j.GetObject())["text_content"].GetString().Replace("\n", "").Replace("\r", ""),
                                     Urls = BoringPic.parse((j.GetObject())["pics"].ToString()),
                                     Thumb = BoringPic.parseThumb((j.GetObject())["pics"].ToString()),
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
-                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject(CommentID).GetNamedNumber("comments")
+                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
                                 });
                             }
                         }
@@ -335,7 +342,9 @@ namespace Jandan.UWP.HTTP
                                 string authorURL;
                                 try
                                 {
-                                    authorURL = postItem["author"].GetObject().GetNamedString("avatar_url");
+                                    //authorURL = postItem["author"].GetObject().GetNamedString("avatar_url");
+                                    var jsonAuthor = postItem["author"].GetObject();
+                                    authorURL = jsonAuthor["avatar_url"].ValueType == JsonValueType.String ? jsonAuthor.GetNamedString("avatar_url") : "null";
                                 }
                                 catch (Exception)
                                 {

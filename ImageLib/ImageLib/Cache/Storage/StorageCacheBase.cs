@@ -177,6 +177,7 @@ namespace ImageLib.Cache.Storage
             try
             {
                 var storageFile = await SF.GetFileAsync(fullFilePath);
+
                 return CacheMaxLifetimeInMillis <= 0 ? true :
                     ((DateTime.Now - storageFile.DateCreated.DateTime).TotalMilliseconds < CacheMaxLifetimeInMillis);
             }
