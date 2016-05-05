@@ -23,14 +23,8 @@ namespace Jandan.UWP.Data
         {
             get
             {
-                if (_buzy)
-                {
-                    return false;
-                }
-                else
-                {
-                    return _has_more_items;
-                }
+                if (_buzy) { return false; }
+                else { return _has_more_items; }
             }
             private set
             {
@@ -58,10 +52,7 @@ namespace Jandan.UWP.Data
             List<BoringPic> list = null;
             try
             {
-                if (DataLoading != null)
-                {
-                    DataLoading();
-                }
+                DataLoading?.Invoke();
                 list = await _api.GetBoringPics(DataShareManager.Current.BoringItemPage++);
             }
             catch (Exception)
@@ -86,10 +77,7 @@ namespace Jandan.UWP.Data
             {
                 HasMoreItems = false;
             }
-            if (DataLoaded != null)
-            {
-                DataLoaded();
-            }
+            DataLoaded?.Invoke();
             _buzy = false;
 
             return new LoadMoreItemsResult { Count = (uint)actualCount };

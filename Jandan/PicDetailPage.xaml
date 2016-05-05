@@ -63,7 +63,7 @@
 				RelativePanel.LeftOf="PicDownload"
 				Margin="0,0,5,0"
 				Background="Transparent"
-				Click="RefreshButton_Click"/>
+				Click="RefreshButton_Click" IsEnabled="False"/>
             <Button x:Name="PicDownload"
 				Content="&#xE896;"
 				RelativePanel.AlignRightWithPanel="True"
@@ -73,7 +73,7 @@
 				Margin="0,0,5,0"
 				Background="Transparent"
 				Click="PicDownload_Click"/>
-        </RelativePanel>
+        </RelativePanel>  
         <RelativePanel Grid.Row="1" x:Name="PicDetailPanel">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -157,8 +157,30 @@
                     </ListView>
                 </Grid>
             </Grid>
-
-
         </RelativePanel>
+        <Button 
+            Grid.Row="1"
+            x:Name="buttonPrevious" 
+            FontFamily="Segoe MDL2 Assets"
+			FontSize="24"
+            Content="&#xE00E;" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" Click="buttonPrevious_Click" >
+            <Button.Background>
+                <SolidColorBrush Color="#33000000" Opacity="0.2"/>
+            </Button.Background>
+        </Button>
+        <Button 
+            Grid.Row="1"
+            x:Name="buttonNext" 
+            FontFamily="Segoe MDL2 Assets"
+			FontSize="24"
+            Content="&#xE00F;" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Center" Click="buttonNext_Click" >
+            <Button.Background>
+                <SolidColorBrush Color="#33000000" Opacity="0.2"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Page>

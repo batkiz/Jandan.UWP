@@ -58,11 +58,6 @@ namespace Jandan
             _viewModel.Update();
         }
 
-        private void BoringListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic });
-        }
-
         private void ListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
             var platformFamily = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
@@ -119,6 +114,11 @@ namespace Jandan
         private void pullToRefreshBar_RefreshInvoked(DependencyObject sender, object args)
         {
             RefreshPage();
+        }
+
+        private void BoringListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic, PicDetailType.Meizi, _viewModel.Meizi });
         }
     }
 }

@@ -61,5 +61,45 @@ namespace Jandan.UWP.Models
 
             return url_list;
         }
+
+        // Hot图的图片Url与无聊图、妹子图不同，需单独处理
+        public static List<ImageUrl> parseHot(string JSONString)
+        {
+            List<ImageUrl> url_list = new List<ImageUrl>();
+
+            JsonArray jsonArray = JsonArray.Parse(JSONString);
+            foreach (var j in jsonArray)
+            {
+                // 获取图片Url                
+                if (Regex.IsMatch(j.GetString(), "(http.+?)\" target"))
+                {
+                    var url = Regex.Match(j.GetString(), "(http.+?)\" target");
+                    ImageUrl imageUrl = new ImageUrl(url.Groups[1].Value);
+                    url_list.Add(imageUrl);
+                }
+            }
+
+            return url_list;
+        }
+
+        public static List<ImageUrl> parseHotThumb(string JSONString)
+        {
+            List<ImageUrl> url_list = new List<ImageUrl>();
+
+            JsonArray jsonArray = JsonArray.Parse(JSONString);
+            foreach (var j in jsonArray)
+            {
+                // 获取图片Url                
+                if (Regex.IsMatch(j.GetString(), "(http.+?)\" target"))
+                {
+                    var url = Regex.Match(j.GetString(), "(http.+?)\" target");
+                    // 添加低分辨率缩略图
+                    ImageUrl imageUrl = new ImageUrl(Regex.Replace(url.Groups[1].Value, @"(sinaimg\.cn/.+?/)", "sinaimg.cn/thumb180/"));
+                    url_list.Add(imageUrl);
+                }                
+            }
+
+            return url_list;
+        }
     }
 }

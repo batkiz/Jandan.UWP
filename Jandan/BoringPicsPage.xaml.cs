@@ -25,7 +25,7 @@ namespace Jandan
     public sealed partial class BoringPicsPage : Page
     {
         BoringViewModel _viewModel;
-        DuanCommentViewModel _dViewModel;
+        DuanCommentViewModel _dViewModel;        
 
         private int secret_count;
         private bool just_returned = false;
@@ -50,6 +50,13 @@ namespace Jandan
             LoadingCommentProgressBar.DataContext = _dViewModel;
 
             secret_count = 0;
+
+            object[] parameters = e.Parameter as object[];
+            if (parameters != null)
+            {
+                int i = (int)parameters[0];
+                BoringPivot.SelectedIndex = i;
+            }
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
@@ -59,27 +66,13 @@ namespace Jandan
 
         public void RefreshPage()
         {
-            _viewModel.Update();
+            _viewModel.UpdateBoringPics();
+            _viewModel.UpdateHotPics();
         }
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void BoringListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic });
-        }
-
-        private void ListView_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            var platformFamily = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
-            if (string.Equals(platformFamily, "Windows.Mobile"))
-            {
-                var li = sender as ListView;
-                this.Frame.Navigate(typeof(PicDetailPage), new object[] { li.DataContext as BoringPic });
-            }           
         }
 
         private void DuanSplitView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
@@ -110,14 +103,14 @@ namespace Jandan
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (BoringGridView.Visibility == Visibility.Collapsed)
-            {
-                return;
-            }
-
             if (just_returned)
             {
                 just_returned = false;
+                return;
+            }
+
+            if (BoringGridView.Visibility == Visibility.Collapsed && HotGridView.Visibility == Visibility.Collapsed)
+            {
                 return;
             }
 
@@ -134,11 +127,22 @@ namespace Jandan
             s_new.Setters.Add(s4);
 
             BoringGridView.ItemContainerStyle = s_new;
+            HotGridView.ItemContainerStyle = s_new;
         }
 
         private void pullToRefreshBar_RefreshInvoked(DependencyObject sender, object args)
         {
             RefreshPage();
+        }
+
+        private void BoringListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, _viewModel.Boring });
+        }
+
+        private void HotListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic, PicDetailType.Hot, _viewModel.Hot });
         }
     }
 }

@@ -18,6 +18,8 @@ using ImageLib.Controls;
 using Windows.Storage;
 using Windows.ApplicationModel;
 using System.Text.RegularExpressions;
+using Jandan.UWP.Data;
+using System.Collections.ObjectModel;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -30,6 +32,10 @@ namespace Jandan
     {
         PicDetailViewModel _viewModel;
         DuanCommentViewModel _dViewModel;
+
+        object ItemList;
+        BoringPic CurrentItem;
+        PicDetailType DetailType;
 
         public PicDetailPage()
         {
@@ -57,16 +63,31 @@ namespace Jandan
                 var p = parameters[0] as BoringPic;
                 DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
                 this.DataContext = _viewModel = new PicDetailViewModel(p);
-
-                //_dViewModel.Update(_viewModel.BoringPicture.PicID);
-                //_dViewModel = new DuanCommentViewModel();
+                
                 _dViewModel.Update(p.PicID);
+
+                CurrentItem = p;
+                DetailType = (PicDetailType)parameters[1];
+                ItemList = parameters[2];
             }
         }
 
         private void PageBackButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.GoBack();
+            switch (DetailType)
+            {
+                case PicDetailType.Boring:
+                    this.Frame.Navigate(typeof(BoringPicsPage), new object[] { 0 });
+                    break;
+                case PicDetailType.Hot:
+                    this.Frame.Navigate(typeof(BoringPicsPage), new object[] { 1 });
+                    break;
+                case PicDetailType.Meizi:
+                    this.Frame.Navigate(typeof(MeiziPicsPage));
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
@@ -83,7 +104,7 @@ namespace Jandan
                 var fileName = Regex.Replace(url.URL, @".+?/", "");
 
                 List<Byte> allBytes = new List<Byte>();
-                var path = Windows.Storage.ApplicationData.Current.LocalFolder;
+                var path = Windows.Storage.ApplicationData.Current.LocalCacheFolder;
                 var folder = await path.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
                 try
                 {
@@ -106,6 +127,28 @@ namespace Jandan
                 var saveFile = await sf.CreateFileAsync(newName, CreationCollisionOption.ReplaceExisting);
 
                 await FileIO.WriteBytesAsync(saveFile, allBytes.ToArray());
+            }
+        }
+
+        private void buttonPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            var list = ItemList as ObservableCollection<BoringPic>;
+            var idx = list.IndexOf(CurrentItem);
+            if (idx != 0)
+            {
+                this.Frame.Navigate(typeof(PicDetailPage), new object[] { list.ElementAt(idx - 1), DetailType, ItemList });
+
+            }            
+        }
+
+        private void buttonNext_Click(object sender, RoutedEventArgs e)
+        {
+            var list = ItemList as ObservableCollection<BoringPic>;
+            var idx = list.IndexOf(CurrentItem);
+            if (idx != list.Count-1)
+            {
+                this.Frame.Navigate(typeof(PicDetailPage), new object[] { list.ElementAt(idx + 1), DetailType, ItemList });
+
             }
         }
     }

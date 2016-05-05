@@ -7,6 +7,8 @@ using Windows.UI.Xaml;
 
 namespace Jandan.UWP.ViewModels
 {
+    public enum PicDetailType { Boring, Hot, Meizi };
+
     public sealed class DataShareManager
     {
         // 新鲜事的页数

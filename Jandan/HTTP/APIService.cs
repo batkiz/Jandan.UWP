@@ -308,6 +308,71 @@ namespace Jandan.UWP.HTTP
         }
 
         /// <summary>
+        /// 热门无聊图列表
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<BoringPic>> GetHotPics()
+        {
+            try
+            {
+                if (NetworkManager.Current.Network == 4)  //无网络连接
+                {
+                    List<BoringPic> list = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("hot_list.json");
+                    return list;
+                }
+                else
+                {
+                    JsonObject json = await GetJson(ServiceURL.URL_HOTPICS);
+
+                    if (json != null)
+                    {
+                        List<BoringPic> list = new List<BoringPic>();
+                        var posts = json["comments"];
+                        if (posts != null)
+                        {
+                            JsonArray ja = posts.GetArray();
+
+                            string CommentIDList = "";
+                            foreach (var j in ja)
+                            {
+                                string CommentID = "comment-" + (j.GetObject())["comment_ID"].GetString();
+                                CommentIDList = $"{CommentIDList},{CommentID}";
+                            }
+
+                            JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
+                            foreach (var j in ja)
+                            {
+                                string ID = (j.GetObject())["comment_ID"].GetString();
+                                list.Add(new BoringPic
+                                {
+                                    PicID = ID,
+                                    Author = (j.GetObject())["comment_author"].GetString(),
+                                    Content = (j.GetObject())["text_content"].GetString(),
+                                    Urls = BoringPic.parseHot((j.GetObject())["pics"].ToString()),
+                                    Thumb = BoringPic.parseHotThumb((j.GetObject())["pics"].ToString()),
+                                    Date = (j.GetObject())["comment_date"].GetString(),
+                                    VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
+                                    VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
+                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
+                                });
+                            }
+                        }
+                        await FileHelper.Current.WriteObjectAsync<List<BoringPic>>(list, "hot_list.json");
+                        return list;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// 获取段子/无聊图评论
         /// </summary>
         /// <returns></returns>

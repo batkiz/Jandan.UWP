@@ -8,6 +8,7 @@ using Jandan.UWP.Data;
 using Jandan.UWP.HTTP;
 using Jandan.UWP.Models;
 using Jandan.UWP.Tools;
+using System.Text.RegularExpressions;
 
 namespace Jandan.UWP.ViewModels
 {
@@ -32,21 +33,22 @@ namespace Jandan.UWP.ViewModels
         private BoringIncrementalLoadingCollection _boring;
         public BoringIncrementalLoadingCollection Boring
         {
-            get
-            {
-                return _boring;
-            }
-            set
-            {
-                _boring = value;
-                OnPropertyChanged();
-            }
+            get { return _boring; }
+            set { _boring = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<BoringPic> _hot;
+        public ObservableCollection<BoringPic> Hot
+        {
+            get { return _hot; }
+            set { _hot = value; OnPropertyChanged(); }
         }
 
         public BoringViewModel()
         {
             LoadCache();
-            Update();
+            UpdateBoringPics();
+            UpdateHotPics();
 
             //DataShareManager.Current.ShareDataChanged += Current_ShareDataChanged;
         }
@@ -60,13 +62,21 @@ namespace Jandan.UWP.ViewModels
         {
             IsLoading = true;
 
-            var list = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("boring_list.json");
+            var boring = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("boring_list.json");
             BoringIncrementalLoadingCollection c = new BoringIncrementalLoadingCollection();
-            list?.ForEach((t) =>
+            boring?.ForEach((t) =>
             {
                 c.Add(t);
             });
             Boring = c;
+
+            var hot = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("hot_list.json");
+            ObservableCollection<BoringPic> d = new ObservableCollection<BoringPic>();
+            hot?.ForEach((t) =>
+            {
+                d.Add(t);
+            });
+            Hot = d;
 
             IsLoading = false;
         }
@@ -74,7 +84,7 @@ namespace Jandan.UWP.ViewModels
         /// <summary>
         /// 刷新数据
         /// </summary>
-        public async void Update()
+        public async void UpdateBoringPics()
         {
             IsLoading = true;
             var list = await _api.GetBoringPics(1);
@@ -82,6 +92,8 @@ namespace Jandan.UWP.ViewModels
             BoringIncrementalLoadingCollection c = new BoringIncrementalLoadingCollection();
             list?.ForEach((t) =>
             {
+                var comment = t.Content.Replace("\n", "").Replace("\r", "");
+                t.Content = comment;
                 c.Add(t);
             });
 
@@ -89,6 +101,25 @@ namespace Jandan.UWP.ViewModels
 
             c.DataLoaded += C_DataLoaded;
             c.DataLoading += C_DataLoading;
+
+            IsLoading = false;
+        }
+
+        public async void UpdateHotPics()
+        {
+            IsLoading = true;
+            var list = await _api.GetHotPics();
+
+            ObservableCollection<BoringPic> c = new ObservableCollection<BoringPic>();
+            list?.ForEach((t) =>
+            {
+                var comment = t.Content.Replace("\n", "").Replace("\r", "").Replace("[查看原图]", "");
+                comment = Regex.Replace(comment, "OO.+?XX.+?]", "");
+                t.Content = comment;
+                c.Add(t);
+            });
+
+            Hot = c;
 
             IsLoading = false;
         }

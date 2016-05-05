@@ -103,6 +103,8 @@
                     <VisualState.Setters>
                         <Setter Target="BoringListView.Visibility" Value="Collapsed" />
                         <Setter Target="BoringGridView.Visibility" Value="Visible" />
+                        <Setter Target="HotListView.Visibility" Value="Collapsed" />
+                        <Setter Target="HotGridView.Visibility" Value="Visible" />                        
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="vs_100">
@@ -113,6 +115,8 @@
                     <VisualState.Setters>
                         <Setter Target="BoringListView.Visibility" Value="Visible" />
                         <Setter Target="BoringGridView.Visibility" Value="Collapsed" />
+                        <Setter Target="HotListView.Visibility" Value="Visible" />
+                        <Setter Target="HotGridView.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -209,39 +213,75 @@
             <!--SplitView.Pane放无聊图正文, 分为listview/gridview两种模式-->
             <SplitView.Content>
                 <!--<Controls:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">-->
-                    <Grid>
-                    <ListView Grid.Row="1"
-                              Name="BoringListView"
+                <Pivot Name="BoringPivot">
+                    <PivotItem Header="最新">
+                        <Grid Margin="-8, 0">
+                            <ListView Name="BoringListView"
                               ItemsSource="{Binding Boring}" 
                               Style="{StaticResource ContentPanelListViewStyle}"
                               ItemClick="BoringListView_ItemClick"
                               ItemTemplate="{StaticResource BoringPicsDataStyle}">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                <Setter Property="Padding" Value="0"></Setter>
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                                <Setter Property="MinHeight" Value="0"></Setter>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
-                    <GridView Grid.Row="1"
-                              Name="BoringGridView"
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                        <Setter Property="Padding" Value="0"></Setter>
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                        <Setter Property="MinHeight" Value="0"></Setter>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+                            <GridView Name="BoringGridView"
                               ItemsSource="{Binding Boring}" 
                               Style="{StaticResource ContentPanelGridViewStyle}"
                               ItemClick="BoringListView_ItemClick"
                               Visibility="Collapsed"
                               ItemTemplate="{StaticResource BoringPicsDataStyle}" HorizontalAlignment="Center">
-                        <GridView.ItemContainerStyle>
-                            <Style TargetType="GridViewItem">
-                                <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                <Setter Property="Padding" Value="0"></Setter>
-                                <Setter Property="Width" Value="230"></Setter>
-                                <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
-                            </Style>
-                        </GridView.ItemContainerStyle>
-                    </GridView>
-                </Grid>
+                                <GridView.ItemContainerStyle>
+                                    <Style TargetType="GridViewItem">
+                                        <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                        <Setter Property="Padding" Value="0"></Setter>
+                                        <Setter Property="Width" Value="230"></Setter>
+                                        <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
+                                    </Style>
+                                </GridView.ItemContainerStyle>
+                            </GridView>
+                        </Grid>
+                    </PivotItem>
+                    <PivotItem Name="HotPivotItem" Header="热门">
+                        <Grid Margin="-8, 0">
+                            <ListView Name="HotListView"
+                              ItemsSource="{Binding Hot}" 
+                              Style="{StaticResource ContentPanelListViewStyle}"
+                              ItemClick="HotListView_ItemClick"
+                              ItemTemplate="{StaticResource BoringPicsDataStyle}">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                        <Setter Property="Padding" Value="0"></Setter>
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                        <Setter Property="MinHeight" Value="0"></Setter>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+                            <GridView Name="HotGridView"
+                              ItemsSource="{Binding Hot}" 
+                              Style="{StaticResource ContentPanelGridViewStyle}"
+                              ItemClick="HotListView_ItemClick"
+                              Visibility="Collapsed"
+                              ItemTemplate="{StaticResource BoringPicsDataStyle}" HorizontalAlignment="Center">
+                                <GridView.ItemContainerStyle>
+                                    <Style TargetType="GridViewItem">
+                                        <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                        <Setter Property="Padding" Value="0"></Setter>
+                                        <Setter Property="Width" Value="230"></Setter>
+                                        <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
+                                    </Style>
+                                </GridView.ItemContainerStyle>
+                            </GridView>
+                        </Grid>
+                    </PivotItem>
+                </Pivot>
+                
                 <!--</Controls:PullToRefreshBox>-->
             </SplitView.Content>
         </SplitView>

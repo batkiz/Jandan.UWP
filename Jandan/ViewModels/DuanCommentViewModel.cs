@@ -76,7 +76,14 @@ namespace Jandan.UWP.ViewModels
                             t.ParentComment = new ParentDuanComment { AuthorName = q.First().AuthorName, ThreadID = q.First().ThreadID, Message = q.First().Message };
                         }
 
-                        t.Message = $"{t.Message}\n回复 {t.ParentComment.AuthorName}:\n{t.ParentComment.Message}";
+                        try
+                        {
+                            t.Message = $"{t.Message}\n回复 {t.ParentComment.AuthorName}:\n{t.ParentComment.Message}";
+                        }
+                        catch (Exception)
+                        {
+                            ;
+                        }
                     }
                 });
 
