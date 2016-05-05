@@ -43,5 +43,8 @@ namespace Jandan.UWP.HTTP
 
         // 小电影
         public static string URL_VIDEOS = "http://jandan.net/?oxwlxojflwblxbsapi=jandan.get_video_comments&page=";
+
+        // 无聊图
+        public static string URL_HOTPICS = "http://jandan.net/?oxwlxojflwblxbsapi=jandan.get_hottest_pic&dev=1&include=";
     }
 }
