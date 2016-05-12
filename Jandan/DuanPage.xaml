@@ -7,12 +7,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:Jandan.UWP.Models"
     mc:Ignorable="d"
-    NavigationCacheMode="Enabled">
+    NavigationCacheMode="Enabled" ManipulationCompleted="Page_ManipulationCompleted">
 
     <Page.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="DuanDataStyle">
-                <Grid Margin="0" Padding="5">
+                <Grid Margin="0" Padding="5" Holding="Grid_Holding" ManipulationMode="System, TranslateX" RightTapped="Grid_RightTapped">
+                    <FlyoutBase.AttachedFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="复制" Tapped="MenuFlyoutItem_Tapped"/>
+                        </MenuFlyout>
+                    </FlyoutBase.AttachedFlyout>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>

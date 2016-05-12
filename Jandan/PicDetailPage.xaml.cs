@@ -74,19 +74,23 @@ namespace Jandan
 
         private void PageBackButton_Click(object sender, RoutedEventArgs e)
         {
-            switch (DetailType)
+            //switch (DetailType)
+            //{
+            //    case PicDetailType.Boring:
+            //        this.Frame.Navigate(typeof(BoringPicsPage), new object[] { 0 });
+            //        break;
+            //    case PicDetailType.Hot:
+            //        this.Frame.Navigate(typeof(BoringPicsPage), new object[] { 1 });
+            //        break;
+            //    case PicDetailType.Meizi:
+            //        this.Frame.Navigate(typeof(MeiziPicsPage));
+            //        break;
+            //    default:
+            //        break;
+            //}
+            if (this.Frame.CanGoBack)
             {
-                case PicDetailType.Boring:
-                    this.Frame.Navigate(typeof(BoringPicsPage), new object[] { 0 });
-                    break;
-                case PicDetailType.Hot:
-                    this.Frame.Navigate(typeof(BoringPicsPage), new object[] { 1 });
-                    break;
-                case PicDetailType.Meizi:
-                    this.Frame.Navigate(typeof(MeiziPicsPage));
-                    break;
-                default:
-                    break;
+                Frame.GoBack();                
             }
         }
 
@@ -151,14 +155,25 @@ namespace Jandan
             NextPic();
         }
 
-        private void NextPic()
+        private async void NextPic()
         {
             var list = ItemList as ObservableCollection<BoringPic>;
             var idx = list.IndexOf(CurrentItem);
             if (idx != list.Count - 1)
             {
                 this.Frame.Navigate(typeof(PicDetailPage), new object[] { list.ElementAt(idx + 1), DetailType, ItemList });
-
+            }
+            else if (DetailType == PicDetailType.Boring)
+            {
+                var b = ItemList as BoringIncrementalLoadingCollection;
+                await b.LoadMoreItemsAsync(0);
+                this.Frame.Navigate(typeof(PicDetailPage), new object[] { b.ElementAt(idx + 1), DetailType, b });
+            }
+            else if (DetailType == PicDetailType.Meizi)
+            {
+                var b = ItemList as MeiziIncrementalLoadingCollection;
+                await b.LoadMoreItemsAsync(0);
+                this.Frame.Navigate(typeof(PicDetailPage), new object[] { b.ElementAt(idx + 1), DetailType, b });
             }
         }
 
@@ -166,17 +181,16 @@ namespace Jandan
         {
             double delta = e.Cumulative.Translation.X;
 
-            if (delta > 0)
+            if (delta > 20)
             {
                 PreviousPic();
                 return;
             }
-            else if (delta < 0)
+            else if (delta < 20)
             {
                 NextPic();
                 return;
             }
-
         }
     }
 }

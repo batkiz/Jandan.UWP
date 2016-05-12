@@ -110,5 +110,26 @@ namespace Jandan
         {
             RefreshPage();
         }
+
+        private void Page_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            //double delta = e.Cumulative.Translation.X;
+
+            //if (delta > 200)
+            //{
+            //    if (DataShareManager.Current.IsMobile)
+            //    {
+            //        Frame.Navigate(typeof(HotPage));
+            //    }
+            //    else
+            //    {
+            //        Frame.Navigate(typeof(BoringPicsPage));
+            //    }
+            //}
+            //else if (delta < 200)
+            //{
+            //    Frame.Navigate(typeof(DuanPage));
+            //}
+        }
     }
 }

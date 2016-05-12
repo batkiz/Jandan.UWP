@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Jandan.UWP.Models;
 using Jandan.UWP.ViewModels;
+using Windows.ApplicationModel.DataTransfer;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -126,6 +127,49 @@ namespace Jandan
            var msg = await _viewModel.Vote(duan.DuanID, false);
             duan.VoteNegative = duan.VoteNegative + 1;
             b.DataContext = duan;
+        }
+
+        private void Grid_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            FrameworkElement element = sender as FrameworkElement;
+            if (element != null)
+            {
+                FlyoutBase.ShowAttachedFlyout(element);
+            }
+        }
+
+        private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            FrameworkElement element = sender as FrameworkElement;
+            if (element != null)
+            {
+                FlyoutBase.ShowAttachedFlyout(element);
+            }
+        }
+
+        private void MenuFlyoutItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var m = sender as MenuFlyoutItem;
+            var d = m.DataContext as Duan;
+
+            string copied_content = $"转自煎蛋网:\n作者:{d.Author}\nID:{d.DuanID}\n{d.Content}\n(jandan.net | 地球没有新鲜事)";
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.SetText(copied_content);
+            Clipboard.SetContent(dataPackage);
+        }
+
+        private void Page_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            //double delta = e.Cumulative.Translation.X;
+
+            //if (delta > 200)
+            //{
+            //    Frame.Navigate(typeof(FreshPage));
+            //}
+            //else if (delta < 200)
+            //{
+            //    Frame.Navigate(typeof(BoringPicsPage));
+            //}
         }
     }
 }

@@ -5,7 +5,7 @@
     xmlns:local="using:Jandan"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" NavigationCacheMode="Enabled" SizeChanged="Page_SizeChanged">
+    mc:Ignorable="d" NavigationCacheMode="Enabled" SizeChanged="Page_SizeChanged" ManipulationCompleted="Page_ManipulationCompleted" ManipulationMode="TranslateX">
 
     <!--<Page.Resources>
         <ResourceDictionary>
@@ -92,7 +92,7 @@
                       IsEnabled="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Name="gridListItems" BorderBrush="Black">
+                            <Grid Name="gridListItems" BorderBrush="Black" ManipulationMode="System, TranslateX">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="65*"></ColumnDefinition>
                                     <ColumnDefinition Width="45*"></ColumnDefinition>
@@ -172,7 +172,7 @@
                     <!--ItemContainerStyle="{StaticResource GridViewItemStyle}">-->
                     <GridView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Name="gridListItems" BorderBrush="Black">
+                            <Grid Name="gridListItems" BorderBrush="Black" ManipulationMode="System, TranslateX">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>

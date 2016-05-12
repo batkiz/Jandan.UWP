@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 
 namespace Jandan.UWP.ViewModels
@@ -49,6 +50,9 @@ namespace Jandan.UWP.ViewModels
         private bool _isDarkMode;
         public bool IsDarkMode { get { return _isDarkMode; } }
 
+        private bool _isMobile;
+        public bool IsMobile { get { return _isMobile; } }
+
         private static DataShareManager _current;
         public static DataShareManager Current
         {
@@ -72,7 +76,20 @@ namespace Jandan.UWP.ViewModels
             MeiziItemPage = 2;
 
             CurrentPageIndex = PageIndex.MainPage;
-            
+
+            var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            appView.SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
+
+            var platformFamily = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
+            if (string.Equals(platformFamily, "Windows.Mobile"))
+            {
+                _isMobile = true;
+            }
+            else
+            {
+                _isMobile = false;
+            }
+
             LoadData();
         }
 

@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Navigation;
 using Jandan.UWP.ViewModels;
 using Jandan.UWP.Models;
 using Windows.UI.Xaml.Documents;
+using Windows.UI.Core;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -28,12 +29,12 @@ namespace Jandan
     public sealed partial class FreshDetailPage : Page
     {
         private FreshDetailViewModel _viewModel;
-        FreshCommentViewModel _dViewModel;        
+        FreshCommentViewModel _dViewModel;
 
         public FreshDetailPage()
         {
             this.InitializeComponent();
-        }        
+        }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -77,6 +78,16 @@ namespace Jandan
         private void DuanSplitView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             DuanSplitView.IsPaneOpen = false;
+        }
+
+        private void Page_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            double delta = e.Cumulative.Translation.X;
+
+            if (delta > 10 && Frame.CanGoBack)
+            {
+                Frame.GoBack();
+            }
         }
     }
 

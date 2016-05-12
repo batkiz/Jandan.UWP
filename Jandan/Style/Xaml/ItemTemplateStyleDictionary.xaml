@@ -4,7 +4,7 @@
     xmlns:local="using:Jandan">
 
     <DataTemplate x:Key="CommentListDateTemplateStyle">
-        <Grid BorderThickness="0" BorderBrush="{x:Null}">
+        <Grid BorderThickness="0" BorderBrush="{x:Null}" ManipulationMode="TranslateX">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*"></ColumnDefinition>
                 <ColumnDefinition Width="80*"></ColumnDefinition>
