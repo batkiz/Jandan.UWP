@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,8 +13,17 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace Jandan.UWP.HTTP
 {
+    /// <summary>
+    /// api服务基类
+    /// </summary>
     public class APIBaseService
     {
+        private void Printlog(string info)
+        {
+#if DEBUG
+            Debug.WriteLine(DateTime.Now.ToString() + " " + info);
+#endif
+        }
         protected async Task<JsonObject> GetJson(string url)
         {
             try
@@ -21,15 +31,18 @@ namespace Jandan.UWP.HTTP
                 string json = await BaseService.SendGetRequest(url);
                 if (json != null)
                 {
+                    Printlog("请求Json数据成功 URL：" + url);
                     return JsonObject.Parse(json);
                 }
                 else
                 {
+                    Printlog("请求Json数据失败 URL：" + url);
                     return null;
                 }
             }
             catch
             {
+                Printlog("请求Json数据失败 URL：" + url);
                 return null;
             }
         }
@@ -40,10 +53,12 @@ namespace Jandan.UWP.HTTP
                 string html = await BaseService.SendGetRequest(url);
                 //byte[] bytes = Encoding.UTF8.GetBytes(html);
                 //html = Encoding.GetEncoding("GBK").GetString(bytes);
+                Printlog("请求Html数据成功 URL：" + url);
                 return html;
             }
             catch
             {
+                Printlog("请求Html数据失败 URL：" + url);
                 return null;
             }
         }
@@ -96,7 +111,7 @@ namespace Jandan.UWP.HTTP
         {
             try
             {
-                var folder = await Windows.Storage.ApplicationData.Current.LocalFolder.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
+                var folder = await ApplicationData.Current.LocalCacheFolder.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
 
                 var file = await StorageFile.CreateStreamedFileFromUriAsync(name, new Uri(url), RandomAccessStreamReference.CreateFromUri(new Uri(url)));
                 file = await file.CopyAsync(folder);
