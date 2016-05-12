@@ -102,7 +102,9 @@
 							HorizontalAlignment="Left">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Controls:ImageView x:Name="ImageDetail" UriSource="{Binding URL}" Stretch="Uniform"/>
+                                    <StackPanel ManipulationMode="System, TranslateX">
+                                        <Controls:ImageView x:Name="ImageDetail" UriSource="{Binding URL}" Stretch="Uniform"/>
+                                    </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                             <ListView.ItemContainerStyle>
