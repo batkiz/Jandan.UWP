@@ -132,24 +132,51 @@ namespace Jandan
 
         private void buttonPrevious_Click(object sender, RoutedEventArgs e)
         {
+            PreviousPic();
+        }
+
+        private void PreviousPic()
+        {
             var list = ItemList as ObservableCollection<BoringPic>;
             var idx = list.IndexOf(CurrentItem);
             if (idx != 0)
             {
                 this.Frame.Navigate(typeof(PicDetailPage), new object[] { list.ElementAt(idx - 1), DetailType, ItemList });
 
-            }            
+            }
         }
 
         private void buttonNext_Click(object sender, RoutedEventArgs e)
         {
+            NextPic();
+        }
+
+        private void NextPic()
+        {
             var list = ItemList as ObservableCollection<BoringPic>;
             var idx = list.IndexOf(CurrentItem);
-            if (idx != list.Count-1)
+            if (idx != list.Count - 1)
             {
                 this.Frame.Navigate(typeof(PicDetailPage), new object[] { list.ElementAt(idx + 1), DetailType, ItemList });
 
             }
+        }
+
+        private void Page_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            double delta = e.Cumulative.Translation.X;
+
+            if (delta > 0)
+            {
+                PreviousPic();
+                return;
+            }
+            else if (delta < 0)
+            {
+                NextPic();
+                return;
+            }
+
         }
     }
 }
