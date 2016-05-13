@@ -44,43 +44,28 @@
             <!--顶部-->
             <Button Name="PageBackButton"
                        Content="&#xE72B;"
-                       FontFamily="Segoe MDL2 Assets"
                        RelativePanel.AlignLeftWithPanel="True"
                        RelativePanel.AlignVerticalCenterWithPanel="True"
-                       FontSize="24"
-                       Margin="0,0,5,0" Click="PageBackButton_Click">
+                       Click="PageBackButton_Click"
+                       Style="{StaticResource TitleBarButtonStyle}">
             </Button>
             <TextBlock Name="PageTitle"
                        Text="新鲜事"
                        RelativePanel.RightOf="PageBackButton"
                        RelativePanel.AlignVerticalCenterWithPanel="True"
-                       FontSize="24"
-                       Padding="20,0,0,0"/>
-            <TextBlock Name="ListCount"
-                       FontSize="14"
-                       RelativePanel.RightOf="PageTitle"
-                       RelativePanel.AlignTopWith="PageTitle"
-                       Margin="10,0,0,0"
-                       Text="">
-            </TextBlock>
+                       Style="{StaticResource TitleBarTextBlockStyle}"/>
             <Button Name="FreshShareButton"
                     Content="&#xE72D;"
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="24"
                     RelativePanel.LeftOf="FreshCommentButton"
-                    Margin="0,0,5,0"
-                    Background="Transparent"
-                    Click="RefreshButton_Click" IsEnabled="False">
+                    Click="RefreshButton_Click" IsEnabled="False"
+                    Style="{StaticResource TitleBarButtonStyle}">
             </Button>
             <Button Name="FreshCommentButton"
                     Content="&#xE90A;"
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.AlignVerticalCenterWithPanel="True"
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="24"
-                    Margin="0,0,5,0"
-                    Background="Transparent"
-                    Click="FreshCommentButton_Click">
+                    Click="FreshCommentButton_Click"
+                    Style="{StaticResource TitleBarButtonStyle}">
             </Button>
         </RelativePanel>
         <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped">

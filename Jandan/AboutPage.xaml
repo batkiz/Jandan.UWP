@@ -20,18 +20,16 @@
             <!--顶部-->
             <Button Name="PageBackButton"
                        Content="&#xE72B;"
-                       FontFamily="Segoe MDL2 Assets"
                        RelativePanel.AlignLeftWithPanel="True"
                        RelativePanel.AlignVerticalCenterWithPanel="True"
-                       FontSize="24"
-                       Margin="0,0,5,0" Click="PageBackButton_Click">
+                       Click="PageBackButton_Click"
+                       Style="{StaticResource TitleBarButtonStyle}">
             </Button>
             <TextBlock Name="PageTitle"
                        Text="关于"
                        RelativePanel.RightOf="PageBackButton"
                        RelativePanel.AlignVerticalCenterWithPanel="True"
-                       FontSize="24"
-                       Padding="20,0,0,0">                
+                       Style="{StaticResource TitleBarTextBlockStyle}">                
             </TextBlock>            
         </RelativePanel>
         <ScrollViewer Grid.Row="1">

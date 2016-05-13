@@ -115,7 +115,7 @@
     <Content Include="Assets\StoreLogo.scale-400.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="Documents\version-0.1.5.txt" />
+    <Content Include="Documents\version-0.2.0.txt" />
     <None Include="Jandan_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Icons\jandan-400.png" />
@@ -166,6 +166,7 @@
       <DependentUpon>MeiziPicsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\About.cs" />
+    <Compile Include="Models\BestFreshComment.cs" />
     <Compile Include="Models\DuanCommentInGroup.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="Models\Author.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="ViewModels\FreshCommentViewModel.cs" />
     <Compile Include="ViewModels\FreshDetailViewModel.cs" />
     <Compile Include="ViewModels\FreshViewModel.cs" />
+    <Compile Include="ViewModels\HotViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MeiziViewModel.cs" />
     <Compile Include="ViewModels\PicDetailViewModel.cs" />

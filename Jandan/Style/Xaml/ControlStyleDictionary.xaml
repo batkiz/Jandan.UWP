@@ -5,7 +5,19 @@
 
     <!--页面顶端标题栏相关资源-->
     <Style x:Key="TitleBarTextBlockStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Padding" Value="20,0,0,0"/>
+    </Style>
+    <Style x:Key="TitleBarButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+        <Setter Property="Margin" Value="0,0,5,0"/>
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
+    <Style x:Key="TitlePivotHeaderStyle" TargetType="PivotHeaderItem">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Bold"/>
     </Style>
     
     <!--页面中部内容呈现相关资源-->

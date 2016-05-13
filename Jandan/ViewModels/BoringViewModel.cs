@@ -37,18 +37,10 @@ namespace Jandan.UWP.ViewModels
             set { _boring = value; OnPropertyChanged(); }
         }
 
-        private ObservableCollection<BoringPic> _hot;
-        public ObservableCollection<BoringPic> Hot
-        {
-            get { return _hot; }
-            set { _hot = value; OnPropertyChanged(); }
-        }
-
         public BoringViewModel()
         {
             LoadCache();
             UpdateBoringPics();
-            UpdateHotPics();
 
             //DataShareManager.Current.ShareDataChanged += Current_ShareDataChanged;
         }
@@ -69,14 +61,6 @@ namespace Jandan.UWP.ViewModels
                 c.Add(t);
             });
             Boring = c;
-
-            var hot = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("hot_list.json");
-            ObservableCollection<BoringPic> d = new ObservableCollection<BoringPic>();
-            hot?.ForEach((t) =>
-            {
-                d.Add(t);
-            });
-            Hot = d;
 
             IsLoading = false;
         }
@@ -105,24 +89,6 @@ namespace Jandan.UWP.ViewModels
             IsLoading = false;
         }
 
-        public async void UpdateHotPics()
-        {
-            IsLoading = true;
-            var list = await _api.GetHotPics();
-
-            ObservableCollection<BoringPic> c = new ObservableCollection<BoringPic>();
-            list?.ForEach((t) =>
-            {
-                var comment = t.Content.Replace("\n", "").Replace("\r", "").Replace("[查看原图]", "");
-                comment = Regex.Replace(comment, "OO.+?XX.+?]", "");
-                t.Content = comment;
-                c.Add(t);
-            });
-
-            Hot = c;
-
-            IsLoading = false;
-        }
         /// <summary>
         /// 
         /// </summary>

@@ -85,7 +85,7 @@ namespace Jandan.UWP.HTTP
             {
                 if (NetworkManager.Current.Network == 4)  //无网络连接
                 {
-                    FreshDetail list = await FileHelper.Current.ReadObjectAsync<FreshDetail>(string.Format("freshDetail-{0}.json", fresh.ID));
+                    FreshDetail list = await FileHelper.Current.ReadObjectAsync<FreshDetail>($"freshDetail-{fresh.ID}.json");
                     return list;
                 }
                 else
@@ -98,8 +98,14 @@ namespace Jandan.UWP.HTTP
                         var post = json["post"];
                         string htmlContent = (post.GetObject())["content"].GetString();
 
+                        if (fresh.Tag == null)
+                        {
+                            var tag = Tags.parse((post.GetObject())["tags"].ToString());
+                            fresh.Tag = tag;
+                        }                        
+
                         FreshDetail list = new FreshDetail() { FreshInfo = fresh, FreshContentSlim = htmlContent, FreshContentEx = htmlContent };
-                        await FileHelper.Current.WriteObjectAsync<FreshDetail>(list, string.Format("freshDetail-{0}.json", fresh.ID));
+                        await FileHelper.Current.WriteObjectAsync<FreshDetail>(list, $"freshDetail-{fresh.ID}.json");
                         return list;
                     }
                     else
@@ -317,7 +323,7 @@ namespace Jandan.UWP.HTTP
             {
                 if (NetworkManager.Current.Network == 4)  //无网络连接
                 {
-                    List<BoringPic> list = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("hot_list.json");
+                    List<BoringPic> list = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("hot_pics_list.json");
                     return list;
                 }
                 else
@@ -357,7 +363,139 @@ namespace Jandan.UWP.HTTP
                                 });
                             }
                         }
-                        await FileHelper.Current.WriteObjectAsync<List<BoringPic>>(list, "hot_list.json");
+                        await FileHelper.Current.WriteObjectAsync<List<BoringPic>>(list, "hot_pics_list.json");
+                        return list;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 热门无聊图列表
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Duan>> GetHotDuan()
+        {
+            try
+            {
+                if (NetworkManager.Current.Network == 4)  //无网络连接
+                {
+                    List<Duan> list = await FileHelper.Current.ReadObjectAsync<List<Duan>>("hot_duan_list.json");
+                    return list;
+                }
+                else
+                {
+                    JsonObject json = await GetJson(ServiceURL.URL_HOTDUAN);
+
+                    if (json != null)
+                    {
+                        List<Duan> list = new List<Duan>();
+                        var posts = json["comments"];
+                        if (posts != null)
+                        {
+                            JsonArray ja = posts.GetArray();
+
+                            string CommentIDList = "";
+                            foreach (var j in ja)
+                            {
+                                string CommentID = "comment-" + (j.GetObject())["comment_ID"].GetString();
+                                CommentIDList = $"{CommentIDList},{CommentID}";
+                            }
+
+                            JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
+                            foreach (var j in ja)
+                            {
+                                string ID = (j.GetObject())["comment_ID"].GetString();
+                                list.Add(new Duan
+                                {
+                                    DuanID = ID,
+                                    Author = (j.GetObject())["comment_author"].GetString(),
+                                    Content = (j.GetObject())["text_content"].GetString(),
+                                    Date = (j.GetObject())["comment_date"].GetString(),
+                                    VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
+                                    VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
+                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
+                                });
+                            }
+                        }
+                        await FileHelper.Current.WriteObjectAsync(list, "hot_duan_list.json");
+                        return list;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 获取新鲜事评论
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<BestFreshComment>> GetHotComments()
+        {
+            try
+            {
+                if (NetworkManager.Current.Network == 4)  //无网络连接
+                {
+                    List<BestFreshComment> list = await FileHelper.Current.ReadObjectAsync<List<BestFreshComment>>("BestFreshComment.json");
+                    return list;
+                }
+                else
+                {
+                    JsonObject json = await GetJson(ServiceURL.URL_HOTCOMM); //"comment-" + 
+
+                    if (json != null)
+                    {
+                        List<BestFreshComment> list = new List<BestFreshComment>();
+                        
+                        var comments = json["comments"].GetArray();
+                        foreach (var c in comments)
+                        {
+                            var obj = c.GetObject();
+                            var post = obj.GetNamedObject("post");
+                            
+                            list.Add(new BestFreshComment
+                            {
+                                PostID = obj.GetNamedString("comment_post_ID"),
+                                CommentID = obj.GetNamedString("comment_ID"),
+                                Content = obj.GetNamedString("comment_content"),
+                                AuthorName = obj.GetNamedString("comment_author"),
+                                PostDate = obj.GetNamedString("comment_date"),
+                                Like = int.Parse(obj.GetNamedString("vote_positive")),
+                                Dislike = int.Parse(obj.GetNamedString("vote_negative")),
+                                Title = post.GetNamedString("post_title"),
+                                FreshNews = new FreshDetail
+                                {
+                                    FreshInfo = new Fresh
+                                    {
+                                        Author = new Authors { Name = post.GetNamedString("post_author") },
+                                        Date = post.GetNamedString("post_date"),
+                                        ID = post.GetNamedNumber("ID").ToString(),
+                                        Title = post.GetNamedString("post_title"),
+                                        Comment_count = post.GetNamedString("comment_count"),
+                                        Url = post.GetNamedString("guid")
+                                    },
+                                    FreshContentEx = post.GetNamedString("post_content"),
+                                    FreshContentSlim = post.GetNamedString("post_content")
+                                }
+                            });
+                        }
+
+                        await FileHelper.Current.WriteObjectAsync<List<BestFreshComment>>(list, "BestFreshComment.json");
                         return list;
                     }
                     else

@@ -44,35 +44,26 @@
             <!--顶部-->
             <Button x:Name="PageBackButton"
 				Content="&#xE72B;"
-				FontFamily="Segoe MDL2 Assets"
 				RelativePanel.AlignLeftWithPanel="True"
 				RelativePanel.AlignVerticalCenterWithPanel="True"
-				FontSize="24"
-				Margin="0,0,5,0" 
-				Click="PageBackButton_Click"/>
+				Click="PageBackButton_Click"
+                Style="{StaticResource TitleBarButtonStyle}"/>
             <TextBlock x:Name="PageTitle"
 				Text="图片详情"
 				RelativePanel.RightOf="PageBackButton"
 				RelativePanel.AlignVerticalCenterWithPanel="True"
-				FontSize="24"
-				Padding="20,0,0,0"/>
+                Style="{StaticResource TitleBarTextBlockStyle}"/>
             <Button x:Name="FreshShareButton"
 				Content="&#xE72D;"
-				FontFamily="Segoe MDL2 Assets"
-				FontSize="24"
 				RelativePanel.LeftOf="PicDownload"
-				Margin="0,0,5,0"
-				Background="Transparent"
-				Click="RefreshButton_Click" IsEnabled="False"/>
+				Click="RefreshButton_Click" IsEnabled="False"
+                Style="{StaticResource TitleBarButtonStyle}"/>
             <Button x:Name="PicDownload"
 				Content="&#xE896;"
 				RelativePanel.AlignRightWithPanel="True"
 				RelativePanel.AlignVerticalCenterWithPanel="True"
-				FontFamily="Segoe MDL2 Assets"
-				FontSize="24"
-				Margin="0,0,5,0"
-				Background="Transparent"
-				Click="PicDownload_Click"/>
+				Click="PicDownload_Click"
+                Style="{StaticResource TitleBarButtonStyle}"/>
         </RelativePanel>
         <RelativePanel Grid.Row="1" x:Name="PicDetailPanel">
             <Grid>

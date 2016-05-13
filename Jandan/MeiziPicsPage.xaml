@@ -131,32 +131,20 @@
                        Text="&#xEB9F;"
                        FontFamily="Segoe MDL2 Assets"
                        RelativePanel.AlignVerticalCenterWithPanel="True"
-                       FontSize="24"
-                       Padding="20,0,0,0">
+                       Style="{StaticResource TitleBarTextBlockStyle}">
             </TextBlock>
             <TextBlock Name="PageTitle"
                        Text="妹子图"
                        RelativePanel.RightOf="PageTitleIcon"
                        RelativePanel.AlignVerticalCenterWithPanel="True"
-                       FontSize="24"
-                       Padding="20,0,0,0">
-            </TextBlock>
-            <TextBlock Name="ListCount"
-                       FontSize="14"
-                       RelativePanel.RightOf="PageTitle"
-                       RelativePanel.AlignTopWith="PageTitle"
-                       Margin="10,0,0,0"
-                       Text="">
+                       Style="{StaticResource TitleBarTextBlockStyle}">
             </TextBlock>
             <Button Name="RefreshButton"
                     Content="&#xE117;"
                     RelativePanel.AlignRightWithPanel="True"
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="24"
                     RelativePanel.AlignVerticalCenterWithPanel="True"
-                    Margin="0,0,5,0"
-                    Background="Transparent"
-                    Click="RefreshButton_Click">
+                    Click="RefreshButton_Click"
+                    Style="{StaticResource TitleBarButtonStyle}">
             </Button>
         </RelativePanel>
 

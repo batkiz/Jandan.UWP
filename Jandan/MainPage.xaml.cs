@@ -127,7 +127,7 @@ namespace Jandan
             }
             else
             {
-                Hot.Visibility = Visibility.Collapsed;
+                //Hot.Visibility = Visibility.Collapsed;
             }
         }
 

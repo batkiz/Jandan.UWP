@@ -131,6 +131,11 @@ namespace Jandan
 
         private void Grid_Holding(object sender, HoldingRoutedEventArgs e)
         {
+            ShowFlyout(sender);
+        }
+
+        private static void ShowFlyout(object sender)
+        {
             FrameworkElement element = sender as FrameworkElement;
             if (element != null)
             {
@@ -140,11 +145,7 @@ namespace Jandan
 
         private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            FrameworkElement element = sender as FrameworkElement;
-            if (element != null)
-            {
-                FlyoutBase.ShowAttachedFlyout(element);
-            }
+            ShowFlyout(sender);
         }
 
         private void MenuFlyoutItem_Tapped(object sender, TappedRoutedEventArgs e)

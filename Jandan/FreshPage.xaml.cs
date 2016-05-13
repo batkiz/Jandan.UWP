@@ -62,7 +62,7 @@ namespace Jandan
 
         private void FreshListView_ItemClick(object sender, ItemClickEventArgs e)
         {            
-            this.Frame.Navigate(typeof(FreshDetailPage), new object[] { e.ClickedItem as Fresh });
+            this.Frame.Navigate(typeof(FreshDetailPage), new object[] { 0, e.ClickedItem as Fresh });
         }
 
         public void RefreshPage()

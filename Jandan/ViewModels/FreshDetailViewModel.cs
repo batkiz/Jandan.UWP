@@ -31,6 +31,13 @@ namespace Jandan.UWP.ViewModels
             Update(_freshDetails.FreshInfo);
         }
 
+        public FreshDetailViewModel(BestFreshComment best)
+        {
+            _freshDetails = new FreshDetail() { FreshInfo = best.FreshNews.FreshInfo, FreshContentSlim = "", FreshContentEx = "" };
+
+            Update(_freshDetails.FreshInfo);
+        }
+
         /// <summary>
         /// 刷新数据
         /// </summary>
@@ -65,7 +72,7 @@ namespace Jandan.UWP.ViewModels
 
         private static string SetTitle(Fresh fresh)
         {
-            return @"<em>" + fresh.Author.Name + " @ " + fresh.Tag[0].Title + @"</em>"
+            return @"<em>" + fresh.Author.Name + " @ " + fresh.Tag?[0].Title + @"</em>"
                          + @"<h2 class=""FreshTitle"">" + fresh.Title + "</h2>"
                          + "<em>" + fresh.Date + @"</em>";
         }

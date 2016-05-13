@@ -44,7 +44,17 @@ namespace Jandan
             object[] parameters = e.Parameter as object[];
             if (parameters != null)
             {
-                this.DataContext = _viewModel = new FreshDetailViewModel(parameters[0] as Fresh);
+                switch ((int)parameters[0])
+                {
+                    case 0:
+                        this.DataContext = _viewModel = new FreshDetailViewModel(parameters[1] as Fresh);
+                        break;
+                    case 1:
+                        this.DataContext = _viewModel = new FreshDetailViewModel(parameters[1] as BestFreshComment);
+                        break;
+                    default:
+                        break;
+                }                
                 DuanCommentListView.DataContext = _dViewModel = new FreshCommentViewModel();
             }
         }
