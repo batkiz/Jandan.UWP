@@ -169,8 +169,7 @@ namespace Jandan
 
             if (DataShareManager.Current.CurrentPageIndex == PageIndex.FreshDetailPage)
             {
-                var mf = this.mainFrame.Content as FreshDetailPage;
-                
+                var mf = this.mainFrame.Content as FreshDetailPage;                
             }
         }
 

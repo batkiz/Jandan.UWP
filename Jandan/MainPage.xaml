@@ -13,9 +13,7 @@
         <CommandBar Name="MainCommandBar" 
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch" 
-                    Margin="0" 
-                    Padding="0,0,0,-1" 
-                    ClosedDisplayMode="Minimal" Opening="MainCommandBar_Opening">
+                    Opening="MainCommandBar_Opening" ClosedDisplayMode="Minimal">
             <CommandBar.SecondaryCommands>
                 <AppBarButton Name="SecBtnDarkMode" Label="夜间模式" Click="SecBtnDarkMode_Click" />
                 <AppBarButton Name="SecBtnSetting" Label="清理缓存" Click="SecBtnSetting_Click"/>

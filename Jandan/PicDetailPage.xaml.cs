@@ -20,6 +20,7 @@ using Windows.ApplicationModel;
 using System.Text.RegularExpressions;
 using Jandan.UWP.Data;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -139,14 +140,19 @@ namespace Jandan
             PreviousPic();
         }
 
-        private void PreviousPic()
+        private async void PreviousPic()
         {
             var list = ItemList as ObservableCollection<BoringPic>;
             var idx = list.IndexOf(CurrentItem);
             if (idx != 0)
             {
                 this.Frame.Navigate(typeof(PicDetailPage), new object[] { list.ElementAt(idx - 1), DetailType, ItemList });
-
+            }
+            else
+            {
+                popTips.IsOpen = true;   // 提示再按一次
+                await Task.Delay(1000);  // 1000ms后关闭提示
+                popTips.IsOpen = false;
             }
         }
 

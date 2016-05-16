@@ -183,5 +183,17 @@
                 <SolidColorBrush Color="#33000000" Opacity="0.35"/>
             </Button.Background>
         </Button>
+        <!--弹出消息,确认是否退出程序-->
+        <Popup Grid.Row="1"
+               Name="popTips"
+               IsOpen="False" 
+               Margin="0,0,0,100" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
+            <Grid BorderThickness="5" Margin="-49,0,0,0" HorizontalAlignment="Center">
+                <Grid.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.8"/>
+                </Grid.Background>
+                <TextBlock Foreground="White" Text="已经是第一张了哦" HorizontalAlignment="Center"/>
+            </Grid>
+        </Popup>
     </Grid>
 </Page>
