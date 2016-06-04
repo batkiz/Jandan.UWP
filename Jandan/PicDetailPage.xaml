@@ -98,7 +98,7 @@
 							HorizontalAlignment="Left">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel ManipulationMode="System, TranslateX">
+                                    <StackPanel>
                                         <Controls:ImageView x:Name="ImageDetail" UriSource="{Binding URL}" Stretch="Uniform"/>
                                     </StackPanel>
                                 </DataTemplate>

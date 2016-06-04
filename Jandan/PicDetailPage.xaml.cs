@@ -187,12 +187,12 @@ namespace Jandan
         {
             double delta = e.Cumulative.Translation.X;
 
-            if (delta > 20)
+            if (delta > 50)
             {
                 PreviousPic();
                 return;
             }
-            else if (delta < 20)
+            else if (delta < -50)
             {
                 NextPic();
                 return;
