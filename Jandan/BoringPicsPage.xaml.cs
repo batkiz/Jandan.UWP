@@ -130,5 +130,6 @@ namespace Jandan
         {
             this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, _viewModel.Boring });
         }
+
     }
 }

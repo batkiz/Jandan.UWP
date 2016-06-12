@@ -1,1 +1,1 @@
-D:\Projects\Visual Studio\Jandan.UWP\Jandan\AppPackages\Jandan_1.2.21.0\Jandan_1.2.21.0_x86_x64_arm.appxbundle
+C:\Users\raysw\Source\Repos\Jandan.UWP\Jandan\AppPackages\Jandan_1.2.25.0\Jandan_1.2.25.0_x86_x64_arm.appxbundle

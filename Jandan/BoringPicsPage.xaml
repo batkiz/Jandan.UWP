@@ -140,6 +140,19 @@
                        Style="{StaticResource TitleBarTextBlockStyle}"
                        Tapped="PageTitle_Tapped">
             </TextBlock>
+            <Button Name="FilterButton"
+                    Content="&#xE71C;"
+                    RelativePanel.LeftOf="RefreshButton"
+                    Style="{StaticResource TitleBarButtonStyle}">
+                <Button.Flyout>
+                    <Flyout>
+                        <StackPanel>
+                            <ToggleSwitch Name="showNSFW" IsOn="{Binding Path=IsShowNSFW, Mode=TwoWay}">显示/隐藏NSFW图片</ToggleSwitch>
+                            <ToggleSwitch Name="showUnwelcome" IsOn="{Binding Path=IsShowUnwelcome, Mode=TwoWay}">显示/隐藏不受欢迎的图片</ToggleSwitch>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
             <Button Name="RefreshButton"
                     Content="&#xE117;"
                     RelativePanel.AlignRightWithPanel="True"

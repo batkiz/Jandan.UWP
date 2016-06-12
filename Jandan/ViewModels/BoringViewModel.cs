@@ -30,6 +30,36 @@ namespace Jandan.UWP.ViewModels
             }
         }
 
+        private bool _is_show_nsfw;
+        public bool IsShowNSFW
+        {
+            get
+            {
+                return _is_show_nsfw;
+            }
+            set
+            {
+                _is_show_nsfw = value;
+                OnPropertyChanged();
+                UpdateBoringPics();
+            }
+        }
+
+        private bool _is_show_unwelcome;
+        public bool IsShowUnwelcome
+        {
+            get
+            {
+                return _is_show_unwelcome;
+            }
+            set
+            {
+                _is_show_unwelcome = value;
+                OnPropertyChanged();
+                UpdateBoringPics();
+            }
+        }
+
         private BoringIncrementalLoadingCollection _boring;
         public BoringIncrementalLoadingCollection Boring
         {
@@ -58,7 +88,24 @@ namespace Jandan.UWP.ViewModels
             BoringIncrementalLoadingCollection c = new BoringIncrementalLoadingCollection();
             boring?.ForEach((t) =>
             {
-                c.Add(t);
+                bool isPassedNSFW = true, isPassedUnWel = true;
+                if (IsShowNSFW && t.Content.Contains("NSFW"))
+                {
+                    isPassedNSFW = false;
+                }
+                if (IsShowUnwelcome)
+                {
+                    int oo = t.VotePositive;
+                    int xx = t.VoteNegative;
+                    if ((oo + xx) >= 50 && ((double)oo / (double)xx) < 0.618)
+                    {
+                        isPassedUnWel = false;
+                    }
+                }
+                if (isPassedNSFW && isPassedUnWel)
+                {
+                    c.Add(t);
+                }                
             });
             Boring = c;
 
@@ -78,7 +125,25 @@ namespace Jandan.UWP.ViewModels
             {
                 var comment = t.Content.Replace("\n", "").Replace("\r", "");
                 t.Content = comment;
-                c.Add(t);
+
+                bool isPassedNSFW = true, isPassedUnWel = true;
+                if (IsShowNSFW && t.Content.Contains("NSFW"))
+                {
+                    isPassedNSFW = false;
+                }
+                if (IsShowUnwelcome)
+                {
+                    int oo = t.VotePositive;
+                    int xx = t.VoteNegative;
+                    if ((oo + xx) >= 50 && ((double)oo / (double)xx) < 0.618)
+                    {
+                        isPassedUnWel = false;
+                    }
+                }
+                if (isPassedNSFW && isPassedUnWel)
+                {
+                    c.Add(t);
+                }
             });
 
             Boring = c;

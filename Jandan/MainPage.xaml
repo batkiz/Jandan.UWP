@@ -72,7 +72,7 @@
                 <Grid.Background>
                     <SolidColorBrush Color="Black" Opacity="0.8"/>
                 </Grid.Background>
-                <TextBlock Foreground="White" Text="  再按一次退出  " HorizontalAlignment="Center"/>
+                <TextBlock Foreground="White" Text="再按一次退出" HorizontalAlignment="Center"/>
             </Grid>
         </Popup>
     </Grid>

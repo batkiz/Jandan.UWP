@@ -133,6 +133,11 @@ namespace Jandan
 
                 await FileIO.WriteBytesAsync(saveFile, allBytes.ToArray());
             }
+
+            popupMsg.Text = "已经保存到图片文件夹";
+            popTips.IsOpen = true;   // 提示再按一次
+            await Task.Delay(1000);  // 1000ms后关闭提示
+            popTips.IsOpen = false;
         }
 
         private void buttonPrevious_Click(object sender, RoutedEventArgs e)
@@ -150,6 +155,7 @@ namespace Jandan
             }
             else
             {
+                popupMsg.Text = "已经是第一张了哦";
                 popTips.IsOpen = true;   // 提示再按一次
                 await Task.Delay(1000);  // 1000ms后关闭提示
                 popTips.IsOpen = false;
