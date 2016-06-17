@@ -13,42 +13,36 @@
         <CommandBar Name="MainCommandBar" 
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch" 
-                    Opening="MainCommandBar_Opening" ClosedDisplayMode="Minimal">
-            <CommandBar.SecondaryCommands>
-                <AppBarButton Name="SecBtnDarkMode" Label="夜间模式" Click="SecBtnDarkMode_Click" />
-                <AppBarButton Name="SecBtnSetting" Label="清理缓存" Click="SecBtnSetting_Click"/>
-                <AppBarButton Name="SecBtnAbout" Label="关于" Click="SecBtnAbout_Click"/>
-            </CommandBar.SecondaryCommands>
-            <CommandBar.Content>
-                <Grid HorizontalAlignment="Center">
-                    <RelativePanel HorizontalAlignment="Center">
-                        <AppBarButton Name="FreshNews" 
+                    Opening="MainCommandBar_Opening">
+            <AppBarButton Name="FreshNews" 
                                       Icon="Home" 
                                       Label="新鲜事"
                                       Tag="1"                                      
                                       RelativePanel.AlignLeftWithPanel="True" 
                                       Click="AppBarButton_clicked" />
-                        <AppBarButton Name="Duanzi"
+            <AppBarButton Name="Duanzi"
                                       Icon="Comment" 
                                       Label="段子"
                                       Tag="2"                                      
                                       RelativePanel.RightOf="FreshNews" 
                                       Click="AppBarButton_clicked" />
-                        <AppBarButton Name="BoringPics" 
+            <AppBarButton Name="BoringPics" 
                                       Icon="Pictures" 
                                       Label="无聊图"
                                       Tag="3"                                      
                                       RelativePanel.RightOf="Duanzi" 
                                       Click="AppBarButton_clicked" />
-                        <AppBarButton Name="Hot"
+            <AppBarButton Name="Hot"
                                       Icon="AllApps"
                                       Label="热榜"
                                       Tag="4"                                      
                                       RelativePanel.RightOf="BoringPics" 
                                       Click="AppBarButton_clicked" />
-                    </RelativePanel>
-                </Grid>
-            </CommandBar.Content>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Name="SecBtnDarkMode" Label="夜间模式" Click="SecBtnDarkMode_Click" />
+                <AppBarButton Name="SecBtnSetting" Label="清理缓存" Click="SecBtnSetting_Click"/>
+                <AppBarButton Name="SecBtnAbout" Label="关于" Click="SecBtnAbout_Click"/>
+            </CommandBar.SecondaryCommands>            
         </CommandBar>
     </Page.BottomAppBar>
 
