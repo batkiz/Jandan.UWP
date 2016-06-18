@@ -59,7 +59,7 @@ namespace Jandan
 
             base.OnNavigatedTo(e);
             object[] parameters = e.Parameter as object[];
-            if (parameters != null)
+            if (parameters[0] != null)
             {
                 var p = parameters[0] as BoringPic;
                 DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
@@ -75,24 +75,24 @@ namespace Jandan
 
         private void PageBackButton_Click(object sender, RoutedEventArgs e)
         {
-            //switch (DetailType)
-            //{
-            //    case PicDetailType.Boring:
-            //        this.Frame.Navigate(typeof(BoringPicsPage), new object[] { 0 });
-            //        break;
-            //    case PicDetailType.Hot:
-            //        this.Frame.Navigate(typeof(BoringPicsPage), new object[] { 1 });
-            //        break;
-            //    case PicDetailType.Meizi:
-            //        this.Frame.Navigate(typeof(MeiziPicsPage));
-            //        break;
-            //    default:
-            //        break;
-            //}
-            if (this.Frame.CanGoBack)
+            switch (DetailType)
             {
-                Frame.GoBack();                
+                case PicDetailType.Boring:
+                    this.Frame.Navigate(typeof(BoringPicsPage), new object[] { 0 });
+                    break;
+                case PicDetailType.Hot:
+                    this.Frame.Navigate(typeof(HotPage), new object[] { 1 });
+                    break;
+                case PicDetailType.Meizi:
+                    this.Frame.Navigate(typeof(MeiziPicsPage));
+                    break;
+                default:
+                    break;
             }
+            //if (this.Frame.CanGoBack)
+            //{
+            //    Frame.GoBack();                
+            //}
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
@@ -193,12 +193,12 @@ namespace Jandan
         {
             double delta = e.Cumulative.Translation.X;
 
-            if (delta > 50)
+            if (delta > 100)
             {
                 PreviousPic();
                 return;
             }
-            else if (delta < -50)
+            else if (delta < -100)
             {
                 NextPic();
                 return;

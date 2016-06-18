@@ -72,7 +72,7 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
+                <Grid Grid.Column="0" ManipulationMode="TranslateX">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
@@ -88,17 +88,21 @@
 						Style="{StaticResource ItemContentTextStyle}"
 						Padding="8" VerticalAlignment="Center"/>
                     <ScrollViewer Grid.Row="2" 
-						ZoomMode="Enabled" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                                  ZoomMode="Enabled" 
+                                  VerticalContentAlignment="Stretch" 
+                                  HorizontalContentAlignment="Stretch" 
+                                  HorizontalSnapPointsType="None"
+                                  VerticalSnapPointsType="None" ZoomSnapPointsType="None">
                         <ListView
 							x:Name="PicListView"
 							ItemsSource="{Binding BoringPicture.Urls}"
 							SelectionMode="None"
-							IsSwipeEnabled="False"
 							IsMultiSelectCheckBoxEnabled="False"
-							HorizontalAlignment="Left">
+							HorizontalAlignment="Left"
+                            IsHitTestVisible="False">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel ManipulationMode="TranslateX" >
+                                    <StackPanel>
                                         <Controls:ImageView x:Name="ImageDetail" UriSource="{Binding URL}" Stretch="Uniform"/>
                                     </StackPanel>
                                 </DataTemplate>
@@ -114,6 +118,11 @@
                         </ListView>
                     </ScrollViewer>
                 </Grid>
+                <!--<Rectangle Grid.Column="0" IsHitTestVisible="False">
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="Black" Opacity="0"/>
+                    </Rectangle.Fill>
+                </Rectangle>-->
 
                 <Grid Grid.Column="1" 
 					x:Name="CommentGrid"
@@ -163,7 +172,9 @@
 			FontSize="24"
             Content="&#xE00E;" 
             HorizontalAlignment="Left" 
-            VerticalAlignment="Center" Click="buttonPrevious_Click" >
+            VerticalAlignment="Center" 
+            Click="buttonPrevious_Click" >
+            
             <Button.BorderBrush>
                 <SolidColorBrush Color="White" Opacity="0.6"/>
             </Button.BorderBrush>

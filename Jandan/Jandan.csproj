@@ -116,7 +116,7 @@
     <Content Include="Assets\StoreLogo.scale-400.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="Documents\version-0.2.1.txt" />
+    <Content Include="Documents\version-0.2.2.txt" />
     <None Include="Jandan_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Icons\jandan-400.png" />

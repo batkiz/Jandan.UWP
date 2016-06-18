@@ -188,6 +188,9 @@ namespace Jandan
             // 检查当前缓存使用
             var size = await FileHelper.Current.GetCacheSize();
             SecBtnSetting.Label = $"清理缓存（{FileHelper.Current.GetFormatSize(size)}）";
+
+            // 显示当前网络状态
+            NetStatus.Label = $"网络状态({NetworkManager.Current.NetworkTitle})";
         }
     }
 }

@@ -39,6 +39,12 @@
                                       RelativePanel.RightOf="BoringPics" 
                                       Click="AppBarButton_clicked" />
             <CommandBar.SecondaryCommands>
+                <AppBarButton Name="NetStatus" Label="无网络连接" IsEnabled="False" IsHitTestVisible="False">
+                    <AppBarButton.Foreground>
+                        <SolidColorBrush Color="{ThemeResource SystemBaseMediumLowColor}"/>
+                    </AppBarButton.Foreground>
+                </AppBarButton>
+                <AppBarSeparator></AppBarSeparator>
                 <AppBarButton Name="SecBtnDarkMode" Label="夜间模式" Click="SecBtnDarkMode_Click" />
                 <AppBarButton Name="SecBtnSetting" Label="清理缓存" Click="SecBtnSetting_Click"/>
                 <AppBarButton Name="SecBtnAbout" Label="关于" Click="SecBtnAbout_Click"/>
@@ -49,7 +55,7 @@
     <!--页面主要呈现内容-->
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <!--主页面,显示各个板块-->
-        <Frame Name="mainFrame" Margin="0,0,0,25"/>
+        <Frame Name="mainFrame" Margin="0,0,0,48"/>
 
         <!--加载进度条-->
         <ProgressRing Grid.Row="1"
