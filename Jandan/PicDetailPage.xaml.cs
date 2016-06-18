@@ -21,6 +21,8 @@ using System.Text.RegularExpressions;
 using Jandan.UWP.Data;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage.Streams;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -38,10 +40,16 @@ namespace Jandan
         BoringPic CurrentItem;
         PicDetailType DetailType;
 
+        DataTransferManager dataTransferManager;
+
         public PicDetailPage()
         {
             this.InitializeComponent();
-            
+
+            // 分享
+            dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += DataTransferManager_DataRequested;
+
             var platformFamily = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
             if (string.Equals(platformFamily, "Windows.Mobile"))
             {
@@ -51,6 +59,28 @@ namespace Jandan
             {
                 PicListView.MinWidth = 500;
             }
+        }
+
+        private async void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs e)
+        {
+            DataRequest request = e.Request;
+            request.Data.Properties.Title = "煎蛋网 - 无聊图";
+            request.Data.Properties.Description = $"来自煎蛋网分享的无聊图，ID{CurrentItem.PicID}";
+            request.Data.SetText($"来自煎蛋网的分享：{CurrentItem.Content}");
+
+            var pics = _viewModel.BoringPicture;
+            var url = pics.Urls[0];
+            var fileName = Regex.Replace(url.URL, @".+?/", "");
+            var path = Windows.Storage.ApplicationData.Current.LocalCacheFolder;
+            var folder = await path.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
+            var fileStream = await folder.OpenStreamForReadAsync(fileName);
+
+            request.Data.SetBitmap(RandomAccessStreamReference.CreateFromStream(fileStream.AsRandomAccessStream())); 
+        }
+
+        private void ShareButton_Click(object sender, RoutedEventArgs e)
+        {
+            Windows.ApplicationModel.DataTransfer.DataTransferManager.ShowShareUI();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -78,10 +108,10 @@ namespace Jandan
             switch (DetailType)
             {
                 case PicDetailType.Boring:
-                    this.Frame.Navigate(typeof(BoringPicsPage), new object[] { 0 });
+                    this.Frame.Navigate(typeof(BoringPicsPage));
                     break;
                 case PicDetailType.Hot:
-                    this.Frame.Navigate(typeof(HotPage), new object[] { 1 });
+                    this.Frame.Navigate(typeof(HotPage));
                     break;
                 case PicDetailType.Meizi:
                     this.Frame.Navigate(typeof(MeiziPicsPage));
@@ -93,11 +123,6 @@ namespace Jandan
             //{
             //    Frame.GoBack();                
             //}
-        }
-
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private async void PicDownload_Click(object sender, RoutedEventArgs e)

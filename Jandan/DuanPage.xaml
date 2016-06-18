@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:Jandan.UWP.Models"
+    xmlns:p="using:PullToRefresh.UWP"
+    xmlns:ph="using:PullToRefresh.UWP.Helper"
     mc:Ignorable="d"
     NavigationCacheMode="Enabled" ManipulationCompleted="Page_ManipulationCompleted">
 
@@ -76,32 +78,6 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <!--<VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="vs_720">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720"></AdaptiveTrigger>
-                    </VisualState.StateTriggers>
-
-                    <VisualState.Setters>
-                        <Setter Target="DuanListView.Visibility" Value="Collapsed" />
-                        <Setter Target="DuanGridView.Visibility" Value="Visible" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="vs_100">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1"></AdaptiveTrigger>
-                    </VisualState.StateTriggers>
-
-                    <VisualState.Setters>
-                        <Setter Target="DuanListView.Visibility" Value="Visible" />
-                        <Setter Target="DuanGridView.Visibility" Value="Collapsed" />
-                        --><!--<Setter Target="ContentPanel.Height" Value="300"/>--><!--
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>-->        
-        
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
@@ -180,7 +156,7 @@
             </SplitView.Pane>
             <!--SplitView.Pane放段子正文, 分为listview/gridview两种模式-->
             <SplitView.Content>
-                <!--<Controls:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">-->
+                <p:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
                     <Grid>
                         <ListView Name="DuanListView"
                               ItemsSource="{Binding Duans}"
@@ -211,7 +187,7 @@
                             </GridView.ItemContainerStyle>
                         </GridView>
                     </Grid>
-                <!--</Controls:PullToRefreshBox>-->
+                </p:PullToRefreshBox>
             </SplitView.Content>
         </SplitView>
         <ProgressRing Grid.Row="1"

@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Controls="using:ImageLib.Controls"
     xmlns:ViewModels="using:Jandan.UWP.ViewModels"
-    x:Class="Jandan.PicDetailPage"
+    x:Class="Jandan.PicDetailPage2"
     mc:Ignorable="d" ManipulationMode="TranslateX" ManipulationCompleted="Page_ManipulationCompleted">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -53,10 +53,10 @@
 				RelativePanel.RightOf="PageBackButton"
 				RelativePanel.AlignVerticalCenterWithPanel="True"
                 Style="{StaticResource TitleBarTextBlockStyle}"/>
-            <Button x:Name="FreshShareButton"
+            <Button x:Name="PicShareButton"
 				Content="&#xE72D;"
 				RelativePanel.LeftOf="PicDownload"
-				Click="RefreshButton_Click" IsEnabled="False"
+				Click="ShareButton_Click"
                 Style="{StaticResource TitleBarButtonStyle}"/>
             <Button x:Name="PicDownload"
 				Content="&#xE896;"
@@ -103,7 +103,7 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <Controls:ImageView x:Name="ImageDetail" UriSource="{Binding URL}" Stretch="Uniform"/>
+                                        <Controls:ImageView Name="ImageDetail" UriSource="{Binding URL}" Stretch="Uniform"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

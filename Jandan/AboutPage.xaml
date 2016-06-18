@@ -49,6 +49,8 @@
                 <HyperlinkButton Name="LinkJandan" Content="Jandan" NavigateUri="http://jandan.net/" RelativePanel.Below="QuoteJandan" Background="Transparent"/>
                 <TextBlock Name="QuoteImageLib" Text="插件：ImageLib" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="LinkJandan"/>
                 <HyperlinkButton Name="LinkImageLib" Content="Github" NavigateUri="https://github.com/chenrensong/ImageLib.UWP" RelativePanel.Below="QuoteImageLib" Background="Transparent"/>
+                <TextBlock Name="QuotePullToRefresh" Text="插件：PullToRefresh" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="LinkImageLib"/>
+                <HyperlinkButton Name="LinkPullToRefresh" Content="NuGet" NavigateUri="https://www.nuget.org/packages/PullToRefresh.UWP" RelativePanel.Below="QuotePullToRefresh" Background="Transparent"/>
             </RelativePanel>
         </ScrollViewer>
         

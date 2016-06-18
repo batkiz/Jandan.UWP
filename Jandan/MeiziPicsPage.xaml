@@ -5,6 +5,8 @@
     xmlns:local="using:Jandan"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="using:PullToRefresh.UWP"
+    xmlns:ph="using:PullToRefresh.UWP.Helper"
     mc:Ignorable="d" NavigationCacheMode="Enabled" SizeChanged="Page_SizeChanged">
 
     <Page.Resources>
@@ -196,7 +198,7 @@
             </SplitView.Pane>
             <!--SplitView.Pane放无聊图正文, 分为listview/gridview两种模式-->
             <SplitView.Content>
-                <!--<Controls:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">-->
+                <p:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
                     <Grid>
                         <ListView Grid.Row="1"
                               Name="BoringListView"
@@ -230,7 +232,7 @@
                             </GridView.ItemContainerStyle>
                         </GridView>
                     </Grid>
-                <!--</Controls:PullToRefreshBox>-->
+                </p:PullToRefreshBox>
             </SplitView.Content>
         </SplitView>
         <ProgressRing Grid.Row="1"

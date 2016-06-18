@@ -57,7 +57,7 @@
             <Button Name="FreshShareButton"
                     Content="&#xE72D;"
                     RelativePanel.LeftOf="FreshCommentButton"
-                    Click="RefreshButton_Click" IsEnabled="False"
+                    Click="ShareButton_Click"
                     Style="{StaticResource TitleBarButtonStyle}">
             </Button>
             <Button Name="FreshCommentButton"

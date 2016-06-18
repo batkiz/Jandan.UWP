@@ -5,6 +5,8 @@
     xmlns:local="using:Jandan"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="using:PullToRefresh.UWP"
+    xmlns:ph="using:PullToRefresh.UWP.Helper"
     mc:Ignorable="d" NavigationCacheMode="Enabled" SizeChanged="Page_SizeChanged" ManipulationCompleted="Page_ManipulationCompleted" ManipulationMode="TranslateX">
 
     <!--<Page.Resources>
@@ -75,7 +77,7 @@
             </Button>
         </RelativePanel>        
         <!--下面新鲜事列表-->
-        <!--<Controls:PullToRefreshBox Grid.Row="1" Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">-->
+        <p:PullToRefreshBox Grid.Row="1" Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
         <Grid Grid.Row="1">
                 <ListView
                       Name="FreshListView"
@@ -226,7 +228,7 @@
                     </GridView.ItemContainerStyle>
                 </GridView>
             </Grid>
-        <!--</Controls:PullToRefreshBox>-->
+        </p:PullToRefreshBox>
         
         <ProgressRing Grid.Row="1"
                       Name="LoadingRing"

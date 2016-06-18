@@ -31,9 +31,34 @@ namespace Jandan
         private FreshDetailViewModel _viewModel;
         FreshCommentViewModel _dViewModel;
 
+        DataTransferManager dataTransferManager;
+
         public FreshDetailPage()
         {
             this.InitializeComponent();
+
+            // 分享
+            dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += DataTransferManager_DataRequested;
+
+            
+        }
+
+        private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs e)
+        {
+            var FreshNews = _viewModel.FreshDetails;
+
+            DataRequest request = e.Request;
+            request.Data.Properties.Title = "煎蛋网 - 新鲜事";
+            request.Data.Properties.Description = $"来自煎蛋网分享的新鲜事，ID{FreshNews.FreshInfo.ID}";
+            request.Data.SetText($"来自煎蛋网的分享：\n标题：{FreshNews.FreshInfo.Title}\n日期：{FreshNews.FreshInfo.Date}");
+            request.Data.SetHtmlFormat(FreshNews.FreshContentSlim);
+            request.Data.SetWebLink(new Uri(FreshNews.FreshInfo.Url));
+        }
+
+        private void ShareButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataTransferManager.ShowShareUI();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -57,11 +82,6 @@ namespace Jandan
                 }                
                 DuanCommentListView.DataContext = _dViewModel = new FreshCommentViewModel();
             }
-        }
-
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void PageBackButton_Click(object sender, RoutedEventArgs e)
