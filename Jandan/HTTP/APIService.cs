@@ -31,8 +31,15 @@ namespace Jandan.UWP.HTTP
             {
                 if (NetworkManager.Current.Network == 4)  //无网络连接
                 {
-                    List<Fresh> list = await FileHelper.Current.ReadObjectAsync<List<Fresh>>("fresh_list.json");
-                    return list;
+                    if (pageNum == 1)
+                    {
+                        List<Fresh> list = await FileHelper.Current.ReadObjectAsync<List<Fresh>>("fresh_list.json");
+                        return list;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 else
                 {
@@ -130,8 +137,15 @@ namespace Jandan.UWP.HTTP
             {
                 if (NetworkManager.Current.Network == 4)  //无网络连接
                 {
-                    List<Duan> list = await FileHelper.Current.ReadObjectAsync<List<Duan>>("duan_list.json");
-                    return list;
+                    if (pageNum == 1)
+                    {
+                        List<Duan> list = await FileHelper.Current.ReadObjectAsync<List<Duan>>("duan_list.json");
+                        return list;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 else
                 {
@@ -193,8 +207,15 @@ namespace Jandan.UWP.HTTP
             {
                 if (NetworkManager.Current.Network == 4)  //无网络连接
                 {
-                    List<BoringPic> list = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("boring_list.json");
-                    return list;
+                    if (pageNum == 1)
+                    {
+                        List<BoringPic> list = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("boring_list.json");
+                        return list;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 else
                 {
@@ -258,8 +279,15 @@ namespace Jandan.UWP.HTTP
             {
                 if (NetworkManager.Current.Network == 4)  //无网络连接
                 {
-                    List<BoringPic> list = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("girl_list.json");
-                    return list;
+                    if (pageNum == 1)
+                    {
+                        List<BoringPic> list = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("girl_list.json");
+                        return list;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 else
                 {

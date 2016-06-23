@@ -21,6 +21,19 @@ namespace Jandan.UWP.Tools
                 return _current;
             }
         }
+        public const WwanDataClass Wwan2G = (WwanDataClass.Edge
+                        | WwanDataClass.Gprs);
+        public const WwanDataClass Wwan3G = (WwanDataClass.Hsupa
+                        | WwanDataClass.Hsdpa
+                        | WwanDataClass.Umts
+                        | WwanDataClass.CdmaUmb
+                        | WwanDataClass.Cdma3xRtt
+                        | WwanDataClass.Cdma1xRtt
+                        | WwanDataClass.Cdma1xEvdv
+                        | WwanDataClass.Cdma1xEvdoRevB
+                        | WwanDataClass.Cdma1xEvdoRevA
+                        | WwanDataClass.Cdma1xEvdo);
+        public const WwanDataClass Wwan4G = WwanDataClass.LteAdvanced;
 
         public string NetworkTitle
         {
@@ -89,37 +102,56 @@ namespace Jandan.UWP.Tools
                 if (profile.IsWwanConnectionProfile)
                 {
                     WwanDataClass connectionClass = profile.WwanConnectionProfileDetails.GetCurrentDataClass();
-                    switch (connectionClass)
+                    if((connectionClass & Wwan4G) != 0)
                     {
-                        //2G-equivalent
-                        case WwanDataClass.Edge:
-                        case WwanDataClass.Gprs:
-                            return 0;
-                        //3G-equivalent
-                        case WwanDataClass.Cdma1xEvdo:
-                        case WwanDataClass.Cdma1xEvdoRevA:
-                        case WwanDataClass.Cdma1xEvdoRevB:
-                        case WwanDataClass.Cdma1xEvdv:
-                        case WwanDataClass.Cdma1xRtt:
-                        case WwanDataClass.Cdma3xRtt:
-                        case WwanDataClass.CdmaUmb:
-                        case WwanDataClass.Umts:
-                        case WwanDataClass.Hsdpa:
-                        case WwanDataClass.Hsupa:
-                            return 1;
-                        //4G-equivalent
-                        case WwanDataClass.LteAdvanced:
-                            return 2;
-
-                        //not connected
-                        case WwanDataClass.None:
-                            return 4;
-
-                        //unknown
-                        case WwanDataClass.Custom:
-                        default:
-                            return 4;
+                        // not worse than 4G
+                        return 2;
                     }
+                    else if((connectionClass & Wwan3G) != 0)
+                    {
+                        // not worse than 3G
+                        return 1;
+                    }
+                    else if((connectionClass & Wwan2G) != 0)
+                    {
+                        // not worse than 2G
+                        return 0;
+                    }
+                    else
+                    {
+                        return 4;
+                    }
+                    //switch (connectionClass)
+                    //{
+                    //    //2G-equivalent
+                    //    case WwanDataClass.Edge:
+                    //    case WwanDataClass.Gprs:
+                    //        return 0;
+                    //    //3G-equivalent
+                    //    case WwanDataClass.Cdma1xEvdo:
+                    //    case WwanDataClass.Cdma1xEvdoRevA:
+                    //    case WwanDataClass.Cdma1xEvdoRevB:
+                    //    case WwanDataClass.Cdma1xEvdv:
+                    //    case WwanDataClass.Cdma1xRtt:
+                    //    case WwanDataClass.Cdma3xRtt:
+                    //    case WwanDataClass.CdmaUmb:
+                    //    case WwanDataClass.Umts:
+                    //    case WwanDataClass.Hsdpa:
+                    //    case WwanDataClass.Hsupa:
+                    //        return 1;
+                    //    //4G-equivalent
+                    //    case WwanDataClass.LteAdvanced:
+                    //        return 2;
+
+                    //    //not connected
+                    //    case WwanDataClass.None:
+                    //        return 4;
+
+                    //    //unknown
+                    //    case WwanDataClass.Custom:
+                    //    default:
+                    //        return 4;
+                    //}
                 }
                 else if (profile.IsWlanConnectionProfile)
                 {
