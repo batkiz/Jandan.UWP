@@ -44,7 +44,7 @@ namespace Jandan
                 return;
             }
             base.OnNavigatedTo(e);
-            this.DataContext = _viewModel = new MeiziViewModel();
+            DataContext = _viewModel = new MeiziViewModel();
             DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
         }
 

@@ -78,16 +78,12 @@ namespace Jandan.UWP.Tools
         {
             NetworkInformation.NetworkStatusChanged += NetworkInformation_NetworkStatusChanged;
             _network = GetConnectionGeneration();
-            //_network = 3;
         }
 
         private void NetworkInformation_NetworkStatusChanged(object sender)
         {
             _network = GetConnectionGeneration();
-            if (NetworkStatusChanged != null)
-            {
-                NetworkStatusChanged(this);
-            }
+            NetworkStatusChanged?.Invoke(this);
         }
 
         /// <summary>
@@ -121,37 +117,6 @@ namespace Jandan.UWP.Tools
                     {
                         return 4;
                     }
-                    //switch (connectionClass)
-                    //{
-                    //    //2G-equivalent
-                    //    case WwanDataClass.Edge:
-                    //    case WwanDataClass.Gprs:
-                    //        return 0;
-                    //    //3G-equivalent
-                    //    case WwanDataClass.Cdma1xEvdo:
-                    //    case WwanDataClass.Cdma1xEvdoRevA:
-                    //    case WwanDataClass.Cdma1xEvdoRevB:
-                    //    case WwanDataClass.Cdma1xEvdv:
-                    //    case WwanDataClass.Cdma1xRtt:
-                    //    case WwanDataClass.Cdma3xRtt:
-                    //    case WwanDataClass.CdmaUmb:
-                    //    case WwanDataClass.Umts:
-                    //    case WwanDataClass.Hsdpa:
-                    //    case WwanDataClass.Hsupa:
-                    //        return 1;
-                    //    //4G-equivalent
-                    //    case WwanDataClass.LteAdvanced:
-                    //        return 2;
-
-                    //    //not connected
-                    //    case WwanDataClass.None:
-                    //        return 4;
-
-                    //    //unknown
-                    //    case WwanDataClass.Custom:
-                    //    default:
-                    //        return 4;
-                    //}
                 }
                 else if (profile.IsWlanConnectionProfile)
                 {

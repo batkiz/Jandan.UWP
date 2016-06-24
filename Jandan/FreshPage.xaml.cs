@@ -32,7 +32,7 @@ namespace Jandan
 
         public FreshPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             DispatcherManager.Current.Dispatcher = Dispatcher;
         }
@@ -47,7 +47,7 @@ namespace Jandan
                 return;
             }
             base.OnNavigatedTo(e);
-            this.DataContext = _viewModel = new FreshViewModel();
+            DataContext = _viewModel = new FreshViewModel();
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Jandan
 
         private void FreshListView_ItemClick(object sender, ItemClickEventArgs e)
         {            
-            this.Frame.Navigate(typeof(FreshDetailPage), new object[] { 0, e.ClickedItem as Fresh });
+            Frame.Navigate(typeof(FreshDetailPage), new object[] { 0, e.ClickedItem as Fresh });
         }
 
         public void RefreshPage()
@@ -92,9 +92,9 @@ namespace Jandan
             var s = FreshGridView.ItemContainerStyle;
             //Setter s1 = new Setter(GridViewItem.MarginProperty, new Thickness(4));
             //Setter s2 = new Setter(GridViewItem.PaddingProperty, new Thickness(5));
-            Setter s3 = new Setter(GridViewItem.VerticalContentAlignmentProperty, VerticalAlignment.Top);
-            Setter s4 = new Setter(GridViewItem.WidthProperty, setWidth);
-            Setter s5 = new Setter(GridViewItem.HeightProperty, 240);
+            Setter s3 = new Setter(VerticalContentAlignmentProperty, VerticalAlignment.Top);
+            Setter s4 = new Setter(WidthProperty, setWidth);
+            Setter s5 = new Setter(HeightProperty, 240);
 
             Style s_new = new Style(typeof(GridViewItem));
             //s_new.Setters.Add(s1);

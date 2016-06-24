@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml.Data;
@@ -82,6 +81,7 @@ namespace Jandan.UWP.Data
             else
             {
                 HasMoreItems = false;
+                --DataShareManager.Current.DuanItemPage;
             }
             DataLoaded?.Invoke();
             _buzy = false;
