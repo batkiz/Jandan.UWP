@@ -212,7 +212,7 @@
             </SplitView.Pane>
             <!--SplitView.Pane放无聊图正文, 分为listview/gridview两种模式-->
             <SplitView.Content>
-                <p:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
+                <!--<p:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">-->
                 <Grid Margin="-8, 0">
                     <ListView Name="BoringListView"
                               ItemsSource="{Binding Boring}" 
@@ -244,7 +244,7 @@
                         </GridView.ItemContainerStyle>
                     </GridView>
                 </Grid>
-                </p:PullToRefreshBox>
+                <!--</p:PullToRefreshBox>-->
             </SplitView.Content>
         </SplitView>
         <ProgressRing Grid.Row="1"

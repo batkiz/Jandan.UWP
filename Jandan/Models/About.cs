@@ -13,13 +13,13 @@ namespace Jandan.UWP.Models
     public class About
     {
         [DataMember]
-        public string VersionNumber { get; } = "0.2.2";
+        public string VersionNumber { get; } = "0.2.3";
         [DataMember]
-        public string AuthorName { get; } = "Ray Litchi";
+        public string AuthorName { get; } = "Ray Litchi\n笑天（感谢同是蛋友的笑天童鞋强烈扫除各种bug）";
         [DataMember]
         public string HelpAndSuggestion { get; } = "如果您有任何好的意见或者建议，欢迎发邮件至raysworld@qq.com反馈\n\n找不到妹子图的童鞋可以多点标题栏的“无聊图”三个字几次试试";
         [DataMember]
-        public string DenoteText { get; } = "如果觉得好用，请赏赐一碗泡面钱，谢谢支持\n支付婊:\nraysworld@qq.com, *睿";
+        public string DenoteText { get; } = "如果觉得好用，请赏赐一个五星评价，谢谢支持 :-)";
         [DataMember]
         public string UpdateTextSource { get; set; } = "";
         

@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Controls="using:ImageLib.Controls"
     xmlns:ViewModels="using:Jandan.UWP.ViewModels"
-    x:Class="Jandan.PicDetailPage2"
+    x:Class="Jandan.PicDetailPage"
     mc:Ignorable="d" ManipulationMode="TranslateX" ManipulationCompleted="Page_ManipulationCompleted">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
