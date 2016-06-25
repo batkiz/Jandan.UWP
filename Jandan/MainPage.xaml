@@ -75,5 +75,16 @@
                 <TextBlock Foreground="White" Text="再按一次退出" HorizontalAlignment="Center"/>
             </Grid>
         </Popup>
+        <!--弹出消息，提示无网络状态-->
+        <Popup Name="popTipsNoNetwork"
+               IsOpen="False" 
+               Margin="0,0,0,100" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
+            <Grid BorderThickness="5" Margin="-27,0,0,0" HorizontalAlignment="Center">
+                <Grid.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.8"/>
+                </Grid.Background>
+                <TextBlock Foreground="White" Text="无网络" HorizontalAlignment="Center"/>
+            </Grid>
+        </Popup>
     </Grid>
 </Page>
