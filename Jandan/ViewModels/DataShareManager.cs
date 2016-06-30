@@ -50,8 +50,17 @@ namespace Jandan.UWP.ViewModels
         private bool _isDarkMode;
         public bool IsDarkMode { get { return _isDarkMode; } }
 
+        // 是否是移动端
         private bool _isMobile;
         public bool IsMobile { get { return _isMobile; } }
+
+        // 是否显示NSFW图
+        private bool _isShowNSFW;
+        public bool IsShowNSFW { get { return _isShowNSFW; } }
+
+        // 是否显示不受欢迎的图
+        private bool _isShowUnwelcome;
+        public bool IsShowUnwelcome { get { return _isShowUnwelcome; } }
 
         private static DataShareManager _current;
         public static DataShareManager Current
@@ -105,6 +114,26 @@ namespace Jandan.UWP.ViewModels
             {
                 _isDarkMode = false;
             }
+
+            // NSFW = 0 No NSFW images | NSFW = 1 Show NSFW images
+            if (roamingSettings.Values.ContainsKey("NSFW"))
+            {
+                _isShowNSFW = int.Parse(roamingSettings.Values["NSFW"].ToString()) == 0 ? false : true;
+            }
+            else
+            {
+                _isShowNSFW = false;
+            }
+
+            // UNWELCOME = 0 No Unwelcome images | UNWELCOME = 1 Show Unwelcome images
+            if (roamingSettings.Values.ContainsKey("UNWELCOME"))
+            {
+                _isShowUnwelcome = int.Parse(roamingSettings.Values["UNWELCOME"].ToString()) == 0 ? false : true;
+            }
+            else
+            {
+                _isShowUnwelcome = false;
+            }
         }
 
         private void OnShareDataChanged()
@@ -120,6 +149,22 @@ namespace Jandan.UWP.ViewModels
             _isDarkMode = isDark ? true : false;
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
             roamingSettings.Values["APP_THEME"] = _isDarkMode ? 1 : 0;
+            OnShareDataChanged();
+        }
+
+        public void UpdateNSFW(bool isNSFW)
+        {
+            _isShowNSFW = isNSFW ? true : false;
+            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            roamingSettings.Values["NSFW"] = _isShowNSFW ? 1 : 0;
+            OnShareDataChanged();
+        }
+
+        public void UpdateUnwelcome(bool isUnwelcome)
+        {
+            _isShowUnwelcome = isUnwelcome ? true : false;
+            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            roamingSettings.Values["UNWELCOME"] = _isShowUnwelcome ? 1 : 0;
             OnShareDataChanged();
         }
 

@@ -68,7 +68,29 @@ namespace Jandan.UWP.Data
                     //{
                     //    t.Readed = true;
                     //}
-                    Add(t);
+
+                    var comment = t.Content.Replace("\n", "").Replace("\r", "");
+                    t.Content = comment;
+
+                    bool isPassedNSFW = true, isPassedUnWel = true;
+                    if (!DataShareManager.Current.IsShowNSFW && t.Content.Contains("NSFW"))
+                    {
+                        isPassedNSFW = false;
+                    }
+                    if (!DataShareManager.Current.IsShowUnwelcome)
+                    {
+                        int oo = t.VotePositive;
+                        int xx = t.VoteNegative;
+                        if ((oo + xx) >= 50 && ((double)oo / (double)xx) < 0.618)
+                        {
+                            t.Content += "\n\nUnwelcome";
+                            isPassedUnWel = false;
+                        }
+                    }
+                    if (isPassedNSFW && isPassedUnWel)
+                    {
+                        Add(t);
+                    }                    
                 });
                 HasMoreItems = true;
             }

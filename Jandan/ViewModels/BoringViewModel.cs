@@ -42,6 +42,7 @@ namespace Jandan.UWP.ViewModels
                 _is_show_nsfw = value;
                 OnPropertyChanged();
                 UpdateBoringPics();
+                DataShareManager.Current.UpdateNSFW(_is_show_nsfw);
             }
         }
 
@@ -57,6 +58,7 @@ namespace Jandan.UWP.ViewModels
                 _is_show_unwelcome = value;
                 OnPropertyChanged();
                 UpdateBoringPics();
+                DataShareManager.Current.UpdateUnwelcome(_is_show_unwelcome);
             }
         }
 
@@ -84,6 +86,9 @@ namespace Jandan.UWP.ViewModels
         {
             IsLoading = true;
 
+            IsShowNSFW = DataShareManager.Current.IsShowNSFW;
+            IsShowUnwelcome = DataShareManager.Current.IsShowUnwelcome;
+
             var boring = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("boring_list.json");
             BoringIncrementalLoadingCollection c = new BoringIncrementalLoadingCollection();
             boring?.ForEach((t) =>
@@ -99,6 +104,7 @@ namespace Jandan.UWP.ViewModels
                     int xx = t.VoteNegative;
                     if ((oo + xx) >= 50 && ((double)oo / (double)xx) < 0.618)
                     {
+                        t.Content += "\n\nUnwelcome";
                         isPassedUnWel = false;
                     }
                 }
@@ -127,16 +133,17 @@ namespace Jandan.UWP.ViewModels
                 t.Content = comment;
 
                 bool isPassedNSFW = true, isPassedUnWel = true;
-                if (IsShowNSFW && t.Content.Contains("NSFW"))
+                if (!IsShowNSFW && t.Content.Contains("NSFW"))
                 {
                     isPassedNSFW = false;
                 }
-                if (IsShowUnwelcome)
+                if (!IsShowUnwelcome)
                 {
                     int oo = t.VotePositive;
                     int xx = t.VoteNegative;
                     if ((oo + xx) >= 50 && ((double)oo / (double)xx) < 0.618)
                     {
+                        t.Content += "\n\nUnwelcome";
                         isPassedUnWel = false;
                     }
                 }

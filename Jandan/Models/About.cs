@@ -15,7 +15,7 @@ namespace Jandan.UWP.Models
         [DataMember]
         public string VersionNumber { get; } = "0.2.3";
         [DataMember]
-        public string AuthorName { get; } = "Ray Litchi\n笑天（感谢同是蛋友的笑天童鞋强烈扫除各种bug）";
+        public string AuthorName { get; } = "Ray Litchi\nTim（感谢同是蛋友的Tim童鞋强烈扫除各种bug）";
         [DataMember]
         public string HelpAndSuggestion { get; } = "如果您有任何好的意见或者建议，欢迎发邮件至raysworld@qq.com反馈\n\n找不到妹子图的童鞋可以多点标题栏的“无聊图”三个字几次试试";
         [DataMember]
