@@ -28,13 +28,88 @@ namespace Jandan
     {
         FreshViewModel _viewModel;
 
+        private static double _persistedItemContainerHeight = -1;
+        private static string _persistedItemKey = "";
+        private static string _persistedPosition = "";
+
         private bool just_returned = false;
 
         public FreshPage()
         {
             InitializeComponent();
 
+            DataContext = _viewModel = new FreshViewModel();
+
             DispatcherManager.Current.Dispatcher = Dispatcher;
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_persistedPosition))
+            {
+                await ListViewPersistenceHelper.SetRelativeScrollPositionAsync(this.FreshListView, _persistedPosition, this.GetItem);
+            }
+        }
+
+        private IAsyncOperation<object> GetItem(string key)
+        {
+            if (_viewModel.News == null)
+            {
+                return null;
+            }
+            return Task.Run(() =>
+            {
+                if (_viewModel.News.Count <= 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return (object)_viewModel.News.FirstOrDefault(i => i.ID == key);
+                }
+            }).AsAsyncOperation();
+        }
+
+        private string GetKey(object item)
+        {
+            var singleItem = item as Fresh;
+            if (singleItem != null)
+            {
+                _persistedItemContainerHeight = (FreshListView.ContainerFromItem(item) as ListViewItem).ActualHeight;
+                _persistedItemKey = singleItem.ID;
+                return _persistedItemKey;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        private void FreshListView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+            var singleItem = args.Item as Fresh;
+
+            if (singleItem != null && singleItem.ID == _persistedItemKey)
+            {
+                if (!args.InRecycleQueue)
+                {
+                    args.ItemContainer.Height = _persistedItemContainerHeight;
+                }
+                else
+                {
+                    args.ItemContainer.ClearValue(HeightProperty);
+                }
+            }
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            if (FreshGridView.Visibility == Visibility.Collapsed)
+            {
+                _persistedPosition = ListViewPersistenceHelper.GetRelativeScrollPosition(FreshListView, GetKey);
+            }
+
+            base.OnNavigatingFrom(e);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -47,7 +122,7 @@ namespace Jandan
                 return;
             }
             base.OnNavigatedTo(e);
-            DataContext = _viewModel = new FreshViewModel();
+            //DataContext = _viewModel = new FreshViewModel();
         }
 
         /// <summary>
@@ -113,23 +188,7 @@ namespace Jandan
 
         private void Page_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
-            //double delta = e.Cumulative.Translation.X;
 
-            //if (delta > 200)
-            //{
-            //    if (DataShareManager.Current.IsMobile)
-            //    {
-            //        Frame.Navigate(typeof(HotPage));
-            //    }
-            //    else
-            //    {
-            //        Frame.Navigate(typeof(BoringPicsPage));
-            //    }
-            //}
-            //else if (delta < 200)
-            //{
-            //    Frame.Navigate(typeof(DuanPage));
-            //}
         }
     }
 }

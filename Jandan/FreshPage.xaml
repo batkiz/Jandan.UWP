@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="using:PullToRefresh.UWP"
     xmlns:ph="using:PullToRefresh.UWP.Helper"
-    mc:Ignorable="d" NavigationCacheMode="Enabled" SizeChanged="Page_SizeChanged" ManipulationCompleted="Page_ManipulationCompleted" ManipulationMode="TranslateX">
+    mc:Ignorable="d" NavigationCacheMode="Enabled" SizeChanged="Page_SizeChanged" ManipulationCompleted="Page_ManipulationCompleted" ManipulationMode="TranslateX" Loaded="Page_Loaded">
 
     <!--<Page.Resources>
         <ResourceDictionary>
@@ -86,7 +86,7 @@
                       IsItemClickEnabled="True"
                       SelectionMode="None"
                       ItemClick="FreshListView_ItemClick"
-                      IsEnabled="True">
+                      IsEnabled="True" ContainerContentChanging="FreshListView_ContainerContentChanging">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Name="gridListItems" BorderBrush="Black" ManipulationMode="System, TranslateX">

@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="using:PullToRefresh.UWP"
     xmlns:ph="using:PullToRefresh.UWP.Helper"
-    mc:Ignorable="d" NavigationCacheMode="Enabled" SizeChanged="Page_SizeChanged">
+    mc:Ignorable="d" NavigationCacheMode="Enabled" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -218,7 +218,7 @@
                               ItemsSource="{Binding Boring}" 
                               Style="{StaticResource ContentPanelListViewStyle}"
                               ItemClick="BoringListView_ItemClick"
-                              ItemTemplate="{StaticResource BoringPicsDataStyle}">
+                              ItemTemplate="{StaticResource BoringPicsDataStyle}" ContainerContentChanging="BoringListView_ContainerContentChanging">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="Margin" Value="8,4,8,4"></Setter>

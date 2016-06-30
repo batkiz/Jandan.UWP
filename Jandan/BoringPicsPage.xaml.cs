@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Jandan.UWP.Models;
 using Jandan.UWP.ViewModels;
+using System.Threading.Tasks;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -27,12 +28,89 @@ namespace Jandan
         BoringViewModel _viewModel;
         DuanCommentViewModel _dViewModel;
 
+        private static double _persistedItemContainerHeight = -1;
+        private static string _persistedItemKey = "";
+        private static string _persistedPosition = "";
+
         private int secret_count;
         private bool just_returned = false;
 
         public BoringPicsPage()
         {
-            this.InitializeComponent();            
+            this.InitializeComponent();
+
+            this.DataContext = _viewModel = new BoringViewModel();
+            DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
+            LoadingCommentProgressBar.DataContext = _dViewModel;
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_persistedPosition))
+            {
+                await ListViewPersistenceHelper.SetRelativeScrollPositionAsync(this.BoringListView, _persistedPosition, this.GetItem);
+                BoringGridView.ScrollIntoView(this.GetItem(_persistedItemKey));
+            }
+        }
+
+        private IAsyncOperation<object> GetItem(string key)
+        {
+            if (_viewModel.Boring == null)
+            {
+                return null;
+            }
+            return Task.Run(() =>
+            {
+                if (_viewModel.Boring.Count <= 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return (object)_viewModel.Boring.FirstOrDefault(i => i.PicID == key);
+                }
+            }).AsAsyncOperation();
+        }
+
+        private string GetKey(object item)
+        {
+            var singleItem = item as BoringPic;
+            if (singleItem != null)
+            {
+                _persistedItemContainerHeight = (BoringListView.ContainerFromItem(item) as ListViewItem).ActualHeight;
+                _persistedItemKey = singleItem.PicID;
+                return _persistedItemKey;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        private void BoringListView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+            var singleItem = args.Item as BoringPic;
+
+            if (singleItem != null && singleItem.PicID == _persistedItemKey)
+            {
+                if (!args.InRecycleQueue)
+                {
+                    args.ItemContainer.Height = _persistedItemContainerHeight;
+                }
+                else
+                {
+                    args.ItemContainer.ClearValue(HeightProperty);
+                }
+            }
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            if (BoringGridView.Visibility == Visibility.Collapsed)
+            {
+                _persistedPosition = ListViewPersistenceHelper.GetRelativeScrollPosition(BoringListView, GetKey);
+            }            
+            base.OnNavigatingFrom(e);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -44,12 +122,13 @@ namespace Jandan
                 just_returned = true;
                 return;
             }
-            base.OnNavigatedTo(e);
-            this.DataContext = _viewModel = new BoringViewModel();
-            DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
-            LoadingCommentProgressBar.DataContext = _dViewModel;
+            //this.DataContext = _viewModel = new BoringViewModel();
+            //DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
+            //LoadingCommentProgressBar.DataContext = _dViewModel;
 
-            secret_count = 0;            
+            secret_count = 0;
+                   
+            base.OnNavigatedTo(e);
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
@@ -60,11 +139,6 @@ namespace Jandan
         public void RefreshPage()
         {
             _viewModel.UpdateBoringPics();
-        }
-
-        private void AboutButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void DuanSplitView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
@@ -130,6 +204,7 @@ namespace Jandan
         {
             this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, _viewModel.Boring });
         }
+
 
     }
 }

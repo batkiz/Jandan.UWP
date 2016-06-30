@@ -9,7 +9,7 @@
     xmlns:p="using:PullToRefresh.UWP"
     xmlns:ph="using:PullToRefresh.UWP.Helper"
     mc:Ignorable="d"
-    NavigationCacheMode="Enabled" ManipulationCompleted="Page_ManipulationCompleted">
+    NavigationCacheMode="Enabled" ManipulationCompleted="Page_ManipulationCompleted" Loaded="Page_Loaded">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -161,7 +161,7 @@
                         <ListView Name="DuanListView"
                               ItemsSource="{Binding Duans}"
                               Style="{StaticResource ContentPanelListViewStyle}"
-                              ItemTemplate="{StaticResource DuanDataStyle}">
+                              ItemTemplate="{StaticResource DuanDataStyle}" ContainerContentChanging="DuanListView_ContainerContentChanging">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="Margin" Value="8,4,8,4"></Setter>

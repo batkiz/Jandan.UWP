@@ -6,6 +6,7 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 //“空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409 上有介绍
@@ -97,19 +98,19 @@ namespace Jandan
 
             if (string.Equals(itemName.Name, "FreshNews"))
             {
-                mainFrame.Navigate(typeof(FreshPage));
+                mainFrame.Navigate(typeof(FreshPage), null, new ContinuumNavigationTransitionInfo());
             }
             else if (string.Equals(itemName.Name, "Duanzi"))
             {
-                mainFrame.Navigate(typeof(DuanPage));
+                mainFrame.Navigate(typeof(DuanPage), null, new ContinuumNavigationTransitionInfo());
             }
             else if (string.Equals(itemName.Name, "BoringPics"))
             {
-                mainFrame.Navigate(typeof(BoringPicsPage));
+                mainFrame.Navigate(typeof(BoringPicsPage), null, new ContinuumNavigationTransitionInfo());
             }
             else if (string.Equals(itemName.Name, "Hot"))
             {
-                mainFrame.Navigate(typeof(HotPage));
+                mainFrame.Navigate(typeof(HotPage), null, new ContinuumNavigationTransitionInfo());
             }
 
             MainCommandBar.IsOpen = false;

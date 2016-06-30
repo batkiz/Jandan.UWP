@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Jandan.UWP.Models;
 using Jandan.UWP.ViewModels;
 using Windows.ApplicationModel.DataTransfer;
+using System.Threading.Tasks;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -27,10 +28,83 @@ namespace Jandan
     {
         DuanViewModel _viewModel;
         DuanCommentViewModel _dViewModel;
-        
+
+        private static double _persistedItemContainerHeight = -1;
+        private static string _persistedItemKey = "";
+        private static string _persistedPosition = "";
+
         public DuanPage()
         {
             this.InitializeComponent();
+
+            this.DataContext = _viewModel = new DuanViewModel();
+            DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_persistedPosition))
+            {
+                await ListViewPersistenceHelper.SetRelativeScrollPositionAsync(this.DuanListView, _persistedPosition, this.GetItem);
+            }
+        }
+
+        private IAsyncOperation<object> GetItem(string key)
+        {
+            if (_viewModel.Duans == null)
+            {
+                return null;
+            }
+            return Task.Run(() =>
+            {
+                if (_viewModel.Duans.Count <= 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return (object)_viewModel.Duans.FirstOrDefault(i => i.DuanID == key);
+                }
+            }).AsAsyncOperation();
+        }
+
+        private string GetKey(object item)
+        {
+            var singleItem = item as Duan;
+            if (singleItem != null)
+            {
+                _persistedItemContainerHeight = (DuanListView.ContainerFromItem(item) as ListViewItem).ActualHeight;
+                _persistedItemKey = singleItem.DuanID;
+                return _persistedItemKey;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        private void DuanListView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+            var singleItem = args.Item as Duan;
+
+            if (singleItem != null && singleItem.DuanID == _persistedItemKey)
+            {
+                if (!args.InRecycleQueue)
+                {
+                    args.ItemContainer.Height = _persistedItemContainerHeight;
+                }
+                else
+                {
+                    args.ItemContainer.ClearValue(HeightProperty);
+                }
+            }
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            _persistedPosition = ListViewPersistenceHelper.GetRelativeScrollPosition(DuanListView, GetKey);
+
+            base.OnNavigatingFrom(e);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -42,8 +116,8 @@ namespace Jandan
                 return;
             }
             base.OnNavigatedTo(e);
-            this.DataContext = _viewModel = new DuanViewModel();
-            DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
+            //this.DataContext = _viewModel = new DuanViewModel();
+            //DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
         }
 
         private void DuanListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -172,5 +246,7 @@ namespace Jandan
             //    Frame.Navigate(typeof(BoringPicsPage));
             //}
         }
+
+
     }
 }

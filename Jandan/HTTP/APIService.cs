@@ -563,6 +563,7 @@ namespace Jandan.UWP.HTTP
                         if (postList != null && postList.GetArray().Count != 0)
                         {
                             var parentPosts = json["parentPosts"].GetObject();
+                            var floorLevel = 1;
                             foreach (var j in postList)
                             {
                                 string postID = j.GetString();
@@ -592,7 +593,8 @@ namespace Jandan.UWP.HTTP
                                     AuthorName = postItem["author"].GetObject().GetNamedString("name"),
                                     AuthorAvatarUri = new Uri((authorURL.Equals("null") || authorURL.Equals("")) ? "ms-appx:///Icons/jandan-400.png" : authorURL),
                                     Like = (int)postItem.GetNamedNumber("likes"),
-                                    Dislike = (int)postItem.GetNamedNumber("dislikes")
+                                    Dislike = (int)postItem.GetNamedNumber("dislikes"),
+                                    OrderNumber = floorLevel++
                                 });
                             }
 

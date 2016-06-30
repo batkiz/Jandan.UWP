@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using Windows.Storage;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Jandan.UWP.Models
 {
@@ -13,7 +6,7 @@ namespace Jandan.UWP.Models
     public class About
     {
         [DataMember]
-        public string VersionNumber { get; } = "0.2.3";
+        public string VersionNumber { get; } = "0.2.4";
         [DataMember]
         public string AuthorName { get; } = "Ray Litchi\nTim（感谢同是蛋友的Tim童鞋强烈扫除各种bug）";
         [DataMember]

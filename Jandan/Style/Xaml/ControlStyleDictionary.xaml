@@ -87,6 +87,17 @@
     <x:String x:Key="RateBarXX">XX</x:String>
     <x:String x:Key="RateBarComment">吐槽</x:String>
 
+    <Style x:Key="CommentRateTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    <x:String x:Key="CommentRateBarOO">[OO]</x:String>
+    <x:String x:Key="CommentRateBarXX">[XX]</x:String>
+
     <!--进度条-->
     <Style x:Key="LoadingProgressStyle" TargetType="ProgressRing">
         <Setter Property="Width" Value="40"/>
@@ -121,6 +132,12 @@
     <Style x:Key="CommentAuthorTextStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+    <Style x:Key="CommentLevelTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="CommentDateTextStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="10"/>
