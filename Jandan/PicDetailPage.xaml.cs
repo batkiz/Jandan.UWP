@@ -24,6 +24,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Core;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -102,9 +103,23 @@ namespace Jandan
                 DetailType = (PicDetailType)parameters[1];
                 ItemList = parameters[2];
             }
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += PicDetailPage_BackRequested;
         }
 
-        private void PageBackButton_Click(object sender, RoutedEventArgs e)
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            SystemNavigationManager.GetForCurrentView().BackRequested -= PicDetailPage_BackRequested;
+        }
+
+        private void PicDetailPage_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            e.Handled = true;
+            OnBackRequested();
+        }
+
+        private void OnBackRequested()
         {
             switch (DetailType)
             {
@@ -120,10 +135,11 @@ namespace Jandan
                 default:
                     break;
             }
-            //if (this.Frame.CanGoBack)
-            //{
-            //    Frame.GoBack();                
-            //}
+        }
+
+        private void PageBackButton_Click(object sender, RoutedEventArgs e)
+        {
+            OnBackRequested();
         }
 
         private async void PicDownload_Click(object sender, RoutedEventArgs e)

@@ -44,6 +44,22 @@ namespace Jandan.UWP.ViewModels
             }
         }
 
+        private bool _is_show_unwelcome;
+        public bool IsShowUnwelcome
+        {
+            get
+            {
+                return _is_show_unwelcome;
+            }
+            set
+            {
+                _is_show_unwelcome = value;
+                OnPropertyChanged();
+                Update();
+                DataShareManager.Current.UpdateUnwelcome(_is_show_unwelcome);
+            }
+        }
+
         public DuanViewModel()
         {
             //Update();
@@ -60,7 +76,10 @@ namespace Jandan.UWP.ViewModels
             DuanIncrementalLoadingCollection c = new DuanIncrementalLoadingCollection();
             list?.ForEach((t) =>
             {
-                c.Add(t);
+                if (IsItemAdded(t))
+                {
+                    c.Add(t);
+                }
             });
             Duans = c;
 
@@ -86,7 +105,10 @@ namespace Jandan.UWP.ViewModels
                 var msg = t.Content;                
                 t.Content = Regex.Replace(msg, "<.+?>", "");
 
-                c.Add(t);
+                if (IsItemAdded(t))
+                {
+                    c.Add(t); 
+                }
             });
 
             Duans = c;
@@ -96,6 +118,23 @@ namespace Jandan.UWP.ViewModels
 
             IsLoading = false;
         }
+
+        private bool IsItemAdded(Duan t)
+        {
+            bool isPassedUnWel = true;
+            if (!IsShowUnwelcome)
+            {
+                int oo = t.VotePositive;
+                int xx = t.VoteNegative;
+                if ((oo + xx) >= 50 && ((double)oo / (double)xx) < 0.618)
+                {
+                    t.Content += "\n\nUnwelcome";
+                    isPassedUnWel = false;
+                }
+            }
+            return (isPassedUnWel);
+        }
+
         /// <summary>
         /// 
         /// </summary>

@@ -99,6 +99,18 @@
                        RelativePanel.RightOf="PageTitleIcon"
                        Style="{StaticResource TitleBarTextBlockStyle}">
             </TextBlock>
+            <Button Name="FilterButton"
+                    Content="&#xE71C;"
+                    RelativePanel.LeftOf="RefreshButton"
+                    Style="{StaticResource TitleBarButtonStyle}">
+                <Button.Flyout>
+                    <Flyout>
+                        <StackPanel>                            
+                            <ToggleSwitch Name="showUnwelcome" IsOn="{Binding Path=IsShowUnwelcome, Mode=TwoWay}" OffContent="隐藏" OnContent="显示">显示/隐藏不受欢迎的段子</ToggleSwitch>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
             <Button Name="RefreshButton"
                     Content="&#xE117;"
                     RelativePanel.AlignRightWithPanel="True"

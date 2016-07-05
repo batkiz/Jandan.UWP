@@ -93,22 +93,23 @@ namespace Jandan.UWP.ViewModels
             BoringIncrementalLoadingCollection c = new BoringIncrementalLoadingCollection();
             boring?.ForEach((t) =>
             {
-                bool isPassedNSFW = true, isPassedUnWel = true;
-                if (IsShowNSFW && t.Content.Contains("NSFW"))
-                {
-                    isPassedNSFW = false;
-                }
-                if (IsShowUnwelcome)
-                {
-                    int oo = t.VotePositive;
-                    int xx = t.VoteNegative;
-                    if ((oo + xx) >= 50 && ((double)oo / (double)xx) < 0.618)
-                    {
-                        t.Content += "\n\nUnwelcome";
-                        isPassedUnWel = false;
-                    }
-                }
-                if (isPassedNSFW && isPassedUnWel)
+                //bool isPassedNSFW = true, isPassedUnWel = true;
+                //if (!IsShowNSFW && t.Content.Contains("NSFW"))
+                //{
+                //    isPassedNSFW = false;
+                //}
+                //if (!IsShowUnwelcome)
+                //{
+                //    int oo = t.VotePositive;
+                //    int xx = t.VoteNegative;
+                //    if ((oo + xx) >= 50 && ((double)oo / (double)xx) < 0.618)
+                //    {
+                //        t.Content += "\n\nUnwelcome";
+                //        isPassedUnWel = false;
+                //    }
+                //}
+                //if (isPassedNSFW && isPassedUnWel)
+                if (IsItemAdded(t))
                 {
                     c.Add(t);
                 }                
@@ -132,22 +133,23 @@ namespace Jandan.UWP.ViewModels
                 var comment = t.Content.Replace("\n", "").Replace("\r", "");
                 t.Content = comment;
 
-                bool isPassedNSFW = true, isPassedUnWel = true;
-                if (!IsShowNSFW && t.Content.Contains("NSFW"))
-                {
-                    isPassedNSFW = false;
-                }
-                if (!IsShowUnwelcome)
-                {
-                    int oo = t.VotePositive;
-                    int xx = t.VoteNegative;
-                    if ((oo + xx) >= 50 && ((double)oo / (double)xx) < 0.618)
-                    {
-                        t.Content += "\n\nUnwelcome";
-                        isPassedUnWel = false;
-                    }
-                }
-                if (isPassedNSFW && isPassedUnWel)
+                //bool isPassedNSFW = true, isPassedUnWel = true;
+                //if (!IsShowNSFW && t.Content.Contains("NSFW"))
+                //{
+                //    isPassedNSFW = false;
+                //}
+                //if (!IsShowUnwelcome)
+                //{
+                //    int oo = t.VotePositive;
+                //    int xx = t.VoteNegative;
+                //    if ((oo + xx) >= 50 && ((double)oo / (double)xx) < 0.618)
+                //    {
+                //        t.Content += "\n\nUnwelcome";
+                //        isPassedUnWel = false;
+                //    }
+                //}
+                //if (isPassedNSFW && isPassedUnWel)
+                if (IsItemAdded(t))
                 {
                     c.Add(t);
                 }
@@ -159,6 +161,26 @@ namespace Jandan.UWP.ViewModels
             c.DataLoading += C_DataLoading;
 
             IsLoading = false;
+        }
+
+        private bool IsItemAdded(BoringPic t)
+        {
+            bool isPassedNSFW = true, isPassedUnWel = true;
+            if (!IsShowNSFW && t.Content.Contains("NSFW"))
+            {
+                isPassedNSFW = false;
+            }
+            if (!IsShowUnwelcome)
+            {
+                int oo = t.VotePositive;
+                int xx = t.VoteNegative;
+                if ((oo + xx) >= 50 && ((double)oo / (double)xx) < 0.618)
+                {
+                    t.Content += "\n\nUnwelcome";
+                    isPassedUnWel = false;
+                }
+            }
+            return (isPassedNSFW && isPassedUnWel);
         }
 
         /// <summary>
