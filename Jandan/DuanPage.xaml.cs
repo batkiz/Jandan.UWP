@@ -16,6 +16,7 @@ using Jandan.UWP.Models;
 using Jandan.UWP.ViewModels;
 using Windows.ApplicationModel.DataTransfer;
 using System.Threading.Tasks;
+using Windows.UI;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -183,24 +184,73 @@ namespace Jandan
             DuanGridView.ItemContainerStyle = s_new;
         }
 
-        private async void DuanVotePositiveIcon_Click(object sender, RoutedEventArgs e)
+        private void DuanVotePositiveIcon_Click(object sender, RoutedEventArgs e)
         {
-            var b = sender as Button;
-            var duan = b.DataContext as Duan;
-
-            var msg = await _viewModel.Vote(duan.DuanID, true);
-            duan.VotePositive = duan.VotePositive + 1;
-            b.DataContext = duan;
+            DuanVote(sender, true);
         }
 
-        private async void DuanVoteNegativeIcon_Click(object sender, RoutedEventArgs e)
+        private void DuanVoteNegativeIcon_Click(object sender, RoutedEventArgs e)
+        {
+            DuanVote(sender, false);
+        }
+
+        private async void DuanVote(object sender, bool isLike)
         {
             var b = sender as Button;
             var duan = b.DataContext as Duan;
+            var c = b.Parent as RelativePanel;
 
-           var msg = await _viewModel.Vote(duan.DuanID, false);
-            duan.VoteNegative = duan.VoteNegative + 1;
-            b.DataContext = duan;
+            var msg = await _viewModel.Vote(duan, true);
+
+            if (msg == null)
+            {
+                textBlockPopup.Text = "网络不好，请稍后重试";
+                popTipVote.HorizontalOffset = -90;
+                popTipVote.IsOpen = true;   // 提示再按一次
+                await Task.Delay(2000);  // 1000ms后关闭提示
+                popTipVote.IsOpen = false;
+
+                return;
+            }
+
+            if (msg.Contains("THANK YOU"))
+            {
+                if (isLike)
+                {
+                    var t = c.Children[1] as TextBlock;
+                    t.Text = (duan.VotePositive++).ToString();
+                    t.Foreground = new SolidColorBrush(Colors.Red);
+
+                    var b1 = c.Children[0] as Button;
+                    b1.Foreground = new SolidColorBrush(Colors.Red);
+
+                    textBlockPopup.Text = "感谢您的OO！";
+                }
+                else
+                {
+                    var t = c.Children[3] as TextBlock;
+                    t.Text = (duan.VoteNegative++).ToString();
+                    t.Foreground = new SolidColorBrush(Colors.Red);
+
+                    var b2 = c.Children[2] as Button;
+                    b2.Foreground = new SolidColorBrush(Colors.Red);
+
+                    textBlockPopup.Text = "感谢您的XX！";
+                }
+                
+                popTipVote.HorizontalOffset = -64;
+                popTipVote.IsOpen = true;   // 提示再按一次
+                await Task.Delay(2000);  // 1000ms后关闭提示
+                popTipVote.IsOpen = false;
+            }
+            else if (msg.Contains("YOU'VE VOTED"))
+            {
+                textBlockPopup.Text = "您已投过票了";
+                popTipVote.HorizontalOffset = -60;
+                popTipVote.IsOpen = true;   // 提示再按一次
+                await Task.Delay(2000);  // 1000ms后关闭提示
+                popTipVote.IsOpen = false;
+            }
         }
 
         private void Grid_Holding(object sender, HoldingRoutedEventArgs e)

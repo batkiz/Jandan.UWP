@@ -99,9 +99,58 @@ namespace Jandan.UWP.ViewModels
             IsLoading = false;
         }
 
-        public async Task<string> Vote(string ID, bool isLike)
+        public async Task<string> Vote(Duan duan, bool isLike)
         {
-            return await _api.Vote(ID, isLike);
+            var d = Duan;
+
+            var msg = await _api.Vote(duan.DuanID, isLike);
+
+            if (string.IsNullOrEmpty(msg))
+            {
+                return null;
+            }
+            else if (msg.Contains("THANK YOU"))
+            {
+                if (isLike)
+                {
+                    d[Duan.IndexOf(duan)].VotePositive++;
+                }
+                else
+                {
+                    d[Duan.IndexOf(duan)].VoteNegative++;
+                }
+            }
+
+            Duan = d;
+
+            return msg;
+        }
+
+        public async Task<string> Vote(BoringPic boring, bool isLike)
+        {
+            var b = Pics;
+
+            var msg = await _api.Vote(boring.PicID, isLike);
+
+            if (string.IsNullOrEmpty(msg))
+            {
+                return null;
+            }
+            else if (msg.Contains("THANK YOU"))
+            {
+                if (isLike)
+                {
+                    b[Pics.IndexOf(boring)].VotePositive++;
+                }
+                else
+                {
+                    b[Pics.IndexOf(boring)].VoteNegative++;
+                }
+            }
+
+            Pics = b;
+
+            return msg;
         }
 
         public async void UpdateHotPics()

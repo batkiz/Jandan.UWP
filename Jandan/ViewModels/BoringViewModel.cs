@@ -197,5 +197,32 @@ namespace Jandan.UWP.ViewModels
         {
             IsLoading = false;
         }
+
+        public async Task<string> Vote(BoringPic boring, bool isLike)
+        {
+            var b = Boring;
+
+            var msg = await _api.Vote(boring.PicID, isLike);
+
+            if (string.IsNullOrEmpty(msg))
+            {
+                return null;
+            }
+            else if (msg.Contains("THANK YOU"))
+            {
+                if (isLike)
+                {
+                    b[Boring.IndexOf(boring)].VotePositive++;
+                }
+                else
+                {
+                    b[Boring.IndexOf(boring)].VoteNegative++;
+                }
+            }
+
+            Boring = b;
+
+            return msg;
+        }
     }
 }

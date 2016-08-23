@@ -55,7 +55,7 @@
                                                 Content="{StaticResource RateBarOO}" 
                                                 RelativePanel.AlignLeftWithPanel="True" 
                                                 MaxWidth="40" MinWidth="40"
-                                                Style="{StaticResource RateBarButtonStyle}">
+                                                Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click">
                         </Button>
                         <TextBlock Name="DuanVotePositive" 
                                                Text="{Binding VotePositive}" 
@@ -67,7 +67,7 @@
                                                 Content="{StaticResource RateBarXX}" 
                                                 RelativePanel.RightOf="DuanVotePositive" 
                                                 MaxWidth="40" MinWidth="40" 
-                                                Style="{StaticResource RateBarButtonStyle}">
+                                                Style="{StaticResource RateBarButtonStyle}" Click="DuanVoteNegativeIcon_Click">
                         </Button>
                         <TextBlock Name="DuanVoteNegative" 
                                                Text="{Binding VoteNegative}" 

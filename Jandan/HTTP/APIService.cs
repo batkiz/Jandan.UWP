@@ -594,7 +594,7 @@ namespace Jandan.UWP.HTTP
                                     AuthorAvatarUri = new Uri((authorURL.Equals("null") || authorURL.Equals("")) ? "ms-appx:///Icons/jandan-400.png" : authorURL),
                                     Like = (int)postItem.GetNamedNumber("likes"),
                                     Dislike = (int)postItem.GetNamedNumber("dislikes"),
-                                    OrderNumber = floorLevel++
+                                    OrderNumber = $"{floorLevel++}楼"
                                 });
                             }
 
@@ -697,7 +697,7 @@ namespace Jandan.UWP.HTTP
             {
                 string url = string.Format(ServiceURL.URL_VOTE, like);
                 string body = $"ID={ID}";
-                string returned_msg = await BaseService.SendPostRequestUrlEncoded(url, body);
+                string returned_msg = await BaseService.SendPostRequestUrlEncodedOfficial(url, body);
 
                 return returned_msg;
             }

@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Navigation;
 using Jandan.UWP.ViewModels;
 using Jandan.UWP.Models;
 using Windows.UI.Xaml.Documents;
+using Windows.UI;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -85,24 +86,73 @@ namespace Jandan
             Clipboard.SetContent(dataPackage);
         }
 
-        private async void DuanVotePositiveIcon_Click(object sender, RoutedEventArgs e)
+        private void DuanVotePositiveIcon_Click(object sender, RoutedEventArgs e)
         {
-            var b = sender as Button;
-            var duan = b.DataContext as Duan;
-
-            var msg = await _viewModel.Vote(duan.DuanID, true);
-            duan.VotePositive = duan.VotePositive + 1;
-            b.DataContext = duan;
+            DuanVote(sender, true);
         }
 
-        private async void DuanVoteNegativeIcon_Click(object sender, RoutedEventArgs e)
+        private void DuanVoteNegativeIcon_Click(object sender, RoutedEventArgs e)
+        {
+            DuanVote(sender, false);
+        }
+
+        private async void DuanVote(object sender, bool isLike)
         {
             var b = sender as Button;
             var duan = b.DataContext as Duan;
+            var c = b.Parent as RelativePanel;
 
-            var msg = await _viewModel.Vote(duan.DuanID, false);
-            duan.VoteNegative = duan.VoteNegative + 1;
-            b.DataContext = duan;
+            var msg = await _viewModel.Vote(duan, true);
+
+            if (msg == null)
+            {
+                textBlockPopup.Text = "网络不好，请稍后重试";
+                popTipVote.HorizontalOffset = -90;
+                popTipVote.IsOpen = true;   // 提示再按一次
+                await Task.Delay(2000);  // 1000ms后关闭提示
+                popTipVote.IsOpen = false;
+
+                return;
+            }
+
+            if (msg.Contains("THANK YOU"))
+            {
+                if (isLike)
+                {
+                    var t = c.Children[1] as TextBlock;
+                    t.Text = (duan.VotePositive++).ToString();
+                    t.Foreground = new SolidColorBrush(Colors.Red);
+
+                    var b1 = c.Children[0] as Button;
+                    b1.Foreground = new SolidColorBrush(Colors.Red);
+
+                    textBlockPopup.Text = "感谢您的OO！";
+                }
+                else
+                {
+                    var t = c.Children[3] as TextBlock;
+                    t.Text = (duan.VoteNegative++).ToString();
+                    t.Foreground = new SolidColorBrush(Colors.Red);
+
+                    var b2 = c.Children[2] as Button;
+                    b2.Foreground = new SolidColorBrush(Colors.Red);
+
+                    textBlockPopup.Text = "感谢您的XX！";
+                }
+
+                popTipVote.HorizontalOffset = -64;
+                popTipVote.IsOpen = true;   // 提示再按一次
+                await Task.Delay(2000);  // 1000ms后关闭提示
+                popTipVote.IsOpen = false;
+            }
+            else if (msg.Contains("YOU'VE VOTED"))
+            {
+                textBlockPopup.Text = "您已投过票了";
+                popTipVote.HorizontalOffset = -60;
+                popTipVote.IsOpen = true;   // 提示再按一次
+                await Task.Delay(2000);  // 1000ms后关闭提示
+                popTipVote.IsOpen = false;
+            }
         }
 
         private void DuanSplitView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
@@ -112,12 +162,6 @@ namespace Jandan
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            //if (just_returned)
-            //{
-            //    just_returned = false;
-            //    return;
-            //}
-
             if (BoringGridView.Visibility == Visibility.Collapsed)
             {
                 return;
@@ -144,7 +188,6 @@ namespace Jandan
             var bp = b.DataContext as BoringPic;
 
             _dViewModel.Update(bp.PicID);
-
             DuanSplitView.IsPaneOpen = true;
         }
 
@@ -167,6 +210,75 @@ namespace Jandan
             _viewModel.UpdateHotPics();
             _viewModel.UpdateHotDuan();
             _viewModel.UpdateHotComm();
+        }
+
+        private void HotImagePositiveIcon_Click(object sender, RoutedEventArgs e)
+        {
+            HotImageVote(sender, true);
+        }
+
+        private void HotImageNegativeIcon_Click(object sender, RoutedEventArgs e)
+        {
+            HotImageVote(sender, false);
+        }
+
+        private async void HotImageVote(object sender, bool isLike)
+        {
+            var b = sender as Button;
+            var boring = b.DataContext as BoringPic;
+            var c = b.Parent as RelativePanel;
+
+            var msg = await _viewModel.Vote(boring, true);
+
+            if (msg == null)
+            {
+                textBlockPopup.Text = "网络不好，请稍后重试";
+                popTipVote.HorizontalOffset = -90;
+                popTipVote.IsOpen = true;   // 提示再按一次
+                await Task.Delay(2000);  // 1000ms后关闭提示
+                popTipVote.IsOpen = false;
+
+                return;
+            }
+
+            if (msg.Contains("THANK YOU"))
+            {
+                if (isLike)
+                {
+                    var t = c.Children[1] as TextBlock;
+                    t.Text = (boring.VotePositive++).ToString();
+                    t.Foreground = new SolidColorBrush(Colors.Red);
+
+                    var b1 = c.Children[0] as Button;
+                    b1.Foreground = new SolidColorBrush(Colors.Red);
+
+                    textBlockPopup.Text = "感谢您的OO！";
+                }
+                else
+                {
+                    var t = c.Children[3] as TextBlock;
+                    t.Text = (boring.VoteNegative++).ToString();
+                    t.Foreground = new SolidColorBrush(Colors.Red);
+
+                    var b2 = c.Children[2] as Button;
+                    b2.Foreground = new SolidColorBrush(Colors.Red);
+
+                    textBlockPopup.Text = "感谢您的XX！";
+                }
+
+                popTipVote.HorizontalOffset = -64;
+                popTipVote.IsOpen = true;   // 提示再按一次
+                await Task.Delay(2000);  // 1000ms后关闭提示
+                popTipVote.IsOpen = false;
+            }
+            else if (msg.Contains("YOU'VE VOTED"))
+            {
+                textBlockPopup.Text = "您已投过票了";
+                popTipVote.HorizontalOffset = -60;
+                popTipVote.IsOpen = true;   // 提示再按一次
+                await Task.Delay(2000);  // 1000ms后关闭提示
+                popTipVote.IsOpen = false;
+            }
         }
     }
 }

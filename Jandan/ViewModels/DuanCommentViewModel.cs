@@ -99,10 +99,27 @@ namespace Jandan.UWP.ViewModels
                 foreach (var g in query)
                 {
                     DuanCommentInGroup comments = new DuanCommentInGroup();
+                    //comments.Key = g.GroupName;
+                    //foreach (var item in g.Items)
+                    //{
+                    //    comments.Add(item);
+                    //}
+                    //groups.Add(comments);
+
                     comments.Key = g.GroupName;
-                    foreach (var item in g.Items)
+                    if (comments.Key.Contains("热门"))
                     {
-                        comments.Add(item);
+                        foreach (var item in g.Items)
+                        {
+                            comments.Add(item);
+                        }
+                    }
+                    else // 最新
+                    {
+                        foreach (var item in list)
+                        {
+                            comments.Add(item);
+                        }                        
                     }
                     groups.Add(comments);
                 }

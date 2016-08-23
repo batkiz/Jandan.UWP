@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Jandan.UWP.Models;
 using Jandan.UWP.ViewModels;
 using System.Threading.Tasks;
+using Windows.UI;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -198,6 +199,73 @@ namespace Jandan
             this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic, PicDetailType.Meizi, _viewModel.Meizi });
         }
 
+        private void DuanVotePositiveIcon_Click(object sender, RoutedEventArgs e)
+        {
+            DuanVote(sender, true);
+        }
 
+        private void DuanVoteNegativeIcon_Click(object sender, RoutedEventArgs e)
+        {
+            DuanVote(sender, false);
+        }
+
+        private async void DuanVote(object sender, bool isLike)
+        {
+            var b = sender as Button;
+            var boring = b.DataContext as BoringPic;
+            var c = b.Parent as RelativePanel;
+
+            var msg = await _viewModel.Vote(boring, isLike);
+
+            if (msg == null)
+            {
+                textBlockMeiziCount.Text = "网络不好，请稍后重试";
+                popTipsMeizi.HorizontalOffset = -90;
+                popTipsMeizi.IsOpen = true;   // 提示再按一次
+                await Task.Delay(2000);  // 1000ms后关闭提示
+                popTipsMeizi.IsOpen = false;
+
+                return;
+            }
+
+            if (msg.Contains("THANK YOU"))
+            {
+                if (isLike)
+                {
+                    var t = c.Children[1] as TextBlock;
+                    t.Text = (boring.VotePositive++).ToString();
+                    t.Foreground = new SolidColorBrush(Colors.Red);
+
+                    textBlockMeiziCount.Text = "感谢您的OO！";
+
+                    var b1 = c.Children[0] as Button;
+                    b1.Foreground = new SolidColorBrush(Colors.Red);
+                }
+                else
+                {
+                    var t = c.Children[3] as TextBlock;
+                    t.Text = (boring.VoteNegative++).ToString();
+                    t.Foreground = new SolidColorBrush(Colors.Red);
+
+                    textBlockMeiziCount.Text = "感谢您的XX！";
+
+                    var b2 = c.Children[2] as Button;
+                    b2.Foreground = new SolidColorBrush(Colors.Red);
+                }
+
+                popTipsMeizi.HorizontalOffset = -64;
+                popTipsMeizi.IsOpen = true;   // 提示再按一次
+                await Task.Delay(2000);  // 1000ms后关闭提示
+                popTipsMeizi.IsOpen = false;
+            }
+            else if (msg.Contains("YOU'VE VOTED"))
+            {
+                textBlockMeiziCount.Text = "您已投过票了";
+                popTipsMeizi.HorizontalOffset = -60;
+                popTipsMeizi.IsOpen = true;   // 提示再按一次
+                await Task.Delay(2000);  // 1000ms后关闭提示
+                popTipsMeizi.IsOpen = false;
+            }
+        }
     }
 }

@@ -15,7 +15,7 @@
             <RelativePanel Grid.Column="1">
                 <TextBlock Name="DuanCommentAuthor" Text="{Binding AuthorName}" Style="{StaticResource CommentAuthorTextStyle}"></TextBlock>
                 <TextBlock Name="DuanCommentDate" Text="{Binding PostDate}" RelativePanel.Below="DuanCommentAuthor" Style="{StaticResource CommentDateTextStyle}"></TextBlock>
-                <TextBlock Name="DuanCommentFloorLevel" RelativePanel.RightOf="DuanCommentAuthor" HorizontalAlignment="Right" Text="{Binding OrderNumber}" Style="{StaticResource CommentLevelTextStyle}"></TextBlock>
+                <TextBlock Name="DuanCommentFloorLevel" RelativePanel.RightOf="DuanCommentAuthor" RelativePanel.AlignRightWithPanel="True" HorizontalAlignment="Right" Text="{Binding OrderNumber}" Style="{StaticResource CommentLevelTextStyle}"></TextBlock>
                 <!--<RelativePanel Name="ReplyDuanCommentPanel" RelativePanel.Below="DuanCommentAuthor">
                                             <TextBlock Name="ParentDuanCommentAutor" Text="{Binding ParentComment.AuthorName}" FontSize="8" TextWrapping="Wrap" MinHeight="1"/>
                                             <TextBlock Name="ParentDuanCommentDate"  Text="{Binding ParentComment.ThreadID}"  FontSize="8" RelativePanel.Below="ParentDuanCommentAutor" TextWrapping="Wrap" MinWidth="0" MinHeight="1"/>

@@ -154,5 +154,32 @@ namespace Jandan.UWP.ViewModels
         {
             return await _api.Vote(ID, isLike);
         }
+
+        public async Task<string> Vote(Duan duan, bool isLike)
+        {
+            var d = Duans;
+
+            var msg = await _api.Vote(duan.DuanID, isLike);
+
+            if (string.IsNullOrEmpty(msg))
+            {
+                return null;
+            }
+            else if (msg.Contains("THANK YOU"))
+            {
+                if (isLike)
+                {
+                    d[Duans.IndexOf(duan)].VotePositive++;
+                }
+                else
+                {
+                    d[Duans.IndexOf(duan)].VoteNegative++;
+                }
+            }
+
+            Duans = d;
+
+            return msg;
+        }
     }
 }

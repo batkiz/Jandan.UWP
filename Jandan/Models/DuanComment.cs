@@ -37,7 +37,7 @@ namespace Jandan.UWP.Models
         [DataMember]
         public bool IsHot { get; set; } = false;
         [DataMember]
-        public int OrderNumber { get; set; }
+        public string OrderNumber { get; set; }
     }
 
     [DataContract]

@@ -38,7 +38,7 @@ namespace Jandan.UWP.HTTP
                 return null;
             }
 
-        }
+        }        
         /// <summary>
         /// 向服务器发送get请求  返回服务器回复数据(bytes)
         /// </summary>
@@ -98,7 +98,35 @@ namespace Jandan.UWP.HTTP
             {
                 HttpRequestMessage mSent = new HttpRequestMessage(HttpMethod.Post, new Uri(url));
                 mSent.Content = new HttpStringContent(body, Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/x-www-form-urlencoded; charset=utf-8");
+
                 HttpClient client = new HttpClient();
+                HttpResponseMessage response = await client.SendRequestAsync(mSent);
+                response.EnsureSuccessStatusCode();
+
+                return await response.Content.ReadAsStringAsync();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// 向服务器发送post请求 返回服务器回复数据(string)
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="body"></param>
+        /// <returns></returns>
+        public async static Task<string> SendPostRequestUrlEncodedOfficial(string url, string body)
+        {
+            try
+            {
+                HttpRequestMessage mSent = new HttpRequestMessage(HttpMethod.Post, new Uri(url));
+                mSent.Content = new HttpStringContent(body, Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/x-www-form-urlencoded; charset=utf-8");
+
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Add("user-agent", "Jandan Android App V3.0.0.2");
+                client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
+
                 HttpResponseMessage response = await client.SendRequestAsync(mSent);
                 response.EnsureSuccessStatusCode();
 

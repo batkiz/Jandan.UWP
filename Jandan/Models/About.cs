@@ -6,7 +6,7 @@ namespace Jandan.UWP.Models
     public class About
     {
         [DataMember]
-        public string VersionNumber { get; } = "0.2.5";
+        public string VersionNumber { get; } = "2.0.0";
         [DataMember]
         public string AuthorName { get; } = "Ray Litchi\nTim（感谢同是蛋友的Tim童鞋强烈扫除各种bug）";
         [DataMember]
