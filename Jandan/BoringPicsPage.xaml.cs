@@ -156,15 +156,23 @@ namespace Jandan
             DuanSplitView.IsPaneOpen = true;
         }
 
-        private void PageTitle_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void PageTitle_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            secret_count++;
+            secret_count++;            
 
             if (secret_count == 5)
             {
                 this.Frame.Navigate(typeof(MeiziPicsPage));
                 secret_count = 0;
+                return;
             }
+
+            string tips = $"再点击{5 - secret_count}次进入妹子图";
+            textBlockMeiziCount.Text = tips;
+
+            popTipsMeizi.IsOpen = true;   // 提示再按一次
+            await Task.Delay(2000);  // 1000ms后关闭提示
+            popTipsMeizi.IsOpen = false;
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)

@@ -15,7 +15,7 @@
 
         
         <RelativePanel Grid.Row="0"
-                       Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"
+                       Style="{StaticResource TitleBarColorUWPStyle}"
                        Padding="0,9,0,9" >
             <!--顶部-->
             <Button Name="PageBackButton"

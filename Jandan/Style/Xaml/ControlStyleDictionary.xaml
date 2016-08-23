@@ -4,6 +4,33 @@
     xmlns:local="using:Jandan">
 
     <!--页面顶端标题栏相关资源-->
+    <LinearGradientBrush x:Key="JandanControlHighlightAltListAccentHighBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="Gray"  Offset="0.0" x:Name="GradientStop1"/>
+        <GradientStop Color="Black" Offset="0.85" x:Name="GradientStop2"/>
+    </LinearGradientBrush>
+
+    <Style x:Key="TitleBarColorUWPStyle" TargetType="RelativePanel">
+        <Setter Property="Background" Value="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"/>
+    </Style>
+    <Style x:Key="TitleBarColorJandanStyle" TargetType="RelativePanel">
+        <Setter Property="Background" Value="{ThemeResource JandanControlHighlightAltListAccentHighBrush}"/>
+    </Style>
+
+    <!--煎蛋原生主题-->
+    <Style x:Key="TitleBarTextBlockJandanStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Padding" Value="20,0,0,0"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style x:Key="TitleBarButtonJandanStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+        <Setter Property="Margin" Value="0,0,5,0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <!--UWP原生主题-->
     <Style x:Key="TitleBarTextBlockStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Padding" Value="20,0,0,0"/>

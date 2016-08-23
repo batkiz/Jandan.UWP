@@ -243,14 +243,26 @@
                             </Style>
                         </GridView.ItemContainerStyle>
                     </GridView>
+                    <!--弹出消息，提示妹子图-->
+                    <Popup Name="popTipsMeizi" IsOpen="False" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalOffset="-75" VerticalOffset="-100">
+                        <Grid BorderThickness="5" Margin="0,0,0,0" HorizontalAlignment="Center">
+                            <Grid.Background>
+                                <SolidColorBrush Color="Black" Opacity="0.8"/>
+                            </Grid.Background>
+                            <TextBlock Name="textBlockMeiziCount"  Foreground="White" Text="还差x次进入妹子图" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,5" />
+                        </Grid>
+                    </Popup>
                 </Grid>
                 <!--</p:PullToRefreshBox>-->
             </SplitView.Content>
         </SplitView>
+        
         <ProgressRing Grid.Row="1"
                       Name="LoadingRing"
                       Style="{StaticResource LoadingProgressStyle}"
                       IsActive="{Binding IsLoading}">
         </ProgressRing>
+        
     </Grid>
+    
 </Page>
