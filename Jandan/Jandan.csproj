@@ -139,6 +139,9 @@
     <Compile Include="BoringPicsPage.xaml.cs">
       <DependentUpon>BoringPicsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\CommentSubmitDialogue.xaml.cs">
+      <DependentUpon>CommentSubmitDialogue.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Data\BoringIncrementalLoadingCollection.cs" />
     <Compile Include="Data\Delegates.cs" />
     <Compile Include="Data\DuanIncrementalLoadingCollection.cs" />
@@ -232,6 +235,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Control\CommentSubmitDialogue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DuanPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -285,9 +292,7 @@
       <Name>ImageLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Control\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

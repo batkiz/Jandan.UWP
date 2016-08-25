@@ -21,6 +21,7 @@ using ImageLib.Cache.Memory.CacheImpl;
 using ImageLib.Cache.Storage;
 using ImageLib.Cache.Storage.CacheImpl;
 using ImageLib.Gif;
+using System.Threading.Tasks;
 
 namespace Jandan
 {
@@ -41,7 +42,10 @@ namespace Jandan
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+        }
 
+        private void GifImageViewerInit()
+        {
             ImageLoader.Initialize(new ImageConfig.Builder()
             {
                 CacheMode = ImageLib.Cache.CacheMode.MemoryAndStorageCache,
@@ -49,7 +53,25 @@ namespace Jandan
                 StorageCacheImpl = new LimitedStorageCache(ApplicationData.Current.LocalCacheFolder,
                 "cache", new SHA1CacheGenerator(), 1024 * 1024 * 1024)
             }.AddDecoder<GifDecoder>().Build(), true);
+        }
 
+        private async Task InstallCortanaCommand()
+        {
+            try
+            {
+                ////user can stop VCD in settings
+                //if (AppSettings.GetInstance().CortanaVCDEnableStatus == false)
+                //    return;
+
+                // Install the main VCD. Since there's no simple way to test that the VCD has been imported, or that it's your most recent
+                // version, it's not unreasonable to do this upon app load.
+                StorageFile vcdStorageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Cortana/VoiceCommandsFile.xml"));
+                await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdStorageFile);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Installing Voice Commands Failed: " + ex.ToString());
+            }
         }
 
         /// <summary>
@@ -66,6 +88,9 @@ namespace Jandan
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
+            // Initialization
+            GifImageViewerInit();
+            //await InstallCortanaCommand();
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -121,5 +146,7 @@ namespace Jandan
             //TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
         }
+
+
     }
 }

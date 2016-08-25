@@ -124,7 +124,8 @@ namespace Jandan.UWP.HTTP
                 mSent.Content = new HttpStringContent(body, Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/x-www-form-urlencoded; charset=utf-8");
 
                 HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Add("user-agent", "Jandan Android App V3.0.0.2");
+                //client.DefaultRequestHeaders.Add("user-agent", "Jandan Android App V3.0.0.2");
+                client.DefaultRequestHeaders.Add("user-agent", "Jandan UWP App V2.0.49.0");
                 client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
 
                 HttpResponseMessage response = await client.SendRequestAsync(mSent);

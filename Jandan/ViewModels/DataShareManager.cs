@@ -62,6 +62,11 @@ namespace Jandan.UWP.ViewModels
         private bool _isShowUnwelcome;
         public bool IsShowUnwelcome { get { return _isShowUnwelcome; } }
 
+        // 评论用户名
+        public string UserName { get; set; }
+        // 评论邮箱
+        public string EmailAdd { get; set; }
+
         private static DataShareManager _current;
         public static DataShareManager Current
         {

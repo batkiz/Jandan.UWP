@@ -30,7 +30,10 @@ namespace Jandan
         {
             this.InitializeComponent();
         }
-
+        /// <summary>
+        /// 从其他页面导航到“关于”页面
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             DataShareManager.Current.CurrentPageIndex = PageIndex.AboutPage;
@@ -43,7 +46,11 @@ namespace Jandan
             this.DataContext = _viewModel = new AboutViewModel();
 
         }
-
+        /// <summary>
+        /// 点击页面左上角的返回箭头按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PageBackButton_Click(object sender, RoutedEventArgs e)
         {
             try

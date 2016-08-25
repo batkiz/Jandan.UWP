@@ -37,7 +37,9 @@ namespace Jandan.UWP.ViewModels
             set { _commentList = value; OnPropertyChanged(); }
         }
 
-
+        public string ThreadId { get; set; }
+        public string ParentId { get; set; }
+        
         public DuanCommentViewModel()
         {
             _commentList = new CollectionViewSource();
@@ -73,7 +75,11 @@ namespace Jandan.UWP.ViewModels
                                 select l;
                         if (q.Count() != 0)
                         {
-                            t.ParentComment = new ParentDuanComment { AuthorName = q.First().AuthorName, ThreadID = q.First().ThreadID, Message = q.First().Message };
+                            t.ParentComment = new ParentDuanComment {
+                                AuthorName = q.First().AuthorName,
+                                ThreadID = q.First().ThreadID,
+                                Message = q.First().Message,
+                                Parent = q.First().ParentComment};
                         }
 
                         try
@@ -85,8 +91,12 @@ namespace Jandan.UWP.ViewModels
                             ;
                         }
                     }
-                });
 
+                    /////////////////////////////////////////
+                    ThreadId = t.ThreadID;
+                    /////////////////////////////////////////
+                });      
+                
 
                 ObservableCollection<DuanCommentInGroup> groups = new ObservableCollection<DuanCommentInGroup>();
 
@@ -128,6 +138,13 @@ namespace Jandan.UWP.ViewModels
             }
             
             IsLoadingComments = false;
+        }
+
+        public async Task<string> PostComment(string comment)
+        {
+            var msg =  await _api.PostComment(comment);
+
+            return msg;
         }
     }
 }

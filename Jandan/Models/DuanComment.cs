@@ -49,5 +49,7 @@ namespace Jandan.UWP.Models
         public string AuthorName { get; set; }
         [DataMember]
         public string Message { get; set; }
+        [DataMember]
+        public ParentDuanComment Parent { get; set; }
     }
 }

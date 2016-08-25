@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<VoiceCommands 
+    xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+    <CommandSet xml:lang="zh-hans-cn" Name="JandanCommandSet_zh-cn">
+        <AppName> 煎蛋 </AppName>
+        <Example> 讲个段子 或 看看无聊图</Example>
+        <Command Name="tellAJoke">
+            <Example> 讲个段子 </Example>
+            <ListenFor RequireAppName="ExplicitlySpecified"> {builtin:AppName}[给我]讲个段子 </ListenFor>
+            <ListenFor RequireAppName="ExplicitlySpecified"> {builtin:AppName}[给我]说个段子 </ListenFor>
+            <ListenFor RequireAppName="ExplicitlySpecified"> {builtin:AppName}[我想][看]看段子 </ListenFor>
+            <Feedback>正在获取段子...</Feedback>
+            <VoiceCommandService Target="JandanVoiceCommandService"/>
+        </Command>
+        <Command Name="seeABoringPic">
+            <Example> 看看无聊图</Example>
+            <ListenFor RequireAppName="ExplicitlySpecified"> {builtin:AppName}[给我][看]无聊图</ListenFor>
+            <ListenFor RequireAppName="ExplicitlySpecified"> {builtin:AppName}[我想][看]看无聊图</ListenFor>
+            <Feedback>正在获取无聊图...</Feedback>
+            <VoiceCommandService Target="JandanVoiceCommandService"/>
+        </Command>
+        <!--PhraseList用来定义一组语音字符，指定相应规定的字符，用来消除歧义-->
+        <!--使用 PhraseList 限制识别适用于一组相对较小的单词。当单词组过大（例如数百个单词）或者根本不应被限制时，
+        请使用 PhraseTopic 元素和 Subject 元素来优化语音识别结果的相关性，从而增强可扩展性。-->
+        <!--<PhraseList Label="Destination">
+            <Item>设置</Item>
+            <Item>关于</Item>
+        </PhraseList>-->
+
+        <!--可以提高识别率，内部属性Subject可指定该关键字类型，比如 城市名 姓名  地址 等类型-->
+        <!--<PhraseTopic Label="query" Scenario="Search">
+            <Subject> Words </Subject>
+        </PhraseTopic>-->
+    </CommandSet>
+</VoiceCommands>

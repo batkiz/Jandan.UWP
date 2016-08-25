@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using Jandan.UWP.Models;
+using Jandan.UWP.ViewModels;
+using Jandan.Control;
+using System;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Jandan.UWP.Models;
-using Jandan.UWP.ViewModels;
-using Windows.ApplicationModel.DataTransfer;
-using System.Threading.Tasks;
-using Windows.UI;
+using Windows.Data.Json;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -27,13 +24,23 @@ namespace Jandan
     /// </summary>
     public sealed partial class DuanPage : Page
     {
+        /// <summary>
+        /// 段子的View Model
+        /// </summary>
         DuanViewModel _viewModel;
+        /// <summary>
+        /// 段子评论的View Model
+        /// </summary>
         DuanCommentViewModel _dViewModel;
 
+        // 用于从其他页面返回时保持滚动条的位置
         private static double _persistedItemContainerHeight = -1;
         private static string _persistedItemKey = "";
         private static string _persistedPosition = "";
 
+        private bool _isFirstTimeGotFocus = true;
+
+        #region 基本功能
         public DuanPage()
         {
             this.InitializeComponent();
@@ -41,7 +48,71 @@ namespace Jandan
             this.DataContext = _viewModel = new DuanViewModel();
             DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
         }
+        /// <summary>
+        /// 从其他页面导航回到段子
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            DataShareManager.Current.CurrentPageIndex = PageIndex.DuanPage;
 
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                return;
+            }
+            base.OnNavigatedTo(e);
+        }
+
+        private void DuanListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            DuanSplitView.IsPaneOpen = true;
+
+            var d = e.ClickedItem as Duan;
+            var commentId = d.DuanID;
+
+            _dViewModel.Update(commentId);
+        }
+
+        private void DuanSplitView_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (DuanGridView.Visibility == Visibility.Collapsed)
+            {
+                return;
+            }
+
+            double margin = DuanGridView.Padding.Left + DuanGridView.Padding.Right;
+
+            double currentWidth = this.ActualWidth - margin;
+            int columnCount = (int)Math.Floor(currentWidth / 230);
+            double setWidth = (currentWidth - (columnCount - 1) * 10) / columnCount;
+
+            var s = DuanGridView.ItemContainerStyle;
+            Setter s4 = new Setter(GridViewItem.WidthProperty, setWidth);
+            Setter s3 = new Setter(GridViewItem.VerticalContentAlignmentProperty, VerticalAlignment.Top);
+
+            Style s_new = new Style(typeof(GridViewItem));
+            s_new.Setters.Add(s3);
+            s_new.Setters.Add(s4);
+
+            DuanGridView.ItemContainerStyle = s_new;
+        }
+
+        private void Page_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            //double delta = e.Cumulative.Translation.X;
+
+            //if (delta > 200)
+            //{
+            //    Frame.Navigate(typeof(FreshPage));
+            //}
+            //else if (delta < 200)
+            //{
+            //    Frame.Navigate(typeof(BoringPicsPage));
+            //}
+        }
+        #endregion
+
+        #region 处理滚动条位置保存
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(_persistedPosition))
@@ -107,30 +178,9 @@ namespace Jandan
 
             base.OnNavigatingFrom(e);
         }
+        #endregion
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            DataShareManager.Current.CurrentPageIndex = PageIndex.DuanPage;
-
-            if (e.NavigationMode == NavigationMode.Back)
-            {
-                return;
-            }
-            base.OnNavigatedTo(e);
-            //this.DataContext = _viewModel = new DuanViewModel();
-            //DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
-        }
-
-        private void DuanListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            DuanSplitView.IsPaneOpen = true;
-            
-            var d = e.ClickedItem as Duan;
-            var commentId = d.DuanID;
-
-            _dViewModel.Update(commentId);
-        }
-
+        #region 刷新列表
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             RefreshPage();
@@ -145,7 +195,9 @@ namespace Jandan
         {
             RefreshPage();
         }
+        #endregion
 
+        #region 段子评论
         private void Tucao_Click(object sender, RoutedEventArgs e)
         {
             var b = sender as Button;
@@ -153,37 +205,18 @@ namespace Jandan
 
             _dViewModel.Update(duan.DuanID);
             DuanSplitView.IsPaneOpen = true;
+
+            //////////////////////////////////////////////
+            CommentSubmitButton.Focus(FocusState.Pointer);
         }
 
         private void DuanSplitView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             DuanSplitView.IsPaneOpen = false;
         }
-
-        private void DuanSplitView_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (DuanGridView.Visibility == Visibility.Collapsed)
-            {
-                return;
-            }
-
-            double margin = DuanGridView.Padding.Left + DuanGridView.Padding.Right;
-
-            double currentWidth = this.ActualWidth - margin;
-            int columnCount = (int)Math.Floor(currentWidth / 230);
-            double setWidth = (currentWidth - (columnCount - 1) * 10) / columnCount;
-
-            var s = DuanGridView.ItemContainerStyle;
-            Setter s4 = new Setter(GridViewItem.WidthProperty, setWidth);
-            Setter s3 = new Setter(GridViewItem.VerticalContentAlignmentProperty, VerticalAlignment.Top);
-
-            Style s_new = new Style(typeof(GridViewItem));
-            s_new.Setters.Add(s3);
-            s_new.Setters.Add(s4);
-
-            DuanGridView.ItemContainerStyle = s_new;
-        }
-
+        #endregion
+        
+        #region OOXX功能
         private void DuanVotePositiveIcon_Click(object sender, RoutedEventArgs e)
         {
             DuanVote(sender, true);
@@ -252,7 +285,9 @@ namespace Jandan
                 popTipVote.IsOpen = false;
             }
         }
+        #endregion
 
+        #region 段子复制
         private void Grid_Holding(object sender, HoldingRoutedEventArgs e)
         {
             ShowFlyout(sender);
@@ -282,21 +317,80 @@ namespace Jandan
             dataPackage.SetText(copied_content);
             Clipboard.SetContent(dataPackage);
         }
+        #endregion
 
-        private void Page_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        private void DuanCommentListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            //double delta = e.Cumulative.Translation.X;
+            var d = e.ClickedItem as DuanComment;
+            var user_name = d.AuthorName;
 
-            //if (delta > 200)
+            CommentInputTextBox.Text = $"@{user_name}: ";
+            
+            _dViewModel.ParentId = d.PostID;
+        }
+
+        private async void CommentSubmitButton_Click(object sender, RoutedEventArgs e)
+        {
+            var response = CommentInputTextBox.Text;
+
+            if (!response.StartsWith("@") && !string.IsNullOrEmpty(_dViewModel.ParentId))
+            {
+                _dViewModel.ParentId = "";
+            }
+
+            var dia = new ContentDialog()
+            {
+                Title = "提示",
+                Content = new CommentSubmitDialogue(DataShareManager.Current.UserName, DataShareManager.Current.EmailAdd),
+                PrimaryButtonText = "发送",
+                SecondaryButtonText = "取消",
+                FullSizeDesired = false
+            };
+            dia.PrimaryButtonClick += Dia_PrimaryButtonClick;
+
+            var result = await dia.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                var message = $"message={response}&thread_id={_dViewModel.ThreadId}&parent_id={_dViewModel.ParentId}&author_name={DataShareManager.Current.UserName}&author_email={DataShareManager.Current.EmailAdd}";
+
+                var r = await _dViewModel.PostComment(message);
+
+                JsonObject j = new JsonObject();
+                if (JsonObject.TryParse(r,out j))
+                {
+                    textBlockPopup.Text = "评论成功！";
+                    popTipVote.HorizontalOffset = -40;
+                    popTipVote.IsOpen = true;   // 提示再按一次
+                    await Task.Delay(2000);  // 1000ms后关闭提示
+                    popTipVote.IsOpen = false;
+                }
+
+                CommentInputTextBox.Text = "";
+            }
+
+        }
+
+        private void Dia_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            var csd = sender.Content as CommentSubmitDialogue;
+
+            DataShareManager.Current.UserName = csd.UserName;
+            DataShareManager.Current.EmailAdd = csd.Email;
+        }
+
+        private void CommentInputTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            //if (_isFirstTimeGotFocus)
             //{
-            //    Frame.Navigate(typeof(FreshPage));
-            //}
-            //else if (delta < 200)
-            //{
-            //    Frame.Navigate(typeof(BoringPicsPage));
+            //    _isFirstTimeGotFocus = false;
+            //    CommentSubmitButton.Focus(FocusState.Pointer);
             //}
         }
 
-
+        private void DuanSplitView_PaneClosed(SplitView sender, object args)
+        {
+            //_isFirstTimeGotFocus = true;
+        }
     }
 }

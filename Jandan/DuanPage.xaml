@@ -28,7 +28,7 @@
                     <RelativePanel Grid.Row="0">
                         <TextBlock Name="DuanAuthor" Style="{StaticResource ItemAuthorTextStyle}" Text="{Binding Author}" ></TextBlock>
                         <TextBlock Name="DuanID" Style="{StaticResource ItemIDTextStyle}" Text="{Binding DuanID}" RelativePanel.AlignRightWithPanel="True"></TextBlock>
-                        <TextBlock Name="DuanDate" Style="{StaticResource ItemDateTextStyle}" Text="{Binding Date}" RelativePanel.Below="DuanAuthor"></TextBlock>                       
+                        <TextBlock Name="DuanDate" Style="{StaticResource ItemDateTextStyle}" Text="{Binding Date}" RelativePanel.Below="DuanAuthor"></TextBlock>
                     </RelativePanel>
                     <RelativePanel Grid.Row="1" Name="ContentPanel">
                         <TextBlock Name="DuanContent" Style="{StaticResource ItemContentTextStyle}" Text="{Binding Content}"></TextBlock>
@@ -104,7 +104,7 @@
                     Style="{StaticResource TitleBarButtonStyle}">
                 <Button.Flyout>
                     <Flyout>
-                        <StackPanel>                            
+                        <StackPanel>
                             <ToggleSwitch Name="showUnwelcome" IsOn="{Binding Path=IsShowUnwelcome, Mode=TwoWay}" OffContent="隐藏" OnContent="显示">显示/隐藏不受欢迎的段子</ToggleSwitch>
                         </StackPanel>
                     </Flyout>
@@ -120,13 +120,14 @@
         </RelativePanel>
 
         <!--SplitView.Content放段子, Pane放评论-->
-        <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped" SizeChanged="DuanSplitView_SizeChanged">
+        <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped" SizeChanged="DuanSplitView_SizeChanged" PaneClosed="DuanSplitView_PaneClosed">
             <!--SplitView.Pane放评论, 分为两行, 第一行为标题栏, 第二行为评论-->
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <!--顶部 评论列表-->
                     <RelativePanel Grid.Row="0"
@@ -139,7 +140,8 @@
                               Padding="8,10"
                               SelectionMode="None"
                               ItemsSource="{Binding CommentList.View}"
-                              ItemTemplate="{StaticResource CommentListDateTemplateStyle}">
+                              ItemTemplate="{StaticResource CommentListDateTemplateStyle}" 
+                              ItemClick="DuanCommentListView_ItemClick" IsItemClickEnabled="True">
                         <ListView.GroupStyle>
                             <GroupStyle>
                                 <GroupStyle.HeaderTemplate>
@@ -163,41 +165,47 @@
                                   IsActive="{Binding IsLoadingComments}" 
                                   HorizontalAlignment="Center" 
                                   VerticalAlignment="Center"/>
+                    <RelativePanel Grid.Row="2"
+                                   Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"
+                                   Padding="0,8,0,8" Margin="0" Opacity="0.8" >
+                        <TextBox Name="CommentInputTextBox" RelativePanel.AlignLeftWithPanel="True" RelativePanel.LeftOf="CommentSubmitButton" Margin="10,0,5,0" PlaceholderText="输入评论..." InputScope="Chat" ToolTipService.ToolTip="" AcceptsReturn="True" Padding="10,3,6,5" GotFocus="CommentInputTextBox_GotFocus"/>
+                        <Button Name="CommentSubmitButton" Content="吐槽" HorizontalAlignment="Right" RelativePanel.AlignRightWithPanel="True" Margin="5,0,10,0" Width="50" Click="CommentSubmitButton_Click"></Button>
+                    </RelativePanel>
                 </Grid>
             </SplitView.Pane>
-            <!--SplitView.Pane放段子正文, 分为listview/gridview两种模式-->
+            <!--SplitView.Content放段子正文, 分为listview/gridview两种模式-->
             <SplitView.Content>
                 <!--<p:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">-->
-                    <Grid>
-                        <ListView Name="DuanListView"
+                <Grid>
+                    <ListView Name="DuanListView"
                               ItemsSource="{Binding Duans}"
                               Style="{StaticResource ContentPanelListViewStyle}"
                               ItemTemplate="{StaticResource DuanDataStyle}" ContainerContentChanging="DuanListView_ContainerContentChanging">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                    <Setter Property="Padding" Value="0"></Setter>
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                                    <Setter Property="MinHeight" Value="0"></Setter>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                        </ListView>
-                        <GridView Name="DuanGridView"
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                <Setter Property="Padding" Value="0"></Setter>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                <Setter Property="MinHeight" Value="0"></Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                    <GridView Name="DuanGridView"
                               ItemsSource="{Binding Duans}"
                               Style="{StaticResource ContentPanelGridViewStyle}"
                               Visibility="Collapsed"
                               ItemTemplate="{StaticResource DuanDataStyle}">
-                            <GridView.ItemContainerStyle>
-                                <Style TargetType="GridViewItem">
-                                    <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                    <Setter Property="Padding" Value="0"></Setter>
-                                    <Setter Property="Width" Value="230"></Setter>
-                                    <Setter Property="MinHeight" Value="0"></Setter>
-                                    <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
-                                </Style>
-                            </GridView.ItemContainerStyle>
-                        </GridView>
-                        <!--弹出消息，提示妹子图-->
+                        <GridView.ItemContainerStyle>
+                            <Style TargetType="GridViewItem">
+                                <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                                <Setter Property="Padding" Value="0"></Setter>
+                                <Setter Property="Width" Value="230"></Setter>
+                                <Setter Property="MinHeight" Value="0"></Setter>
+                                <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
+                            </Style>
+                        </GridView.ItemContainerStyle>
+                    </GridView>
+                    <!--弹出消息，提示妹子图-->
                     <Popup Name="popTipVote" IsOpen="False" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalOffset="-45" VerticalOffset="-100">
                         <Grid Name="PopupGrid" BorderThickness="5" Margin="0,0,0,0" HorizontalAlignment="Center">
                             <Grid.Background>

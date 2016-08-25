@@ -11,6 +11,7 @@ using Jandan.UWP.Models;
 using Jandan.UWP.Tools;
 using Jandan.UWP.ViewModels;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace Jandan.UWP.HTTP
 {
@@ -568,34 +569,40 @@ namespace Jandan.UWP.HTTP
                             {
                                 string postID = j.GetString();
 
-                                var postItem = parentPosts.GetNamedObject(postID);
-
-                                // 获取评论用户图像URL
-                                string authorURL;
                                 try
                                 {
-                                    var jsonAuthor = postItem["author"].GetObject();
-                                    authorURL = jsonAuthor["avatar_url"].ValueType == JsonValueType.String ? jsonAuthor.GetNamedString("avatar_url") : "null";
-                                }
-                                catch (Exception)
-                                {
-                                    authorURL = "null";
-                                }
+                                    var postItem = parentPosts.GetNamedObject(postID);
+                                    // 获取评论用户图像URL
+                                    string authorURL;
+                                    try
+                                    {
+                                        var jsonAuthor = postItem["author"].GetObject();
+                                        authorURL = jsonAuthor["avatar_url"].ValueType == JsonValueType.String ? jsonAuthor.GetNamedString("avatar_url") : "null";
+                                    }
+                                    catch (Exception)
+                                    {
+                                        authorURL = "null";
+                                    }
 
-                                // 获取评论列表
-                                list.Add(new DuanComment
+                                    // 获取评论列表
+                                    list.Add(new DuanComment
+                                    {
+                                        PostID = postItem.GetNamedString("post_id"),
+                                        ThreadID = postItem.GetNamedString("thread_id"),
+                                        Message = postItem.GetNamedString("message"),
+                                        ParentID = postItem["parent_id"].ValueType == JsonValueType.String ? postItem.GetNamedString("parent_id") : "0",
+                                        PostDate = postItem.GetNamedString("created_at"),
+                                        AuthorName = postItem["author"].GetObject().GetNamedString("name"),
+                                        AuthorAvatarUri = new Uri((authorURL.Equals("null") || authorURL.Equals("")) ? "ms-appx:///Icons/jandan-400.png" : authorURL),
+                                        Like = (int)postItem.GetNamedNumber("likes"),
+                                        Dislike = (int)postItem.GetNamedNumber("dislikes"),
+                                        OrderNumber = $"{floorLevel++}楼"
+                                    });
+                                }
+                                catch (System.Exception)
                                 {
-                                    PostID = postItem.GetNamedString("post_id"),
-                                    ThreadID = postItem.GetNamedString("thread_id"),
-                                    Message = postItem.GetNamedString("message"),
-                                    ParentID = postItem["parent_id"].ValueType == JsonValueType.String ? postItem.GetNamedString("parent_id") : "0",
-                                    PostDate = postItem.GetNamedString("created_at"),
-                                    AuthorName = postItem["author"].GetObject().GetNamedString("name"),
-                                    AuthorAvatarUri = new Uri((authorURL.Equals("null") || authorURL.Equals("")) ? "ms-appx:///Icons/jandan-400.png" : authorURL),
-                                    Like = (int)postItem.GetNamedNumber("likes"),
-                                    Dislike = (int)postItem.GetNamedNumber("dislikes"),
-                                    OrderNumber = $"{floorLevel++}楼"
-                                });
+                                    Debug.WriteLine("存在以下Post ID无对应评论：" + postID);
+                                }                                
                             }
 
                             // 标记热门评论
@@ -698,6 +705,21 @@ namespace Jandan.UWP.HTTP
                 string url = string.Format(ServiceURL.URL_VOTE, like);
                 string body = $"ID={ID}";
                 string returned_msg = await BaseService.SendPostRequestUrlEncodedOfficial(url, body);
+
+                return returned_msg;
+            }
+            catch (Exception)
+            {
+                return "Failed.";
+            }
+        }
+
+        public async Task<string> PostComment(string comment)
+        {
+            try
+            {
+                string url = ServiceURL.URL_PUSH_DUAN_COMMENT;
+                string returned_msg = await BaseService.SendPostRequestUrlEncodedOfficial(url, comment);
 
                 return returned_msg;
             }
