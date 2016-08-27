@@ -6,8 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:Jandan.UWP.Models"
-    xmlns:p="using:PullToRefresh.UWP"
-    xmlns:ph="using:PullToRefresh.UWP.Helper"
     mc:Ignorable="d"
     NavigationCacheMode="Enabled" ManipulationCompleted="Page_ManipulationCompleted" Loaded="Page_Loaded">
 

@@ -9,6 +9,18 @@ using Windows.UI.Xaml;
 namespace Jandan.UWP.ViewModels
 {
     public enum PicDetailType { Boring, Hot, Meizi };
+    public enum PageIndex
+    {
+        MainPage = -1,
+        FreshPage = 1,
+        DuanPage = 2,
+        BoringPage = 3,
+        HotPage = 4,
+        FreshDetailPage = 5,
+        PicDetailPage = 6,
+        MeiziPage = 7,
+        AboutPage = 8
+    };
 
     public sealed class DataShareManager
     {

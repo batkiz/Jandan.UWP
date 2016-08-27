@@ -13,17 +13,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Jandan
 {
-    public enum PageIndex {
-        MainPage = -1,
-        FreshPage = 1,
-        DuanPage = 2,
-        BoringPage = 3,
-        HotPage = 4,
-        FreshDetailPage = 5,
-        PicDetailPage = 6,
-        MeiziPage = 7,
-        AboutPage = 8};
-
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>

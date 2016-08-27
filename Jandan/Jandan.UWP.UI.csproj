@@ -142,11 +142,6 @@
     <Compile Include="Control\CommentSubmitDialogue.xaml.cs">
       <DependentUpon>CommentSubmitDialogue.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Data\BoringIncrementalLoadingCollection.cs" />
-    <Compile Include="Data\Delegates.cs" />
-    <Compile Include="Data\DuanIncrementalLoadingCollection.cs" />
-    <Compile Include="Data\FreshIncrementalLoadingCollection.cs" />
-    <Compile Include="Data\MeiziIncrementalLoadingCollection.cs" />
     <Compile Include="DuanPage.xaml.cs">
       <DependentUpon>DuanPage.xaml</DependentUpon>
     </Compile>
@@ -159,49 +154,16 @@
     <Compile Include="HotPage.xaml.cs">
       <DependentUpon>HotPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HTTP\APIBaseService.cs" />
-    <Compile Include="HTTP\APIService.cs" />
-    <Compile Include="HTTP\BaseService.cs" />
-    <Compile Include="HTTP\ServiceURL.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MeiziPicsPage.xaml.cs">
       <DependentUpon>MeiziPicsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\About.cs" />
-    <Compile Include="Models\BestFreshComment.cs" />
-    <Compile Include="Models\DuanCommentInGroup.cs" />
-    <Compile Include="ViewModels\AboutViewModel.cs" />
-    <Compile Include="Models\Author.cs" />
-    <Compile Include="Models\BoringPic.cs" />
-    <Compile Include="Models\Duan.cs" />
-    <Compile Include="Models\DuanComment.cs" />
-    <Compile Include="Models\Fresh.cs" />
-    <Compile Include="Models\FreshComment.cs" />
-    <Compile Include="Models\FreshDetail.cs" />
-    <Compile Include="Models\ImageUrl.cs" />
-    <Compile Include="Models\Tags.cs" />
     <Compile Include="PicDetailPage.xaml.cs">
       <DependentUpon>PicDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tools\BackgroundTaskAction.cs" />
-    <Compile Include="Tools\DispatcherManager.cs" />
-    <Compile Include="Tools\FileHelper.cs" />
-    <Compile Include="Tools\NetworkManager.cs" />
-    <Compile Include="ViewModels\BoringViewModel.cs" />
-    <Compile Include="ViewModels\DataShareManager.cs" />
-    <Compile Include="ViewModels\DuanCommentViewModel.cs" />
-    <Compile Include="ViewModels\DuanViewModel.cs" />
-    <Compile Include="ViewModels\FreshCommentViewModel.cs" />
-    <Compile Include="ViewModels\FreshDetailViewModel.cs" />
-    <Compile Include="ViewModels\FreshViewModel.cs" />
-    <Compile Include="ViewModels\HotViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\MeiziViewModel.cs" />
-    <Compile Include="ViewModels\PicDetailViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -290,6 +252,10 @@
     <ProjectReference Include="..\ImageLib\ImageLib\ImageLib.csproj">
       <Project>{13258fbc-ed4a-476c-a0f3-bccf82177476}</Project>
       <Name>ImageLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jandan.UWP.Core\Jandan.UWP.Core.csproj">
+      <Project>{292223c4-e168-4a9b-ac22-fbbc07b8804b}</Project>
+      <Name>Jandan.UWP.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

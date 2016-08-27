@@ -7,7 +7,7 @@ using Windows.Networking.Connectivity;
 
 namespace Jandan.UWP.Tools
 {
-    class NetworkManager
+    public class NetworkManager
     {
         private static NetworkManager _current;
         public static NetworkManager Current
