@@ -73,6 +73,8 @@ namespace Jandan.UWP.ViewModels
 
         public async void LoadCache()
         {
+            IsLoading = true;
+
             var list = await FileHelper.Current.ReadObjectAsync<List<Fresh>>("fresh_list.json");
             FreshIncrementalLoadingCollection c = new FreshIncrementalLoadingCollection();
             list?.ForEach((t) =>
@@ -80,6 +82,8 @@ namespace Jandan.UWP.ViewModels
                 c.Add(t);
             });
             News = c;
+
+            IsLoading = false;
         }
 
         /// <summary>

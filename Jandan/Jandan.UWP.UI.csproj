@@ -7,8 +7,8 @@
     <ProjectGuid>{A1655E28-8E81-4E53-8757-4FB64466218B}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Jandan</RootNamespace>
-    <AssemblyName>Jandan</AssemblyName>
+    <RootNamespace>Jandan.UWP</RootNamespace>
+    <AssemblyName>Jandan.UWP</AssemblyName>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
@@ -116,7 +116,7 @@
     <Content Include="Assets\StoreLogo.scale-400.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="Documents\version-2.0.49.txt" />
+    <Content Include="Documents\version-2.1.53.txt" />
     <None Include="Jandan_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Icons\jandan-400.png" />

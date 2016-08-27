@@ -57,12 +57,12 @@
         <!--主页面,显示各个板块-->
         <Frame Name="mainFrame" Margin="0,0,0,48"/>
 
-        <!--加载进度条-->
+        <!--加载进度条--><!--
         <ProgressRing Grid.Row="1"
                       Name="LoadingRing"
                       Style="{StaticResource LoadingProgressStyle}"
                       IsActive="{Binding IsLoading}">
-        </ProgressRing>
+        </ProgressRing>-->
 
         <!--弹出消息,确认是否退出程序-->
         <Popup Name="popTips"

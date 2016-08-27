@@ -10,6 +10,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Data.Json;
+using Jandan.Control;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -245,6 +247,9 @@ namespace Jandan
             _dViewModel.Update(bp.PicID);
 
             DuanSplitView.IsPaneOpen = true;
+
+            //////////////////////////////////////////////
+            CommentSubmitButton.Focus(FocusState.Pointer);
         }
         #endregion
         
@@ -269,11 +274,7 @@ namespace Jandan
 
             if (msg == null)
             {
-                textBlockMeiziCount.Text = "网络不好，请稍后重试";
-                popTipsMeizi.HorizontalOffset = -90;
-                popTipsMeizi.IsOpen = true;   // 提示再按一次
-                await Task.Delay(2000);  // 1000ms后关闭提示
-                popTipsMeizi.IsOpen = false;
+                await PopupMessage("网络不好，请稍后重试", 90, 2000);
 
                 return;
             }
@@ -286,10 +287,10 @@ namespace Jandan
                     t.Text = (boring.VotePositive++).ToString();
                     t.Foreground = new SolidColorBrush(Colors.Red);
 
-                    textBlockMeiziCount.Text = "感谢您的OO！";
-
                     var b1 = c.Children[0] as Button;
                     b1.Foreground = new SolidColorBrush(Colors.Red);
+
+                    await PopupMessage("感谢您的OO！", 64, 2000);
                 }
                 else
                 {
@@ -297,26 +298,90 @@ namespace Jandan
                     t.Text = (boring.VoteNegative++).ToString();
                     t.Foreground = new SolidColorBrush(Colors.Red);
 
-                    textBlockMeiziCount.Text = "感谢您的XX！";
-
                     var b2 = c.Children[2] as Button;
                     b2.Foreground = new SolidColorBrush(Colors.Red);
-                }
 
-                popTipsMeizi.HorizontalOffset = -64;
-                popTipsMeizi.IsOpen = true;   // 提示再按一次
-                await Task.Delay(2000);  // 1000ms后关闭提示
-                popTipsMeizi.IsOpen = false;
+                    await PopupMessage("感谢您的XX！", 64, 2000);
+                }
             }
             else if (msg.Contains("YOU'VE VOTED"))
             {
-                textBlockMeiziCount.Text = "您已投过票了";
-                popTipsMeizi.HorizontalOffset = -60;
-                popTipsMeizi.IsOpen = true;   // 提示再按一次
-                await Task.Delay(2000);  // 1000ms后关闭提示
-                popTipsMeizi.IsOpen = false;
+                await PopupMessage("您已投过票了", 60, 2000);
             }
         }
         #endregion
+
+        private void DuanCommentListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var d = e.ClickedItem as DuanComment;
+            var user_name = d.AuthorName;
+
+            CommentInputTextBox.Text = $"@{user_name}: ";
+
+            _dViewModel.ParentId = d.PostID;
+        }
+
+        private async void CommentSubmitButton_Click(object sender, RoutedEventArgs e)
+        {
+            var response = CommentInputTextBox.Text;
+
+            if (!response.StartsWith("@") && !string.IsNullOrEmpty(_dViewModel.ParentId))
+            {
+                _dViewModel.ParentId = "";
+            }
+
+            var dia = new ContentDialog()
+            {
+                Title = "提示",
+                Content = new CommentSubmitDialogue(DataShareManager.Current.UserName, DataShareManager.Current.EmailAdd),
+                PrimaryButtonText = "发送",
+                SecondaryButtonText = "取消",
+                FullSizeDesired = false
+            };
+            dia.PrimaryButtonClick += Dia_PrimaryButtonClick;
+
+            var result = await dia.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                var message = $"message={response}&thread_id={_dViewModel.ThreadId}&parent_id={_dViewModel.ParentId}&author_name={DataShareManager.Current.UserName}&author_email={DataShareManager.Current.EmailAdd}";
+
+                var r = await _dViewModel.PostComment(message);
+
+                JsonObject j = new JsonObject();
+                if (JsonObject.TryParse(r, out j))
+                {
+                    await PopupMessage("评论成功！", 40, 2000);
+                }
+
+                CommentInputTextBox.Text = "";
+            }
+
+        }
+
+        private async Task PopupMessage(string message, double textWidth, int disTime)
+        {
+            textBlockMeiziCount.Text = message;
+            popTipsMeizi.HorizontalOffset = -textWidth;
+            popTipsMeizi.IsOpen = true;   // 提示再按一次
+            await Task.Delay(disTime);  // 1000ms后关闭提示
+            popTipsMeizi.IsOpen = false;
+        }
+
+        private void Dia_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            var csd = sender.Content as CommentSubmitDialogue;
+
+            DataShareManager.Current.UserName = csd.UserName;
+            DataShareManager.Current.EmailAdd = csd.Email;
+        }
+
+        private void DuanSplitView_PaneClosed(SplitView sender, object args)
+        {
+            CommentInputTextBox.Text = "";
+
+            DataShareManager.Current.UserName = "";
+            DataShareManager.Current.EmailAdd = "";
+        }
     }
 }

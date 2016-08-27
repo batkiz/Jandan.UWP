@@ -6,13 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:Jandan.UWP.Models"
+    xmlns:view="using:Jandan.UWP.ViewModels"
     mc:Ignorable="d"
-    NavigationCacheMode="Enabled" ManipulationCompleted="Page_ManipulationCompleted" Loaded="Page_Loaded">
+    NavigationCacheMode="Enabled" Loaded="Page_Loaded">
 
     <Page.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="DuanDataStyle">
-                <Grid Margin="0" Padding="5" Holding="Grid_Holding" ManipulationMode="System, TranslateX" RightTapped="Grid_RightTapped">
+            <DataTemplate x:Key="DuanDataStyle" x:DataType="data:Duan">
+                <Grid Margin="0" Padding="5" Holding="Grid_Holding" RightTapped="Grid_RightTapped">
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout>
                             <MenuFlyoutItem Text="复制" Tapped="MenuFlyoutItem_Tapped"/>
@@ -24,54 +25,29 @@
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <RelativePanel Grid.Row="0">
-                        <TextBlock Name="DuanAuthor" Style="{StaticResource ItemAuthorTextStyle}" Text="{Binding Author}" ></TextBlock>
-                        <TextBlock Name="DuanID" Style="{StaticResource ItemIDTextStyle}" Text="{Binding DuanID}" RelativePanel.AlignRightWithPanel="True"></TextBlock>
-                        <TextBlock Name="DuanDate" Style="{StaticResource ItemDateTextStyle}" Text="{Binding Date}" RelativePanel.Below="DuanAuthor"></TextBlock>
+                        <TextBlock Name="DuanAuthor" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"></TextBlock>
+                        <TextBlock Name="DuanID" Text="{x:Bind DuanID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"></TextBlock>
+                        <TextBlock Name="DuanDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="DuanAuthor"></TextBlock>
                     </RelativePanel>
                     <RelativePanel Grid.Row="1" Name="ContentPanel">
-                        <TextBlock Name="DuanContent" Style="{StaticResource ItemContentTextStyle}" Text="{Binding Content}"></TextBlock>
+                        <TextBlock Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>
                     </RelativePanel>
                     <RelativePanel Grid.Row="2" Margin="0,5">
-                        <Button Name="DuanVotePositiveIcon" 
-                                                Content="{StaticResource RateBarOO}" 
-                                                RelativePanel.AlignLeftWithPanel="True" 
-                                                MaxWidth="40" MinWidth="40"
-                                                Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click">
-                        </Button>
-                        <TextBlock Name="DuanVotePositive" 
-                                               Text="{Binding VotePositive}" 
-                                               RelativePanel.AlignVerticalCenterWithPanel="True" 
-                                               RelativePanel.RightOf="DuanVotePositiveIcon" 
-                                               Style="{StaticResource RateBarTextStyle}">
-                        </TextBlock>
-                        <Button Name="DuanVoteNegativeIcon" 
-                                                Content="{StaticResource RateBarXX}" 
-                                                RelativePanel.RightOf="DuanVotePositive" 
-                                                MaxWidth="40" MinWidth="40" 
-                                                Style="{StaticResource RateBarButtonStyle}" Click="DuanVoteNegativeIcon_Click">
-                        </Button>
-                        <TextBlock Name="DuanVoteNegative" 
-                                               Text="{Binding VoteNegative}" 
-                                               RelativePanel.AlignVerticalCenterWithPanel="True"
-                                               RelativePanel.RightOf="DuanVoteNegativeIcon" 
-                                               Style="{StaticResource RateBarTextStyle}">
-                        </TextBlock>
-                        <Button Name="DuanViewCommentButton" 
-                                            Content="{StaticResource RateBarComment}" 
-                                            Click="Tucao_Click"
-                                            RelativePanel.RightOf="DuanVoteNegative" 
-                                            MaxWidth="50" MinWidth="50" 
-                                            Style="{StaticResource RateBarButtonStyle}">
-                        </Button>
-                        <TextBlock Name="DuanCommentCount" 
-                                               Text="{Binding CommentCount}" 
-                                               RelativePanel.AlignVerticalCenterWithPanel="True"
-                                               RelativePanel.RightOf="DuanViewCommentButton" 
-                                               Style="{StaticResource RateBarTextStyle}">
-                        </TextBlock>
+                        <Button Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click"></Button>
+                        <TextBlock Name="DuanVotePositive" Text="{x:Bind VotePositive, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource RateBarTextStyle}"></TextBlock>
+                        <Button Name="DuanVoteNegativeIcon" Content="{StaticResource RateBarXX}" RelativePanel.RightOf="DuanVotePositive" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVoteNegativeIcon_Click"></Button>
+                        <TextBlock Name="DuanVoteNegative" Text="{x:Bind VoteNegative, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVoteNegativeIcon" Style="{StaticResource RateBarTextStyle}"></TextBlock>
+                        <Button Name="DuanViewCommentButton" Content="{StaticResource RateBarComment}" Click="Tucao_Click" RelativePanel.RightOf="DuanVoteNegative" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"></Button>
+                        <TextBlock Name="DuanCommentCount" Text="{x:Bind CommentCount, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanViewCommentButton" Style="{StaticResource RateBarTextStyle}"></TextBlock>
                     </RelativePanel>
                 </Grid>
             </DataTemplate>
+            <Style x:Key="DuanListViewItemStyle" TargetType="ListViewItem">
+                <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                <Setter Property="Padding" Value="0"></Setter>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                <Setter Property="MinHeight" Value="0"></Setter>
+            </Style>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -85,41 +61,22 @@
         <RelativePanel Grid.Row="0"
                        Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"
                        Padding="0,9,0,9" >
-            <TextBlock Name="PageTitleIcon"
-                       Text="&#xE90A;"
-                       FontFamily="Segoe MDL2 Assets"
-                       RelativePanel.AlignVerticalCenterWithPanel="True"
-                       Style="{StaticResource TitleBarTextBlockStyle}">
-            </TextBlock>
-            <TextBlock Name="PageTitle"
-                       Text="段子"
-                       RelativePanel.AlignVerticalCenterWithPanel="True"
-                       RelativePanel.RightOf="PageTitleIcon"
-                       Style="{StaticResource TitleBarTextBlockStyle}"/>
-            <Button Name="FilterButton"
-                    Content="&#xE71C;"
-                    RelativePanel.LeftOf="RefreshButton"
-                    Style="{StaticResource TitleBarButtonStyle}">
+            <TextBlock Name="PageTitleIcon" Text="&#xE90A;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
+            <TextBlock Name="PageTitle" Text="段子" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="PageTitleIcon" Style="{StaticResource TitleBarTextBlockStyle}"/>
+            <Button Name="FilterButton" Content="&#xE71C;" RelativePanel.LeftOf="RefreshButton" Style="{StaticResource TitleBarButtonStyle}">
                 <Button.Flyout>
                     <Flyout>
                         <StackPanel>
-                            <ToggleSwitch Name="showUnwelcome" IsOn="{Binding Path=IsShowUnwelcome, Mode=TwoWay}" OffContent="隐藏" OnContent="显示">显示/隐藏不受欢迎的段子</ToggleSwitch>
+                            <ToggleSwitch Name="showUnwelcome" IsOn="{x:Bind _viewModel.IsShowUnwelcome, Mode=TwoWay}" OffContent="隐藏" OnContent="显示">显示/隐藏不受欢迎的段子</ToggleSwitch>
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
             </Button>
-            <Button Name="RefreshButton"
-                    Content="&#xE117;"
-                    RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignVerticalCenterWithPanel="True"
-                    Click="RefreshButton_Click"
-                    Style="{StaticResource TitleBarButtonStyle}">
-            </Button>
+            <Button Name="RefreshButton" Content="&#xE117;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
         </RelativePanel>
 
         <!--SplitView.Content放段子, Pane放评论-->
-        <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped" SizeChanged="DuanSplitView_SizeChanged" PaneClosed="DuanSplitView_PaneClosed">
-            <!--SplitView.Pane放评论, 分为两行, 第一行为标题栏, 第二行为评论-->
+        <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped" PaneClosed="DuanSplitView_PaneClosed">
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -128,82 +85,31 @@
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <!--顶部 评论列表-->
-                    <RelativePanel Grid.Row="0"
-                                   Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"
-                                   Padding="0,9,0,9" >
+                    <RelativePanel Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,9,0,9" >
                         <TextBlock Name="CommentTitle" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource CommentListTitleTextStyle}"></TextBlock>
                     </RelativePanel>
-                    <ListView Grid.Row="1"
-                              Name="DuanCommentListView"
-                              Padding="8,10"
-                              SelectionMode="None"
-                              ItemsSource="{Binding CommentList.View}"
-                              ItemTemplate="{StaticResource CommentListDateTemplateStyle}" 
-                              ItemClick="DuanCommentListView_ItemClick" IsItemClickEnabled="True">
+                    <ListView Grid.Row="1" Name="DuanCommentListView" Padding="8,10" SelectionMode="None" ItemsSource="{x:Bind _dViewModel.CommentList.View, Mode=OneWay}" ItemTemplate="{StaticResource CommentListDateTemplateStyle}" ItemContainerStyle="{StaticResource CommentListViewItemStyle}" ItemClick="DuanCommentListView_ItemClick" IsItemClickEnabled="True">
                         <ListView.GroupStyle>
                             <GroupStyle>
                                 <GroupStyle.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Key}" Style="{StaticResource CommentGroupTitleTextStyle}"/>
+                                    <DataTemplate x:DataType="data:DuanCommentInGroup">
+                                        <TextBlock Text="{x:Bind Key, Mode=OneWay}" Style="{StaticResource CommentGroupTitleTextStyle}"/>
                                     </DataTemplate>
                                 </GroupStyle.HeaderTemplate>
                             </GroupStyle>
                         </ListView.GroupStyle>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                <Setter Property="Padding" Value="0"></Setter>
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                                <Setter Property="MinHeight" Value="0"></Setter>
-                            </Style>
-                        </ListView.ItemContainerStyle>
                     </ListView>
-                    <ProgressRing Grid.Row="1"
-                                  Name="LoadingCommentProgressBar" 
-                                  IsActive="{Binding IsLoadingComments}" 
-                                  HorizontalAlignment="Center" 
-                                  VerticalAlignment="Center"/>
-                    <RelativePanel Grid.Row="2"
-                                   Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"
-                                   Padding="0,8,0,8" Margin="0" Opacity="0.8" >
-                        <TextBox Name="CommentInputTextBox" RelativePanel.AlignLeftWithPanel="True" RelativePanel.LeftOf="CommentSubmitButton" Margin="10,0,5,0" PlaceholderText="输入评论..." InputScope="Chat" ToolTipService.ToolTip="" AcceptsReturn="True" Padding="10,3,6,5" GotFocus="CommentInputTextBox_GotFocus"/>
+                    <ProgressRing Grid.Row="1" Name="LoadingCommentProgressBar" IsActive="{x:Bind _dViewModel.IsLoadingComments, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <RelativePanel Grid.Row="2" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,8,0,8" Opacity="0.8">
+                        <TextBox Name="CommentInputTextBox" RelativePanel.AlignLeftWithPanel="True" RelativePanel.LeftOf="CommentSubmitButton" Margin="10,0,5,0" PlaceholderText="输入评论..." InputScope="Chat" ToolTipService.ToolTip="" AcceptsReturn="True" Padding="10,3,6,5"/>
                         <Button Name="CommentSubmitButton" Content="吐槽" HorizontalAlignment="Right" RelativePanel.AlignRightWithPanel="True" Margin="5,0,10,0" Width="50" Click="CommentSubmitButton_Click"></Button>
                     </RelativePanel>
                 </Grid>
             </SplitView.Pane>
-            <!--SplitView.Content放段子正文, 分为listview/gridview两种模式-->
+            <!--SplitView.Content放段子正文-->
             <SplitView.Content>
-                <!--<p:PullToRefreshBox Name="pullToRefreshBar" RefreshInvoked="pullToRefreshBar_RefreshInvoked">-->
                 <Grid>
-                    <ListView Name="DuanListView"
-                              ItemsSource="{Binding Duans}"
-                              Style="{StaticResource ContentPanelListViewStyle}"
-                              ItemTemplate="{StaticResource DuanDataStyle}" ContainerContentChanging="DuanListView_ContainerContentChanging">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                <Setter Property="Padding" Value="0"></Setter>
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                                <Setter Property="MinHeight" Value="0"></Setter>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
-                    <GridView Name="DuanGridView"
-                              ItemsSource="{Binding Duans}"
-                              Style="{StaticResource ContentPanelGridViewStyle}"
-                              Visibility="Collapsed"
-                              ItemTemplate="{StaticResource DuanDataStyle}">
-                        <GridView.ItemContainerStyle>
-                            <Style TargetType="GridViewItem">
-                                <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                                <Setter Property="Padding" Value="0"></Setter>
-                                <Setter Property="Width" Value="230"></Setter>
-                                <Setter Property="MinHeight" Value="0"></Setter>
-                                <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
-                            </Style>
-                        </GridView.ItemContainerStyle>
-                    </GridView>
-                    <!--弹出消息，提示妹子图-->
+                    <ListView Name="DuanListView" ItemsSource="{x:Bind _viewModel.Duans, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ContainerContentChanging="DuanListView_ContainerContentChanging" ItemContainerStyle="{StaticResource DuanListViewItemStyle}"></ListView>
                     <Popup Name="popTipVote" IsOpen="False" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalOffset="-45" VerticalOffset="-100">
                         <Grid Name="PopupGrid" BorderThickness="5" Margin="0,0,0,0" HorizontalAlignment="Center">
                             <Grid.Background>
@@ -213,14 +119,9 @@
                         </Grid>
                     </Popup>
                 </Grid>
-                <!--</p:PullToRefreshBox>-->
             </SplitView.Content>
         </SplitView>
-        <ProgressRing Grid.Row="1"
-                      Name="LoadingRing"
-                      Style="{StaticResource LoadingProgressStyle}"
-                      IsActive="{Binding IsLoading}">
-        </ProgressRing>
+        <ProgressRing Grid.Row="1" Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind _viewModel.IsLoading, Mode=OneWay}"></ProgressRing>
 
     </Grid>
 </Page>

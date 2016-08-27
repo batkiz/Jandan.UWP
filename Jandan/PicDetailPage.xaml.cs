@@ -25,6 +25,8 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Core;
+using Windows.Data.Json;
+using Jandan.Control;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -105,6 +107,9 @@ namespace Jandan
             }
 
             SystemNavigationManager.GetForCurrentView().BackRequested += PicDetailPage_BackRequested;
+
+            //////////////////////////////////////////////
+            CommentSubmitButton.Focus(FocusState.Pointer);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -175,10 +180,16 @@ namespace Jandan
 
                 await FileIO.WriteBytesAsync(saveFile, allBytes.ToArray());
             }
+                        
+            await PopupMessage("已经保存到图片文件夹", 80, 2000);
+        }
 
-            popupMsg.Text = "已经保存到图片文件夹";
+        private async Task PopupMessage(string message, double textWidth, int disTime)
+        {
+            popupMsg.Text = message;
+            popTips.HorizontalOffset = -textWidth;
             popTips.IsOpen = true;   // 提示再按一次
-            await Task.Delay(1000);  // 1000ms后关闭提示
+            await Task.Delay(disTime);  // 1000ms后关闭提示
             popTips.IsOpen = false;
         }
 
@@ -197,10 +208,7 @@ namespace Jandan
             }
             else
             {
-                popupMsg.Text = "已经是第一张了哦";
-                popTips.IsOpen = true;   // 提示再按一次
-                await Task.Delay(1000);  // 1000ms后关闭提示
-                popTips.IsOpen = false;
+                await PopupMessage("已经是第一张了哦", 65, 2000);
             }
         }
 
@@ -245,6 +253,61 @@ namespace Jandan
                 NextPic();
                 return;
             }
+        }
+
+        private async void CommentSubmitButton_Click(object sender, RoutedEventArgs e)
+        {
+            var response = CommentInputTextBox.Text;
+
+            if (!response.StartsWith("@") && !string.IsNullOrEmpty(_dViewModel.ParentId))
+            {
+                _dViewModel.ParentId = "";
+            }
+
+            var dia = new ContentDialog()
+            {
+                Title = "提示",
+                Content = new CommentSubmitDialogue(DataShareManager.Current.UserName, DataShareManager.Current.EmailAdd),
+                PrimaryButtonText = "发送",
+                SecondaryButtonText = "取消",
+                FullSizeDesired = false
+            };
+            dia.PrimaryButtonClick += Dia_PrimaryButtonClick;
+
+            var result = await dia.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                var message = $"message={response}&thread_id={_dViewModel.ThreadId}&parent_id={_dViewModel.ParentId}&author_name={DataShareManager.Current.UserName}&author_email={DataShareManager.Current.EmailAdd}";
+
+                var r = await _dViewModel.PostComment(message);
+
+                JsonObject j = new JsonObject();
+                if (JsonObject.TryParse(r, out j))
+                {
+                    await PopupMessage("评论成功！", 40, 2000);
+                }
+
+                CommentInputTextBox.Text = "";
+            }
+        }
+
+        private void Dia_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            var csd = sender.Content as CommentSubmitDialogue;
+
+            DataShareManager.Current.UserName = csd.UserName;
+            DataShareManager.Current.EmailAdd = csd.Email;
+        }
+
+        private void DuanCommentListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var d = e.ClickedItem as DuanComment;
+            var user_name = d.AuthorName;
+
+            CommentInputTextBox.Text = $"@{user_name}: ";
+
+            _dViewModel.ParentId = d.PostID;
         }
     }
 }

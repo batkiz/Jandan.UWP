@@ -38,8 +38,6 @@ namespace Jandan
         private static string _persistedItemKey = "";
         private static string _persistedPosition = "";
 
-        private bool _isFirstTimeGotFocus = true;
-
         #region 基本功能
         public DuanPage()
         {
@@ -73,43 +71,6 @@ namespace Jandan
             _dViewModel.Update(commentId);
         }
 
-        private void DuanSplitView_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (DuanGridView.Visibility == Visibility.Collapsed)
-            {
-                return;
-            }
-
-            double margin = DuanGridView.Padding.Left + DuanGridView.Padding.Right;
-
-            double currentWidth = this.ActualWidth - margin;
-            int columnCount = (int)Math.Floor(currentWidth / 230);
-            double setWidth = (currentWidth - (columnCount - 1) * 10) / columnCount;
-
-            var s = DuanGridView.ItemContainerStyle;
-            Setter s4 = new Setter(GridViewItem.WidthProperty, setWidth);
-            Setter s3 = new Setter(GridViewItem.VerticalContentAlignmentProperty, VerticalAlignment.Top);
-
-            Style s_new = new Style(typeof(GridViewItem));
-            s_new.Setters.Add(s3);
-            s_new.Setters.Add(s4);
-
-            DuanGridView.ItemContainerStyle = s_new;
-        }
-
-        private void Page_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
-        {
-            //double delta = e.Cumulative.Translation.X;
-
-            //if (delta > 200)
-            //{
-            //    Frame.Navigate(typeof(FreshPage));
-            //}
-            //else if (delta < 200)
-            //{
-            //    Frame.Navigate(typeof(BoringPicsPage));
-            //}
-        }
         #endregion
 
         #region 处理滚动条位置保存
@@ -237,11 +198,7 @@ namespace Jandan
 
             if (msg == null)
             {
-                textBlockPopup.Text = "网络不好，请稍后重试";
-                popTipVote.HorizontalOffset = -90;
-                popTipVote.IsOpen = true;   // 提示再按一次
-                await Task.Delay(2000);  // 1000ms后关闭提示
-                popTipVote.IsOpen = false;
+                await PopupMessage("网络不好，请稍后重试", 90, 2000);
 
                 return;
             }
@@ -256,8 +213,8 @@ namespace Jandan
 
                     var b1 = c.Children[0] as Button;
                     b1.Foreground = new SolidColorBrush(Colors.Red);
-
-                    textBlockPopup.Text = "感谢您的OO！";
+                    
+                    await PopupMessage("感谢您的OO！", 64, 2000);
                 }
                 else
                 {
@@ -268,21 +225,12 @@ namespace Jandan
                     var b2 = c.Children[2] as Button;
                     b2.Foreground = new SolidColorBrush(Colors.Red);
 
-                    textBlockPopup.Text = "感谢您的XX！";
-                }
-                
-                popTipVote.HorizontalOffset = -64;
-                popTipVote.IsOpen = true;   // 提示再按一次
-                await Task.Delay(2000);  // 1000ms后关闭提示
-                popTipVote.IsOpen = false;
+                    await PopupMessage("感谢您的XX！", 64, 2000);
+                }                
             }
             else if (msg.Contains("YOU'VE VOTED"))
             {
-                textBlockPopup.Text = "您已投过票了";
-                popTipVote.HorizontalOffset = -60;
-                popTipVote.IsOpen = true;   // 提示再按一次
-                await Task.Delay(2000);  // 1000ms后关闭提示
-                popTipVote.IsOpen = false;
+                await PopupMessage("您已投过票了", 60, 2000);
             }
         }
         #endregion
@@ -307,7 +255,7 @@ namespace Jandan
             ShowFlyout(sender);
         }
 
-        private void MenuFlyoutItem_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void MenuFlyoutItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
             var m = sender as MenuFlyoutItem;
             var d = m.DataContext as Duan;
@@ -316,6 +264,8 @@ namespace Jandan
             DataPackage dataPackage = new DataPackage();
             dataPackage.SetText(copied_content);
             Clipboard.SetContent(dataPackage);
+
+            await PopupMessage("复制成功！", 40, 2000);
         }
         #endregion
 
@@ -359,16 +309,21 @@ namespace Jandan
                 JsonObject j = new JsonObject();
                 if (JsonObject.TryParse(r,out j))
                 {
-                    textBlockPopup.Text = "评论成功！";
-                    popTipVote.HorizontalOffset = -40;
-                    popTipVote.IsOpen = true;   // 提示再按一次
-                    await Task.Delay(2000);  // 1000ms后关闭提示
-                    popTipVote.IsOpen = false;
+                    await PopupMessage("评论成功！", 40, 2000);
                 }
 
                 CommentInputTextBox.Text = "";
             }
 
+        }
+
+        private async Task PopupMessage(string message, double textWidth, int disTime)
+        {
+            textBlockPopup.Text = message;
+            popTipVote.HorizontalOffset = -textWidth;
+            popTipVote.IsOpen = true;   // 提示再按一次
+            await Task.Delay(disTime);  // 1000ms后关闭提示
+            popTipVote.IsOpen = false;
         }
 
         private void Dia_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -379,18 +334,12 @@ namespace Jandan
             DataShareManager.Current.EmailAdd = csd.Email;
         }
 
-        private void CommentInputTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //if (_isFirstTimeGotFocus)
-            //{
-            //    _isFirstTimeGotFocus = false;
-            //    CommentSubmitButton.Focus(FocusState.Pointer);
-            //}
-        }
-
         private void DuanSplitView_PaneClosed(SplitView sender, object args)
         {
-            //_isFirstTimeGotFocus = true;
+            CommentInputTextBox.Text = "";
+
+            DataShareManager.Current.UserName = "";
+            DataShareManager.Current.EmailAdd = "";
         }
     }
 }

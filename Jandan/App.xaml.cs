@@ -22,6 +22,7 @@ using ImageLib.Cache.Storage;
 using ImageLib.Cache.Storage.CacheImpl;
 using ImageLib.Gif;
 using System.Threading.Tasks;
+using Microsoft.HockeyApp;
 
 namespace Jandan
 {
@@ -36,7 +37,7 @@ namespace Jandan
         /// </summary>
         public App()
         {
-            //Microsoft.HockeyApp.HockeyClient.Current.Configure("fe343c5b7ea64d2f8858d8b4b74838ca");
+            Microsoft.HockeyApp.HockeyClient.Current.Configure("fe343c5b7ea64d2f8858d8b4b74838ca");
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
                 Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);

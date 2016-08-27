@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -55,15 +56,17 @@ namespace Jandan.UWP.Tools
             try
             {
                 var folder = await _local_folder.CreateFolderAsync("data_cache", CreationCollisionOption.OpenIfExists);
-                using (var data = await folder.OpenStreamForWriteAsync(filename, CreationCollisionOption.ReplaceExisting))
+                using (var data = await folder.OpenStreamForWriteAsync(filename, CreationCollisionOption.OpenIfExists)) // 2016-08-27 CreationCollisionOption.ReplaceExisting
                 {
                     DataContractJsonSerializer serizlizer = new DataContractJsonSerializer(typeof(T));
                     serizlizer.WriteObject(data, obj);
                 }
             }
-            catch
+            catch(Exception e)
             {
-
+#if DEBUG
+                Debug.WriteLine(DateTime.Now.ToString() + " " + e.Message);
+#endif
             }
         }
         public async Task<T> ReadObjectAsync<T>(string filename) where T : class

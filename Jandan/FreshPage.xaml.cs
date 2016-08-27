@@ -185,10 +185,5 @@ namespace Jandan
         {
             RefreshPage();
         }
-
-        private void Page_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
-        {
-
-        }
     }
 }
