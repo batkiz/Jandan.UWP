@@ -257,6 +257,10 @@
       <Project>{292223c4-e168-4a9b-ac22-fbbc07b8804b}</Project>
       <Name>Jandan.UWP.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Jandan.UWP.LiveTileTask\Jandan.UWP.LiveTileTask.csproj">
+      <Project>{77b94ada-3c66-4af1-abee-b81a2002b26e}</Project>
+      <Name>Jandan.UWP.LiveTileTask</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

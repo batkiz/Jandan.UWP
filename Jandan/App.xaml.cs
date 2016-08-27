@@ -23,6 +23,9 @@ using ImageLib.Cache.Storage.CacheImpl;
 using ImageLib.Gif;
 using System.Threading.Tasks;
 using Microsoft.HockeyApp;
+using Windows.ApplicationModel.Background;
+using Windows.UI.Notifications;
+using Jandan.UWP.LiveTileTask;
 
 namespace Jandan
 {
@@ -90,8 +93,9 @@ namespace Jandan
             }
 #endif
             // Initialization
-            GifImageViewerInit();
+            this.GifImageViewerInit();
             //await InstallCortanaCommand();
+            this.RegisterLiveTileTask();
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -148,6 +152,35 @@ namespace Jandan
             deferral.Complete();
         }
 
+        #region 动态磁贴
+        private const string LIVETILETASK = "JandanLiveTileTask";
+        private async void RegisterLiveTileTask()
+        {
+            var status = await BackgroundExecutionManager.RequestAccessAsync();
+            if (status == BackgroundAccessStatus.Unspecified || status == BackgroundAccessStatus.Denied)
+            {
+                return;
+            }
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                if (task.Value.Name == LIVETILETASK)
+                {
+                    task.Value.Unregister(true);
+                }
+            }
 
+            var taskBuilder = new BackgroundTaskBuilder
+            {
+                Name = LIVETILETASK,
+                TaskEntryPoint = typeof(JandanLiveTileTask).FullName
+            };
+            taskBuilder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
+
+            var updater = TileUpdateManager.CreateTileUpdaterForApplication();
+            updater.Clear();
+            taskBuilder.SetTrigger(new TimeTrigger(90, false));
+            taskBuilder.Register();
+        }
+        #endregion
     }
 }
