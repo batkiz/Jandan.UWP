@@ -1,48 +1,53 @@
-﻿using System;
+﻿using Jandan.UWP.HTTP;
+using Jandan.UWP.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
-using Jandan.UWP.HTTP;
-using Windows.Foundation;
-using Jandan.UWP.Models;
-using Windows.UI.Notifications;
-using System.Net;
 using Windows.Data.Xml.Dom;
+using Windows.Foundation;
+using Windows.UI.Notifications;
 
 namespace Jandan.UWP.LiveTileTask
 {
     public sealed class JandanLiveTileTask : IBackgroundTask
     {
         private const string TileTemplateXml = @"
-            <tile>
-                <visual>
-                    <binding template='TileSmall' hint-textStacking='center'>
-                        <text hint-align='center'>煎蛋</text>
-                    </binding>
-                    <binding template='TileMedium' branding='name' displayName='煎蛋UWP'>
-                        <text hint-wrap='true'>{0}</text>
-                        <text hint-style='captionSubtle'>{1}</text>
-                    </binding>
-                    <binding template='TileWide' branding='nameAndLogo' displayName='煎蛋UWP'>
-                        <text>{0}</text>
-                        <text hint-style='captionSubtle'>@{2}</text>
-                        <text hint-style='captionSubtle'>{1}</text>
-                    </binding>
-                    <binding template='TileLarge' branding='nameAndLogo' displayName='煎蛋UWP'>
-                        <image src='{3}'/>
-                        <group>
-                            <subgroup>
-                                <text hint-wrap='true'>{0}</text>
-                                <text hint-style='captionSubtle'>@{2}</text>
-                                <text hint-style='captionSubtle'>{1}</text>
-                            </subgroup>
-                        </group>
-                    </binding>
-                </visual>
-            </tile>";
+        <tile>
+            <visual>
+                <binding template='TileSmall' hint-textStacking='center'>
+                    <text hint-align='center'>煎蛋</text>
+                </binding>
+        
+                <binding template='TileMedium' branding='name' displayName='煎蛋UWP'>
+                    <image src='{3}' placement='peek' hint-crop='circle'/>
+                    <text hint-wrap='true'>{0}</text>
+                    <text hint-style='captionSubtle'>@{2}</text>
+                    <text hint-wrap='true' hint-style='captionSubtle'>{1}</text>
+                </binding>
+        
+                <binding template='TileWide' branding='nameAndLogo' displayName='煎蛋UWP'>
+                    <image src='{3}' placement='background'/>
+                    <text hint-wrap='true'>{0}</text>
+                    <text hint-style='captionSubtle'>@{2}</text>
+                    <text hint-style='captionSubtle'>{1}</text>
+                </binding>
+        
+                <binding template='TileLarge' branding='nameAndLogo' displayName='煎蛋UWP'>
+                    <image src='{3}'/>
+                    <group>
+                        <subgroup>
+                            <text hint-wrap='true'>{0}</text>
+                            <text hint-style='captionSubtle'>@{2}</text>
+                            <text hint-style='captionSubtle'>{1}</text>
+                        </subgroup>
+                    </group>
+                </binding>
+            </visual>
+        </tile>";
 
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
@@ -107,7 +112,12 @@ namespace Jandan.UWP.LiveTileTask
                 foreach (var n in news)
                 {
                     var doc = new XmlDocument();
-                    var xml = string.Format(TileTemplateXml, n.Title, n.Date, n.Tag[0].Title, n.Thumb_c);
+                    var xml = string.Format(
+                        TileTemplateXml, 
+                        n.Title, 
+                        n.Date, 
+                        n.Tag[0].Title, 
+                        n.Thumb_c);
                     doc.LoadXml(WebUtility.HtmlDecode(xml), new XmlLoadSettings
                     {
                         ProhibitDtd = false,

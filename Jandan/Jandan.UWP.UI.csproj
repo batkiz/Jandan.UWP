@@ -116,7 +116,8 @@
     <Content Include="Assets\StoreLogo.scale-400.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="Documents\version-2.1.53.txt" />
+    <Content Include="Cortana\VoiceCommandsFile.xml" />
+    <Content Include="Documents\version-2.2.55.txt" />
     <None Include="Jandan_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Icons\jandan-400.png" />
@@ -256,6 +257,10 @@
     <ProjectReference Include="..\Jandan.UWP.Core\Jandan.UWP.Core.csproj">
       <Project>{292223c4-e168-4a9b-ac22-fbbc07b8804b}</Project>
       <Name>Jandan.UWP.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jandan.UWP.CortanaTask\Jandan.UWP.CortanaTask.csproj">
+      <Project>{f6439fc6-e609-4d1a-b2fe-ef2015bfbfe7}</Project>
+      <Name>Jandan.UWP.CortanaTask</Name>
     </ProjectReference>
     <ProjectReference Include="..\Jandan.UWP.LiveTileTask\Jandan.UWP.LiveTileTask.csproj">
       <Project>{77b94ada-3c66-4af1-abee-b81a2002b26e}</Project>

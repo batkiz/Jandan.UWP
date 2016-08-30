@@ -61,7 +61,7 @@ namespace Jandan.UWP.ViewModels
         public FreshViewModel()
         {
             LoadCache();
-            Update();
+            Update();            
 
             //DataShareManager.Current.ShareDataChanged += Current_ShareDataChanged;
         }

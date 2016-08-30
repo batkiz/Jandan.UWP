@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jandan.UWP.Core", "Jandan.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jandan.UWP.LiveTileTask", "Jandan.UWP.LiveTileTask\Jandan.UWP.LiveTileTask.csproj", "{77B94ADA-3C66-4AF1-ABEE-B81A2002B26E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jandan.UWP.CortanaTask", "Jandan.UWP.CortanaTask\Jandan.UWP.CortanaTask.csproj", "{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,22 @@ Global
 		{77B94ADA-3C66-4AF1-ABEE-B81A2002B26E}.Release|x64.Build.0 = Release|x64
 		{77B94ADA-3C66-4AF1-ABEE-B81A2002B26E}.Release|x86.ActiveCfg = Release|x86
 		{77B94ADA-3C66-4AF1-ABEE-B81A2002B26E}.Release|x86.Build.0 = Release|x86
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Debug|ARM.ActiveCfg = Debug|ARM
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Debug|ARM.Build.0 = Debug|ARM
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Debug|x64.ActiveCfg = Debug|x64
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Debug|x64.Build.0 = Debug|x64
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Debug|x86.ActiveCfg = Debug|x86
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Debug|x86.Build.0 = Debug|x86
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Release|ARM.ActiveCfg = Release|ARM
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Release|ARM.Build.0 = Release|ARM
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Release|x64.ActiveCfg = Release|x64
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Release|x64.Build.0 = Release|x64
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Release|x86.ActiveCfg = Release|x86
+		{F6439FC6-E609-4D1A-B2FE-EF2015BFBFE7}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

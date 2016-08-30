@@ -36,6 +36,10 @@ namespace Jandan
         public HotPage()
         {
             this.InitializeComponent();
+
+            this.DataContext = _viewModel = new HotViewModel();
+            DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
+            LoadingCommentProgressBar.DataContext = _dViewModel;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -46,11 +50,7 @@ namespace Jandan
             {
                 return;
             }
-            base.OnNavigatedTo(e);
-            
-            this.DataContext = _viewModel = new HotViewModel();
-            DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
-            LoadingCommentProgressBar.DataContext = _dViewModel;
+            base.OnNavigatedTo(e);            
         }
 
         private void BoringListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -88,6 +88,7 @@ namespace Jandan
             Clipboard.SetContent(dataPackage);
         }
 
+        #region OOXX功能
         private void DuanVotePositiveIcon_Click(object sender, RoutedEventArgs e)
         {
             DuanVote(sender, true);
@@ -143,6 +144,7 @@ namespace Jandan
                 await PopupMessage("您已投过票了", 60, 2000);
             }
         }
+        #endregion
 
         private void DuanSplitView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {

@@ -26,6 +26,8 @@ using Microsoft.HockeyApp;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Notifications;
 using Jandan.UWP.LiveTileTask;
+using Windows.Data.Xml.Dom;
+using System.Net;
 
 namespace Jandan
 {
@@ -83,7 +85,7 @@ namespace Jandan
         /// 将在启动应用程序以打开特定文件等情况下使用。
         /// </summary>
         /// <param name="e">有关启动请求和过程的详细信息。</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
 
 #if DEBUG
@@ -94,7 +96,7 @@ namespace Jandan
 #endif
             // Initialization
             this.GifImageViewerInit();
-            //await InstallCortanaCommand();
+            await InstallCortanaCommand();
             this.RegisterLiveTileTask();
 
             Frame rootFrame = Window.Current.Content as Frame;
@@ -175,10 +177,7 @@ namespace Jandan
                 TaskEntryPoint = typeof(JandanLiveTileTask).FullName
             };
             taskBuilder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
-
-            var updater = TileUpdateManager.CreateTileUpdaterForApplication();
-            updater.Clear();
-            taskBuilder.SetTrigger(new TimeTrigger(90, false));
+            taskBuilder.SetTrigger(new TimeTrigger(60, false));
             taskBuilder.Register();
         }
         #endregion
