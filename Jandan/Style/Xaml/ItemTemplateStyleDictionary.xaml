@@ -12,7 +12,7 @@
                 <ColumnDefinition Width="80*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <RelativePanel Grid.Column="0">
-                <Image MinWidth="50" Source="{Binding AuthorAvatarUri}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4"></Image>
+                <Image MinWidth="50" Source="{Binding AuthorAvatarUri}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4" MaxWidth="58"></Image>
             </RelativePanel>
             <RelativePanel Grid.Column="1">
                 <TextBlock Name="DuanCommentAuthor" Text="{Binding AuthorName}" Style="{StaticResource CommentAuthorTextStyle}"></TextBlock>

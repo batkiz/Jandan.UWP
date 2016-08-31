@@ -1,0 +1,167 @@
+﻿<Page
+    x:Class="Jandan.UWP.PicViewer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Jandan"
+    xmlns:Controls="using:ImageLib.Controls"
+    xmlns:data="using:Jandan.UWP.Models"
+    xmlns:control="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:Jandan.UWP"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="desktopPanel.Visibility" Value="Collapsed"/>
+                        <Setter Target="phonePanel.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="desktopPanel.Visibility" Value="Visible"/>
+                        <Setter Target="phonePanel.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <RelativePanel Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,9,0,9">
+            <!--顶部-->
+            <Button x:Name="PageBackButton" Content="&#xE72B;" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="PageBackButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="图片详情" RelativePanel.RightOf="PageBackButton" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
+            <Button x:Name="PicShareButton" Content="&#xE72D;" RelativePanel.LeftOf="PicDownload" Click="ShareButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
+            <Button x:Name="PicDownload" Content="&#xE896;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="PicDownload_Click" Style="{StaticResource TitleBarButtonStyle}"/>
+        </RelativePanel>
+        <Grid Grid.Row="1" Name="MainContentGrid">
+            <Pivot x:Name="phonePanel">
+                <Pivot.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontSize="18"/>
+                    </DataTemplate>
+                </Pivot.HeaderTemplate>
+                <PivotItem Header="图片" Margin="1,0">
+                    <Grid x:Name="phonePicDetailPanel" ManipulationMode="TranslateX">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="{x:Bind _viewModel.BoringPicture.PicID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" Padding="8" VerticalAlignment="Center" TextAlignment="Right"/>
+                        <TextBlock Grid.Row="1" Text="{x:Bind _viewModel.BoringPicture.Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" Padding="8" VerticalAlignment="Center"/>
+                        <ScrollViewer Grid.Row="2" ZoomMode="Enabled" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalSnapPointsType="None" VerticalSnapPointsType="None" ZoomSnapPointsType="None">
+                            <ListView x:Name="phonePicListView" ItemsSource="{x:Bind _viewModel.BoringPicture.Urls, Mode=OneWay}" ItemContainerStyle="{StaticResource CommentListViewItemStyle}" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False" HorizontalAlignment="Left" IsHitTestVisible="False">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="data:ImageUrl">
+                                        <StackPanel>
+                                            <Controls:ImageView x:Name="phoneImageDetail" UriSource="{x:Bind URL, Mode=OneWay}" Stretch="Uniform"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </ScrollViewer>
+                    </Grid>
+                </PivotItem>
+                <PivotItem Header="评论" Margin="1,0">
+                    <Grid x:Name="phoneCommentGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListView Grid.Row="0" x:Name="phoneDuanCommentListView" SelectionMode="None" ItemsSource="{x:Bind _dViewModel.CommentList.View, Mode=OneWay}" ItemTemplate="{StaticResource CommentListDateTemplateStyle}" ItemContainerStyle="{StaticResource CommentListViewItemStyle}" ItemClick="DuanCommentListView_ItemClick" IsItemClickEnabled="True">
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate x:DataType="data:DuanCommentInGroup">
+                                            <TextBlock Text="{x:Bind Key, Mode=OneWay}" Style="{StaticResource CommentGroupTitleTextStyle}"/>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                        </ListView>
+                        <RelativePanel Grid.Row="1" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,8,0,8" Opacity="0.8" VerticalAlignment="Bottom">
+                            <TextBox x:Name="phoneCommentInputTextBox" RelativePanel.AlignLeftWithPanel="True" RelativePanel.LeftOf="phoneCommentSubmitButton" Margin="10,0,5,0" PlaceholderText="输入评论..." InputScope="Chat" ToolTipService.ToolTip="" AcceptsReturn="True" Padding="10,3,6,5"/>
+                            <Button x:Name="phoneCommentSubmitButton" Content="吐槽" HorizontalAlignment="Right" RelativePanel.AlignRightWithPanel="True" Margin="5,0,10,0" Width="50" Click="CommentSubmitButton_Click"></Button>
+                        </RelativePanel>
+                    </Grid>
+                </PivotItem>
+            </Pivot>
+
+            <Grid x:Name="desktopPanel">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="360"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" x:Name="desktopPicDetailPanel" ManipulationMode="TranslateX">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="{x:Bind _viewModel.BoringPicture.PicID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" Padding="8" VerticalAlignment="Center" TextAlignment="Right"/>
+                    <TextBlock Grid.Row="1" Text="{x:Bind _viewModel.BoringPicture.Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" Padding="8" VerticalAlignment="Center"/>
+                    <ScrollViewer Grid.Row="2" ZoomMode="Enabled" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalSnapPointsType="None" VerticalSnapPointsType="None" ZoomSnapPointsType="None">
+                        <ListView x:Name="desktopPicListView" ItemsSource="{x:Bind _viewModel.BoringPicture.Urls, Mode=OneWay}" ItemContainerStyle="{StaticResource CommentListViewItemStyle}" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False" HorizontalAlignment="Left" IsHitTestVisible="False">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="data:ImageUrl">
+                                    <StackPanel>
+                                        <Controls:ImageView x:Name="desktopImageDetail" UriSource="{x:Bind URL, Mode=OneWay}" Stretch="Uniform"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+                </Grid>
+                <Grid Grid.Column="1" x:Name="desktopCommentGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="0" x:Name="desktopDuanCommentListView" Padding="8,10" SelectionMode="None" ItemsSource="{x:Bind _dViewModel.CommentList.View, Mode=OneWay}" ItemTemplate="{StaticResource CommentListDateTemplateStyle}" ItemContainerStyle="{StaticResource CommentListViewItemStyle}" ItemClick="DuanCommentListView_ItemClick" IsItemClickEnabled="True">
+                        <ListView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate x:DataType="data:DuanCommentInGroup">
+                                        <TextBlock Text="{x:Bind Key, Mode=OneWay}" Style="{StaticResource CommentGroupTitleTextStyle}"/>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ListView.GroupStyle>
+                    </ListView>
+                    <RelativePanel Grid.Row="1" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,8,0,8" Opacity="0.8" VerticalAlignment="Bottom">
+                        <TextBox x:Name="desktopCommentInputTextBox" RelativePanel.AlignLeftWithPanel="True" RelativePanel.LeftOf="desktopCommentSubmitButton" Margin="10,0,5,0" PlaceholderText="输入评论..." InputScope="Chat" ToolTipService.ToolTip="" AcceptsReturn="True" Padding="10,3,6,5"/>
+                        <Button x:Name="desktopCommentSubmitButton" Content="吐槽" HorizontalAlignment="Right" RelativePanel.AlignRightWithPanel="True" Margin="5,0,10,0" Width="50" Click="CommentSubmitButton_Click"></Button>
+                    </RelativePanel>
+                </Grid>
+            </Grid>
+        </Grid>
+        <!--弹出消息,确认是否退出程序-->
+        <Popup Grid.Row="1" Name="popTips" IsOpen="False" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"  HorizontalOffset="-65" VerticalOffset="-100">
+            <Grid BorderThickness="5" Margin="0,0,0,0" HorizontalAlignment="Center">
+                <Grid.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.8"/>
+                </Grid.Background>
+                <TextBlock Name="popupMsg" Foreground="White" Text="已经是第一张了哦" HorizontalAlignment="Center" Margin="10,5"/>
+            </Grid>
+        </Popup>
+    </Grid>
+</Page>
