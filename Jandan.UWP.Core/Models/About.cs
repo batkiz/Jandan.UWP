@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Jandan.UWP.Models
+namespace Jandan.UWP.Core.Models
 {
     [DataContract]
     public class About

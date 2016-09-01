@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Jandan.UWP.Core.HTTP;
+using Jandan.UWP.Core.Models;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Jandan.UWP.Data;
-using Jandan.UWP.HTTP;
-using Jandan.UWP.Models;
 
-namespace Jandan.UWP.ViewModels
+namespace Jandan.UWP.Core.ViewModels
 {
     public class FreshCommentViewModel :ViewModelBase
     {

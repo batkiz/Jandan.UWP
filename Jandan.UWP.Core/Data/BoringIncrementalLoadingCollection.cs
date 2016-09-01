@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Jandan.UWP.Core.HTTP;
+using Jandan.UWP.Core.Models;
+using Jandan.UWP.Core.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml.Data;
-using Jandan.UWP.HTTP;
-using Jandan.UWP.Models;
-using Jandan.UWP.ViewModels;
 
-namespace Jandan.UWP.Data
+namespace Jandan.UWP.Core.Data
 {
     public class BoringIncrementalLoadingCollection : ObservableCollection<BoringPic>, ISupportIncrementalLoading
     {

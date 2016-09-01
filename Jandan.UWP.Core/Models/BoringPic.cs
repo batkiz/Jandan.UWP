@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Windows.Data.Json;
 
-namespace Jandan.UWP.Models
+namespace Jandan.UWP.Core.Models
 {
     /// <summary>
     /// 无聊图

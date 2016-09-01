@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Jandan">
+    xmlns:local="using:Jandan.UWP.UI">
 
     <!--页面顶端标题栏相关资源-->
     <LinearGradientBrush x:Key="JandanControlHighlightAltListAccentHighBrush" StartPoint="0,0" EndPoint="0,1">

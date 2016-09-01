@@ -29,7 +29,7 @@ using Jandan.UWP.LiveTileTask;
 using Windows.Data.Xml.Dom;
 using System.Net;
 
-namespace Jandan
+namespace Jandan.UWP.UI
 {
     /// <summary>
     /// 提供特定于应用程序的行为，以补充默认的应用程序类。

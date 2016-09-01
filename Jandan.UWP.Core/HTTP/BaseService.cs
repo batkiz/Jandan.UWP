@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
 
-namespace Jandan.UWP.HTTP
+namespace Jandan.UWP.Core.HTTP
 {
     /// <summary>
     /// 访问HTTP服务器基础服务

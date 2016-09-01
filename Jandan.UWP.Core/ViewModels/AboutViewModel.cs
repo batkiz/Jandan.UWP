@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
+﻿using Jandan.UWP.Core.Models;
+using System;
 using Windows.Storage;
-using Jandan.UWP.Models;
 
-namespace Jandan.UWP.ViewModels
+namespace Jandan.UWP.Core.ViewModels
 {
     public class AboutViewModel : ViewModelBase
     {

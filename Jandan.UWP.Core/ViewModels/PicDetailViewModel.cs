@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Jandan.UWP.Models;
+using Jandan.UWP.Core.Models;
 
 
-namespace Jandan.UWP.ViewModels
+namespace Jandan.UWP.Core.ViewModels
 {
     public class PicDetailViewModel : ViewModelBase
     {

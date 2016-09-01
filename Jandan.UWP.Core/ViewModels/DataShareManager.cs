@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
+﻿using Windows.UI.ViewManagement;
 
-namespace Jandan.UWP.ViewModels
+namespace Jandan.UWP.Core.ViewModels
 {
     public enum PicDetailType { Boring, Hot, Meizi };
     public enum PageIndex

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
 using Windows.Storage;
 using Windows.UI.Notifications;
-using Jandan.UWP.HTTP;
-using Jandan.UWP.Models;
-using Jandan.UWP.ViewModels;
+using Jandan.UWP.Core.HTTP;
+using Jandan.UWP.Core.Models;
+using Jandan.UWP.Core.ViewModels;
 
-namespace Jandan.UWP.Tools
+namespace Jandan.UWP.Core.Tools
 {
     public class BackgroundTaskAction
     {

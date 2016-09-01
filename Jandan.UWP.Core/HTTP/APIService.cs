@@ -1,19 +1,12 @@
-﻿using System;
+﻿using Jandan.UWP.Core.Models;
+using Jandan.UWP.Core.Tools;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Windows.Data.Json;
-using Windows.UI.Xaml.Media.Imaging;
-using Jandan.UWP.Models;
-using Jandan.UWP.Tools;
-using Jandan.UWP.ViewModels;
-using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Windows.Data.Json;
 
-namespace Jandan.UWP.HTTP
+namespace Jandan.UWP.Core.HTTP
 {
     /// <summary>
     /// api服务类  将接收到json字符串格式化成实体类

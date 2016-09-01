@@ -1,8 +1,10 @@
-﻿using Jandan.UWP.Models;
-using Jandan.UWP.ViewModels;
+﻿using Jandan.UWP.Control;
+using Jandan.UWP.Core.Models;
+using Jandan.UWP.Core.ViewModels;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Data.Json;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -10,12 +12,10 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Windows.Data.Json;
-using Jandan.Control;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
-namespace Jandan
+namespace Jandan.UWP.UI
 {
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。

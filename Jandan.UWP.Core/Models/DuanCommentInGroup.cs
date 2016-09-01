@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace Jandan.UWP.Models
+namespace Jandan.UWP.Core.Models
 {
     public class DuanCommentInGroup: List<DuanComment>
     {

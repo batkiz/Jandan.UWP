@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
-using Jandan.UWP.HTTP;
-using Jandan.UWP.Models;
+using Jandan.UWP.Core.HTTP;
+using Jandan.UWP.Core.Models;
 using Windows.ApplicationModel.Background;
 
-namespace Jandan.UWP.ViewModels
-{
+namespace Jandan.UWP.Core.ViewModels
+{ 
     public class MainViewModel : ViewModelBase
     {
         APIService _api = new APIService();

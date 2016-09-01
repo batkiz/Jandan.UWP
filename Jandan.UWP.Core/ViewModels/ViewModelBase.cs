@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Jandan.UWP.Tools;
+using Jandan.UWP.Core.Tools;
 using System.Runtime.Serialization;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Jandan.UWP.ViewModels
+namespace Jandan.UWP.Core.ViewModels
 {
     [DataContract]
     public class ViewModelBase : INotifyPropertyChanged

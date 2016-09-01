@@ -4,12 +4,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Jandan.UWP.Data;
-using Jandan.UWP.HTTP;
-using Jandan.UWP.Models;
-using Jandan.UWP.Tools;
+using Jandan.UWP.Core.Data;
+using Jandan.UWP.Core.HTTP;
+using Jandan.UWP.Core.Models;
+using Jandan.UWP.Core.Tools;
 
-namespace Jandan.UWP.ViewModels
+namespace Jandan.UWP.Core.ViewModels
 {
     public class MeiziViewModel : ViewModelBase
     {

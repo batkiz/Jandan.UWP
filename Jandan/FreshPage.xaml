@@ -1,12 +1,12 @@
 ﻿<Page
-    x:Class="Jandan.FreshPage"
+    x:Class="Jandan.UWP.UI.FreshPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Jandan"
+    xmlns:local="using:Jandan.UWP.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:control="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:data="using:Jandan.UWP.Models"
+    xmlns:data="using:Jandan.UWP.Core.Models"
     mc:Ignorable="d" NavigationCacheMode="Enabled" 
     SizeChanged="Page_SizeChanged" 
     Loaded="Page_Loaded">

@@ -1,5 +1,5 @@
-﻿using Jandan.UWP.HTTP;
-using Jandan.UWP.Models;
+﻿using Jandan.UWP.Core.HTTP;
+using Jandan.UWP.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
