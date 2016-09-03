@@ -1,4 +1,6 @@
-﻿using Windows.UI.ViewManagement;
+﻿using System;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 
 namespace Jandan.UWP.Core.ViewModels
 {
@@ -13,7 +15,8 @@ namespace Jandan.UWP.Core.ViewModels
         FreshDetailPage = 5,
         PicDetailPage = 6,
         MeiziPage = 7,
-        AboutPage = 8
+        AboutPage = 8,
+        SettingPage = 9
     };
 
     public sealed class DataShareManager
@@ -53,20 +56,20 @@ namespace Jandan.UWP.Core.ViewModels
         }
 
         // 主题模式(夜间模式或日间模式)        
-        private bool _isDarkMode;
-        public bool IsDarkMode { get { return _isDarkMode; } }
+        public ElementTheme AppTheme { get; private set; }
+
+       
+        // 是否省流模式
+        public bool isNoImageMode { get; private set; }
 
         // 是否是移动端
-        private bool _isMobile;
-        public bool IsMobile { get { return _isMobile; } }
+        public bool IsMobile { get; private set; }
 
         // 是否显示NSFW图
-        private bool _isShowNSFW;
-        public bool IsShowNSFW { get { return _isShowNSFW; } }
+        public bool IsShowNSFW { get; private set; }
 
         // 是否显示不受欢迎的图
-        private bool _isShowUnwelcome;
-        public bool IsShowUnwelcome { get { return _isShowUnwelcome; } }
+        public bool IsShowUnwelcome { get; private set; }
 
         // 评论用户名
         public string UserName { get; set; }
@@ -78,10 +81,7 @@ namespace Jandan.UWP.Core.ViewModels
         {
             get
             {
-                if (_current == null)
-                {
-                    _current = new DataShareManager();
-                }
+                if (_current == null) _current = new DataShareManager();
                 return _current;
             }
         }
@@ -103,14 +103,16 @@ namespace Jandan.UWP.Core.ViewModels
             var platformFamily = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
             if (string.Equals(platformFamily, "Windows.Mobile"))
             {
-                _isMobile = true;
+                IsMobile = true;
             }
             else
             {
-                _isMobile = false;
+                IsMobile = false;
             }
 
             LoadData();
+
+            //var screen_info = Windows.Graphics.Display.DisplayInformation.GetForCurrentView();
         }
 
         private void LoadData()
@@ -119,63 +121,84 @@ namespace Jandan.UWP.Core.ViewModels
             // APP_THEME = 0 Light mode | APP_THEME = 1 Dark mode
             if (roamingSettings.Values.ContainsKey("APP_THEME"))
             {
-                _isDarkMode = int.Parse(roamingSettings.Values["APP_THEME"].ToString()) == 0 ? false : true;
+                AppTheme = int.Parse(roamingSettings.Values["APP_THEME"].ToString()) == 0 ? ElementTheme.Light : ElementTheme.Dark;
             }
             else
             {
-                _isDarkMode = false;
+                AppTheme = ElementTheme.Light;
+            }
+            if (roamingSettings.Values.ContainsKey("NO_IMAGE_MODE"))
+            {
+                isNoImageMode = int.Parse(roamingSettings.Values["NO_IMAGE_MODE"].ToString()) == 0 ? true : false;
+            }
+            else
+            {
+                isNoImageMode = false;
             }
 
             // NSFW = 0 No NSFW images | NSFW = 1 Show NSFW images
             if (roamingSettings.Values.ContainsKey("NSFW"))
             {
-                _isShowNSFW = int.Parse(roamingSettings.Values["NSFW"].ToString()) == 0 ? false : true;
+                IsShowNSFW = int.Parse(roamingSettings.Values["NSFW"].ToString()) == 0 ? false : true;
             }
             else
             {
-                _isShowNSFW = false;
+                IsShowNSFW = false;
             }
 
             // UNWELCOME = 0 No Unwelcome images | UNWELCOME = 1 Show Unwelcome images
             if (roamingSettings.Values.ContainsKey("UNWELCOME"))
             {
-                _isShowUnwelcome = int.Parse(roamingSettings.Values["UNWELCOME"].ToString()) == 0 ? false : true;
+                IsShowUnwelcome = int.Parse(roamingSettings.Values["UNWELCOME"].ToString()) == 0 ? false : true;
             }
             else
             {
-                _isShowUnwelcome = false;
+                IsShowUnwelcome = false;
             }
         }
 
         private void OnShareDataChanged()
         {
-            if (ShareDataChanged != null)
-            {
-                ShareDataChanged();
-            }
+            ShareDataChanged?.Invoke();
+        }
+
+        internal void UpdateNoImage(bool isNoImg)
+        {
+            isNoImageMode = isNoImg;
+            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            roamingSettings.Values["NO_IMAGE_MODE"] = isNoImageMode ? 0 : 1;
+            OnShareDataChanged();
         }
 
         public void UpdateAPPTheme(bool isDark)
         {
-            _isDarkMode = isDark ? true : false;
+            AppTheme = isDark ? ElementTheme.Dark : ElementTheme.Light;
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-            roamingSettings.Values["APP_THEME"] = _isDarkMode ? 1 : 0;
+            roamingSettings.Values["APP_THEME"] = AppTheme==ElementTheme.Light ? 0 : 1;
+            OnShareDataChanged();
+        }
+
+        public void ToggleAPPTheme()
+        {
+            AppTheme = AppTheme==ElementTheme.Dark ? ElementTheme.Light : ElementTheme.Dark;
+            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            roamingSettings.Values["APP_THEME"] = AppTheme == ElementTheme.Light ? 0 : 1;
             OnShareDataChanged();
         }
 
         public void UpdateNSFW(bool isNSFW)
         {
-            _isShowNSFW = isNSFW ? true : false;
+            IsShowNSFW = isNSFW;
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-            roamingSettings.Values["NSFW"] = _isShowNSFW ? 1 : 0;
+            roamingSettings.Values["NSFW"] = IsShowNSFW ? 1 : 0;
             OnShareDataChanged();
         }
 
         public void UpdateUnwelcome(bool isUnwelcome)
         {
-            _isShowUnwelcome = isUnwelcome ? true : false;
+            IsShowUnwelcome = isUnwelcome;
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-            roamingSettings.Values["UNWELCOME"] = _isShowUnwelcome ? 1 : 0;
+            roamingSettings.Values["UNWELCOME"] = IsShowUnwelcome ? 1 : 0;
             OnShareDataChanged();
         }
 

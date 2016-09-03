@@ -234,6 +234,7 @@ namespace Jandan.UWP.Core.HTTP
                             foreach (var j in ja)
                             {
                                 string ID = (j.GetObject())["comment_ID"].GetString();
+                                
                                 list.Add(new BoringPic
                                 {
                                     PicID = ID,

@@ -145,6 +145,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MeiziViewModel.cs" />
     <Compile Include="ViewModels\PicDetailViewModel.cs" />
+    <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <EmbeddedResource Include="Properties\Jandan.UWP.Core.rd.xml" />
   </ItemGroup>

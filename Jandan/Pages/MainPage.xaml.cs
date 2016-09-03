@@ -26,8 +26,6 @@ namespace Jandan.UWP.UI
             
             SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
             DispatcherManager.Current.Dispatcher = Dispatcher;
-
-            LoadAppTheme();
         }       
 
         private async void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
@@ -123,44 +121,7 @@ namespace Jandan.UWP.UI
 
         private void SecBtnDarkMode_Click(object sender, RoutedEventArgs e)
         {
-            SetRequestedTheme();
-        }
-
-        private void LoadAppTheme()
-        {
-            if (DataShareManager.Current.IsDarkMode == true)
-            {
-                SecBtnDarkMode.Label = "日间模式";
-                this.RequestedTheme = ElementTheme.Dark;
-                DataShareManager.Current.UpdateAPPTheme(true);
-            }
-            else
-            {
-                SecBtnDarkMode.Label = "夜间模式";
-                this.RequestedTheme = ElementTheme.Light;
-                DataShareManager.Current.UpdateAPPTheme(false);
-            }
-        }
-
-        private void SetRequestedTheme()
-        {
-            if (DataShareManager.Current.IsDarkMode == false) // 切换到夜间模式
-            {
-                SecBtnDarkMode.Label = "日间模式";
-                this.RequestedTheme = ElementTheme.Dark;
-                DataShareManager.Current.UpdateAPPTheme(true);
-            }
-            else
-            {
-                SecBtnDarkMode.Label = "夜间模式";
-                this.RequestedTheme = ElementTheme.Light;
-                DataShareManager.Current.UpdateAPPTheme(false);
-            }
-
-            if (DataShareManager.Current.CurrentPageIndex == PageIndex.FreshDetailPage)
-            {
-                var mf = this.mainFrame.Content as FreshDetailPage;                
-            }
+            _viewModel.ToggleAPPTheme();
         }
 
         private void SecBtnAbout_Click(object sender, RoutedEventArgs e)
@@ -168,7 +129,12 @@ namespace Jandan.UWP.UI
             this.mainFrame.Navigate(typeof(AboutPage));
         }
 
-        private async void SecBtnSetting_Click(object sender, RoutedEventArgs e)
+        private void SecBtnSetting_Click(object sender, RoutedEventArgs e)
+        {
+            this.mainFrame.Navigate(typeof(SettingPage));
+        }
+
+        private async void SecBtnClearCache_Click(object sender, RoutedEventArgs e)
         {            
             await FileHelper.Current.DeleteCacheFile();
         }
@@ -181,6 +147,8 @@ namespace Jandan.UWP.UI
 
             // 显示当前网络状态
             NetStatus.Label = $"网络状态({NetworkManager.Current.NetworkTitle})";
+
+            SecBtnDarkMode.Label = _viewModel.AppTheme == ElementTheme.Dark ? "日间模式" : "夜间模式";
         }
     }
 }

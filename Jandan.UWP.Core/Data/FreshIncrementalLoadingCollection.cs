@@ -74,6 +74,10 @@ namespace Jandan.UWP.Core.Data
                     //{
                     //    t.Readed = true;
                     //}
+                    if (DataShareManager.Current.isNoImageMode)
+                    {
+                        t.Thumb_c = "ms-appx:///Assets/No_Image_150.png";
+                    }
                     Add(t);
                 });
                 HasMoreItems = true;

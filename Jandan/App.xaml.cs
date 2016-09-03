@@ -1,33 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Windows.Storage;
-
-using ImageLib;
+﻿using ImageLib;
 using ImageLib.Cache.Memory.CacheImpl;
 using ImageLib.Cache.Storage;
 using ImageLib.Cache.Storage.CacheImpl;
 using ImageLib.Gif;
-using System.Threading.Tasks;
-using Microsoft.HockeyApp;
-using Windows.ApplicationModel.Background;
-using Windows.UI.Notifications;
+
 using Jandan.UWP.LiveTileTask;
-using Windows.Data.Xml.Dom;
-using System.Net;
+
+using Microsoft.HockeyApp;
+
+using System;
+using System.Threading.Tasks;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
+using Windows.Storage;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Jandan.UWP.UI
 {
@@ -85,7 +74,7 @@ namespace Jandan.UWP.UI
         /// 将在启动应用程序以打开特定文件等情况下使用。
         /// </summary>
         /// <param name="e">有关启动请求和过程的详细信息。</param>
-        protected async override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 
 #if DEBUG
@@ -96,7 +85,7 @@ namespace Jandan.UWP.UI
 #endif
             // Initialization
             this.GifImageViewerInit();
-            await InstallCortanaCommand();
+            //await InstallCortanaCommand();
             this.RegisterLiveTileTask();
 
             Frame rootFrame = Window.Current.Content as Frame;

@@ -88,22 +88,11 @@ namespace Jandan.UWP.Core.ViewModels
             BoringIncrementalLoadingCollection c = new BoringIncrementalLoadingCollection();
             boring?.ForEach((t) =>
             {
-                //bool isPassedNSFW = true, isPassedUnWel = true;
-                //if (!IsShowNSFW && t.Content.Contains("NSFW"))
-                //{
-                //    isPassedNSFW = false;
-                //}
-                //if (!IsShowUnwelcome)
-                //{
-                //    int oo = t.VotePositive;
-                //    int xx = t.VoteNegative;
-                //    if ((oo + xx) >= 50 && ((double)oo / (double)xx) < 0.618)
-                //    {
-                //        t.Content += "\n\nUnwelcome";
-                //        isPassedUnWel = false;
-                //    }
-                //}
-                //if (isPassedNSFW && isPassedUnWel)
+                if (DataShareManager.Current.isNoImageMode)
+                {
+                    t.Urls = t.Thumb;
+                }
+
                 if (IsItemAdded(t))
                 {
                     c.Add(t);
@@ -128,22 +117,11 @@ namespace Jandan.UWP.Core.ViewModels
                 var comment = t.Content.Replace("\n", "").Replace("\r", "");
                 t.Content = comment;
 
-                //bool isPassedNSFW = true, isPassedUnWel = true;
-                //if (!IsShowNSFW && t.Content.Contains("NSFW"))
-                //{
-                //    isPassedNSFW = false;
-                //}
-                //if (!IsShowUnwelcome)
-                //{
-                //    int oo = t.VotePositive;
-                //    int xx = t.VoteNegative;
-                //    if ((oo + xx) >= 50 && ((double)oo / (double)xx) < 0.618)
-                //    {
-                //        t.Content += "\n\nUnwelcome";
-                //        isPassedUnWel = false;
-                //    }
-                //}
-                //if (isPassedNSFW && isPassedUnWel)
+                if (DataShareManager.Current.isNoImageMode)
+                {
+                    t.Urls = t.Thumb;
+                }
+                
                 if (IsItemAdded(t))
                 {
                     c.Add(t);

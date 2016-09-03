@@ -1,0 +1,84 @@
+﻿<Page
+    x:Class="Jandan.UWP.UI.SettingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Jandan.UWP.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <RelativePanel Grid.Row="0" Style="{StaticResource TitleBarColorUWPStyle}" Padding="0,9,0,9" >
+            <!--顶部-->
+            <Button Name="PageBackButton" Content="&#xE72B;" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="PageBackButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
+            <TextBlock Name="PageTitle" Text="设置" RelativePanel.RightOf="PageBackButton" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
+
+        </RelativePanel>
+        <ScrollViewer Grid.Row="1">
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Padding="10">
+                    <TextBlock Text="常规" Style="{StaticResource HeaderTextBlockStyle}"/>
+                    <Rectangle Fill="Gray" Margin="0,4,0,0" Height="1"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Padding="10">
+                    <RelativePanel>
+                        <TextBlock Text="夜间模式" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        <ToggleSwitch RelativePanel.AlignRightWithPanel="True" Margin="0,0,20,0" MinWidth="0" IsOn="{Binding Path=IsDarkMode, Mode=TwoWay}" Name="tsDarkMode" Toggled="tsDarkMode_Toggled" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                    </RelativePanel>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Padding="10">
+                    <RelativePanel>
+                        <TextBlock Text="省流模式(蜂窝网络不下载评论用户头像，无聊图/妹子图低分辨率无动图效果)" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="0,0,119,0"/>
+                        <ToggleSwitch RelativePanel.AlignRightWithPanel="True" MinWidth="0" Name="tsNoImagesMode" IsOn="{Binding Path=IsNoImageMode, Mode=TwoWay}" Toggled="tsNoImagesMode_Toggled" Margin="0,0,20,0" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                    </RelativePanel>
+                </StackPanel>
+                <StackPanel Grid.Row="3" Padding="10">
+                    <RelativePanel>
+                        <TextBlock Text="字号调节" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        <Slider Name="sliderFont" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Minimum="0.8" Maximum="2" SmallChange="0.1" StepFrequency="0.1" LargeChange="0.4" Value="1" Width="100" Margin="0,0,20,0" />
+                    </RelativePanel>
+                </StackPanel>
+                <StackPanel Grid.Row="4" Padding="10">
+                    <TextBlock Text="高级功能" Style="{StaticResource HeaderTextBlockStyle}"/>
+                    <Rectangle Fill="Gray" Height="1" Margin="0,4,0,0"/>
+                </StackPanel>
+                <StackPanel Grid.Row="5" Padding="10">
+                    <RelativePanel>
+                        <TextBlock Text="启用动态磁贴(每60分钟更新新鲜事)" TextWrapping="Wrap" Margin="0,0,119,0" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        <Button RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignRightWithPanel="True" Background="Transparent" Name="btnRegLiveTile" Content="点此启用" Margin="0,0,10,0" Click="btnRegLiveTile_Click"/>
+                    </RelativePanel>
+                </StackPanel>
+                <StackPanel Grid.Row="6" Padding="10">
+                    <RelativePanel>
+                        <TextBlock Text="启用小娜"  TextWrapping="Wrap" Margin="0,0,119,0" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        <Button RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignRightWithPanel="True" Background="Transparent" Name="btnRegCortana" Content="点此启用" Margin="0,0,10,0" Click="btnRegCortana_Click"/>
+                    </RelativePanel>
+                </StackPanel>
+                <StackPanel Grid.Row="7" Padding="10">
+                    <RelativePanel>
+                        <TextBlock Text="去吐槽" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        <Button RelativePanel.AlignRightWithPanel="True" Background="Transparent" Name="btnVote" Content="转到应用商店" Margin="0,0,10,0" Click="btnVote_Click"/>
+                    </RelativePanel>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+    </Grid>
+</Page>

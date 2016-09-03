@@ -115,10 +115,10 @@ namespace Jandan.UWP.Core.ViewModels
                 css = string.Format(css, "jandan_desktop" + ext_sym);
             }
 
-            if (DataShareManager.Current.IsDarkMode)
+            if (DataShareManager.Current.AppTheme == Windows.UI.Xaml.ElementTheme.Dark)
             {
                 css += @"<style>body{background:black; color:gray}</style>";
-            }            
+            }
 
             return css;
         }

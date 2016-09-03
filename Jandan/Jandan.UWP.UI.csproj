@@ -99,6 +99,8 @@
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\No_Image_150.png" />
+    <Content Include="Assets\Placeholder_150.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
     <Content Include="Assets\SplashScreen.scale-400.png" />
     <Content Include="Assets\Square310x310Logo.scale-100.png" />
@@ -131,38 +133,41 @@
     <PRIResource Include="String\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutPage.xaml.cs">
+    <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BoringPicsPage.xaml.cs">
+    <Compile Include="Pages\BoringPicsPage.xaml.cs">
       <DependentUpon>BoringPicsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Control\CommentSubmitDialogue.xaml.cs">
       <DependentUpon>CommentSubmitDialogue.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DuanPage.xaml.cs">
+    <Compile Include="Pages\DuanPage.xaml.cs">
       <DependentUpon>DuanPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FreshDetailPage.xaml.cs">
+    <Compile Include="Pages\FreshDetailPage.xaml.cs">
       <DependentUpon>FreshDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FreshPage.xaml.cs">
+    <Compile Include="Pages\FreshPage.xaml.cs">
       <DependentUpon>FreshPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HotPage.xaml.cs">
+    <Compile Include="Pages\HotPage.xaml.cs">
       <DependentUpon>HotPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MeiziPicsPage.xaml.cs">
+    <Compile Include="Pages\MeiziPicsPage.xaml.cs">
       <DependentUpon>MeiziPicsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PicDetailPage.xaml.cs">
+    <Compile Include="Pages\PicDetailPage.xaml.cs">
       <DependentUpon>PicDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SettingPage.xaml.cs">
+      <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -190,11 +195,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AboutPage.xaml">
+    <Page Include="Pages\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BoringPicsPage.xaml">
+    <Page Include="Pages\BoringPicsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,31 +207,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="DuanPage.xaml">
+    <Page Include="Pages\DuanPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FreshDetailPage.xaml">
+    <Page Include="Pages\FreshDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FreshPage.xaml">
+    <Page Include="Pages\FreshPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="HotPage.xaml">
+    <Page Include="Pages\HotPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MeiziPicsPage.xaml">
+    <Page Include="Pages\MeiziPicsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PicDetailPage.xaml">
+    <Page Include="Pages\PicDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

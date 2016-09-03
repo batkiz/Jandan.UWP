@@ -73,6 +73,11 @@ namespace Jandan.UWP.Core.ViewModels
             ObservableCollection<BoringPic> d = new ObservableCollection<BoringPic>();
             pics?.ForEach((t) =>
             {
+                if (DataShareManager.Current.isNoImageMode)
+                {
+                    t.Urls = t.Thumb;
+                }
+
                 d.Add(t);
             });
             Pics = d;
@@ -161,6 +166,11 @@ namespace Jandan.UWP.Core.ViewModels
             ObservableCollection<BoringPic> c = new ObservableCollection<BoringPic>();
             list?.ForEach((t) =>
             {
+                if (DataShareManager.Current.isNoImageMode)
+                {
+                    t.Urls = t.Thumb;
+                }
+
                 var comment = t.Content.Replace("\n", "").Replace("\r", "").Replace("[查看原图]", "");
                 comment = Regex.Replace(comment, "OO.+?XX.+?]", "");
                 t.Content = comment;

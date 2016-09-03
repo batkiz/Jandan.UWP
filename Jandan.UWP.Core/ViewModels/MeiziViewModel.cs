@@ -62,6 +62,11 @@ namespace Jandan.UWP.Core.ViewModels
             MeiziIncrementalLoadingCollection c = new MeiziIncrementalLoadingCollection();
             list?.ForEach((t) =>
             {
+                if (DataShareManager.Current.isNoImageMode)
+                {
+                    t.Urls = t.Thumb;
+                }
+
                 c.Add(t);
             });
             Meizi = c;
@@ -78,6 +83,11 @@ namespace Jandan.UWP.Core.ViewModels
             MeiziIncrementalLoadingCollection c = new MeiziIncrementalLoadingCollection();
             list?.ForEach((t) =>
             {
+                if (DataShareManager.Current.isNoImageMode)
+                {
+                    t.Urls = t.Thumb;
+                }
+
                 c.Add(t);
             });
 

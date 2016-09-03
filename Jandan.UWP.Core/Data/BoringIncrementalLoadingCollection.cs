@@ -68,6 +68,10 @@ namespace Jandan.UWP.Core.Data
                     //{
                     //    t.Readed = true;
                     //}
+                    if (DataShareManager.Current.isNoImageMode)
+                    {
+                        t.Urls = t.Thumb;
+                    }
 
                     var comment = t.Content.Replace("\n", "").Replace("\r", "");
                     t.Content = comment;

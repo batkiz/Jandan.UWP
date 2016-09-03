@@ -79,6 +79,10 @@ namespace Jandan.UWP.Core.ViewModels
             FreshIncrementalLoadingCollection c = new FreshIncrementalLoadingCollection();
             list?.ForEach((t) =>
             {
+                if (DataShareManager.Current.isNoImageMode)
+                {
+                    t.Thumb_c = "ms-appx:///Assets/No_Image_150.png";
+                }
                 c.Add(t);
             });
             News = c;
@@ -97,9 +101,13 @@ namespace Jandan.UWP.Core.ViewModels
             FreshIncrementalLoadingCollection c = new FreshIncrementalLoadingCollection();
 
             list?.ForEach((t) =>
-                        {
-                            c.Add(t);
-                        });
+            {
+                if (DataShareManager.Current.isNoImageMode)
+                {
+                    t.Thumb_c = "ms-appx:///Assets/No_Image_150.png";
+                }
+                c.Add(t);
+            });
 
             News = c;
 

@@ -59,6 +59,10 @@ namespace Jandan.UWP.Core.ViewModels
             {
                 list?.ForEach((t) =>
                 {
+                    if (DataShareManager.Current.isNoImageMode)
+                    {
+                        t.AuthorAvatarUri = new Uri("ms-appx:///Icons/jandan-400.png");
+                    }
                     t.Message = Regex.Replace(t.Message.Replace("<br/>", "\n"), "<.+?>", "");
                 });
 
