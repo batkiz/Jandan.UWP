@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Jandan.UWP.UI"
     xmlns:data="using:Jandan.UWP.Core.Models"
+    xmlns:viewmodel="using:Jandan.UWP.Core.ViewModels"
     xmlns:control="using:Microsoft.Toolkit.Uwp.UI.Controls">
 
     <DataTemplate x:Key="CommentListDateTemplateStyle">

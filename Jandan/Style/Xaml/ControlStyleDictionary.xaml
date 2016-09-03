@@ -131,7 +131,8 @@
         <Setter Property="Height" Value="40"/>
     </Style>
 
-    <x:Double x:Key="AdaptiveItemWidth">350</x:Double>
+    <x:Double x:Key="ItemDesiredWidthInWideMode">248</x:Double>
+    <x:Double x:Key="ItemDesiredWidthInNarrowMode">400</x:Double>
 
     <!--关于页面相关资源-->
     <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">

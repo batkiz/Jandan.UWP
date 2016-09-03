@@ -28,10 +28,6 @@ namespace Jandan.UWP.UI
         /// 段子的View Model
         /// </summary>
         DuanViewModel _viewModel;
-        /// <summary>
-        /// 段子评论的View Model
-        /// </summary>
-        DuanCommentViewModel _dViewModel;
 
         // 用于从其他页面返回时保持滚动条的位置
         private static double _persistedItemContainerHeight = -1;
@@ -44,7 +40,7 @@ namespace Jandan.UWP.UI
             this.InitializeComponent();
 
             this.DataContext = _viewModel = new DuanViewModel();
-            DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
+            //DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
         }
         /// <summary>
         /// 从其他页面导航回到段子
@@ -59,16 +55,6 @@ namespace Jandan.UWP.UI
                 return;
             }
             base.OnNavigatedTo(e);
-        }
-
-        private void DuanListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            DuanSplitView.IsPaneOpen = true;
-
-            var d = e.ClickedItem as Duan;
-            var commentId = d.DuanID;
-
-            _dViewModel.Update(commentId);
         }
 
         #endregion
@@ -163,12 +149,9 @@ namespace Jandan.UWP.UI
         {
             var b = sender as Button;
             var duan = b.DataContext as Duan;
-
-            _dViewModel.Update(duan.DuanID);
+            
+            CommentControl.Update(duan.DuanID);
             DuanSplitView.IsPaneOpen = true;
-
-            //////////////////////////////////////////////
-            CommentSubmitButton.Focus(FocusState.Pointer);
         }
 
         private void DuanSplitView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
@@ -268,55 +251,7 @@ namespace Jandan.UWP.UI
             await PopupMessage("复制成功！", 40, 2000);
         }
         #endregion
-
-        private void DuanCommentListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var d = e.ClickedItem as DuanComment;
-            var user_name = d.AuthorName;
-
-            CommentInputTextBox.Text = $"@{user_name}: ";
-            
-            _dViewModel.ParentId = d.PostID;
-        }
-
-        private async void CommentSubmitButton_Click(object sender, RoutedEventArgs e)
-        {
-            var response = CommentInputTextBox.Text;
-
-            if (!response.StartsWith("@") && !string.IsNullOrEmpty(_dViewModel.ParentId))
-            {
-                _dViewModel.ParentId = "";
-            }
-
-            var dia = new ContentDialog()
-            {
-                Title = "提示",
-                Content = new CommentSubmitDialogue(DataShareManager.Current.UserName, DataShareManager.Current.EmailAdd),
-                PrimaryButtonText = "发送",
-                SecondaryButtonText = "取消",
-                FullSizeDesired = false
-            };
-            dia.PrimaryButtonClick += Dia_PrimaryButtonClick;
-
-            var result = await dia.ShowAsync();
-
-            if (result == ContentDialogResult.Primary)
-            {
-                var message = $"message={response}&thread_id={_dViewModel.ThreadId}&parent_id={_dViewModel.ParentId}&author_name={DataShareManager.Current.UserName}&author_email={DataShareManager.Current.EmailAdd}";
-
-                var r = await _dViewModel.PostComment(message);
-
-                JsonObject j = new JsonObject();
-                if (JsonObject.TryParse(r,out j))
-                {
-                    await PopupMessage("评论成功！", 40, 2000);
-                }
-
-                CommentInputTextBox.Text = "";
-            }
-
-        }
-
+                
         private async Task PopupMessage(string message, double textWidth, int disTime)
         {
             textBlockPopup.Text = message;
@@ -324,22 +259,11 @@ namespace Jandan.UWP.UI
             popTipVote.IsOpen = true;   // 提示再按一次
             await Task.Delay(disTime);  // 1000ms后关闭提示
             popTipVote.IsOpen = false;
-        }
-
-        private void Dia_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            var csd = sender.Content as CommentSubmitDialogue;
-
-            DataShareManager.Current.UserName = csd.UserName;
-            DataShareManager.Current.EmailAdd = csd.Email;
-        }
+        }        
 
         private void DuanSplitView_PaneClosed(SplitView sender, object args)
         {
-            CommentInputTextBox.Text = "";
-
-            DataShareManager.Current.UserName = "";
-            DataShareManager.Current.EmailAdd = "";
+            CommentControl.ClearResponse();            
         }
     }
 }

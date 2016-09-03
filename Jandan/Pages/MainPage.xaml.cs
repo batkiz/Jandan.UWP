@@ -49,7 +49,7 @@ namespace Jandan.UWP.UI
                 || (DataShareManager.Current.CurrentPageIndex != PageIndex.BoringPage && DataShareManager.Current.PreviousPageIndex == PageIndex.PicDetailPage)
                 || (DataShareManager.Current.PreviousPageIndex == PageIndex.MeiziPage && DataShareManager.Current.CurrentPageIndex != PageIndex.PicDetailPage))
             {
-                mainFrame.Navigate(typeof(FreshPage));
+                mainFrame.Navigate(typeof(NewFreshPage));
             }
             else
             {
@@ -71,7 +71,7 @@ namespace Jandan.UWP.UI
             this.DataContext = _viewModel = new MainViewModel();
             //SetRequestedTheme();
 
-            mainFrame.Navigate(typeof(FreshPage));
+            mainFrame.Navigate(typeof(NewFreshPage));
         }
 
         /// <summary>
@@ -85,7 +85,9 @@ namespace Jandan.UWP.UI
 
             if (string.Equals(itemName.Name, "FreshNews"))
             {
-                mainFrame.Navigate(typeof(FreshPage), null, new ContinuumNavigationTransitionInfo());
+                //mainFrame.Navigate(typeof(FreshPage), null, new ContinuumNavigationTransitionInfo());
+                mainFrame.Navigate(typeof(NewFreshPage), null, new ContinuumNavigationTransitionInfo());
+
             }
             else if (string.Equals(itemName.Name, "Duanzi"))
             {
@@ -93,11 +95,12 @@ namespace Jandan.UWP.UI
             }
             else if (string.Equals(itemName.Name, "BoringPics"))
             {
-                mainFrame.Navigate(typeof(BoringPicsPage), null, new ContinuumNavigationTransitionInfo());
+                mainFrame.Navigate(typeof(NewBoringPage), null, new ContinuumNavigationTransitionInfo());
+                //mainFrame.Navigate(typeof(ImageViewer), null, new ContinuumNavigationTransitionInfo());
             }
             else if (string.Equals(itemName.Name, "Hot"))
             {
-                mainFrame.Navigate(typeof(HotPage), null, new ContinuumNavigationTransitionInfo());
+                mainFrame.Navigate(typeof(NewHotPage), null, new ContinuumNavigationTransitionInfo());
             }
 
             MainCommandBar.IsOpen = false;
@@ -141,14 +144,14 @@ namespace Jandan.UWP.UI
 
         private async void MainCommandBar_Opening(object sender, object e)
         {
+            SecBtnDarkMode.Label = _viewModel.AppTheme == ElementTheme.Dark ? "日间模式" : "夜间模式";
+
             // 检查当前缓存使用
             var size = await FileHelper.Current.GetCacheSize();
             SecBtnSetting.Label = $"清理缓存（{FileHelper.Current.GetFormatSize(size)}）";
 
             // 显示当前网络状态
             NetStatus.Label = $"网络状态({NetworkManager.Current.NetworkTitle})";
-
-            SecBtnDarkMode.Label = _viewModel.AppTheme == ElementTheme.Dark ? "日间模式" : "夜间模式";
         }
     }
 }
