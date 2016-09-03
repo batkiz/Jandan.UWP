@@ -14,6 +14,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
 using Windows.Storage;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -87,6 +88,10 @@ namespace Jandan.UWP.UI
             this.GifImageViewerInit();
             //await InstallCortanaCommand();
             this.RegisterLiveTileTask();
+
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Windows.Foundation.Size(350, 600));
+            ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size { Width = 400, Height = 700 };
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
 
             Frame rootFrame = Window.Current.Content as Frame;
 

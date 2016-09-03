@@ -34,6 +34,20 @@ namespace Jandan.UWP.Core.ViewModels
             set { _commentList = value; OnPropertyChanged(); }
         }
 
+        private string _textbox_comment;
+        public string TextBoxComment
+        {
+            get
+            {
+                return _textbox_comment;
+            }
+            set
+            {
+                _textbox_comment = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string ThreadId { get; set; }
         public string ParentId { get; set; }
         

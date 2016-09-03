@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="Jandan.UWP.UI.ImageViewer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Jandan.UWP.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:Jandan.UWP.Core.Models" 
+    mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="ImageViewerFlipViewTemplate" x:DataType="data:BoringPic">
+                <Grid>
+                    <ListView ItemsSource="{x:Bind Urls, Mode=OneWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="data:ImageUrl">
+                                <Image Source="{x:Bind Path=URL, Mode=OneWay}"></Image>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <RelativePanel Grid.Row="0">
+            <TextBlock Name="tbImageView" Text="图片详情" />
+            <TextBlock Name="tbCommentView" Text="评论" RelativePanel.RightOf="tbImageView" />
+        </RelativePanel>
+        
+        <FlipView ItemsSource="{x:Bind _viewModel.Boring, Mode=OneWay}" ItemTemplate="{StaticResource ImageViewerFlipViewTemplate}"/>
+    </Grid>
+</Page>
