@@ -11,15 +11,18 @@ namespace Jandan.UWP.Core.ViewModels
     public class PicDetailViewModel : ViewModelBase
     {
         public BoringPic BoringPicture { get; set; }
+        public DuanCommentViewModel _dViewModel { get; set; }
 
         public PicDetailViewModel(BoringPic b)
         {
+            _dViewModel = new DuanCommentViewModel();
             Update(b);
         }
 
         public void Update(BoringPic b)
         {
             BoringPicture = b;
+            _dViewModel.Update(b.PicID);
         }
         
     }

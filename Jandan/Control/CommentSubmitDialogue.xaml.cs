@@ -1,4 +1,5 @@
 ﻿using Windows.UI.Xaml.Controls;
+using Jandan.UWP.Core.ViewModels;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -23,6 +24,6 @@ namespace Jandan.UWP.Control
         { get { return this.textBoxUserName.Text; } }
 
         public string Email
-        { get { return this.textBoxEmail.Text; } }
+        { get { return this.textBoxEmail.Text; } }        
     }
 }

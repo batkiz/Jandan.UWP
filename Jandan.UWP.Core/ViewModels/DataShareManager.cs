@@ -76,6 +76,9 @@ namespace Jandan.UWP.Core.ViewModels
         // 评论邮箱
         public string EmailAdd { get; set; }
 
+        public bool isCortanaRegistered { get; private set; }
+        public bool isLiveTileRegistered { get; private set; }
+
         private static DataShareManager _current;
         public static DataShareManager Current
         {
@@ -118,6 +121,7 @@ namespace Jandan.UWP.Core.ViewModels
         private void LoadData()
         {
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             // APP_THEME = 0 Light mode | APP_THEME = 1 Dark mode
             if (roamingSettings.Values.ContainsKey("APP_THEME"))
             {
@@ -154,6 +158,26 @@ namespace Jandan.UWP.Core.ViewModels
             else
             {
                 IsShowUnwelcome = false;
+            }
+
+            // CORTANA = 0 Not Registered | CORTANA = 1 Registered
+            if (localSettings.Values.ContainsKey("CORTANA"))
+            {
+                isCortanaRegistered = int.Parse(localSettings.Values["CORTANA"].ToString()) == 0 ? false : true;
+            }
+            else
+            {
+                isCortanaRegistered = false;
+            }
+
+            // LIVETILE = 0 Not Registered | LIVETILE = 1 Registered
+            if (localSettings.Values.ContainsKey("LIVETILE"))
+            {
+                isLiveTileRegistered = int.Parse(localSettings.Values["LIVETILE"].ToString()) == 0 ? false : true;
+            }
+            else
+            {
+                isLiveTileRegistered = false;
             }
         }
 
@@ -199,6 +223,22 @@ namespace Jandan.UWP.Core.ViewModels
             IsShowUnwelcome = isUnwelcome;
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
             roamingSettings.Values["UNWELCOME"] = IsShowUnwelcome ? 1 : 0;
+            OnShareDataChanged();
+        }
+
+        public void EnableCortana()
+        {
+            isCortanaRegistered = true;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["CORTANA"] = 1;
+            OnShareDataChanged();
+        }
+
+        public void EnableLiveTile()
+        {
+            isLiveTileRegistered = true;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["LIVETILE"] = 1;
             OnShareDataChanged();
         }
 

@@ -5,15 +5,14 @@
     xmlns:local="using:Jandan.UWP.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:data="using:Jandan.UWP.Core.Models"
-    xmlns:view="using:Jandan.UWP.Core.ViewModels"
+    xmlns:model="using:Jandan.UWP.Core.Models"
     xmlns:jandancontrol="using:Jandan.UWP.Control"
     mc:Ignorable="d"
     NavigationCacheMode="Enabled" Loaded="Page_Loaded">
 
     <Page.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="DuanDataStyle" x:DataType="data:Duan">
+            <DataTemplate x:Key="DuanDataStyle" x:DataType="model:Duan">
                 <Grid Margin="0" Padding="5" Holding="Grid_Holding" RightTapped="Grid_RightTapped">
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout>

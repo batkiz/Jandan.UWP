@@ -49,12 +49,16 @@ namespace Jandan.UWP.Core.ViewModels
         }
 
         public string ThreadId { get; set; }
-        public string ParentId { get; set; }
+        public string ParentId { get; set; } 
         
         public DuanCommentViewModel()
         {
             _commentList = new CollectionViewSource();
             _commentList.IsSourceGrouped = true;
+
+            ThreadId = "";
+            ParentId = "";
+            TextBoxComment = "";
         }        
 
         /// <summary>
@@ -63,8 +67,6 @@ namespace Jandan.UWP.Core.ViewModels
         public async void Update(string commentID)
         {
             IsLoadingComments = true;
-            //DuanComments?.Clear();
-            //HotDuanComments?.Clear();
 
             CommentList.Source = null;
 

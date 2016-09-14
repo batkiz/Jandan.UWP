@@ -175,7 +175,7 @@ namespace Jandan.UWP.UI
         private void BoringGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             //this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, _viewModel.Boring });
-            this.Frame.Navigate(typeof(ImageViewerV1), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, _viewModel.Boring });
+            this.Frame.Navigate(typeof(ImageViewer), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, _viewModel.Boring });
 
         }
     }

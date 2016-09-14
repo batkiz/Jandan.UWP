@@ -5,7 +5,7 @@
     xmlns:local="using:Jandan.UWP.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" ManipulationCompleted="Page_ManipulationCompleted" ManipulationMode="System, TranslateX">
+    mc:Ignorable="d" ManipulationCompleted="Page_ManipulationCompleted">
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>

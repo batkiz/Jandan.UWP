@@ -14,22 +14,10 @@
         </Grid.RowDefinitions>
 
         
-        <RelativePanel Grid.Row="0"
-                       Style="{StaticResource TitleBarColorUWPStyle}"
-                       Padding="0,9,0,9" >
-            <!--顶部-->
-            <Button Name="PageBackButton"
-                       Content="&#xE72B;"
-                       RelativePanel.AlignLeftWithPanel="True"
-                       RelativePanel.AlignVerticalCenterWithPanel="True"
-                       Click="PageBackButton_Click"
-                       Style="{StaticResource TitleBarButtonStyle}">
+        <RelativePanel Grid.Row="0" Style="{StaticResource TitleBarColorUWPStyle}" Padding="0,9,0,9" >
+            <Button Name="PageBackButton" Content="&#xE72B;" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="PageBackButton_Click" Style="{StaticResource TitleBarButtonStyle}">
             </Button>
-            <TextBlock Name="PageTitle"
-                       Text="关于"
-                       RelativePanel.RightOf="PageBackButton"
-                       RelativePanel.AlignVerticalCenterWithPanel="True"
-                       Style="{StaticResource TitleBarTextBlockStyle}">                
+            <TextBlock Name="PageTitle" Text="关于" RelativePanel.RightOf="PageBackButton" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}">                
             </TextBlock>            
         </RelativePanel>
         <ScrollViewer Grid.Row="1">

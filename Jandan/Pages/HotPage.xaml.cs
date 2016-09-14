@@ -50,7 +50,7 @@ namespace Jandan.UWP.UI
 
         private void BoringGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic, PicDetailType.Hot, _viewModel.Pics });
+            this.Frame.Navigate(typeof(ImageViewer), new object[] { e.ClickedItem as BoringPic, PicDetailType.Hot, _viewModel.Pics });
         }
 
         private void BestCommentListView_ItemClick(object sender, ItemClickEventArgs e)

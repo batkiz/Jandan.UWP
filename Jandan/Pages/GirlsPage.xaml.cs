@@ -66,7 +66,7 @@ namespace Jandan.UWP.UI
 
         private void BoringGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic, PicDetailType.Meizi, _viewModel.Meizi });
+            this.Frame.Navigate(typeof(ImageViewer), new object[] { e.ClickedItem as BoringPic, PicDetailType.Meizi, _viewModel.Meizi });
         }
 
         private void DuanVotePositiveIcon_Click(object sender, RoutedEventArgs e)

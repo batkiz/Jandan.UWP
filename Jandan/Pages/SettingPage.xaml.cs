@@ -32,6 +32,17 @@ namespace Jandan.UWP.UI
         public SettingPage()
         {
             this.InitializeComponent();
+
+            if (DataShareManager.Current.isCortanaRegistered)
+            {
+                btnRegCortana.Content = "已注册";
+                btnRegCortana.IsEnabled = false;
+            }
+            if (DataShareManager.Current.isLiveTileRegistered)
+            {
+                btnRegLiveTile.Content = "已注册";
+                btnRegLiveTile.IsEnabled = false;
+            }
         }
         /// <summary>
         /// 从其他页面导航到“关于”页面
@@ -68,6 +79,7 @@ namespace Jandan.UWP.UI
 
             var b = sender as Button;
             b.Content = "已注册";
+            b.IsEnabled = false;
         }
 
         #region 动态磁贴
@@ -95,6 +107,8 @@ namespace Jandan.UWP.UI
             taskBuilder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
             taskBuilder.SetTrigger(new TimeTrigger(60, false));
             taskBuilder.Register();
+
+            DataShareManager.Current.EnableLiveTile();
         }
         #endregion
 
@@ -104,6 +118,7 @@ namespace Jandan.UWP.UI
 
             var b = sender as Button;
             b.Content = "已注册";
+            b.IsEnabled = false;
         }
 
         private async void InstallCortanaCommand()
@@ -118,6 +133,8 @@ namespace Jandan.UWP.UI
                 // version, it's not unreasonable to do this upon app load.
                 StorageFile vcdStorageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Cortana/VoiceCommandsFile.xml"));
                 await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdStorageFile);
+
+                DataShareManager.Current.EnableCortana();
             }
             catch (Exception ex)
             {

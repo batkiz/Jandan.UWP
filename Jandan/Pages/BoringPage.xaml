@@ -6,14 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:control="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:data="using:Jandan.UWP.Core.Models"
+    xmlns:toolkitcontrol="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:jandancontrol="using:Jandan.UWP.Control"
+    xmlns:model="using:Jandan.UWP.Core.Models"
     NavigationCacheMode="Enabled">
 
     <Page.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="BoringPicsDataStyle" x:DataType="data:BoringPic">
+            <DataTemplate x:Key="BoringPicsDataStyle" x:DataType="model:BoringPic">
                 <Grid Margin="8,4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
@@ -26,8 +26,8 @@
                         <TextBlock Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="0,0,0,4" Height="200">
-                        <TextBlock Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
-                        <control:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />
+                        <TextBlock Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" MaxHeight="40"/>
+                        <toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />
                     </StackPanel>
                     <RelativePanel Grid.Row="2" Margin="0,5">
                         <Button Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click"/>
@@ -97,7 +97,7 @@
             <!--SplitView.Pane放无聊图正文-->
             <SplitView.Content>
                 <Grid Margin="8,4">
-                    <control:AdaptiveGridView Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Boring, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick"/>
+                    <toolkitcontrol:AdaptiveGridView Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Boring, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick"/>
                     <!--弹出消息，提示妹子图-->
                     <Popup Name="popTipsMeizi" IsOpen="False" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalOffset="-75" VerticalOffset="-100">
                         <Grid BorderThickness="5" Margin="0,0,0,0" HorizontalAlignment="Center">

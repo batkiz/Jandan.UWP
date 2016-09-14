@@ -49,9 +49,6 @@ namespace Jandan.UWP.Control
         public void ClearResponse()
         {
             _dViewModel.TextBoxComment = "";
-
-            //DataShareManager.Current.UserName = "";
-            //DataShareManager.Current.EmailAdd = "";
         }
 
         private void DuanCommentListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -78,7 +75,8 @@ namespace Jandan.UWP.Control
                 Content = new CommentSubmitDialogue(DataShareManager.Current.UserName, DataShareManager.Current.EmailAdd),
                 PrimaryButtonText = "发送",
                 SecondaryButtonText = "取消",
-                FullSizeDesired = false
+                FullSizeDesired = false,
+                RequestedTheme = DataShareManager.Current.AppTheme
             };
             dia.PrimaryButtonClick += Dia_PrimaryButtonClick;
 
@@ -95,7 +93,6 @@ namespace Jandan.UWP.Control
                 JsonObject j = new JsonObject();
                 if (JsonObject.TryParse(r, out j))
                 {
-                    //await PopupMessage("评论成功！", 40, 2000);
                     Debug.WriteLine(DateTime.Now.ToString() + "评论成功！");
                 }                
             }            
