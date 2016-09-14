@@ -49,7 +49,7 @@ namespace Jandan.UWP.UI
                 || (DataShareManager.Current.CurrentPageIndex != PageIndex.BoringPage && DataShareManager.Current.PreviousPageIndex == PageIndex.PicDetailPage)
                 || (DataShareManager.Current.PreviousPageIndex == PageIndex.MeiziPage && DataShareManager.Current.CurrentPageIndex != PageIndex.PicDetailPage))
             {
-                mainFrame.Navigate(typeof(NewFreshPage));
+                mainFrame.Navigate(typeof(FreshPage));
             }
             else
             {
@@ -71,7 +71,7 @@ namespace Jandan.UWP.UI
             this.DataContext = _viewModel = new MainViewModel();
             //SetRequestedTheme();
 
-            mainFrame.Navigate(typeof(NewFreshPage));
+            mainFrame.Navigate(typeof(FreshPage));
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Jandan.UWP.UI
             if (string.Equals(itemName.Name, "FreshNews"))
             {
                 //mainFrame.Navigate(typeof(FreshPage), null, new ContinuumNavigationTransitionInfo());
-                mainFrame.Navigate(typeof(NewFreshPage), null, new ContinuumNavigationTransitionInfo());
+                mainFrame.Navigate(typeof(FreshPage), null, new ContinuumNavigationTransitionInfo());
 
             }
             else if (string.Equals(itemName.Name, "Duanzi"))
@@ -95,12 +95,12 @@ namespace Jandan.UWP.UI
             }
             else if (string.Equals(itemName.Name, "BoringPics"))
             {
-                mainFrame.Navigate(typeof(NewBoringPage), null, new ContinuumNavigationTransitionInfo());
+                mainFrame.Navigate(typeof(BoringPage), null, new ContinuumNavigationTransitionInfo());
                 //mainFrame.Navigate(typeof(ImageViewer), null, new ContinuumNavigationTransitionInfo());
             }
             else if (string.Equals(itemName.Name, "Hot"))
             {
-                mainFrame.Navigate(typeof(NewHotPage), null, new ContinuumNavigationTransitionInfo());
+                mainFrame.Navigate(typeof(HotPage), null, new ContinuumNavigationTransitionInfo());
             }
 
             MainCommandBar.IsOpen = false;

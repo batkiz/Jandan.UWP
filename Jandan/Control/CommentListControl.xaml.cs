@@ -36,6 +36,11 @@ namespace Jandan.UWP.Control
             this.DataContext = _dViewModel = new DuanCommentViewModel();
         }
 
+        public void SetFocus()
+        {
+            CommentSubmitButton.Focus(FocusState.Pointer);
+        }
+
         public void Update(string id)
         {
             _dViewModel.Update(id);

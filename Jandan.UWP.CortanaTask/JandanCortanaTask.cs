@@ -48,8 +48,72 @@ namespace Jandan.UWP.CortanaTask
                 case "seeABoringPic":
                     await seeABoringPic();
                     break;
+                case "seeFreshNews":
+                    await seeFreshNews();
+                    break;
             }
             _taskDerral.Complete();
+        }
+
+        private async Task seeFreshNews()
+        {
+            var msgback = new VoiceCommandUserMessage();
+
+            var news = await GetNews();
+            var p = news.Take(10).ToList();
+
+            // 取10条最新新鲜事            
+            var picTiles = new List<VoiceCommandContentTile>();
+            int i = 1;
+            foreach (var item in p)
+            {
+                var file_name = Path.GetFileName(item.Thumb_c);
+                var uri = new Uri(item.Thumb_c, UriKind.Absolute);
+
+                var newsTile = new VoiceCommandContentTile();
+
+                newsTile.ContentTileType = VoiceCommandContentTileType.TitleWith68x68IconAndText;
+                newsTile.Image = await StorageFile.CreateStreamedFileFromUriAsync(
+                    file_name,
+                    uri,
+                    RandomAccessStreamReference.CreateFromUri(uri));
+                newsTile.AppContext = item;
+                newsTile.Title = $"{item.Title}";
+                newsTile.TextLine1 = $"@{item.Tag[0].Title}";
+                newsTile.TextLine2 = $"by {item.Author.Name}";
+                newsTile.TextLine3 = "";
+
+                picTiles.Add(newsTile);
+                i++;
+            }
+
+            msgback.DisplayMessage = msgback.SpokenMessage = "找到最近的十条新鲜事";
+            var response = VoiceCommandResponse.CreateResponse(msgback, picTiles);
+
+            await _serviceConnection.ReportSuccessAsync(response);
+        }
+
+        private async Task<List<Fresh>> GetNews()
+        {
+            APIService _api = new APIService();
+
+            try
+            {
+                var response = await _api.GetFresh(1);
+                if (response?.Count != 0)
+                {
+                    return response;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
+                return null;
+            }
         }
 
         private void _serviceConnection_VoiceCommandCompleted(VoiceCommandServiceConnection sender, VoiceCommandCompletedEventArgs args)
@@ -78,21 +142,57 @@ namespace Jandan.UWP.CortanaTask
             }
         }
 
+        // Number随机数个数
+        // minNum随机数下限
+        // maxNum随机数上限
+        public int[] GetRandomArray(int Number, int minNum, int maxNum)
+        {
+            int j;
+            int[] b = new int[Number];
+            Random r = new Random();
+            for (j = 0; j < Number; j++)
+            {
+                int i = r.Next(minNum, maxNum + 1);
+                int num = 0;
+                for (int k = 0; k < j; k++)
+                {
+                    if (b[k] == i)
+                    {
+                        num = num + 1;
+                    }
+                }
+                if (num == 0)
+                {
+                    b[j] = i;
+                }
+                else
+                {
+                    j = j - 1;
+                }
+            }
+            return b;
+        }
+
         private async Task seeABoringPic()
         {
             var msgback = new VoiceCommandUserMessage();
 
             var pics = await GetPics();
+            int[] pic_idx = GetRandomArray(3, 0, pics.Count);
+
             // 挑三张最新无聊图
-            var p = pics.Take(1).ToList();
+            var p = new List<BoringPic>
+            {
+                pics[pic_idx[0]], 
+                pics[pic_idx[1]],
+                pics[pic_idx[2]]
+            };
             var picTiles = new List<VoiceCommandContentTile>();
             int i = 1;
             foreach (var item in p)
             {
                 var file_name = Path.GetFileName(item.Thumb[0].URL);
                 var uri = new Uri(item.Thumb[0].URL, UriKind.Absolute);
-                //var file_name = Path.GetFileName("http://www.baidu.com/img/bd_logo1.png");
-                //var uri = new Uri("http://www.baidu.com/img/bd_logo1.png");
 
                 var picTile = new VoiceCommandContentTile();
                 
@@ -102,16 +202,16 @@ namespace Jandan.UWP.CortanaTask
                     uri, 
                     RandomAccessStreamReference.CreateFromUri(uri));
                 picTile.AppContext = item;
-                picTile.Title = $"第{i}张：来自{item.Author}上传的无聊图";
+                picTile.Title = $"第{i}张：";
                 picTile.TextLine1 = item.Content == null ? "" : item.Content;
-                picTile.TextLine2 = file_name;
+                picTile.TextLine2 = $"来自{item.Author}上传的无聊图";
                 picTile.TextLine3 = "";
 
                 picTiles.Add(picTile);
                 i++;
             }
             
-            msgback.DisplayMessage = msgback.SpokenMessage = "找到最新的三张无聊图";
+            msgback.DisplayMessage = msgback.SpokenMessage = "找到最近的三张无聊图";
             var response = VoiceCommandResponse.CreateResponse(msgback, picTiles);
 
             await _serviceConnection.ReportSuccessAsync(response);
@@ -152,7 +252,31 @@ namespace Jandan.UWP.CortanaTask
             var jokeTile = new VoiceCommandContentTile();
             jokeTile.ContentTileType = VoiceCommandContentTileType.TitleWithText;
             jokeTile.Title = $"来自{d.Author}的段子：";
-            jokeTile.TextLine1 = $"{d.Content}";
+
+            var jokeStr = $"{d.Content}";
+
+            if (jokeStr.Length >= 300)
+            {
+                jokeTile.TextLine1 = jokeStr.Substring(0, 100);
+                jokeTile.TextLine2 = jokeStr.Substring(100, 100);
+                jokeTile.TextLine3 = jokeStr.Substring(200, 100);
+            }
+            else if (jokeStr.Length >= 200)
+            {
+                jokeTile.TextLine1 = jokeStr.Substring(0, 100);
+                jokeTile.TextLine2 = jokeStr.Substring(100, 100);
+                jokeTile.TextLine3 = jokeStr.Substring(200);
+            }
+            else if (jokeStr.Length >= 100)
+            {
+                jokeTile.TextLine1 = jokeStr.Substring(0, 100);
+                jokeTile.TextLine2 = jokeStr.Substring(100);
+            }
+            else
+            {
+                jokeTile.TextLine1 = jokeStr;
+            }
+
             var jokeTiles = new List<VoiceCommandContentTile>();
             jokeTiles.Add(jokeTile);
 

@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Jandan.UWP.UI.NewBoringPage"
+    x:Class="Jandan.UWP.UI.GirlsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Jandan.UWP.UI"
@@ -13,7 +13,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="BoringPicsDataStyle" x:DataType="data:BoringPic">
+            <DataTemplate x:Key="MeiziPicsDataStyle" x:DataType="data:BoringPic">
                 <Grid Margin="8,4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
@@ -65,39 +65,27 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--无聊图顶部标题栏, 包括图标/文字/刷新按钮-->
-        <RelativePanel Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,9,0,9">
+        <RelativePanel Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,9,0,9" >
+            <!--顶部-->
             <TextBlock Name="PageTitleIcon" Text="&#xEB9F;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
-            <TextBlock Name="PageTitle" Text="无聊图" RelativePanel.RightOf="PageTitleIcon" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}" Tapped="PageTitle_Tapped"/>
-            <Button Name="FilterButton" Content="&#xE71C;" RelativePanel.LeftOf="RefreshButton" Style="{StaticResource TitleBarButtonStyle}">
-                <Button.Flyout>
-                    <Flyout>
-                        <StackPanel>
-                            <ToggleSwitch Name="showNSFW" IsOn="{x:Bind Path=_viewModel.IsShowNSFW, Mode=TwoWay}" OffContent="隐藏" OnContent="显示">显示/隐藏NSFW图片</ToggleSwitch>
-                            <ToggleSwitch Name="showUnwelcome" IsOn="{x:Bind Path=_viewModel.IsShowUnwelcome, Mode=TwoWay}" OffContent="隐藏" OnContent="显示">显示/隐藏不受欢迎的图片</ToggleSwitch>
-                        </StackPanel>
-                    </Flyout>
-                </Button.Flyout>
-            </Button>
-            <Button Name="RefreshButton" Content="&#xE117;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarButtonStyle}" Click="RefreshButton_Click"/>
+            <TextBlock Name="PageTitle" Text="妹子图" RelativePanel.RightOf="PageTitleIcon" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
+            <Button Name="RefreshButton" Content="&#xE117;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
         </RelativePanel>
-
         <!--SplitView.Content放无聊图, Pane放评论-->
         <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped" PaneClosed="DuanSplitView_PaneClosed">
             <!--SplitView.Pane放评论, 分为两行, 第一行为标题栏, 第二行为评论-->
-            <SplitView.Pane>                
+            <SplitView.Pane>
                 <jandancontrol:CommentListControl x:Name="CommentControl"></jandancontrol:CommentListControl>
             </SplitView.Pane>
             <!--SplitView.Pane放无聊图正文-->
             <SplitView.Content>
                 <Grid Margin="8,4">
-                    <control:AdaptiveGridView Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Boring, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick"/>
+                    <control:AdaptiveGridView Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Meizi, Mode=OneWay}" ItemTemplate="{StaticResource MeiziPicsDataStyle}" ItemClick="BoringGridView_ItemClick"/>
                     <!--弹出消息，提示妹子图-->
                     <Popup Name="popTipsMeizi" IsOpen="False" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalOffset="-75" VerticalOffset="-100">
                         <Grid BorderThickness="5" Margin="0,0,0,0" HorizontalAlignment="Center">

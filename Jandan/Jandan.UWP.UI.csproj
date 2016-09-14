@@ -118,7 +118,9 @@
     <Content Include="Assets\StoreLogo.scale-400.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="Cortana\VoiceCommandsFile.xml" />
+    <Content Include="Cortana\VoiceCommandsFile.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Documents\version-2.2.55.txt" />
     <None Include="Jandan_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
@@ -136,14 +138,12 @@
     <Compile Include="Control\CommentListControl.xaml.cs">
       <DependentUpon>CommentListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\ScalableGrid.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\BoringPicsPage.xaml.cs">
-      <DependentUpon>BoringPicsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Control\CommentSubmitDialogue.xaml.cs">
       <DependentUpon>CommentSubmitDialogue.xaml</DependentUpon>
@@ -154,32 +154,26 @@
     <Compile Include="Pages\FreshDetailPage.xaml.cs">
       <DependentUpon>FreshDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\FreshPage.xaml.cs">
-      <DependentUpon>FreshPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\HotPage.xaml.cs">
-      <DependentUpon>HotPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\ImageViewer.xaml.cs">
       <DependentUpon>ImageViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ImageViewerV1.xaml.cs">
+      <DependentUpon>ImageViewerV1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\MeiziPicsPage.xaml.cs">
-      <DependentUpon>MeiziPicsPage.xaml</DependentUpon>
+    <Compile Include="Pages\BoringPage.xaml.cs">
+      <DependentUpon>BoringPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\NewBoringPage.xaml.cs">
-      <DependentUpon>NewBoringPage.xaml</DependentUpon>
+    <Compile Include="Pages\FreshPage.xaml.cs">
+      <DependentUpon>FreshPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\NewFreshPage.xaml.cs">
-      <DependentUpon>NewFreshPage.xaml</DependentUpon>
+    <Compile Include="Pages\GirlsPage.xaml.cs">
+      <DependentUpon>GirlsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\NewGirlsPage.xaml.cs">
-      <DependentUpon>NewGirlsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\NewHotPage.xaml.cs">
-      <DependentUpon>NewHotPage.xaml</DependentUpon>
+    <Compile Include="Pages\HotPage.xaml.cs">
+      <DependentUpon>HotPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PicDetailPage.xaml.cs">
       <DependentUpon>PicDetailPage.xaml</DependentUpon>
@@ -221,10 +215,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\BoringPicsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Control\CommentSubmitDialogue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -237,15 +227,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\FreshPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\HotPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\ImageViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ImageViewerV1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -253,23 +239,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\MeiziPicsPage.xaml">
+    <Page Include="Pages\BoringPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\NewBoringPage.xaml">
+    <Page Include="Pages\FreshPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\NewFreshPage.xaml">
+    <Page Include="Pages\GirlsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\NewGirlsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\NewHotPage.xaml">
+    <Page Include="Pages\HotPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
