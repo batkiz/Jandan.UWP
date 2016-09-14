@@ -24,14 +24,14 @@ namespace Jandan.UWP.UI
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class NewGirlsPage : Page
+    public sealed partial class GirlsPage : Page
     {
         /// <summary>
         /// 妹子图的View Model
         /// </summary>
         MeiziViewModel _viewModel;
 
-        public NewGirlsPage()
+        public GirlsPage()
         {
             this.InitializeComponent();
 
@@ -141,6 +141,8 @@ namespace Jandan.UWP.UI
             CommentControl.Update(bp.PicID);
 
             DuanSplitView.IsPaneOpen = true;
+
+            CommentControl.SetFocus();
         }
     }
 }

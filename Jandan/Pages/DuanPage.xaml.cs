@@ -152,6 +152,8 @@ namespace Jandan.UWP.UI
             
             CommentControl.Update(duan.DuanID);
             DuanSplitView.IsPaneOpen = true;
+
+            CommentControl.SetFocus();
         }
 
         private void DuanSplitView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)

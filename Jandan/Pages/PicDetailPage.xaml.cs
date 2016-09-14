@@ -120,13 +120,13 @@ namespace Jandan.UWP.UI
             switch (DetailType)
             {
                 case PicDetailType.Boring:
-                    this.Frame.Navigate(typeof(NewBoringPage));
+                    this.Frame.Navigate(typeof(BoringPage));
                     break;
                 case PicDetailType.Hot:
-                    this.Frame.Navigate(typeof(NewHotPage));
+                    this.Frame.Navigate(typeof(HotPage));
                     break;
                 case PicDetailType.Meizi:
-                    this.Frame.Navigate(typeof(NewGirlsPage));
+                    this.Frame.Navigate(typeof(GirlsPage));
                     break;
                 default:
                     break;

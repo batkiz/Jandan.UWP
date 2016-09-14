@@ -26,7 +26,7 @@ namespace Jandan.UWP.UI
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class NewBoringPage : Page
+    public sealed partial class BoringPage : Page
     {
         /// <summary>
         /// 无聊图的View Model
@@ -38,7 +38,7 @@ namespace Jandan.UWP.UI
         /// </summary>
         private int secret_count;
 
-        public NewBoringPage()
+        public BoringPage()
         {
             this.InitializeComponent();
 
@@ -137,6 +137,8 @@ namespace Jandan.UWP.UI
             CommentControl.Update(bp.PicID);
 
             DuanSplitView.IsPaneOpen = true;
+
+            CommentControl.SetFocus();
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
@@ -150,7 +152,7 @@ namespace Jandan.UWP.UI
 
             if (secret_count == 5)
             {
-                this.Frame.Navigate(typeof(NewGirlsPage));
+                this.Frame.Navigate(typeof(GirlsPage));
                 secret_count = 0;
                 return;
             }
@@ -172,7 +174,9 @@ namespace Jandan.UWP.UI
 
         private void BoringGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, _viewModel.Boring });
+            //this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, _viewModel.Boring });
+            this.Frame.Navigate(typeof(ImageViewerV1), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, _viewModel.Boring });
+
         }
     }
 }

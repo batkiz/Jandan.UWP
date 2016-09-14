@@ -51,25 +51,6 @@ namespace Jandan.UWP.UI
             }.AddDecoder<GifDecoder>().Build(), true);
         }
 
-        private async Task InstallCortanaCommand()
-        {
-            try
-            {
-                ////user can stop VCD in settings
-                //if (AppSettings.GetInstance().CortanaVCDEnableStatus == false)
-                //    return;
-
-                // Install the main VCD. Since there's no simple way to test that the VCD has been imported, or that it's your most recent
-                // version, it's not unreasonable to do this upon app load.
-                StorageFile vcdStorageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Cortana/VoiceCommandsFile.xml"));
-                await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdStorageFile);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Installing Voice Commands Failed: " + ex.ToString());
-            }
-        }
-
         /// <summary>
         /// 在应用程序由最终用户正常启动时进行调用。
         /// 将在启动应用程序以打开特定文件等情况下使用。
@@ -86,8 +67,6 @@ namespace Jandan.UWP.UI
 #endif
             // Initialization
             this.GifImageViewerInit();
-            //await InstallCortanaCommand();
-            this.RegisterLiveTileTask();
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Windows.Foundation.Size(350, 600));
             ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size { Width = 400, Height = 700 };
@@ -147,33 +126,5 @@ namespace Jandan.UWP.UI
             //TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
         }
-
-        #region 动态磁贴
-        private const string LIVETILETASK = "JandanLiveTileTask";
-        private async void RegisterLiveTileTask()
-        {
-            var status = await BackgroundExecutionManager.RequestAccessAsync();
-            if (status == BackgroundAccessStatus.Unspecified || status == BackgroundAccessStatus.Denied)
-            {
-                return;
-            }
-            foreach (var task in BackgroundTaskRegistration.AllTasks)
-            {
-                if (task.Value.Name == LIVETILETASK)
-                {
-                    task.Value.Unregister(true);
-                }
-            }
-
-            var taskBuilder = new BackgroundTaskBuilder
-            {
-                Name = LIVETILETASK,
-                TaskEntryPoint = typeof(JandanLiveTileTask).FullName
-            };
-            taskBuilder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
-            taskBuilder.SetTrigger(new TimeTrigger(60, false));
-            taskBuilder.Register();
-        }
-        #endregion
     }
 }

@@ -27,7 +27,7 @@
       <ListenFor RequireAppName="ExplicitlySpecified"> {builtin:AppName}[给我][看]新鲜事</ListenFor>
       <ListenFor RequireAppName="ExplicitlySpecified"> {builtin:AppName}[我想][看]看新鲜事</ListenFor>
       <ListenFor RequireAppName="ExplicitlySpecified"> {builtin:AppName}[告诉我][今天的]新鲜事[有哪些]</ListenFor>
-      <Feedback>正在获取无聊图...</Feedback>
+      <Feedback>正在获取新鲜事...</Feedback>
       <VoiceCommandService Target="JandanCortanaService"/>
     </Command>
     <!--PhraseList用来定义一组语音字符，指定相应规定的字符，用来消除歧义-->
