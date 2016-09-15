@@ -51,13 +51,20 @@ namespace Jandan.UWP.Core.Tools
         }
         public async Task WriteObjectAsync<T>(T obj, string filename)
         {
+#if DEBUG
+            Debug.WriteLine(DateTime.Now.ToString() + " " + $"写入Json数据：{filename}");
+#endif
             try
             {
                 var folder = await _local_folder.CreateFolderAsync("data_cache", CreationCollisionOption.OpenIfExists);
-                using (var data = await folder.OpenStreamForWriteAsync(filename, CreationCollisionOption.ReplaceExisting))
+                var file = await folder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
+                
+                using (var stream = await file.OpenStreamForWriteAsync())
                 {
                     DataContractJsonSerializer serizlizer = new DataContractJsonSerializer(typeof(T));
-                    serizlizer.WriteObject(data, obj);
+                    serizlizer.WriteObject(stream, obj);
+
+                    stream.Flush();
                 }
             }
             catch(Exception e)

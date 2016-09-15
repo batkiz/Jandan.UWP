@@ -36,7 +36,7 @@ namespace Jandan.UWP.Core.ViewModels
             {
                 _is_show_nsfw = value;
                 OnPropertyChanged();
-                UpdateBoringPics();
+                //UpdateBoringPics();
                 DataShareManager.Current.UpdateNSFW(_is_show_nsfw);
             }
         }
@@ -52,7 +52,7 @@ namespace Jandan.UWP.Core.ViewModels
             {
                 _is_show_unwelcome = value;
                 OnPropertyChanged();
-                UpdateBoringPics();
+                //UpdateBoringPics();
                 DataShareManager.Current.UpdateUnwelcome(_is_show_unwelcome);
             }
         }
