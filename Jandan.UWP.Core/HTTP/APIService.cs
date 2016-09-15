@@ -23,7 +23,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (NetworkManager.Current.Network == 4)  //无网络连接
+                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
                 {
                     if (pageNum == 1)
                     {
@@ -84,7 +84,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (NetworkManager.Current.Network == 4)  //无网络连接
+                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
                 {
                     FreshDetail list = await FileHelper.Current.ReadObjectAsync<FreshDetail>($"freshDetail-{fresh.ID}.json");
                     return list;
@@ -129,7 +129,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (NetworkManager.Current.Network == 4)  //无网络连接
+                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
                 {
                     if (pageNum == 1)
                     {
@@ -199,7 +199,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (NetworkManager.Current.Network == 4)  //无网络连接
+                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
                 {
                     if (pageNum == 1)
                     {
@@ -272,7 +272,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (NetworkManager.Current.Network == 4)  //无网络连接
+                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
                 {
                     if (pageNum == 1)
                     {
@@ -344,7 +344,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (NetworkManager.Current.Network == 4)  //无网络连接
+                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
                 {
                     List<BoringPic> list = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("hot_pics_list.json");
                     return list;
@@ -409,7 +409,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (NetworkManager.Current.Network == 4)  //无网络连接
+                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
                 {
                     List<Duan> list = await FileHelper.Current.ReadObjectAsync<List<Duan>>("hot_duan_list.json");
                     return list;
@@ -472,7 +472,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (NetworkManager.Current.Network == 4)  //无网络连接
+                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
                 {
                     List<BestFreshComment> list = await FileHelper.Current.ReadObjectAsync<List<BestFreshComment>>("BestFreshComment.json");
                     return list;
@@ -541,7 +541,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (NetworkManager.Current.Network == 4)  //无网络连接
+                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
                 {
                     List<DuanComment> list = await FileHelper.Current.ReadObjectAsync<List<DuanComment>>($"DuanComment-{DuanID}.json");
                     return list;
@@ -635,7 +635,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (NetworkManager.Current.Network == 4)  //无网络连接
+                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
                 {
                     List<FreshComment> list = await FileHelper.Current.ReadObjectAsync<List<FreshComment>>(string.Format("FreshComment-{0}.json", DuanID));
                     return list;

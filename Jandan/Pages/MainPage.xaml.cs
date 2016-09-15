@@ -151,7 +151,7 @@ namespace Jandan.UWP.UI
             SecBtnSetting.Label = $"清理缓存（{FileHelper.Current.GetFormatSize(size)}）";
 
             // 显示当前网络状态
-            NetStatus.Label = $"网络状态({NetworkManager.Current.NetworkTitle})";
+            NetStatus.Label = $"网络状态({ConnectivityManager.Current.NetworkTitle})";
         }
     }
 }
