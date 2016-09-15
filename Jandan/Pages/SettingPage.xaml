@@ -51,8 +51,8 @@
                 </StackPanel>
                 <StackPanel Grid.Row="3" Padding="10">
                     <RelativePanel>
-                        <TextBlock Text="字号调节" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
-                        <Slider Name="sliderFont" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Minimum="0.8" Maximum="2" SmallChange="0.1" StepFrequency="0.1" LargeChange="0.4" Value="1" Width="100" Margin="0,0,20,0" />
+                        <TextBlock Text="字号调节(未实现)" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        <Slider Name="sliderFont" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Minimum="8" Maximum="20" SmallChange="1" StepFrequency="1" LargeChange="4" Value="{Binding Source={StaticResource ContentFontSize}, Mode=TwoWay}" Width="100" Margin="0,0,20,0" />
                     </RelativePanel>
                 </StackPanel>
                 <StackPanel Grid.Row="4" Padding="10">

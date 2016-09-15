@@ -3,6 +3,7 @@ using Jandan.UWP.Core.Tools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 
@@ -579,13 +580,18 @@ namespace Jandan.UWP.Core.HTTP
                                     }
 
                                     // 获取评论列表
+                                    var timestr = postItem.GetNamedString("created_at");
+                                    CultureInfo cultureInfo = new CultureInfo("en-US");
+                                    string format = "yyyy-MM-ddTHH:mm:sszzz";
+                                    DateTime datetime = DateTime.ParseExact(timestr, format, cultureInfo);
+                                    
                                     list.Add(new DuanComment
                                     {
                                         PostID = postItem.GetNamedString("post_id"),
                                         ThreadID = postItem.GetNamedString("thread_id"),
                                         Message = postItem.GetNamedString("message"),
                                         ParentID = postItem["parent_id"].ValueType == JsonValueType.String ? postItem.GetNamedString("parent_id") : "0",
-                                        PostDate = postItem.GetNamedString("created_at"),
+                                        PostDate = datetime.ToString(),
                                         AuthorName = postItem["author"].GetObject().GetNamedString("name"),
                                         AuthorAvatarUri = new Uri((authorURL.Equals("null") || authorURL.Equals("")) ? "ms-appx:///Icons/jandan-400.png" : authorURL),
                                         Like = (int)postItem.GetNamedNumber("likes"),
