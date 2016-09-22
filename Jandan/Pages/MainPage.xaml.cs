@@ -2,6 +2,7 @@
 using Jandan.UWP.Core.ViewModels;
 using System;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -85,7 +86,6 @@ namespace Jandan.UWP.UI
 
             if (string.Equals(itemName.Name, "FreshNews"))
             {
-                //mainFrame.Navigate(typeof(FreshPage), null, new ContinuumNavigationTransitionInfo());
                 mainFrame.Navigate(typeof(FreshPage), null, new ContinuumNavigationTransitionInfo());
 
             }
@@ -96,7 +96,6 @@ namespace Jandan.UWP.UI
             else if (string.Equals(itemName.Name, "BoringPics"))
             {
                 mainFrame.Navigate(typeof(BoringPage), null, new ContinuumNavigationTransitionInfo());
-                //mainFrame.Navigate(typeof(ImageViewer), null, new ContinuumNavigationTransitionInfo());
             }
             else if (string.Equals(itemName.Name, "Hot"))
             {
@@ -108,17 +107,22 @@ namespace Jandan.UWP.UI
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            ////需要添加windows mobile extensions for uwp引用
+            //if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            //{
+            //    StatusBar statusBar = StatusBar.GetForCurrentView();
+            //    statusBar.BackgroundColor = Color.FromArgb(100, 255, 255, 255);
+            //    statusBar.ForegroundColor = Colors.White;
+            //    statusBar.BackgroundOpacity = 1;
+            //}
+
             var appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             appView.SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
-
             var platformFamily = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily;
             if (string.Equals(platformFamily, "Windows.Mobile"))
             {
+                appView.FullScreenSystemOverlayMode = FullScreenSystemOverlayMode.Standard;
                 appView.TryEnterFullScreenMode();
-            }
-            else
-            {
-                //Hot.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -151,6 +155,7 @@ namespace Jandan.UWP.UI
             SecBtnSetting.Label = $"清理缓存（{FileHelper.Current.GetFormatSize(size)}）";
 
             // 显示当前网络状态
+            ConnectivityManager.Current.UpdateConnectionType();
             NetStatus.Label = $"网络状态({ConnectivityManager.Current.NetworkTitle})";
         }
     }

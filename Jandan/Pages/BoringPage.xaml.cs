@@ -176,7 +176,11 @@ namespace Jandan.UWP.UI
         {
             //this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, _viewModel.Boring });
             this.Frame.Navigate(typeof(ImageViewer), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, _viewModel.Boring });
+        }
 
+        private void BoringPullToRefresh_RefreshInvoked(DependencyObject sender, object args)
+        {
+            _viewModel.UpdateBoringPics();
         }
     }
 }

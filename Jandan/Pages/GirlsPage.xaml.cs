@@ -144,5 +144,10 @@ namespace Jandan.UWP.UI
 
             CommentControl.SetFocus();
         }
+
+        private void GirlPullToRefresh_RefreshInvoked(DependencyObject sender, object args)
+        {
+            _viewModel.Update();
+        }
     }
 }

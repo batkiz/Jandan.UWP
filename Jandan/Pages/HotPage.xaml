@@ -8,6 +8,7 @@
     mc:Ignorable="d"
     xmlns:toolkitcontrol="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:jandancontrol="using:Jandan.UWP.Control"
+    xmlns:pullcontrol="using:PullToRefresh.UWP"
     xmlns:model="using:Jandan.UWP.Core.Models"
     NavigationCacheMode="Enabled">
 
@@ -165,7 +166,7 @@
                         </Pivot.HeaderTemplate>
                         <PivotItem Header="无聊图">
                             <Grid Margin="-8, 0">
-                                <toolkitcontrol:AdaptiveGridView Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Pics, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick"/>
+                                <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Pics, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick"/>
                             </Grid>
                         </PivotItem>
                         <PivotItem Header="段子">

@@ -22,6 +22,7 @@
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateThumbprint>ACF30DDD41ADA6A62F046169DC9745E1EA7DBD65</PackageCertificateThumbprint>
     <HockeyAppResourceId>fe343c5b7ea64d2f8858d8b4b74838ca</HockeyAppResourceId>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -121,7 +122,7 @@
     <Content Include="Cortana\VoiceCommandsFile.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Documents\version-2.2.55.txt" />
+    <Content Include="Documents\version-2.2.58.txt" />
     <None Include="Jandan_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Icons\jandan-400.png" />
@@ -286,7 +287,6 @@
       <Name>Jandan.UWP.LiveTileTask</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

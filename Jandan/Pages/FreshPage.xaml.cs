@@ -57,5 +57,15 @@ namespace Jandan.UWP.UI
         {
             Frame.Navigate(typeof(FreshDetailPage), new object[] { 0, e.ClickedItem as Core.Models.Fresh });
         }
+
+        private void FreshPullToRefresh_RefreshInvoked(DependencyObject sender, object args)
+        {
+            _viewModel.Update();
+        }
+
+        private void PageTitleIcon_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            
+        }
     }
 }

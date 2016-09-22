@@ -8,18 +8,19 @@
     mc:Ignorable="d"
     xmlns:model="using:Jandan.UWP.Core.Models"
     xmlns:toolkitcontrol="using:Microsoft.Toolkit.Uwp.UI.Controls" 
+    xmlns:pullcontrol="using:PullToRefresh.UWP"
     Loaded="Page_Loaded" NavigationCacheMode="Enabled">
 
     <Page.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="FreshGridItemNarrowTemplate" x:DataType="model:Fresh">
-                <Grid Name="gridListItems" BorderBrush="Black" Margin="8,4">
+                <Grid Name="gridListItems" BorderBrush="Black" Margin="8,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="65*"></ColumnDefinition>
                         <ColumnDefinition Width="45*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <RelativePanel Grid.Column="0" Margin="4,0">
-                        <Grid>
+                        <Grid VerticalAlignment="Center" RelativePanel.AlignVerticalCenterWithPanel="True">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"></RowDefinition>
                                 <RowDefinition Height="70*"></RowDefinition>
@@ -39,7 +40,7 @@
                         </Grid>
                     </RelativePanel>
                     <RelativePanel Grid.Column="1">
-                        <toolkitcontrol:ImageEx Name="FreshNewsImage" Source="{x:Bind Thumb_c, Mode=OneWay}" MaxHeight="115" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        <toolkitcontrol:ImageEx Name="FreshNewsImage" Source="{x:Bind Thumb_c, Mode=OneWay}" Height="115" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" VerticalAlignment="Center"/>
                     </RelativePanel>
                 </Grid>
             </DataTemplate>
@@ -49,13 +50,13 @@
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <toolkitcontrol:ImageEx Name="FreshNewsImage" Grid.Row="0" MaxHeight="140" Source="{x:Bind Thumb_c, Mode=OneWay}" RelativePanel.AlignRightWithPanel="True" Margin="0,5"/>
+                    <toolkitcontrol:ImageEx Name="FreshNewsImage" Grid.Row="0" MaxHeight="130" Source="{x:Bind Thumb_c, Mode=OneWay}" RelativePanel.AlignRightWithPanel="True" Margin="0,5"/>
                     <RelativePanel Grid.Row="1" Margin="8,4">
-                        <TextBlock Name="FreshNewsAuthor" Text="{x:Bind Author.Name, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,2"/>
-                        <TextBlock Name="FreshNewsAt" Text="  @  " FontSize="12" TextWrapping="Wrap" RelativePanel.RightOf="FreshNewsAuthor" Margin="0,2"/>
-                        <TextBlock Name="FreshNewsTag" Text="{x:Bind Tag[0].Title, Mode=OneWay}" FontSize="12" TextWrapping="WrapWholeWords" RelativePanel.RightOf="FreshNewsAt" Margin="0,2"/>
-                        <TextBlock Name="FreshNewsDate" Text="{x:Bind Date, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.Below="FreshNewsAuthor" Margin="0,2"/>
-                        <TextBlock Name="FreshNewsTitle" Text="{x:Bind Title, Mode=OneWay}" FontSize="14" TextWrapping="Wrap" Margin="0,5,0,3" RelativePanel.Below="FreshNewsDate"/>
+                        <TextBlock Name="FreshNewsAuthor" Text="{x:Bind Author.Name, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,1"/>
+                        <TextBlock Name="FreshNewsAt" Text="  @  " FontSize="12" TextWrapping="Wrap" RelativePanel.RightOf="FreshNewsAuthor" Margin="0,1"/>
+                        <TextBlock Name="FreshNewsTag" Text="{x:Bind Tag[0].Title, Mode=OneWay}" FontSize="12" TextWrapping="WrapWholeWords" RelativePanel.RightOf="FreshNewsAt" Margin="0,1"/>
+                        <TextBlock Name="FreshNewsDate" Text="{x:Bind Date, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.Below="FreshNewsAuthor" Margin="0,1"/>
+                        <TextBlock Name="FreshNewsTitle" Text="{x:Bind Title, Mode=OneWay}" FontSize="14" TextWrapping="Wrap" Margin="0,3" RelativePanel.Below="FreshNewsDate"/>
                     </RelativePanel>
                 </Grid>
             </DataTemplate>
@@ -83,7 +84,7 @@
 
                     <VisualState.Setters>
                         <Setter Target="FreshGridView.ItemTemplate" Value="{StaticResource FreshGridItemNarrowTemplate}"/>
-                        <Setter Target="FreshGridView.ItemHeight" Value="120"/>
+                        <Setter Target="FreshGridView.ItemHeight" Value="115"/>
                         <Setter Target="FreshGridView.DesiredWidth" Value="{StaticResource ResourceKey=ItemDesiredWidthInNarrowMode}"/>
                     </VisualState.Setters>
                 </VisualState>
@@ -96,11 +97,13 @@
         </Grid.RowDefinitions>
 
         <RelativePanel Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,9,0,9" >
-            <TextBlock Name="PageTitleIcon" Text="&#xE80F;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"></TextBlock>
+            <TextBlock Name="PageTitleIcon" Text="&#xE80F;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}" DoubleTapped="PageTitleIcon_DoubleTapped"></TextBlock>
             <TextBlock Name="PageTitle" Text="新鲜事" RelativePanel.RightOf="PageTitleIcon" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"></TextBlock>
             <Button Name="RefreshButton" Content="&#xE117;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"></Button>
         </RelativePanel>
-        <toolkitcontrol:AdaptiveGridView Grid.Row="1" Name="FreshGridView" DesiredWidth="220" ItemTemplate="{StaticResource FreshGridItemNarrowTemplate}" ItemsSource="{x:Bind _viewModel.News, Mode=OneWay}" ItemClick="FreshGridView_ItemClick"/>
+        <pullcontrol:PullToRefreshBox Grid.Row="1" x:Name="FreshPullToRefresh" RefreshInvoked="FreshPullToRefresh_RefreshInvoked">
+            <toolkitcontrol:AdaptiveGridView x:Name="FreshGridView" DesiredWidth="220" ItemTemplate="{StaticResource FreshGridItemNarrowTemplate}" ItemsSource="{x:Bind _viewModel.News, Mode=OneWay}" ItemClick="FreshGridView_ItemClick"/>
+        </pullcontrol:PullToRefreshBox>
         <ProgressRing Grid.Row="1" Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind _viewModel.IsLoading, Mode=OneWay}"></ProgressRing>
     </Grid>
 </Page>

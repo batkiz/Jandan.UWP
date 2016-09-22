@@ -51,6 +51,11 @@ namespace Jandan.UWP.Core.Tools
             Network = GetConnectionGeneration();
         }
 
+        public void UpdateConnectionType()
+        {
+            Network = GetConnectionGeneration();
+        }
+
         private NetworkType GetConnectionGeneration()
         {
             bool isConnected = false;

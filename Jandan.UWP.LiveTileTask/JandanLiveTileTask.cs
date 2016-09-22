@@ -81,7 +81,16 @@ namespace Jandan.UWP.LiveTileTask
                 var response = await _api.GetFresh(1);
                 if (response?.Count != 0)
                 {
-                    var news = response.Take(5).ToList();
+                    List<Fresh> n = new List<Fresh>();
+                    response.ForEach((t) =>
+                    {
+                        if (!t.Title.Contains("NSFW") & !t.Title.Contains("OOXX"))
+                        {
+                            n.Add(t);
+                        }
+                    });
+
+                    var news = n.Take(n.Count > 5 ? 5 : n.Count).ToList();
                     UpdatePrimaryTile(news);
                 }
             }
