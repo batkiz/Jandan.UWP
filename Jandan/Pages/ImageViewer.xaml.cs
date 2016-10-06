@@ -156,35 +156,6 @@ namespace Jandan.UWP.UI
             await PopupMessage("已经保存到图片文件夹", 80, 2000);
         }
 
-        //private CommentListControl GetCommentControl(DependencyObject reference)
-        //{
-        //    CommentListControl result = null;
-
-        //    // 获取子对象的个数
-        //    int count = VisualTreeHelper.GetChildrenCount(reference);
-        //    // 若子对象个数不为0将继续递归调用
-        //    if (count > 0)
-        //    {
-        //        for (int i = 0; i < count; i++)
-        //        {
-        //            // 获取当前节点的子对象
-        //            var child = VisualTreeHelper.GetChild(reference, i);
-        //            var name = child.GetType().ToString();               
-
-        //            if (child.GetType().ToString().Contains(nameof(CommentListControl)))
-        //            {
-        //                result = child as CommentListControl;                        
-        //                break;
-        //            }
-        //            else
-        //            {
-        //                result = GetCommentControl(child);
-        //            }
-        //        }
-        //    }
-        //    return result;
-        //}
-
         private void DuanCommentListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var d = e.ClickedItem as DuanComment;
