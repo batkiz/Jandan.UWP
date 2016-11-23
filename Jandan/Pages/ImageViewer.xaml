@@ -54,8 +54,8 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate  x:DataType="model:ImageUrl">
                                         <Grid Margin="8,4" HorizontalAlignment="Center">
-                                            <!--<Image Name="ImageDetail" Source="{x:Bind URL, Mode=OneWay}" Stretch="Uniform"/>-->
-                                            <imagelibcontrol:ImageView Name="ImageDetail" UriSource="{x:Bind URL, Mode=OneWay}" Stretch="Uniform" MaxWidth="600" />
+                                            <Image Name="ImageDetail" Source="{x:Bind URL, Mode=OneWay}" Stretch="Uniform" MaxWidth="600"/>
+                                            <!--<imagelibcontrol:ImageView Name="ImageDetail" UriSource="{x:Bind URL, Mode=OneWay}" Stretch="Uniform" MaxWidth="600" />-->
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -149,7 +149,7 @@
             <Button x:Name="PageBackButton" Content="&#xE72B;" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="PageBackButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
             <TextBlock x:Name="PageTitle" Text="图片详情" RelativePanel.RightOf="PageBackButton" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}" TextWrapping="Wrap"/>
             <Button x:Name="PicShareButton" Content="&#xE72D;" RelativePanel.LeftOf="PicDownload" Click="ShareButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
-            <Button x:Name="PicDownload" Content="&#xE896;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="PicDownload_Click" Style="{StaticResource TitleBarButtonStyle}"/>
+            <Button x:Name="PicDownload" Content="&#xE896;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="PicDownload_Click" Style="{StaticResource TitleBarButtonStyle}" Margin="0" VerticalAlignment="Top"/>
         </RelativePanel>
         <ContentControl x:Name="ContentPanel" Grid.Row="1" Content="{x:Bind _viewModel, Mode=OneWay}" ContentTemplate="{StaticResource PivotVisualPanel}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
         <Popup Grid.Row="1" Name="popTips" IsOpen="False" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"  HorizontalOffset="-65" VerticalOffset="-100">
