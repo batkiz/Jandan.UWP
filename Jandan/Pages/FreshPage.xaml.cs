@@ -67,5 +67,15 @@ namespace Jandan.UWP.UI
         {
             
         }
+
+        private void gridListItems_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+
+        }
+
+        private void FreshGridView_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+
+        }
     }
 }

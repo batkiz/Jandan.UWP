@@ -14,7 +14,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="FreshGridItemNarrowTemplate" x:DataType="model:Fresh">
-                <Grid Name="gridListItems" BorderBrush="Black" Margin="8,0">
+                <Grid Name="gridListItems" BorderBrush="Black" Margin="8,0" ManipulationMode="System,TranslateX" ManipulationCompleted="gridListItems_ManipulationCompleted" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="65*"></ColumnDefinition>
                         <ColumnDefinition Width="45*"></ColumnDefinition>
@@ -45,7 +45,7 @@
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="FreshGridItemWideTemplate" x:DataType="model:Fresh">
-                <Grid Name="gridListItems" BorderBrush="Black" Margin="5">
+                <Grid Name="gridListItems" BorderBrush="Black" Margin="5" ManipulationMode="System,TranslateX" ManipulationCompleted="gridListItems_ManipulationCompleted" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
@@ -101,7 +101,7 @@
             <TextBlock Name="PageTitle" Text="新鲜事" RelativePanel.RightOf="PageTitleIcon" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"></TextBlock>
             <Button Name="RefreshButton" Content="&#xE117;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"></Button>
         </RelativePanel>
-        <pullcontrol:PullToRefreshBox Grid.Row="1" x:Name="FreshPullToRefresh" RefreshInvoked="FreshPullToRefresh_RefreshInvoked">
+        <pullcontrol:PullToRefreshBox Grid.Row="1" x:Name="FreshPullToRefresh" RefreshInvoked="FreshPullToRefresh_RefreshInvoked" RefreshThreshold="100">
             <toolkitcontrol:AdaptiveGridView x:Name="FreshGridView" DesiredWidth="220" ItemTemplate="{StaticResource FreshGridItemNarrowTemplate}" ItemsSource="{x:Bind _viewModel.News, Mode=OneWay}" ItemClick="FreshGridView_ItemClick"/>
         </pullcontrol:PullToRefreshBox>
         <ProgressRing Grid.Row="1" Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind _viewModel.IsLoading, Mode=OneWay}"></ProgressRing>

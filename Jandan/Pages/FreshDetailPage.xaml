@@ -128,7 +128,7 @@
                     <WebView Grid.Row="1" 
                              Name="webFreshDetailEx"
                              local:ExtensionHTMLStringProperties.HtmlString="{Binding FreshDetails.FreshContentEx}" 
-                             Margin="20" 
+                             Margin="20"
                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
                              ScrollViewer.VerticalScrollMode="Disabled"
                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"

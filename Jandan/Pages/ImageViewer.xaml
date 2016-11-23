@@ -50,12 +50,12 @@
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Text="{x:Bind PicID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" Padding="8" VerticalAlignment="Center" TextAlignment="Right"/>
                             <TextBlock Grid.Row="1" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" Padding="8" VerticalAlignment="Center"/>
-                            <ListView Grid.Row="2" x:Name="PicListView" ItemsSource="{x:Bind Urls, Mode=OneWay}" ItemContainerStyle="{StaticResource CommentListViewItemStyle}" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False" HorizontalAlignment="Left" IsHitTestVisible="False">
+                            <ListView Grid.Row="2" x:Name="PicListView" ItemsSource="{x:Bind Urls, Mode=OneWay}" ItemContainerStyle="{StaticResource CommentListViewImageStyle}" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False" HorizontalAlignment="Center" IsHitTestVisible="False">
                                 <ListView.ItemTemplate>
                                     <DataTemplate  x:DataType="model:ImageUrl">
-                                        <Grid Margin="8,4">
+                                        <Grid Margin="8,4" HorizontalAlignment="Center">
                                             <!--<Image Name="ImageDetail" Source="{x:Bind URL, Mode=OneWay}" Stretch="Uniform"/>-->
-                                            <imagelibcontrol:ImageView Name="ImageDetail" UriSource="{x:Bind URL, Mode=OneWay}" Stretch="Uniform" />
+                                            <imagelibcontrol:ImageView Name="ImageDetail" UriSource="{x:Bind URL, Mode=OneWay}" Stretch="Uniform" MaxWidth="600" />
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -105,7 +105,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <ContentControl Grid.Column="0" Content="{x:Bind BoringPicture, Mode=OneWay}" ContentTemplate="{StaticResource ViewerControl}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                    <ContentControl Grid.Column="0" Content="{x:Bind BoringPicture, Mode=OneWay}" ContentTemplate="{StaticResource ViewerControl}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
                     <ContentControl Grid.Column="1" Width="300" Content="{x:Bind _dViewModel, Mode=OneWay}" ContentTemplate="{StaticResource ViewerComment}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" />
                     <!--<jandancontrol:CommentListControl Grid.Column="1" x:Name="CommentControl"/>-->
                 </Grid>

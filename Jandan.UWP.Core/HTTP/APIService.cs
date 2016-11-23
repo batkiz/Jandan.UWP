@@ -49,16 +49,25 @@ namespace Jandan.UWP.Core.HTTP
                             JsonArray ja = posts.GetArray();
                             foreach (var j in ja)
                             {
+                                var id = (j.GetObject())["id"] == null ? "000" : (j.GetObject())["id"].GetNumber().ToString();
+                                var title = (j.GetObject())["title"] == null ? "" : (j.GetObject())["title"].GetString();
+                                var author = (j.GetObject())["author"] == null ? new Authors() : Authors.parse((j.GetObject())["author"].GetObject().ToString());
+                                var tag = (j.GetObject())["tags"] == null ? new List<Tags>() : Tags.parse((j.GetObject())["tags"].ToString());
+                                var comment_count = (j.GetObject())["comment_count"] == null ? "000" : (j.GetObject())["comment_count"].GetNumber().ToString();
+                                var date = (j.GetObject())["date"] == null ? "1111-11-11 11:11:11" : (j.GetObject())["date"].GetString();
+                                var url = (j.GetObject())["url"] == null ? "" : (j.GetObject())["url"].GetString();
+                                var thumb = (j.GetObject())["custom_fields"] == null ? "ms-appx:///Assets/Square150x150Logo.scale-200.png" : ((j.GetObject())["custom_fields"].GetObject())["thumb_c"].GetArray().GetStringAt(0);
+
                                 list.Add(new Fresh
                                 {
-                                    ID = (j.GetObject())["id"].GetNumber().ToString(),
-                                    Title = (j.GetObject())["title"].GetString(),
-                                    Author = Authors.parse((j.GetObject())["author"].GetObject().ToString()),
-                                    Tag = Tags.parse((j.GetObject())["tags"].ToString()),
-                                    Comment_count = (j.GetObject())["comment_count"].GetNumber().ToString(),
-                                    Thumb_c = ((j.GetObject())["custom_fields"].GetObject())["thumb_c"].GetArray().GetStringAt(0),
-                                    Date = (j.GetObject())["date"].GetString(),
-                                    Url = (j.GetObject())["url"].GetString()
+                                    ID = id,
+                                    Title = title,
+                                    Author = author,
+                                    Tag = tag,
+                                    Comment_count = comment_count,
+                                    Thumb_c = thumb,
+                                    Date = date,
+                                    Url = url
                                 });
                             }
                         }

@@ -6,9 +6,9 @@ body {
 	font-family: 微软雅黑;
 	font-size: 1.2rem;
 
-	column-width:15em;
-	column-gap:1.5em;
-	column-fill: auto;
+	//column-width:15em;
+	//column-gap:1.5em;
+	//column-fill: auto;
 	height: 85%;
 }
 
