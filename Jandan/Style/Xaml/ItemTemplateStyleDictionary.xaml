@@ -1,29 +1,44 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Jandan">
+    xmlns:local="using:Jandan.UWP.UI"
+    xmlns:data="using:Jandan.UWP.Core.Models"
+    xmlns:viewmodel="using:Jandan.UWP.Core.ViewModels"
+    xmlns:control="using:Microsoft.Toolkit.Uwp.UI.Controls">
 
     <DataTemplate x:Key="CommentListDateTemplateStyle">
-        <Grid BorderThickness="0" BorderBrush="{x:Null}" ManipulationMode="TranslateX">
+        <Grid BorderThickness="0" BorderBrush="{x:Null}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*"></ColumnDefinition>
                 <ColumnDefinition Width="80*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <RelativePanel Grid.Column="0">
-                <Image MinWidth="50" Source="{Binding AuthorAvatarUri}" Visibility="Visible" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4"></Image>
+                <Image MinWidth="50" Source="{Binding AuthorAvatarUri}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4" MaxWidth="58"></Image>
             </RelativePanel>
             <RelativePanel Grid.Column="1">
                 <TextBlock Name="DuanCommentAuthor" Text="{Binding AuthorName}" Style="{StaticResource CommentAuthorTextStyle}"></TextBlock>
                 <TextBlock Name="DuanCommentDate" Text="{Binding PostDate}" RelativePanel.Below="DuanCommentAuthor" Style="{StaticResource CommentDateTextStyle}"></TextBlock>
-
-                <!--<RelativePanel Name="ReplyDuanCommentPanel" RelativePanel.Below="DuanCommentAuthor">
-                                            <TextBlock Name="ParentDuanCommentAutor" Text="{Binding ParentComment.AuthorName}" FontSize="8" TextWrapping="Wrap" MinHeight="1"/>
-                                            <TextBlock Name="ParentDuanCommentDate"  Text="{Binding ParentComment.ThreadID}"  FontSize="8" RelativePanel.Below="ParentDuanCommentAutor" TextWrapping="Wrap" MinWidth="0" MinHeight="1"/>
-                                            <TextBlock Name="ParentDuanCommentContent" Text="{Binding ParentComment.Message}" FontSize="8" RelativePanel.Below="ParentDuanCommentDate" TextWrapping="Wrap" MinHeight="1"/>
-                                        </RelativePanel>-->
+                <TextBlock Name="DuanCommentFloorLevel" RelativePanel.RightOf="DuanCommentAuthor" RelativePanel.AlignRightWithPanel="True" HorizontalAlignment="Right" Text="{Binding OrderNumber}" Style="{StaticResource CommentLevelTextStyle}"></TextBlock>
 
                 <TextBlock Name="DuanCommentContent" Text="{Binding Message}" RelativePanel.Below="DuanCommentDate" Style="{StaticResource CommentContentTextStyle}"></TextBlock>
+
+                <TextBlock Name="DuanVotePositiveIcon" Text="{StaticResource CommentRateBarOO}" RelativePanel.Below="DuanCommentContent" MaxWidth="25" MinWidth="25" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
+                <TextBlock Name="DuanVotePositive" Text="{Binding Like}" RelativePanel.Below="DuanCommentContent" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
             </RelativePanel>
         </Grid>
     </DataTemplate>
+
+    <Style x:Key="CommentListViewItemStyle" TargetType="ListViewItem">
+        <Setter Property="Margin" Value="8,4,8,4"></Setter>
+        <Setter Property="Padding" Value="0"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+        <Setter Property="MinHeight" Value="0"></Setter>
+    </Style>
+
+    <Style x:Key="CommentListViewImageStyle" TargetType="ListViewItem">
+        <Setter Property="Margin" Value="8,4,8,4"></Setter>
+        <Setter Property="Padding" Value="0"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="MinHeight" Value="0"></Setter>
+    </Style>
 </ResourceDictionary>

@@ -6,9 +6,12 @@ body {
 	font-family: 微软雅黑;
 	padding: 0.5em 0.5em 0.5em 0.5em;
 
-	column-width:15em;
-	column-gap:3em;
-	column-fill: auto;
+	//column-width:15em;
+	//column-gap:3em;
+	//column-fill: auto;
+	//text-align:center;
+	
+	width: 60%;
 	height: 85%;
 }
 

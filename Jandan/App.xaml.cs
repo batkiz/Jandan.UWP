@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Windows.Storage;
-
-using ImageLib;
+﻿using ImageLib;
 using ImageLib.Cache.Memory.CacheImpl;
 using ImageLib.Cache.Storage;
 using ImageLib.Cache.Storage.CacheImpl;
 using ImageLib.Gif;
 
-namespace Jandan
+using Jandan.UWP.LiveTileTask;
+
+using Microsoft.HockeyApp;
+
+using System;
+using System.Threading.Tasks;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
+using Windows.Storage;
+using Windows.UI;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
+
+namespace Jandan.UWP.UI
 {
     /// <summary>
     /// 提供特定于应用程序的行为，以补充默认的应用程序类。
@@ -41,7 +39,10 @@ namespace Jandan
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+        }
 
+        private void GifImageViewerInit()
+        {
             ImageLoader.Initialize(new ImageConfig.Builder()
             {
                 CacheMode = ImageLib.Cache.CacheMode.MemoryAndStorageCache,
@@ -49,7 +50,6 @@ namespace Jandan
                 StorageCacheImpl = new LimitedStorageCache(ApplicationData.Current.LocalCacheFolder,
                 "cache", new SHA1CacheGenerator(), 1024 * 1024 * 1024)
             }.AddDecoder<GifDecoder>().Build(), true);
-
         }
 
         /// <summary>
@@ -66,6 +66,12 @@ namespace Jandan
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
+            // Initialization
+            this.GifImageViewerInit();
+
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Windows.Foundation.Size(350, 600));
+            //ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size { Width = 400, Height = 700 };
+            //ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
 
             Frame rootFrame = Window.Current.Content as Frame;
 
