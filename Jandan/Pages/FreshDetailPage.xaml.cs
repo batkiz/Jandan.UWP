@@ -17,8 +17,6 @@ namespace Jandan.UWP.UI
     public sealed partial class FreshDetailPage : Page
     {
         private FreshDetailViewModel _viewModel;
-        FreshCommentViewModel _dViewModel;
-
         DataTransferManager dataTransferManager;
 
         public FreshDetailPage()
@@ -27,9 +25,7 @@ namespace Jandan.UWP.UI
 
             // 分享
             dataTransferManager = DataTransferManager.GetForCurrentView();
-            dataTransferManager.DataRequested += DataTransferManager_DataRequested;
-
-            
+            dataTransferManager.DataRequested += DataTransferManager_DataRequested;           
         }
 
         private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs e)
@@ -68,7 +64,6 @@ namespace Jandan.UWP.UI
                     default:
                         break;
                 }                
-                DuanCommentListView.DataContext = _dViewModel = new FreshCommentViewModel();
             }
         }
 
@@ -88,9 +83,10 @@ namespace Jandan.UWP.UI
         {
             string commentId = _viewModel.FreshDetails.FreshInfo.ID;
 
-            _dViewModel.Update(commentId);
-
+            CommentControl.Update(commentId);
             DuanSplitView.IsPaneOpen = true;
+
+            CommentControl.SetFocus();
         }
 
         private void DuanSplitView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)

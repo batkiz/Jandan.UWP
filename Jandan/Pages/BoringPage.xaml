@@ -48,7 +48,7 @@
             <VisualStateGroup>
                 <VisualState x:Name="WideMode">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="443"></AdaptiveTrigger>
+                        <AdaptiveTrigger MinWindowWidth="500"></AdaptiveTrigger>
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
@@ -92,14 +92,20 @@
         <!--SplitView.Content放无聊图, Pane放评论-->
         <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped" PaneClosed="DuanSplitView_PaneClosed">
             <!--SplitView.Pane放评论, 分为两行, 第一行为标题栏, 第二行为评论-->
-            <SplitView.Pane>                
+            <SplitView.Pane>
                 <jandancontrol:CommentListControl x:Name="CommentControl"></jandancontrol:CommentListControl>
             </SplitView.Pane>
             <!--SplitView.Pane放无聊图正文-->
             <SplitView.Content>
                 <Grid Margin="8,4">
                     <pullcontrol:PullToRefreshBox x:Name="BoringPullToRefresh" RefreshInvoked="BoringPullToRefresh_RefreshInvoked">
-                        <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Boring, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick"/>
+                        <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Boring, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick" SelectionMode="None" IsItemClickEnabled="True" IsMultiSelectCheckBoxEnabled="False">
+                            <toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
+                                <Style TargetType="GridViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                </Style>
+                            </toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
+                        </toolkitcontrol:AdaptiveGridView>
                     </pullcontrol:PullToRefreshBox>
                     <!--弹出消息，提示妹子图-->
                     <Popup Name="popTipsMeizi" IsOpen="False" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalOffset="-75" VerticalOffset="-100">

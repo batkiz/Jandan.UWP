@@ -1,13 +1,7 @@
-﻿using ImageLib;
-using ImageLib.Cache.Memory.CacheImpl;
-using ImageLib.Cache.Storage;
-using ImageLib.Cache.Storage.CacheImpl;
-using ImageLib.Gif;
-
-using Jandan.UWP.LiveTileTask;
+﻿using Jandan.UWP.LiveTileTask;
 
 using Microsoft.HockeyApp;
-
+using Microsoft.Toolkit.Uwp.UI;
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -41,17 +35,6 @@ namespace Jandan.UWP.UI
             this.Suspending += OnSuspending;
         }
 
-        private void GifImageViewerInit()
-        {
-            ImageLoader.Initialize(new ImageConfig.Builder()
-            {
-                CacheMode = ImageLib.Cache.CacheMode.MemoryAndStorageCache,
-                MemoryCacheImpl = new LRUMemoryCache(),
-                StorageCacheImpl = new LimitedStorageCache(ApplicationData.Current.LocalCacheFolder,
-                "cache", new SHA1CacheGenerator(), 1024 * 1024 * 1024)
-            }.AddDecoder<GifDecoder>().Build(), true);
-        }
-
         /// <summary>
         /// 在应用程序由最终用户正常启动时进行调用。
         /// 将在启动应用程序以打开特定文件等情况下使用。
@@ -59,15 +42,12 @@ namespace Jandan.UWP.UI
         /// <param name="e">有关启动请求和过程的详细信息。</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            // Initialization
-            this.GifImageViewerInit();
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Windows.Foundation.Size(350, 600));
             //ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size { Width = 400, Height = 700 };

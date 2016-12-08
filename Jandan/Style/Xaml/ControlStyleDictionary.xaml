@@ -132,7 +132,7 @@
     </Style>
 
     <x:Double x:Key="ItemDesiredWidthInWideMode">248</x:Double>
-    <x:Double x:Key="ItemDesiredWidthInNarrowMode">400</x:Double>
+    <x:Double x:Key="ItemDesiredWidthInNarrowMode">500</x:Double>
 
     <!--关于页面相关资源-->
     <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
@@ -183,7 +183,7 @@
     <x:Double x:Key="SecHeaderFontSize">18</x:Double>
     <x:Double x:Key="RateBarFontSize">13</x:Double>
     <x:Double x:Key="ContentInfoFontSize">12</x:Double>
-    <x:Double x:Key="ContentFontSize">14</x:Double>
+    <x:Double x:Key="ContentFontSize">16</x:Double>
     <x:Double x:Key="CommentContentFontSize">13</x:Double>
     <x:Double x:Key="CommentContentInfoFontSize">10</x:Double>
 

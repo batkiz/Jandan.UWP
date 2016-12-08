@@ -77,5 +77,10 @@ namespace Jandan.UWP.UI
         {
 
         }
+
+        private void RelativePanel_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            _viewModel.Update();
+        }
     }
 }

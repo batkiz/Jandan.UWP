@@ -2,6 +2,7 @@
 using Jandan.UWP.Core.Data;
 using Jandan.UWP.Core.Models;
 using Jandan.UWP.Core.ViewModels;
+using Microsoft.Toolkit.Uwp.UI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -40,7 +41,7 @@ namespace Jandan.UWP.UI
             this.InitializeComponent();
 
             dataTransferManager = DataTransferManager.GetForCurrentView();
-            dataTransferManager.DataRequested += DataTransferManager_DataRequested;
+            dataTransferManager.DataRequested += DataTransferManager_DataRequested;            
         }
 
         private void ShareButton_Click(object sender, RoutedEventArgs e)
@@ -57,10 +58,17 @@ namespace Jandan.UWP.UI
 
             var pics = _viewModel.BoringPicture;
             var url = pics.Urls[0];
-            var fileName = Regex.Replace(url.URL, @".+?/", "");
-            var path = Windows.Storage.ApplicationData.Current.LocalCacheFolder;
-            var folder = await path.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
-            var fileStream = await folder.OpenStreamForReadAsync(fileName);
+            
+            //To ensure image is cached
+            var bitmapimage = await ImageCache.Instance.GetFromCacheAsync(new Uri(url.URL));
+            //Get the name of the file
+            var name = CreateHash64(url.URL).ToString();
+            //Get the ImageCache Folder
+            var folder = await ApplicationData.Current.TemporaryFolder.GetFolderAsync("ImageCache");
+            //Get the StorageFile
+            var file = await folder.GetFileAsync(name);
+
+            var fileStream = await file.OpenStreamForReadAsync();
 
             request.Data.SetBitmap(RandomAccessStreamReference.CreateFromStream(fileStream.AsRandomAccessStream()));
         }
@@ -128,32 +136,41 @@ namespace Jandan.UWP.UI
                 var fileName = Regex.Replace(url.URL, @".+?/", "");
 
                 List<Byte> allBytes = new List<Byte>();
-                var path = Windows.Storage.ApplicationData.Current.LocalCacheFolder;
-                var folder = await path.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
                 try
                 {
-                    var fileStream = await folder.OpenStreamForReadAsync(fileName);
+                    //To ensure image is cached
+                    var bitmapimage = await ImageCache.Instance.GetFromCacheAsync(new Uri(url.URL));
+                    //Get the name of the file
+                    var name = CreateHash64(url.URL).ToString();
+                    //Get the ImageCache Folder
+                    var folder = await ApplicationData.Current.TemporaryFolder.GetFolderAsync("ImageCache");
+                    //Get the StorageFile
+                    var file = await folder.GetFileAsync(name);
 
-                    byte[] buffer = new byte[4000];
-                    int bytesRead = 0;
-                    while ((bytesRead = await fileStream.ReadAsync(buffer, 0, 4000)) > 0)
-                    {
-                        allBytes.AddRange(buffer.Take(bytesRead));
-                    }
+                    StorageFolder sf = KnownFolders.SavedPictures;
+                    string newName = pics.PicID + $"-[{pics.Urls.IndexOf(url)}]" + Path.GetExtension(fileName);
+                    var saveFile = await sf.CreateFileAsync(newName, CreationCollisionOption.ReplaceExisting);
+
+                    await file.CopyAndReplaceAsync(saveFile);
                 }
                 catch (Exception)
                 {
                     return;
-                }
-
-                StorageFolder sf = KnownFolders.SavedPictures;
-                string newName = pics.PicID + $"-[{pics.Urls.IndexOf(url)}]" + Path.GetExtension(fileName);
-                var saveFile = await sf.CreateFileAsync(newName, CreationCollisionOption.ReplaceExisting);
-
-                await FileIO.WriteBytesAsync(saveFile, allBytes.ToArray());
+                }                
             }
 
             await PopupMessage("已经保存到图片文件夹", 80, 2000);
+        }
+
+        private static ulong CreateHash64(string str)
+        {
+            byte[] utf8 = System.Text.Encoding.UTF8.GetBytes(str);
+            ulong value = (ulong)utf8.Length;
+            for (int n = 0; n < utf8.Length; n++)
+            {
+                value += (ulong)utf8[n] << ((n * 5) % 56);
+            }
+            return value;
         }
 
         private void DuanCommentListView_ItemClick(object sender, ItemClickEventArgs e)

@@ -23,5 +23,11 @@ namespace Jandan.UWP.Core.Models
         public Uri AuthorAvatarUri { get; set; }
         [DataMember]
         public string PostDate { get; set; }
+        [DataMember]
+        public int Like { get; set; }
+        [DataMember]
+        public int Dislike { get; set; }
+        [DataMember]
+        public bool IsHot { get; set; } = false;
     }
 }

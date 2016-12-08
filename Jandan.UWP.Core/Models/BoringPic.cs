@@ -5,6 +5,7 @@ using Windows.Data.Json;
 
 namespace Jandan.UWP.Core.Models
 {
+    public enum ImageType { Original, Thumb, Hot, HotThumb};
     /// <summary>
     /// 无聊图
     /// </summary>
@@ -18,9 +19,9 @@ namespace Jandan.UWP.Core.Models
         [DataMember]
         public string Content { get; set; }
         [DataMember]
-        public List<ImageUrl> Urls { get; set; }
+        public List<ImageItem> Urls { get; set; }
         [DataMember]
-        public List<ImageUrl> Thumb { get; set; }
+        public List<ImageItem> Thumb { get; set; }
         [DataMember]
         public string Date { get; set; }
         [DataMember]
@@ -30,38 +31,98 @@ namespace Jandan.UWP.Core.Models
         [DataMember]
         public int CommentCount { get; set; }
 
-        public static List<ImageUrl> parse(string JSONString)
-        {
-            List<ImageUrl> url_list = new List<ImageUrl>();
 
-            JsonArray jsonArray = JsonArray.Parse(JSONString);
+        public static List<ImageItem> ParseUrl(string JsonString, ImageType it)
+        {
+            List<ImageItem> url_list = new List<ImageItem>();
+            JsonArray jsonArray = JsonArray.Parse(JsonString);
+
             foreach (var j in jsonArray)
             {
-                ImageUrl imageUrl = new ImageUrl(j.GetString());
+                ImageItem imageUrl;
+                switch (it)
+                {
+                    case ImageType.Original:
+                        imageUrl = new ImageItem(j.GetString());
+                        break;
+                    case ImageType.Thumb:
+                        imageUrl = new ImageItem(Regex.Replace(j.GetString(), @"(sinaimg\.cn/.+?/)", "sinaimg.cn/thumb180/"));
+                        break;
+                    case ImageType.Hot:
+                        if (Regex.IsMatch(j.GetString(), "(http.+?)\" target"))
+                        {
+                            var url = Regex.Match(j.GetString(), "(http.+?)\" target");
+                            imageUrl = new ImageItem(url.Groups[1].Value);
+                        }
+                        else
+                        {
+                            imageUrl = new ImageItem("ms-appx:///Assets/Square150x150Logo.scale-200.png");
+                        }
+                        break;
+                    case ImageType.HotThumb:
+                        if (Regex.IsMatch(j.GetString(), "(http.+?)\" target"))
+                        {
+                            var url = Regex.Match(j.GetString(), "(http.+?)\" target");
+                            // 添加低分辨率缩略图
+                            imageUrl = new ImageItem(Regex.Replace(url.Groups[1].Value, @"(sinaimg\.cn/.+?/)", "sinaimg.cn/thumb180/"));
+                        }
+                        else
+                        {
+                            imageUrl = new ImageItem("ms-appx:///Assets/Square150x150Logo.scale-200.png");
+                        }
+                        break;
+                    default:
+                        imageUrl = new ImageItem("ms-appx:///Assets/Square150x150Logo.scale-200.png");
+                        break;
+                }
+                
                 url_list.Add(imageUrl);
             }
 
             return url_list;
         }
 
-        public static List<ImageUrl> parseThumb(string JSONString)
+
+        public static List<ImageItem> parse(string JSONString, bool isThumb = false)
         {
-            List<ImageUrl> url_list = new List<ImageUrl>();
+            List<ImageItem> url_list = new List<ImageItem>();
 
             JsonArray jsonArray = JsonArray.Parse(JSONString);
             foreach (var j in jsonArray)
             {
-                ImageUrl imageUrl = new ImageUrl(Regex.Replace(j.GetString(), @"(sinaimg\.cn/.+?/)", "sinaimg.cn/thumb180/"));
+                ImageItem imageUrl;
+                if (isThumb)
+                {
+                    imageUrl = new ImageItem(Regex.Replace(j.GetString(), @"(sinaimg\.cn/.+?/)", "sinaimg.cn/thumb180/"));
+                }
+                else
+                {
+                    imageUrl = new ImageItem(j.GetString());
+                }
                 url_list.Add(imageUrl);
             }
 
             return url_list;
         }
+
+        //public static List<ImageItem> parseThumb(string JSONString)
+        //{
+        //    List<ImageItem> url_list = new List<ImageItem>();
+
+        //    JsonArray jsonArray = JsonArray.Parse(JSONString);
+        //    foreach (var j in jsonArray)
+        //    {
+        //        ImageItem imageUrl = new ImageItem(Regex.Replace(j.GetString(), @"(sinaimg\.cn/.+?/)", "sinaimg.cn/thumb180/"));
+        //        url_list.Add(imageUrl);
+        //    }
+
+        //    return url_list;
+        //}
 
         // Hot图的图片Url与无聊图、妹子图不同，需单独处理
-        public static List<ImageUrl> parseHot(string JSONString)
+        public static List<ImageItem> parseHot(string JSONString)
         {
-            List<ImageUrl> url_list = new List<ImageUrl>();
+            List<ImageItem> url_list = new List<ImageItem>();
 
             JsonArray jsonArray = JsonArray.Parse(JSONString);
             foreach (var j in jsonArray)
@@ -70,7 +131,7 @@ namespace Jandan.UWP.Core.Models
                 if (Regex.IsMatch(j.GetString(), "(http.+?)\" target"))
                 {
                     var url = Regex.Match(j.GetString(), "(http.+?)\" target");
-                    ImageUrl imageUrl = new ImageUrl(url.Groups[1].Value);
+                    ImageItem imageUrl = new ImageItem(url.Groups[1].Value);
                     url_list.Add(imageUrl);
                 }
             }
@@ -78,9 +139,9 @@ namespace Jandan.UWP.Core.Models
             return url_list;
         }
 
-        public static List<ImageUrl> parseHotThumb(string JSONString)
+        public static List<ImageItem> parseHotThumb(string JSONString)
         {
-            List<ImageUrl> url_list = new List<ImageUrl>();
+            List<ImageItem> url_list = new List<ImageItem>();
 
             JsonArray jsonArray = JsonArray.Parse(JSONString);
             foreach (var j in jsonArray)
@@ -90,7 +151,7 @@ namespace Jandan.UWP.Core.Models
                 {
                     var url = Regex.Match(j.GetString(), "(http.+?)\" target");
                     // 添加低分辨率缩略图
-                    ImageUrl imageUrl = new ImageUrl(Regex.Replace(url.Groups[1].Value, @"(sinaimg\.cn/.+?/)", "sinaimg.cn/thumb180/"));
+                    ImageItem imageUrl = new ImageItem(Regex.Replace(url.Groups[1].Value, @"(sinaimg\.cn/.+?/)", "sinaimg.cn/thumb180/"));
                     url_list.Add(imageUrl);
                 }                
             }

@@ -4,11 +4,15 @@ html {
 
 body {
 	font-family: 微软雅黑;
-	font-size: 1.2rem;
+	font-size: 0.5rem;
 
 	//column-width:15em;
 	//column-gap:1.5em;
 	//column-fill: auto;
+
+	margin-left:auto;
+	margin-right:auto;
+
 	height: 85%;
 }
 

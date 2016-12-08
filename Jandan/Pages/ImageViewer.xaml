@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:imagelibcontrol="using:ImageLib.Controls"
     xmlns:toolkitcontrol="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:jandancontrol="using:Jandan.UWP.Control"
     xmlns:model="using:Jandan.UWP.Core.Models"
@@ -52,10 +51,9 @@
                             <TextBlock Grid.Row="1" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" Padding="8" VerticalAlignment="Center"/>
                             <ListView Grid.Row="2" x:Name="PicListView" ItemsSource="{x:Bind Urls, Mode=OneWay}" ItemContainerStyle="{StaticResource CommentListViewImageStyle}" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False" HorizontalAlignment="Center" IsHitTestVisible="False">
                                 <ListView.ItemTemplate>
-                                    <DataTemplate  x:DataType="model:ImageUrl">
+                                    <DataTemplate  x:DataType="model:ImageItem">
                                         <Grid Margin="8,4" HorizontalAlignment="Center">
-                                            <Image Name="ImageDetail" Source="{x:Bind URL, Mode=OneWay}" Stretch="Uniform" MaxWidth="600"/>
-                                            <!--<imagelibcontrol:ImageView Name="ImageDetail" UriSource="{x:Bind URL, Mode=OneWay}" Stretch="Uniform" MaxWidth="600" />-->
+                                            <toolkitcontrol:ImageEx Name="ImageDetail" Source="{x:Bind URL, Mode=OneWay}" Stretch="Uniform" MaxWidth="600"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -112,13 +110,13 @@
             </DataTemplate>
         </ResourceDictionary>
     </Page.Resources>
-    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" ManipulationMode="System, TranslateX">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="vs_720">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="450"/>
+                        <AdaptiveTrigger MinWindowWidth="720"/>
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
@@ -151,7 +149,7 @@
             <Button x:Name="PicShareButton" Content="&#xE72D;" RelativePanel.LeftOf="PicDownload" Click="ShareButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
             <Button x:Name="PicDownload" Content="&#xE896;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="PicDownload_Click" Style="{StaticResource TitleBarButtonStyle}" Margin="0" VerticalAlignment="Top"/>
         </RelativePanel>
-        <ContentControl x:Name="ContentPanel" Grid.Row="1" Content="{x:Bind _viewModel, Mode=OneWay}" ContentTemplate="{StaticResource PivotVisualPanel}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+        <ContentControl x:Name="ContentPanel" Grid.Row="1" Content="{x:Bind _viewModel, Mode=OneWay}" ContentTemplate="{StaticResource PivotVisualPanel}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
         <Popup Grid.Row="1" Name="popTips" IsOpen="False" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"  HorizontalOffset="-65" VerticalOffset="-100">
             <Grid BorderThickness="5" Margin="0,0,0,0" HorizontalAlignment="Center">
                 <Grid.Background>

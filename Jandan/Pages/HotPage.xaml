@@ -143,7 +143,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <RelativePanel Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,9,0,9">
+        <RelativePanel Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,9,0,9" DoubleTapped="RelativePanel_DoubleTapped">
             <!--顶部-->
             <TextBlock Name="PageBackButton" Text="&#xE71D;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
             <TextBlock Name="PageTitle" Text="热榜" RelativePanel.RightOf="PageBackButton" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
@@ -166,7 +166,13 @@
                         </Pivot.HeaderTemplate>
                         <PivotItem Header="无聊图">
                             <Grid Margin="-8, 0">
-                                <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Pics, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick"/>
+                                <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Pics, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False">
+                                    <toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
+                                        <Style TargetType="GridViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                        </Style>
+                                    </toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
+                                </toolkitcontrol:AdaptiveGridView>
                             </Grid>
                         </PivotItem>
                         <PivotItem Header="段子">

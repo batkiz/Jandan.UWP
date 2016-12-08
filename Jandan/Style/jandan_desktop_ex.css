@@ -1,16 +1,19 @@
 html {
-	-ms-content-zooming: none;
+	-ms-content-zooming: none;	
 }
 
 body {
 	font-family: 微软雅黑;
 	padding: 0.5em 0.5em 0.5em 0.5em;
-
+	
 	//column-width:15em;
 	//column-gap:3em;
 	//column-fill: auto;
 	//text-align:center;
 	
+	margin-left:auto;
+	margin-right:auto;
+
 	width: 60%;
 	height: 85%;
 }

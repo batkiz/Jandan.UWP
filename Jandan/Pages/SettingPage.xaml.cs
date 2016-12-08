@@ -87,7 +87,7 @@ namespace Jandan.UWP.UI
         private async void RegisterLiveTileTask()
         {
             var status = await BackgroundExecutionManager.RequestAccessAsync();
-            if (status == BackgroundAccessStatus.Unspecified || status == BackgroundAccessStatus.Denied)
+            if (status == BackgroundAccessStatus.Unspecified || status == BackgroundAccessStatus.DeniedBySystemPolicy)
             {
                 return;
             }
@@ -142,9 +142,9 @@ namespace Jandan.UWP.UI
             }
         }
 
-        private void btnVote_Click(object sender, RoutedEventArgs e)
+        private async void btnVote_Click(object sender, RoutedEventArgs e)
         {
-
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-windows-store://review/?ProductId=9NBLGGH4NN0X"));
         }
 
         private void tsDarkMode_Toggled(object sender, RoutedEventArgs e)

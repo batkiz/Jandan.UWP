@@ -1,0 +1,44 @@
+﻿<UserControl
+    x:Class="Jandan.UWP.Control.FreshCommentListControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Jandan.UWP.Control"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    xmlns:data="using:Jandan.UWP.Core.Models"
+    xmlns:viewmodel="using:Jandan.UWP.Core.ViewModels"
+    xmlns:control="using:Microsoft.Toolkit.Uwp.UI.Controls">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--顶部标题栏-->
+        <RelativePanel Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,9,0,9" >
+            <TextBlock Name="CommentTitle" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource CommentListTitleTextStyle}"></TextBlock>
+        </RelativePanel>
+        <!--评论列表-->
+        <ListView Grid.Row="1" Name="DuanCommentListView" Padding="8,10" SelectionMode="None" ItemsSource="{x:Bind _dViewModel.CommentList.View, Mode=OneWay}" ItemTemplate="{StaticResource CommentListDateTemplateStyle}" ItemContainerStyle="{StaticResource CommentListViewItemStyle}" ItemClick="DuanCommentListView_ItemClick" IsItemClickEnabled="True">
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate x:DataType="data:FreshCommentInGroup">
+                            <TextBlock Text="{x:Bind Key, Mode=OneWay}" Style="{StaticResource CommentGroupTitleTextStyle}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+        </ListView>
+        <ProgressRing Grid.Row="1" Name="LoadingCommentProgressBar" IsActive="{x:Bind _dViewModel.IsLoadingComments, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <!--回复栏-->
+        <RelativePanel Grid.Row="2" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,8,0,8" Opacity="0.8">
+            <TextBox Name="CommentInputTextBox" Text="{x:Bind _dViewModel.TextBoxComment, Mode=TwoWay}" RelativePanel.AlignLeftWithPanel="True" RelativePanel.LeftOf="CommentSubmitButton" Margin="10,0,5,0" PlaceholderText="输入评论..." InputScope="Chat" ToolTipService.ToolTip="" AcceptsReturn="True" Padding="10,3,6,5"/>
+            <Button Name="CommentSubmitButton" Content="吐槽" HorizontalAlignment="Right" RelativePanel.AlignRightWithPanel="True" Margin="5,0,10,0" Width="50" Click="CommentSubmitButton_Click"></Button>
+        </RelativePanel>
+    </Grid>
+</UserControl>

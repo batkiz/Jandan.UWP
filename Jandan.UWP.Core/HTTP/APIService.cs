@@ -24,7 +24,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
+                if (!ConnectivityHelper.isInternetAvailable)  //无网络连接
                 {
                     if (pageNum == 1)
                     {
@@ -94,7 +94,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
+                if (!ConnectivityHelper.isInternetAvailable)  //无网络连接
                 {
                     FreshDetail list = await FileHelper.Current.ReadObjectAsync<FreshDetail>($"freshDetail-{fresh.ID}.json");
                     return list;
@@ -139,7 +139,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
+                if (!ConnectivityHelper.isInternetAvailable)  //无网络连接
                 {
                     if (pageNum == 1)
                     {
@@ -209,7 +209,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
+                if (!ConnectivityHelper.isInternetAvailable)  //无网络连接
                 {
                     if (pageNum == 1)
                     {
@@ -243,19 +243,24 @@ namespace Jandan.UWP.Core.HTTP
                             JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
                             foreach (var j in ja)
                             {
-                                string ID = (j.GetObject())["comment_ID"].GetString();
-                                
+                                //var id = (j.GetObject())["id"] == null ? "000" : (j.GetObject())["id"].GetNumber().ToString();
+                                string id = (j.GetObject())["comment_ID"] == null ? "000" : (j.GetObject())["comment_ID"].GetString();
+                                string author = (j.GetObject())["comment_author"] == null ? "000" : (j.GetObject())["comment_author"].GetString();
+                                string content = (j.GetObject())["text_content"] == null ? "000" : ((j.GetObject())["text_content"].GetString().Replace("\n", "").Replace("\r", ""));
+                                var urls = BoringPic.ParseUrl((j.GetObject())["pics"].ToString(), ImageType.Original);
+                                var thumbs = BoringPic.ParseUrl((j.GetObject())["pics"].ToString(), ImageType.Thumb);
+
                                 list.Add(new BoringPic
                                 {
-                                    PicID = ID,
-                                    Author = (j.GetObject())["comment_author"].GetString(),
-                                    Content = (j.GetObject())["text_content"].GetString().Replace("\n", "").Replace("\r", ""),
-                                    Urls = BoringPic.parse((j.GetObject())["pics"].ToString()),
-                                    Thumb = BoringPic.parseThumb((j.GetObject())["pics"].ToString()),
+                                    PicID = id,
+                                    Author = author,
+                                    Content = content,
+                                    Urls = urls,
+                                    Thumb = thumbs,
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
-                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
+                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{id}").GetNamedNumber("comments")
                                 });
                             }
                         }
@@ -282,7 +287,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
+                if (!ConnectivityHelper.isInternetAvailable)  //无网络连接
                 {
                     if (pageNum == 1)
                     {
@@ -323,7 +328,7 @@ namespace Jandan.UWP.Core.HTTP
                                     Author = (j.GetObject())["comment_author"].GetString(),
                                     Content = (j.GetObject())["text_content"].GetString().Replace("\n", "").Replace("\r", ""),
                                     Urls = BoringPic.parse((j.GetObject())["pics"].ToString()),
-                                    Thumb = BoringPic.parseThumb((j.GetObject())["pics"].ToString()),
+                                    Thumb = BoringPic.parse((j.GetObject())["pics"].ToString(), true),
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
@@ -354,7 +359,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
+                if (!ConnectivityHelper.isInternetAvailable)  //无网络连接
                 {
                     List<BoringPic> list = await FileHelper.Current.ReadObjectAsync<List<BoringPic>>("hot_pics_list.json");
                     return list;
@@ -419,7 +424,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
+                if (!ConnectivityHelper.isInternetAvailable)  //无网络连接
                 {
                     List<Duan> list = await FileHelper.Current.ReadObjectAsync<List<Duan>>("hot_duan_list.json");
                     return list;
@@ -482,7 +487,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
+                if (!ConnectivityHelper.isInternetAvailable)  //无网络连接
                 {
                     List<BestFreshComment> list = await FileHelper.Current.ReadObjectAsync<List<BestFreshComment>>("BestFreshComment.json");
                     return list;
@@ -551,7 +556,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
+                if (!ConnectivityHelper.isInternetAvailable)  //无网络连接
                 {
                     List<DuanComment> list = await FileHelper.Current.ReadObjectAsync<List<DuanComment>>($"DuanComment-{DuanID}.json");
                     return list;
@@ -650,7 +655,7 @@ namespace Jandan.UWP.Core.HTTP
         {
             try
             {
-                if (ConnectivityManager.Current.Network == NetworkType.NotConnected)  //无网络连接
+                if (!ConnectivityHelper.isInternetAvailable)  //无网络连接
                 {
                     List<FreshComment> list = await FileHelper.Current.ReadObjectAsync<List<FreshComment>>(string.Format("FreshComment-{0}.json", DuanID));
                     return list;
@@ -678,15 +683,24 @@ namespace Jandan.UWP.Core.HTTP
                                 authorURL = "null";
                             }
 
-                            //var g = (c.GetObject())["parent"].ValueType == JsonValueType.String ? (c.GetObject())["parent"].ToString() : "0";
+                            var id = (c.GetObject()).GetNamedNumber("id").ToString();
+                            var msg = (c.GetObject()).GetNamedString("content");
+                            var date = (c.GetObject()).GetNamedString("date");
+                            var author = (c.GetObject()).GetNamedString("name");
+                            var like = (int)(c.GetObject()).GetNamedNumber("vote_positive");
+                            var dislike = (int)(c.GetObject()).GetNamedNumber("vote_negative");
+
                             list.Add(new FreshComment
                             {
-                                PostID = (c.GetObject()).GetNamedNumber("id").ToString(),
-                                Message = (c.GetObject()).GetNamedString("content"),
+                                PostID = id,
+                                Message = msg,
                                 ParentID = "0",
-                                PostDate = (c.GetObject()).GetNamedString("date"),
-                                AuthorName = (c.GetObject()).GetNamedString("name"),
-                                AuthorAvatarUri = new Uri((authorURL.Equals("null")||authorURL.Equals("")) ? "ms-appx:///Icons/jandan-400.png" : authorURL)
+                                PostDate = date,
+                                AuthorName = author,
+                                AuthorAvatarUri = new Uri((authorURL.Equals("null") || authorURL.Equals("")) ? "ms-appx:///Icons/jandan-400.png" : authorURL),
+                                Like = like,
+                                Dislike = dislike,
+                                IsHot = (like > 20) ? ((like / (double)(dislike + 1) > 1.5) ? true : false) : false
                             });
                         }
 
@@ -728,6 +742,21 @@ namespace Jandan.UWP.Core.HTTP
             try
             {
                 string url = ServiceURL.URL_PUSH_DUAN_COMMENT;
+                string returned_msg = await BaseService.SendPostRequestUrlEncodedOfficial(url, comment);
+
+                return returned_msg;
+            }
+            catch (Exception)
+            {
+                return "Failed.";
+            }
+        }
+
+        public async Task<string> PostFreshComment(string comment)
+        {
+            try
+            {
+                string url = ServiceURL.URL_PUSH_COMMENT;
                 string returned_msg = await BaseService.SendPostRequestUrlEncodedOfficial(url, comment);
 
                 return returned_msg;

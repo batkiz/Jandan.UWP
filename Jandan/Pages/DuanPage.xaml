@@ -61,7 +61,7 @@
         <!--段子顶部标题栏, 包括图标/文字/刷新按钮-->
         <RelativePanel Grid.Row="0"
                        Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}"
-                       Padding="0,9,0,9" >
+                       Padding="0,9,0,9" DoubleTapped="RelativePanel_DoubleTapped" >
             <TextBlock Name="PageTitleIcon" Text="&#xE90A;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
             <TextBlock Name="PageTitle" Text="段子" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="PageTitleIcon" Style="{StaticResource TitleBarTextBlockStyle}"/>
             <Button Name="FilterButton" Content="&#xE71C;" RelativePanel.LeftOf="RefreshButton" Style="{StaticResource TitleBarButtonStyle}">

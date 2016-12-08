@@ -241,5 +241,12 @@ namespace Jandan.UWP.UI
         {
             CommentControl.ClearResponse();
         }
+
+        private void RelativePanel_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            _viewModel.UpdateHotPics();
+            _viewModel.UpdateHotDuan();
+            _viewModel.UpdateHotComm();
+        }
     }
 }
