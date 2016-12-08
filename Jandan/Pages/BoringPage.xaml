@@ -36,7 +36,7 @@
                         <Button Name="DuanVoteNegativeIcon" Content="{StaticResource RateBarXX}" RelativePanel.RightOf="DuanVotePositive" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVoteNegativeIcon_Click"/>
                         <TextBlock Name="DuanVoteNegative" Text="{x:Bind VoteNegative, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVoteNegativeIcon" Style="{StaticResource RateBarTextStyle}"/>
                         <Button Name="DuanViewComment" Content="{StaticResource RateBarComment}" Click="Tucao_Click" RelativePanel.RightOf="DuanVoteNegative" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"/>
-                        <TextBlock Name="DuanCommentCount" Text="{x:Bind CommentCount, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanViewComment" Style="{StaticResource RateBarTextStyle}"/>
+                        <!--<TextBlock Name="DuanCommentCount" Text="{x:Bind CommentCount, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanViewComment" Style="{StaticResource RateBarTextStyle}"/>-->
                     </RelativePanel>
                 </Grid>
             </DataTemplate>

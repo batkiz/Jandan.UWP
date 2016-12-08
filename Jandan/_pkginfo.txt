@@ -1,1 +1,1 @@
-C:\Users\raysw\Source\Repos\Jandan.UWP\Jandan\AppPackages\Jandan.UWP.UI_2.3.0.0\Jandan.UWP.UI_2.3.0.0_x86_x64_arm.appxbundle
+C:\Users\raysw\Source\Repos\Jandan.UWP\Jandan\AppPackages\Jandan.UWP.UI_2.3.1.0\Jandan.UWP.UI_2.3.1.0_x86_x64_arm.appxbundle

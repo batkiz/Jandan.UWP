@@ -174,15 +174,22 @@ namespace Jandan.UWP.Core.HTTP
                             foreach (var j in ja)
                             {                                
                                 string ID = (j.GetObject())["comment_ID"].GetString();
+                                var author = (j.GetObject())["comment_author"].GetString();
+                                var content = (j.GetObject())["comment_content"].GetString();
+                                var date = (j.GetObject())["comment_date"].GetString();
+                                var vote_pos = int.Parse(j.GetObject().GetNamedString("vote_positive"));
+                                var vote_neg = int.Parse(j.GetObject().GetNamedString("vote_negative"));
+                                var comm_count = 0;//(int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments");
+
                                 list.Add(new Duan
                                 {
                                     DuanID = ID,
-                                    Author = (j.GetObject())["comment_author"].GetString(),
-                                    Content = (j.GetObject())["comment_content"].GetString(),
-                                    Date = (j.GetObject())["comment_date"].GetString(),
-                                    VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
-                                    VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
-                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
+                                    Author = author,
+                                    Content = content,
+                                    Date = date,
+                                    VotePositive = vote_pos,
+                                    VoteNegative = vote_neg,
+                                    CommentCount = comm_count
                                 });
                             }
                         }
@@ -260,7 +267,7 @@ namespace Jandan.UWP.Core.HTTP
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
-                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{id}").GetNamedNumber("comments")
+                                    CommentCount = 0//(int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{id}").GetNamedNumber("comments")
                                 });
                             }
                         }
@@ -332,7 +339,7 @@ namespace Jandan.UWP.Core.HTTP
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
-                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
+                                    CommentCount = 0// (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
                                 });
                             }
                         }
@@ -397,7 +404,7 @@ namespace Jandan.UWP.Core.HTTP
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
-                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
+                                    CommentCount = 0// (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
                                 });
                             }
                         }
@@ -460,7 +467,7 @@ namespace Jandan.UWP.Core.HTTP
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
-                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
+                                    CommentCount = 0// (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
                                 });
                             }
                         }
@@ -670,6 +677,7 @@ namespace Jandan.UWP.Core.HTTP
 
                         var post = json["post"].GetObject();
                         var comments = post["comments"].GetArray();
+                        var floorLevel = 1;
                         foreach (var c in comments)
                         {
                             // 特殊处理评论用户头像url
@@ -700,7 +708,8 @@ namespace Jandan.UWP.Core.HTTP
                                 AuthorAvatarUri = new Uri((authorURL.Equals("null") || authorURL.Equals("")) ? "ms-appx:///Icons/jandan-400.png" : authorURL),
                                 Like = like,
                                 Dislike = dislike,
-                                IsHot = (like > 20) ? ((like / (double)(dislike + 1) > 1.5) ? true : false) : false
+                                IsHot = (like > 20) ? ((like / (double)(dislike + 1) > 1.5) ? true : false) : false,
+                                OrderNumber = $"{floorLevel++}楼"
                             });
                         }
 

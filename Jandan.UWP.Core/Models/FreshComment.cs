@@ -29,5 +29,7 @@ namespace Jandan.UWP.Core.Models
         public int Dislike { get; set; }
         [DataMember]
         public bool IsHot { get; set; } = false;
+        [DataMember]
+        public string OrderNumber { get; set; }
     }
 }
