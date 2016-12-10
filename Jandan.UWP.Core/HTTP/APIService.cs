@@ -174,6 +174,16 @@ namespace Jandan.UWP.Core.HTTP
                             foreach (var j in ja)
                             {                                
                                 string ID = (j.GetObject())["comment_ID"].GetString();
+                                var comment_count = "";
+                                try
+                                {
+                                    comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")).ToString();
+                                }
+                                catch (Exception)
+                                {
+                                    comment_count = "";
+                                }
+
                                 list.Add(new Duan
                                 {
                                     DuanID = ID,
@@ -182,7 +192,7 @@ namespace Jandan.UWP.Core.HTTP
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
-                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
+                                    CommentCount = comment_count
                                 });
                             }
                         }
@@ -244,18 +254,28 @@ namespace Jandan.UWP.Core.HTTP
                             foreach (var j in ja)
                             {
                                 string ID = (j.GetObject())["comment_ID"].GetString();
-                                
+                                var author = (j.GetObject())["comment_author"].GetString();
+                                var comment_count = "";
+                                try
+                                {
+                                    comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")).ToString();
+                                }
+                                catch (Exception)
+                                {
+                                    comment_count = "";
+                                }
+
                                 list.Add(new BoringPic
                                 {
                                     PicID = ID,
-                                    Author = (j.GetObject())["comment_author"].GetString(),
+                                    Author = author,
                                     Content = (j.GetObject())["text_content"].GetString().Replace("\n", "").Replace("\r", ""),
                                     Urls = BoringPic.parse((j.GetObject())["pics"].ToString()),
                                     Thumb = BoringPic.parseThumb((j.GetObject())["pics"].ToString()),
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
-                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
+                                    CommentCount = comment_count
                                 });
                             }
                         }
@@ -317,6 +337,16 @@ namespace Jandan.UWP.Core.HTTP
                             foreach (var j in ja)
                             {
                                 string ID = (j.GetObject())["comment_ID"].GetString();
+                                var comment_count = "";
+                                try
+                                {
+                                    comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")).ToString();
+                                }
+                                catch (Exception)
+                                {
+                                    comment_count = "";
+                                }
+
                                 list.Add(new BoringPic
                                 {
                                     PicID = ID,
@@ -327,7 +357,7 @@ namespace Jandan.UWP.Core.HTTP
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
-                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
+                                    CommentCount = comment_count
                                 });
                             }
                         }
@@ -382,6 +412,16 @@ namespace Jandan.UWP.Core.HTTP
                             foreach (var j in ja)
                             {
                                 string ID = (j.GetObject())["comment_ID"].GetString();
+                                var comment_count = "";
+                                try
+                                {
+                                    comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")).ToString();
+                                }
+                                catch (Exception)
+                                {
+                                    comment_count = "";
+                                }
+
                                 list.Add(new BoringPic
                                 {
                                     PicID = ID,
@@ -392,7 +432,7 @@ namespace Jandan.UWP.Core.HTTP
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
-                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
+                                    CommentCount = comment_count
                                 });
                             }
                         }
@@ -447,6 +487,16 @@ namespace Jandan.UWP.Core.HTTP
                             foreach (var j in ja)
                             {
                                 string ID = (j.GetObject())["comment_ID"].GetString();
+                                var comment_count = "";
+                                try
+                                {
+                                    comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")).ToString();
+                                }
+                                catch (Exception)
+                                {
+                                    comment_count = "";
+                                }
+
                                 list.Add(new Duan
                                 {
                                     DuanID = ID,
@@ -455,7 +505,7 @@ namespace Jandan.UWP.Core.HTTP
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
-                                    CommentCount = (int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")
+                                    CommentCount = comment_count
                                 });
                             }
                         }
