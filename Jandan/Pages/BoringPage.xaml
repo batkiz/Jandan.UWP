@@ -26,7 +26,7 @@
                         <TextBlock Name="BoringID" Text="{x:Bind PicID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"/>
                         <TextBlock Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
-                    <StackPanel Grid.Row="1" Margin="0,0,0,4" Height="200">
+                    <StackPanel Grid.Row="1" Margin="0,0,0,4" >
                         <TextBlock Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" MaxHeight="40"/>
                         <toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />
                     </StackPanel>
@@ -36,7 +36,7 @@
                         <Button Name="DuanVoteNegativeIcon" Content="{StaticResource RateBarXX}" RelativePanel.RightOf="DuanVotePositive" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVoteNegativeIcon_Click"/>
                         <TextBlock Name="DuanVoteNegative" Text="{x:Bind VoteNegative, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVoteNegativeIcon" Style="{StaticResource RateBarTextStyle}"/>
                         <Button Name="DuanViewComment" Content="{StaticResource RateBarComment}" Click="Tucao_Click" RelativePanel.RightOf="DuanVoteNegative" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"/>
-                        <!--<TextBlock Name="DuanCommentCount" Text="{x:Bind CommentCount, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanViewComment" Style="{StaticResource RateBarTextStyle}"/>-->
+                        <TextBlock Name="DuanCommentCount" Text="{x:Bind CommentCount, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanViewComment" Style="{StaticResource RateBarTextStyle}"/>
                     </RelativePanel>
                 </Grid>
             </DataTemplate>
@@ -53,6 +53,7 @@
 
                     <VisualState.Setters>
                         <Setter Target="BoringGridView.DesiredWidth" Value="{StaticResource ResourceKey=ItemDesiredWidthInWideMode}"/>
+                        <Setter Target="BoringGridView.ItemHeight" Value="350"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="NarrowMode">
@@ -62,6 +63,7 @@
 
                     <VisualState.Setters>
                         <Setter Target="BoringGridView.DesiredWidth" Value="{StaticResource ResourceKey=ItemDesiredWidthInNarrowMode}"/>
+                        <Setter Target="BoringGridView.ItemHeight" Value="400"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

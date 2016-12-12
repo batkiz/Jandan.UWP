@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="31729Raysworld.Jandan.UWP" Publisher="CN=2B448A71-BCB6-4788-8DB1-07F813787AC3" Version="2.3.1.0" />
+  <Identity Name="31729Raysworld.Jandan.UWP" Publisher="CN=2B448A71-BCB6-4788-8DB1-07F813787AC3" Version="2.3.2.0" />
   <mp:PhoneIdentity PhoneProductId="aa0edd3d-9391-4480-9d98-d16ed3595f57" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>煎蛋UWP</DisplayName>
@@ -30,14 +30,14 @@
         </uap:InitialRotationPreference>
       </uap:VisualElements>
       <Extensions>
+        <uap:Extension Category="windows.appService" EntryPoint="Jandan.UWP.CortanaTask.JandanCortanaTask">
+          <uap:AppService Name="JandanCortanaService" />
+        </uap:Extension>
         <Extension Category="windows.backgroundTasks" EntryPoint="Jandan.UWP.LiveTileTask.JandanLiveTileTask">
           <BackgroundTasks>
             <Task Type="timer" />
           </BackgroundTasks>
         </Extension>
-        <uap:Extension Category="windows.appService" EntryPoint="Jandan.UWP.CortanaTask.JandanCortanaTask">
-          <uap:AppService Name="JandanCortanaService" />
-        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>

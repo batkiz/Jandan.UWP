@@ -29,7 +29,7 @@ namespace Jandan.UWP.Core.Models
         [DataMember]
         public int VoteNegative { get; set; }
         [DataMember]
-        public int CommentCount { get; set; }
+        public string CommentCount { get; set; }
 
 
         public static List<ImageItem> ParseUrl(string JsonString, ImageType it)
