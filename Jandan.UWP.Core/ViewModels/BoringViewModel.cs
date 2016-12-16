@@ -2,6 +2,7 @@
 using Jandan.UWP.Core.HTTP;
 using Jandan.UWP.Core.Models;
 using Jandan.UWP.Core.Tools;
+using Microsoft.Toolkit.Uwp;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -88,7 +89,7 @@ namespace Jandan.UWP.Core.ViewModels
             BoringIncrementalLoadingCollection c = new BoringIncrementalLoadingCollection();
             boring?.ForEach((t) =>
             {
-                if (DataShareManager.Current.isNoImageMode)
+                if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
                 {
                     t.Urls = t.Thumb;
                 }
@@ -117,7 +118,7 @@ namespace Jandan.UWP.Core.ViewModels
                 var comment = t.Content.Replace("\n", "").Replace("\r", "");
                 t.Content = comment;
 
-                if (DataShareManager.Current.isNoImageMode)
+                if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
                 {
                     t.Urls = t.Thumb;
                 }

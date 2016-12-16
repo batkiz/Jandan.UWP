@@ -19,6 +19,7 @@
             <AppBarButton Name="Duanzi" Icon="Comment" Label="段子" Tag="2" RelativePanel.RightOf="FreshNews" Click="AppBarButton_clicked" />
             <AppBarButton Name="BoringPics" Icon="Pictures" Label="无聊图" Tag="3" RelativePanel.RightOf="Duanzi" Click="AppBarButton_clicked" />
             <AppBarButton Name="Hot" Icon="AllApps" Label="热榜" Tag="4" RelativePanel.RightOf="BoringPics" Click="AppBarButton_clicked" />
+            <!--<AppBarButton Name="Favourite" Icon="Favorite" Label="收藏" Tag="5" RelativePanel.RightOf="Hot" Click="AppBarButton_clicked" />-->
             <CommandBar.SecondaryCommands>
                 <AppBarButton Name="NetStatus" Label="无网络连接" IsEnabled="False" IsHitTestVisible="False">
                     <AppBarButton.Foreground>
@@ -39,13 +40,6 @@
         <!--主页面,显示各个板块-->
         <Frame Name="mainFrame" Margin="0,0,0,48"/>
 
-        <!--加载进度条--><!--
-        <ProgressRing Grid.Row="1"
-                      Name="LoadingRing"
-                      Style="{StaticResource LoadingProgressStyle}"
-                      IsActive="{Binding IsLoading}">
-        </ProgressRing>-->
-
         <!--弹出消息,确认是否退出程序-->
         <Popup Name="popTips"
                IsOpen="False" 
@@ -57,7 +51,7 @@
                 <TextBlock Foreground="White" Text="再按一次退出" HorizontalAlignment="Center" Margin="10,5"/>
             </Grid>
         </Popup>
-        <!--弹出消息，提示无网络状态-->
+        <!--弹出消息，提示无网络状态--><!--
         <Popup Name="popTipsNoNetwork"
                IsOpen="False" 
                Margin="0,0,0,100" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
@@ -67,6 +61,6 @@
                 </Grid.Background>
                 <TextBlock Foreground="White" Text="无网络" HorizontalAlignment="Center"/>
             </Grid>
-        </Popup>
+        </Popup>-->
     </Grid>
 </Page>

@@ -101,6 +101,10 @@ namespace Jandan.UWP.UI
             {
                 mainFrame.Navigate(typeof(HotPage), null, new ContinuumNavigationTransitionInfo());
             }
+            else if (string.Equals(itemName.Name, "Favourite"))
+            {
+                mainFrame.Navigate(typeof(FavouritePage), null, new ContinuumNavigationTransitionInfo());
+            }
 
             MainCommandBar.IsOpen = false;
         }

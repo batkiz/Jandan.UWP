@@ -14,6 +14,32 @@ namespace Jandan.UWP.Core.Tools
             get { return ConnectionHelper.IsInternetAvailable; }
         }
 
+        public static bool isMeteredConnection
+        {
+            get
+            {
+                if (!ConnectionHelper.IsInternetAvailable) return false;
+
+                switch (ConnectionHelper.ConnectionType)
+                {
+                    case ConnectionType.Ethernet:
+                    case ConnectionType.WiFi:
+                    case ConnectionType.Unknown:
+                    default:
+                        if (ConnectionHelper.IsInternetOnMeteredConnection)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case ConnectionType.Data:
+                        return true;
+                }
+            }
+        }
+
         public static string NetworkStatus()
         {
             if (!ConnectionHelper.IsInternetAvailable)

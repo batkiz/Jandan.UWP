@@ -1,6 +1,8 @@
 ﻿using Jandan.UWP.Core.HTTP;
 using Jandan.UWP.Core.Models;
+using Jandan.UWP.Core.Tools;
 using Jandan.UWP.Core.ViewModels;
+using Microsoft.Toolkit.Uwp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -74,7 +76,7 @@ namespace Jandan.UWP.Core.Data
                     //{
                     //    t.Readed = true;
                     //}
-                    if (DataShareManager.Current.isNoImageMode)
+                    if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
                     {
                         t.Thumb_c = "ms-appx:///Assets/No_Image_150.png";
                     }

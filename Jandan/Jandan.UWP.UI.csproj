@@ -122,7 +122,7 @@
     <Content Include="Cortana\VoiceCommandsFile.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Documents\version-2.3.1.txt" />
+    <Content Include="Documents\version-2.3.3.txt" />
     <None Include="Jandan_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Icons\jandan-400.png" />
@@ -154,6 +154,9 @@
     </Compile>
     <Compile Include="Pages\DuanPage.xaml.cs">
       <DependentUpon>DuanPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FavouritePage.xaml.cs">
+      <DependentUpon>FavouritePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\FreshDetailPage.xaml.cs">
       <DependentUpon>FreshDetailPage.xaml</DependentUpon>
@@ -222,6 +225,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\DuanPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\FavouritePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

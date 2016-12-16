@@ -62,6 +62,11 @@ namespace Jandan.UWP.Core.ViewModels
         // 是否省流模式
         public bool isNoImageMode { get; private set; }
 
+        // 是否自动切换夜间模式
+        public bool isAutoDarkMode { get; private set; }
+        public TimeSpan StartTime { get; private set; } //= new TimeSpan(19, 30, 0);
+        public TimeSpan EndTime { get; private set; } //= new TimeSpan(7, 30, 0);
+
         // 是否是移动端
         public bool IsMobile { get; private set; }
 
@@ -115,7 +120,45 @@ namespace Jandan.UWP.Core.ViewModels
 
             LoadData();
 
-            //var screen_info = Windows.Graphics.Display.DisplayInformation.GetForCurrentView();
+            CheckAppTheme();
+        }
+
+        public void CheckAppTheme()
+        {
+            if (isAutoDarkMode)
+            {
+                var now = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                // 若开始时间与结束时间相同, 出错, 自动重设结束时间
+                if (TimeSpan.Compare(StartTime, EndTime) == 0)
+                {
+                    EndTime = StartTime.Add(new TimeSpan(0, 0, 1));
+                    UpdateEndTime(EndTime);
+                }
+
+                if (TimeSpan.Compare(StartTime, EndTime) > 0)
+                {
+                    if (!((TimeSpan.Compare(now, EndTime) > 0) && (TimeSpan.Compare(StartTime, now) > 0)))
+                    {
+                        UpdateAPPTheme(true);
+                    }
+                    else
+                    {
+                        UpdateAPPTheme(false);
+                    }
+                }
+                else
+                {
+                    if ((TimeSpan.Compare(now, EndTime) > 0) && (TimeSpan.Compare(StartTime, now) > 0))
+                    {
+                        UpdateAPPTheme(true);
+                    }
+                    else
+                    {
+                        UpdateAPPTheme(false);
+                    }
+                }
+            }
         }
 
         private void LoadData()
@@ -138,6 +181,49 @@ namespace Jandan.UWP.Core.ViewModels
             else
             {
                 isNoImageMode = false;
+            }
+
+            if (roamingSettings.Values.ContainsKey("AUTO_DARK_MODE"))
+            {
+                isAutoDarkMode = int.Parse(roamingSettings.Values["AUTO_DARK_MODE"].ToString()) == 0 ? true : false;
+            }
+            else
+            {
+                isAutoDarkMode = false;
+            }
+            if (localSettings.Values.ContainsKey("AUTO_DARK_START_TIME"))
+            {
+                StartTime = TimeSpan.Parse(localSettings.Values["AUTO_DARK_START_TIME"].ToString());
+            }
+            else
+            {
+                StartTime = new TimeSpan(19, 30, 0);
+            }
+            if (localSettings.Values.ContainsKey("AUTO_DARK_END_TIME"))
+            {
+                EndTime = TimeSpan.Parse(localSettings.Values["AUTO_DARK_END_TIME"].ToString());
+            }
+            else
+            {
+                EndTime = new TimeSpan(7, 30, 0);
+            }
+
+            // User Name and Email
+            if (localSettings.Values.ContainsKey("USER_NAME"))
+            {
+                UserName = localSettings.Values["USER_NAME"].ToString();
+            }
+            else
+            {
+                UserName = "";
+            }
+            if (localSettings.Values.ContainsKey("EMAIL_ADDR"))
+            {
+                EmailAdd = localSettings.Values["EMAIL_ADDR"].ToString();
+            }
+            else
+            {
+                EmailAdd = "";
             }
 
             // NSFW = 0 No NSFW images | NSFW = 1 Show NSFW images
@@ -191,6 +277,49 @@ namespace Jandan.UWP.Core.ViewModels
             isNoImageMode = isNoImg;
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
             roamingSettings.Values["NO_IMAGE_MODE"] = isNoImageMode ? 0 : 1;
+            OnShareDataChanged();
+        }
+
+        public void UpdateAutoDarkMode(bool isAuto)
+        {
+            isAutoDarkMode = isAuto;
+            var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            roamingSettings.Values["AUTO_DARK_MODE"] = isAutoDarkMode ? 0 : 1;
+            localSettings.Values["AUTO_DARK_START_TIME"] = StartTime.ToString();
+            localSettings.Values["AUTO_DARK_END_TIME"] = EndTime.ToString();
+            OnShareDataChanged();
+        }
+
+        public void UpdateStartTime(TimeSpan t)
+        {
+            StartTime = t;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["AUTO_DARK_START_TIME"] = StartTime.ToString();
+            OnShareDataChanged();
+        }
+
+        public void UpdateEndTime(TimeSpan t)
+        {
+            EndTime = t;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["AUTO_DARK_END_TIME"] = EndTime.ToString();
+            OnShareDataChanged();
+        }
+
+        public void UpdateUserName(string u)
+        {
+            UserName = u;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["USER_NAME"] = UserName;
+            OnShareDataChanged();
+        }
+
+        public void UpdateEmailAdd(string e)
+        {
+            EmailAdd = e;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["EMAIL_ADDR"] = EmailAdd;
             OnShareDataChanged();
         }
 

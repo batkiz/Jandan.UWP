@@ -29,6 +29,8 @@ namespace Jandan.UWP.Control
         /// </summary>
         FreshCommentViewModel _dViewModel;
 
+        private string currentId;
+
         public FreshCommentListControl()
         {
             this.InitializeComponent();
@@ -44,6 +46,8 @@ namespace Jandan.UWP.Control
         public void Update(string id)
         {
             _dViewModel.Update(id);
+
+            currentId = id;
         }
 
         public void ClearResponse()
@@ -69,22 +73,40 @@ namespace Jandan.UWP.Control
                 _dViewModel.ParentId = "";
             }
 
-            var dia = new ContentDialog()
-            {
-                Title = "提示",
-                Content = new CommentSubmitDialogue(DataShareManager.Current.UserName, DataShareManager.Current.EmailAdd),
-                PrimaryButtonText = "发送",
-                SecondaryButtonText = "取消",
-                FullSizeDesired = false,
-                RequestedTheme = DataShareManager.Current.AppTheme
-            };
-            dia.PrimaryButtonClick += Dia_PrimaryButtonClick;
+            //var dia = new ContentDialog()
+            //{
+            //    Title = "提示",
+            //    Content = new CommentSubmitDialogue(DataShareManager.Current.UserName, DataShareManager.Current.EmailAdd),
+            //    PrimaryButtonText = "发送",
+            //    SecondaryButtonText = "取消",
+            //    FullSizeDesired = false,
+            //    RequestedTheme = DataShareManager.Current.AppTheme
+            //};
+            //dia.PrimaryButtonClick += Dia_PrimaryButtonClick;
 
-            var result = await dia.ShowAsync();
+            //var result = await dia.ShowAsync();
 
-            if (result == ContentDialogResult.Primary)
+            //if (result == ContentDialogResult.Primary)
             {
-                var message = $"message={response}&thread_id={_dViewModel.ThreadId}&parent_id={_dViewModel.ParentId}&author_name={DataShareManager.Current.UserName}&author_email={DataShareManager.Current.EmailAdd}";
+                if (string.IsNullOrEmpty(DataShareManager.Current.UserName) || string.IsNullOrEmpty(DataShareManager.Current.EmailAdd))
+                {
+                    var dialog = new ContentDialog()
+                    {
+                        Title = "提示",
+                        Content = "请先在[设置]页面设置用户名和邮箱！",
+                        PrimaryButtonText = "确定",
+                        FullSizeDesired = false,
+                        RequestedTheme = DataShareManager.Current.AppTheme
+                    };
+
+                    dialog.PrimaryButtonClick += (_s, _e) => { };
+                    await dialog.ShowAsync();
+
+                    return;
+                }
+                
+                var message = $"post_id={currentId}&name={DataShareManager.Current.UserName}&email={DataShareManager.Current.EmailAdd}&content={response}";
+
 
                 var r = await _dViewModel.PostComment(message);
 
@@ -93,7 +115,7 @@ namespace Jandan.UWP.Control
                 JsonObject j = new JsonObject();
                 if (JsonObject.TryParse(r, out j))
                 {
-                    Debug.WriteLine(DateTime.Now.ToString() + "评论成功！");
+                    Debug.WriteLine(DateTime.Now.ToString() + j["status"].ToString());
                 }                
             }            
         }

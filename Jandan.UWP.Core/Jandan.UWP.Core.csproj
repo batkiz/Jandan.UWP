@@ -120,7 +120,6 @@
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\BestFreshComment.cs" />
     <Compile Include="Models\BoringPic.cs" />
-    <Compile Include="Models\CommentInGroup.cs" />
     <Compile Include="Models\Duan.cs" />
     <Compile Include="Models\DuanComment.cs" />
     <Compile Include="Models\FreshCommentInGroup.cs" />
@@ -140,6 +139,7 @@
     <Compile Include="ViewModels\DataShareManager.cs" />
     <Compile Include="ViewModels\DuanCommentViewModel.cs" />
     <Compile Include="ViewModels\DuanViewModel.cs" />
+    <Compile Include="ViewModels\FavouriteViewModel.cs" />
     <Compile Include="ViewModels\FreshCommentViewModel.cs" />
     <Compile Include="ViewModels\FreshDetailViewModel.cs" />
     <Compile Include="ViewModels\FreshViewModel.cs" />

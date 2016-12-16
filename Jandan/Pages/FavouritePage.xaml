@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="Jandan.UWP.UI.FavouritePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Jandan.UWP.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:toolkitcontrol="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:jandancontrol="using:Jandan.UWP.Control"
+    xmlns:pullcontrol="using:PullToRefresh.UWP"
+    xmlns:model="using:Jandan.UWP.Core.Models"
+    NavigationCacheMode="Enabled">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <RelativePanel Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,9,0,9">
+            <!--顶部-->
+            <TextBlock Name="PageBackButton" Text="&#xE71D;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
+            <TextBlock Name="PageTitle" Text="收藏" RelativePanel.RightOf="PageBackButton" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
+            <Button Name="RefreshButton" Content="&#xE117;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarButtonStyle}"/>
+        </RelativePanel>
+        <!--SplitView.Content放无聊图, Pane放评论-->
+        <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right">
+            <!--SplitView.Pane放评论, 分为两行, 第一行为标题栏, 第二行为评论-->
+            <SplitView.Pane>
+                <Grid/>
+            </SplitView.Pane>
+            <!--SplitView.Pane放无聊图正文-->
+            <SplitView.Content>
+                <Grid>
+                    <Pivot Name="BoringPivot">
+                        <Pivot.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" FontSize="18"/>
+                            </DataTemplate>
+                        </Pivot.HeaderTemplate>
+                        <PivotItem Header="新鲜事">
+                            <Grid Margin="-8, 0">
+                            </Grid>
+                        </PivotItem>
+                        <PivotItem Header="段子">
+                            <Grid Margin="-8, 0">
+                            </Grid>
+                        </PivotItem>
+                        <PivotItem Header="无聊图">
+                            <Grid Margin="-8, 0">
+                            </Grid>
+                        </PivotItem>
+                        <PivotItem Header="  ">
+                            <Grid Margin="-8, 0">
+                            </Grid>
+                        </PivotItem>
+                    </Pivot>
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
+    </Grid>
+</Page>

@@ -1,5 +1,7 @@
 ﻿using Jandan.UWP.Core.HTTP;
 using Jandan.UWP.Core.Models;
+using Jandan.UWP.Core.Tools;
+using Microsoft.Toolkit.Uwp;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -75,7 +77,7 @@ namespace Jandan.UWP.Core.ViewModels
             {
                 list?.ForEach((t) =>
                 {
-                    if (DataShareManager.Current.isNoImageMode)
+                    if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
                     {
                         t.AuthorAvatarUri = new Uri("ms-appx:///Icons/jandan-400.png");
                     }

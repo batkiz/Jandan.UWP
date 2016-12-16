@@ -8,6 +8,7 @@ using Jandan.UWP.Core.Data;
 using Jandan.UWP.Core.HTTP;
 using Jandan.UWP.Core.Models;
 using Jandan.UWP.Core.Tools;
+using Microsoft.Toolkit.Uwp;
 
 namespace Jandan.UWP.Core.ViewModels
 {
@@ -79,7 +80,7 @@ namespace Jandan.UWP.Core.ViewModels
             FreshIncrementalLoadingCollection c = new FreshIncrementalLoadingCollection();
             list?.ForEach((t) =>
             {
-                if (DataShareManager.Current.isNoImageMode)
+                if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
                 {
                     t.Thumb_c = "ms-appx:///Assets/No_Image_150.png";
                 }
@@ -102,7 +103,7 @@ namespace Jandan.UWP.Core.ViewModels
 
             list?.ForEach((t) =>
             {
-                if (DataShareManager.Current.isNoImageMode)
+                if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
                 {
                     t.Thumb_c = "ms-appx:///Assets/No_Image_150.png";
                 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Jandan.UWP.Core.ViewModels
 {
-    public class SettingViewModel :ViewModelBase
+    public class SettingViewModel : ViewModelBase
     {
         private bool _isDarkMode;
         public bool IsDarkMode
@@ -15,11 +15,50 @@ namespace Jandan.UWP.Core.ViewModels
             set { _isDarkMode = value; OnPropertyChanged(); }
         }
 
+        private bool _isAutoDarkMode;
+        public bool IsAutoDarkMode
+        {
+            get { return _isAutoDarkMode; }
+            set { _isAutoDarkMode = value; OnPropertyChanged(); }
+        }
+
         private bool _isNoImageMode;
         public bool IsNoImageMode
         {
             get { return _isNoImageMode; }
             set { _isNoImageMode = value;OnPropertyChanged(); }
+        }
+
+        private TimeSpan _startTime;
+        public TimeSpan StartTime
+        {
+            get { return _startTime; }
+            set { _startTime = value; OnPropertyChanged(); }
+        }
+
+        private TimeSpan _endTime;
+        public TimeSpan EndTime
+        {
+            get { return _endTime; }
+            set { _endTime = value; OnPropertyChanged(); }
+        }
+
+        private string _id;
+        public string ID
+        {
+            get { return _id; }
+            set { _id = value; OnPropertyChanged(); }
+        }
+        private string _email;
+        public string Email
+        {
+            get { return _email; }
+            set { _email = value; OnPropertyChanged(); }
+        }
+
+        public string IdandEmail
+        {
+            get { return $"用户名:{ID}     邮箱:{Email}"; }
         }
 
         public SettingViewModel()
@@ -32,13 +71,29 @@ namespace Jandan.UWP.Core.ViewModels
         private void Update()
         {
             IsDarkMode = DataShareManager.Current.AppTheme == Windows.UI.Xaml.ElementTheme.Dark ? true : false;
+
             IsNoImageMode = DataShareManager.Current.isNoImageMode ? true : false;
+
+            IsAutoDarkMode = DataShareManager.Current.isAutoDarkMode ? true : false;
+            StartTime = DataShareManager.Current.StartTime;
+            EndTime = DataShareManager.Current.EndTime;
+
+            ID = DataShareManager.Current.UserName;
+            Email = DataShareManager.Current.EmailAdd;
         }
 
         private void Current_ShareDataChanged()
         {
             IsDarkMode = DataShareManager.Current.AppTheme == Windows.UI.Xaml.ElementTheme.Dark ? true : false;
+
             IsNoImageMode = DataShareManager.Current.isNoImageMode ? true : false;
+
+            IsAutoDarkMode = DataShareManager.Current.isAutoDarkMode ? true : false;
+            StartTime = DataShareManager.Current.StartTime;
+            EndTime = DataShareManager.Current.EndTime;
+
+            ID = DataShareManager.Current.UserName;
+            Email = DataShareManager.Current.EmailAdd;
         }
 
         public void ExchangeDarkMode(bool isDark)
@@ -49,6 +104,11 @@ namespace Jandan.UWP.Core.ViewModels
         public void ExchangeNoImageMode(bool isNoImg)
         {
             DataShareManager.Current.UpdateNoImage(isNoImg);
+        }
+
+        public void ExchangeAutoDarkMode(bool isAuto)
+        {
+            DataShareManager.Current.UpdateAutoDarkMode(isAuto);
         }
     }
 }

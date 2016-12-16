@@ -21,12 +21,12 @@
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <RelativePanel Grid.Row="0" Margin="4">
+                    <RelativePanel Grid.Row="0" Margin="8,4">
                         <TextBlock Name="BoringAuthor" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"/>
                         <TextBlock Name="BoringID" Text="{x:Bind PicID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"/>
                         <TextBlock Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
-                    <StackPanel Grid.Row="1" Margin="0,0,0,4" Height="200">
+                    <StackPanel Grid.Row="1" Margin="8,4">
                         <TextBlock Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
                         <toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />
                     </StackPanel>
@@ -41,7 +41,7 @@
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="DuanDataStyle"  x:DataType="model:Duan">
-                <Grid Margin="0" Padding="5" Holding="Grid_Holding" RightTapped="Grid_RightTapped">
+                <Grid Holding="Grid_Holding" RightTapped="Grid_RightTapped">
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout>
                             <MenuFlyoutItem Text="复制" Tapped="MenuFlyoutItem_Tapped"/>
@@ -60,7 +60,7 @@
                     <RelativePanel Grid.Row="1" Name="ContentPanel">
                         <TextBlock Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>
                     </RelativePanel>
-                    <RelativePanel Grid.Row="2" Margin="0,5">
+                    <RelativePanel Grid.Row="2">
                         <Button Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click"/>
                         <TextBlock Name="DuanVotePositive" Text="{x:Bind VotePositive, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource RateBarTextStyle}"/>
                         <Button Name="DuanVoteNegativeIcon" Content="{StaticResource RateBarXX}" RelativePanel.RightOf="DuanVotePositive" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVoteNegativeIcon_Click"/>
@@ -107,10 +107,9 @@
                 </Grid>
             </DataTemplate>
             <Style x:Key="PicListItemStyleTemplate" TargetType="ListViewItem">
-                <Setter Property="Margin" Value="8,4,8,4"></Setter>
-                <Setter Property="Padding" Value="0"></Setter>
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
                 <Setter Property="MinHeight" Value="0"></Setter>
+                <Setter Property="Margin" Value="0"></Setter>
             </Style>
         </ResourceDictionary>
     </Page.Resources>
@@ -125,6 +124,7 @@
 
                     <VisualState.Setters>
                         <Setter Target="BoringGridView.DesiredWidth" Value="{StaticResource ResourceKey=ItemDesiredWidthInWideMode}"/>
+                        <Setter Target="BoringGridView.ItemHeight" Value="350"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="NarrowMode">
@@ -134,6 +134,7 @@
 
                     <VisualState.Setters>
                         <Setter Target="BoringGridView.DesiredWidth" Value="{StaticResource ResourceKey=ItemDesiredWidthInNarrowMode}"/>
+                        <Setter Target="BoringGridView.ItemHeight" Value="400"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

@@ -1,4 +1,5 @@
-﻿using Jandan.UWP.Core.ViewModels;
+﻿using Jandan.UWP.Control;
+using Jandan.UWP.Core.ViewModels;
 using Jandan.UWP.LiveTileTask;
 using System;
 using System.Collections.Generic;
@@ -155,6 +156,104 @@ namespace Jandan.UWP.UI
         private void tsNoImagesMode_Toggled(object sender, RoutedEventArgs e)
         {
             _viewModel.ExchangeNoImageMode((sender as ToggleSwitch).IsOn);
+        }
+
+        private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            _viewModel.ExchangeAutoDarkMode((sender as ToggleSwitch).IsOn);
+
+            if (tsAutoDarkMode.IsOn)
+            {
+                StartTimePicker.TimeChanged += StartTimePicker_TimeChanged;
+                EndTimePicker.TimeChanged += EndTimePicker_TimeChanged;
+
+                DataShareManager.Current.CheckAppTheme();
+            }
+            else
+            {
+                StartTimePicker.TimeChanged -= StartTimePicker_TimeChanged;
+                EndTimePicker.TimeChanged -= EndTimePicker_TimeChanged;
+            }
+        }
+
+        private async void StartTimePicker_TimeChanged(object sender, TimePickerValueChangedEventArgs e)
+        {
+            var t0 = e.NewTime;
+            var t1 = EndTimePicker.Time;
+
+            if (await CheckTime(t0, t1))
+            {
+                DataShareManager.Current.UpdateStartTime(StartTimePicker.Time);
+            }
+            else
+            {
+                var tp = sender as TimePicker;
+                tp.Time = e.OldTime;
+            }
+        }
+
+        private async void EndTimePicker_TimeChanged(object sender, TimePickerValueChangedEventArgs e)
+        {
+            var t0 = StartTimePicker.Time;
+            var t1 = e.NewTime;
+
+            if (await CheckTime(t0, t1))
+            {
+                DataShareManager.Current.UpdateEndTime(EndTimePicker.Time);
+            }
+            else
+            {
+                var tp = sender as TimePicker;
+                tp.Time = e.OldTime;
+            }
+        }
+
+        private async Task<bool> CheckTime(TimeSpan t0, TimeSpan t1)
+        {
+            if (TimeSpan.Compare(t0, t1) == 0)
+            {
+                var dialog = new ContentDialog()
+                {
+                    Title = "提示",
+                    Content = "结束时间不能与开始时间相同，请重新设置",
+                    PrimaryButtonText = "确定",
+                    FullSizeDesired = false,
+                    RequestedTheme = DataShareManager.Current.AppTheme
+                };
+
+                dialog.PrimaryButtonClick += (_s, _e) => { };
+                await dialog.ShowAsync();
+
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private async void btnIDandEmail_Click(object sender, RoutedEventArgs e)
+        {
+            var dia = new ContentDialog()
+            {
+                Title = "提示",
+                Content = new CommentSubmitDialogue(DataShareManager.Current.UserName, DataShareManager.Current.EmailAdd),
+                PrimaryButtonText = "确认",
+                SecondaryButtonText = "取消",
+                FullSizeDesired = false,
+                RequestedTheme = DataShareManager.Current.AppTheme
+            };
+            dia.PrimaryButtonClick += Dia_PrimaryButtonClick;
+
+            await dia.ShowAsync();
+        }
+
+        private void Dia_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            var csd = sender.Content as CommentSubmitDialogue;
+
+            DataShareManager.Current.UpdateUserName(csd.UserName);
+            DataShareManager.Current.UpdateEmailAdd(csd.Email);
         }
     }
 }
