@@ -158,5 +158,27 @@ namespace Jandan.UWP.Core.Models
 
             return url_list;
         }
+
+        /// <summary>
+        /// 从html字符串中直接提取图片网址
+        /// </summary>
+        /// <param name="JSONString"></param>
+        /// <returns></returns>
+        public static void parseURL(string JSONString, out List<ImageItem> scr_list, out List<ImageItem> thumb_list)
+        {
+            scr_list = new List<ImageItem>();
+            thumb_list = new List<ImageItem>();
+
+            if (Regex.IsMatch(JSONString, @"<img src=\""//(.+?)\"""))//"<img src=\\\"//(.+?)\\\""
+            {
+                var url = Regex.Match(JSONString, @"<img src=\""//(.+?)\""");
+                var scr = $"http://{url.Groups[1].Value}";
+                ImageItem thumbUrl = new ImageItem(scr);//thumb180
+                ImageItem imageUrl = new ImageItem(Regex.Replace(scr, @"(sinaimg\.cn/.+?/)", "sinaimg.cn/large/"));
+
+                scr_list.Add(imageUrl);
+                thumb_list.Add(thumbUrl);
+            }
+        }
     }
 }

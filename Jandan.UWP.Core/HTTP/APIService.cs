@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 
@@ -263,6 +264,12 @@ namespace Jandan.UWP.Core.HTTP
                                 string author = (j.GetObject())["comment_author"] == null ? "000" : (j.GetObject())["comment_author"].GetString();
                                 string content = (j.GetObject())["text_content"] == null ? "000" : ((j.GetObject())["text_content"].GetString().Replace("\n", "").Replace("\r", ""));
                                 var urls = BoringPic.ParseUrl((j.GetObject())["pics"].ToString(), ImageType.Original);
+                                
+                                if (string.Equals(Path.GetExtension(urls[0].URL).ToUpper(), ".GIF"))
+                                {
+                                    content = $"[GIF]\n{content}";
+                                }
+
                                 var thumbs = BoringPic.ParseUrl((j.GetObject())["pics"].ToString(), ImageType.Thumb);
                                 var comment_count = "";
                                 try
@@ -431,16 +438,29 @@ namespace Jandan.UWP.Core.HTTP
                                     comment_count = "";
                                 }
 
+                                var author = (j.GetObject())["comment_author"].GetString();
+                                var content = (j.GetObject())["text_content"].GetString();
+
+                                List<ImageItem> scr_list;
+                                List<ImageItem> thumb_list;
+                                BoringPic.parseURL((j.GetObject())["comment_content"].GetString(), out scr_list, out thumb_list);
+
+                                //var urls = BoringPic.parseHot((j.GetObject())["pics"].ToString());
+                                //var thumb = BoringPic.parseHotThumb((j.GetObject())["pics"].ToString());
+                                var date = (j.GetObject())["comment_date"].GetString();
+                                var vote_pos = int.Parse(j.GetObject().GetNamedString("vote_positive"));
+                                var vote_neg = int.Parse(j.GetObject().GetNamedString("vote_negative"));
+
                                 list.Add(new BoringPic
                                 {
                                     PicID = ID,
-                                    Author = (j.GetObject())["comment_author"].GetString(),
-                                    Content = (j.GetObject())["text_content"].GetString(),
-                                    Urls = BoringPic.parseHot((j.GetObject())["pics"].ToString()),
-                                    Thumb = BoringPic.parseHotThumb((j.GetObject())["pics"].ToString()),
-                                    Date = (j.GetObject())["comment_date"].GetString(),
-                                    VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
-                                    VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
+                                    Author = author,
+                                    Content = content,
+                                    Urls = scr_list,
+                                    Thumb = thumb_list,
+                                    Date = date,
+                                    VotePositive = vote_pos,
+                                    VoteNegative = vote_neg,
                                     CommentCount = comment_count
                                 });
                             }

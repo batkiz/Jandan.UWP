@@ -28,7 +28,8 @@
                 <TextBlock Name="AuthorName" Text="{x:Bind _viewModel.Abouts.AuthorName, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Author"/>
                 <TextBlock Name="HelpSuggestion" Text="帮助与建议" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="AuthorName"/>
                 <TextBlock Name="HelpSuggestionText" Text="{x:Bind _viewModel.Abouts.HelpAndSuggestion, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="HelpSuggestion"/>
-                <TextBlock Name="Denote" Text="捐赠" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="HelpSuggestionText"/>
+                <HyperlinkButton Name="Feedback" Content="邮件反馈" NavigateUri="mailto:raysworld@qq.com?subject=[Jandan.UWP反馈]&amp;body=开发者你给我出来！！！" RelativePanel.Below="HelpSuggestionText" Background="Transparent"/>
+                <TextBlock Name="Denote" Text="捐赠" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="Feedback"/>
                 <TextBlock Name="DenoteText" Text="{x:Bind _viewModel.Abouts.DenoteText, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Denote"/>
                 <TextBlock Name="Update" Text="版本更新" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="DenoteText"/>
                 <TextBlock Name="UpdateText" Text="{x:Bind _viewModel.Abouts.UpdateTextSource, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Update"/>

@@ -35,6 +35,13 @@ namespace Jandan.UWP.UI
             this.Suspending += OnSuspending;
         }
 
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            base.OnActivated(args);
+
+            Core.ViewModels.DataShareManager.Current.CheckAppTheme();
+        }
+
         /// <summary>
         /// 在应用程序由最终用户正常启动时进行调用。
         /// 将在启动应用程序以打开特定文件等情况下使用。
@@ -68,6 +75,10 @@ namespace Jandan.UWP.UI
                 {
                     //TODO: 从之前挂起的应用程序加载状态
                 }
+                //if (e.PreviousExecutionState == ApplicationExecutionState.Suspended)
+                //{
+                //    Core.ViewModels.DataShareManager.Current.CheckAppTheme();
+                //}
 
                 // 将框架放在当前窗口中
                 Window.Current.Content = rootFrame;
