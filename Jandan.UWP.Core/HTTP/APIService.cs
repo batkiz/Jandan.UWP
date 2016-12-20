@@ -422,18 +422,44 @@ namespace Jandan.UWP.Core.HTTP
                                     comment_count = "";
                                 }
 
+                                var author = (j.GetObject())["comment_author"].GetString();
+                                var content = (j.GetObject())["text_content"].GetString();
+
+                                List<ImageUrl> scr_list;
+                                List<ImageUrl> thumb_list;
+                                BoringPic.parseURL((j.GetObject())["comment_content"].GetString(), out scr_list, out thumb_list);
+
+                                //var urls = BoringPic.parseHot((j.GetObject())["pics"].ToString());
+                                //var thumb = BoringPic.parseHotThumb((j.GetObject())["pics"].ToString());
+                                var date = (j.GetObject())["comment_date"].GetString();
+                                var vote_pos = int.Parse(j.GetObject().GetNamedString("vote_positive"));
+                                var vote_neg = int.Parse(j.GetObject().GetNamedString("vote_negative"));
+
                                 list.Add(new BoringPic
                                 {
                                     PicID = ID,
-                                    Author = (j.GetObject())["comment_author"].GetString(),
-                                    Content = (j.GetObject())["text_content"].GetString(),
-                                    Urls = BoringPic.parseHot((j.GetObject())["pics"].ToString()),
-                                    Thumb = BoringPic.parseHotThumb((j.GetObject())["pics"].ToString()),
-                                    Date = (j.GetObject())["comment_date"].GetString(),
-                                    VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
-                                    VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
+                                    Author = author,
+                                    Content = content,
+                                    Urls = scr_list,
+                                    Thumb = thumb_list,
+                                    Date = date,
+                                    VotePositive = vote_pos,
+                                    VoteNegative = vote_neg,
                                     CommentCount = comment_count
                                 });
+
+                                //list.Add(new BoringPic
+                                //{
+                                //    PicID = ID,
+                                //    Author = (j.GetObject())["comment_author"].GetString(),
+                                //    Content = (j.GetObject())["text_content"].GetString(),
+                                //    Urls = BoringPic.parseHot((j.GetObject())["pics"].ToString()),
+                                //    Thumb = BoringPic.parseHotThumb((j.GetObject())["pics"].ToString()),
+                                //    Date = (j.GetObject())["comment_date"].GetString(),
+                                //    VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
+                                //    VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
+                                //    CommentCount = comment_count
+                                //});
                             }
                         }
                         await FileHelper.Current.WriteObjectAsync<List<BoringPic>>(list, "hot_pics_list.json");
