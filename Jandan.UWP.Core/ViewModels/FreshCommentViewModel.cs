@@ -84,8 +84,8 @@ namespace Jandan.UWP.Core.ViewModels
                     m = Regex.Replace(m, "<br />", "");
                     m = Regex.Replace(m, "<p>", "");
                     m = Regex.Replace(m, "</p>", "");
-                    m = Regex.Replace(m, "@<a href=.+?\">(.+?)</a>(.+?)", "回复@ ${1}:\n${2}");
-                    m = Regex.Replace(m, "@<a target=.+?\">(.+?)</a>(.+?)", "回复@ ${1}:\n${2}");
+                    m = Regex.Replace(m, "@<a href=.+?\">(.+?)</a>(.+?)", "回复@ ${1} ${2}");
+                    m = Regex.Replace(m, "@<a target=.+?\">(.+?)</a>(.+?)", "回复@ ${1} ${2}");
                     t.Message = m;
                 });
 
