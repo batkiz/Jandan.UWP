@@ -1,5 +1,6 @@
 ﻿using Jandan.UWP.Core.Tools;
 using Jandan.UWP.Core.ViewModels;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Threading.Tasks;
 using Windows.UI;
@@ -84,27 +85,7 @@ namespace Jandan.UWP.UI
         {
             var itemName = sender as AppBarButton;
 
-            if (string.Equals(itemName.Name, "FreshNews"))
-            {
-                mainFrame.Navigate(typeof(FreshPage), null, new ContinuumNavigationTransitionInfo());
-
-            }
-            else if (string.Equals(itemName.Name, "Duanzi"))
-            {
-                mainFrame.Navigate(typeof(DuanPage), null, new ContinuumNavigationTransitionInfo());
-            }
-            else if (string.Equals(itemName.Name, "BoringPics"))
-            {
-                mainFrame.Navigate(typeof(BoringPage), null, new ContinuumNavigationTransitionInfo());
-            }
-            else if (string.Equals(itemName.Name, "Hot"))
-            {
-                mainFrame.Navigate(typeof(HotPage), null, new ContinuumNavigationTransitionInfo());
-            }
-            else if (string.Equals(itemName.Name, "Favourite"))
-            {
-                mainFrame.Navigate(typeof(FavouritePage), null, new ContinuumNavigationTransitionInfo());
-            }
+            JumpToPage(itemName.Name);
 
             MainCommandBar.IsOpen = false;
         }
@@ -163,5 +144,46 @@ namespace Jandan.UWP.UI
 
 
         }
+
+        private void HamburgerMainMenu_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var clickedButton = e.ClickedItem as HamburgerMenuGlyphItem;
+
+            JumpToPage(clickedButton.Label);
+
+            if (HamburgerMainMenu.HamburgerVisibility == Visibility.Visible)
+            {
+                HamburgerMainMenu.IsPaneOpen = false;
+            }            
+        }
+
+        private void JumpToPage(string label)
+        {
+            switch (label)
+            {
+                case "新鲜事": case "FreshNews":
+                    mainFrame.Navigate(typeof(FreshPage), null, new ContinuumNavigationTransitionInfo());
+                    break;
+                case "无聊图": case "BoringPics":
+                    mainFrame.Navigate(typeof(BoringPage), null, new ContinuumNavigationTransitionInfo());
+                    break;
+                case "段  子": case "Duanzi":
+                    mainFrame.Navigate(typeof(DuanPage), null, new ContinuumNavigationTransitionInfo());
+                    break;
+                case "热  榜": case "Hot":
+                    mainFrame.Navigate(typeof(HotPage), null, new ContinuumNavigationTransitionInfo());
+                    break;
+                case "收  藏": case "Favourite":
+                    mainFrame.Navigate(typeof(FavouritePage), null, new ContinuumNavigationTransitionInfo());
+                    break;
+                case "设  置":
+                    mainFrame.Navigate(typeof(SettingPage), null, new ContinuumNavigationTransitionInfo());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        
     }
 }

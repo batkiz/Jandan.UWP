@@ -77,7 +77,7 @@
             <!--顶部-->
             <TextBlock Name="PageTitleIcon" Text="&#xEB9F;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
             <TextBlock Name="PageTitle" Text="妹子图" RelativePanel.RightOf="PageTitleIcon" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
-            <Button Name="RefreshButton" Content="&#xE117;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
+            <Button Name="RefreshButton" Content="&#xE72C;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
         </RelativePanel>
         <!--SplitView.Content放无聊图, Pane放评论-->
         <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped" PaneClosed="DuanSplitView_PaneClosed">

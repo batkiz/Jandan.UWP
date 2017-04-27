@@ -73,7 +73,7 @@
                     </Flyout>
                 </Button.Flyout>
             </Button>
-            <Button Name="RefreshButton" Content="&#xE117;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
+            <Button Name="RefreshButton" Content="&#xE72C;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
         </RelativePanel>
 
         <!--SplitView.Content放段子, Pane放评论-->
