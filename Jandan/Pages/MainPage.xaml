@@ -82,7 +82,7 @@
                         <Setter Target="HamburgerMainMenu.Visibility" Value="Collapsed"></Setter>
                         <Setter Target="HamburgerMainMenu.IsPaneOpen" Value="false"></Setter>
                         <Setter Target="HamburgerMainMenu.HamburgerVisibility" Value="Visible"></Setter>
-                        <Setter Target="mainFrame.Margin" Value="0, 0, 0, 0"></Setter>
+                        <Setter Target="mainFrame.Margin" Value="0, 0, 0, 48"></Setter>
                     </VisualState.Setters>
                 </VisualState>
 

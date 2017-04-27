@@ -20,7 +20,7 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>96B22524B8B03F2160A06D97C730CCC05C043274</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>AC339D2697B2B3C8C85859FFC9F14B2B7E4DB875</PackageCertificateThumbprint>
     <HockeyAppResourceId>fe343c5b7ea64d2f8858d8b4b74838ca</HockeyAppResourceId>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
@@ -124,6 +124,7 @@
     </Content>
     <Content Include="Documents\version-2.4.0.txt" />
     <None Include="Jandan.UWP.UI_TemporaryKey.pfx" />
+    <None Include="Jandan_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Icons\jandan-400.png" />
     <Content Include="Style\jandan_desktop.css" />
