@@ -16,11 +16,11 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>Jandan_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>Jandan.UWP.UI_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>ACF30DDD41ADA6A62F046169DC9745E1EA7DBD65</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>96B22524B8B03F2160A06D97C730CCC05C043274</PackageCertificateThumbprint>
     <HockeyAppResourceId>fe343c5b7ea64d2f8858d8b4b74838ca</HockeyAppResourceId>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
@@ -122,15 +122,14 @@
     <Content Include="Cortana\VoiceCommandsFile.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Documents\version-2.3.4.txt" />
-    <None Include="Jandan_StoreKey.pfx" />
+    <Content Include="Documents\version-2.4.0.txt" />
+    <None Include="Jandan.UWP.UI_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Icons\jandan-400.png" />
     <Content Include="Style\jandan_desktop.css" />
     <Content Include="Style\jandan_desktop_ex.css" />
     <Content Include="Style\jandan_mobile.css" />
     <Content Include="Style\jandan_mobile_ex.css" />
-    <None Include="Jandan_TemporaryKey.pfx" />
     <None Include="project.json" />
     <PRIResource Include="String\zh-CN\Resources.resw" />
     <PRIResource Include="String\en-US\Resources.resw" />

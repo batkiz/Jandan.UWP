@@ -11,22 +11,22 @@ namespace Jandan.UWP.Core.Tools
     {
         public static bool isInternetAvailable
         {
-            get { return ConnectionHelper.IsInternetAvailable; }
+            get { return NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable; }
         }
 
         public static bool isMeteredConnection
         {
             get
             {
-                if (!ConnectionHelper.IsInternetAvailable) return false;
+                if (!NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable) return false;
 
-                switch (ConnectionHelper.ConnectionType)
+                switch (NetworkHelper.Instance.ConnectionInformation.ConnectionType)
                 {
                     case ConnectionType.Ethernet:
                     case ConnectionType.WiFi:
                     case ConnectionType.Unknown:
                     default:
-                        if (ConnectionHelper.IsInternetOnMeteredConnection)
+                        if (NetworkHelper.Instance.ConnectionInformation.IsInternetOnMeteredConnection)
                         {
                             return true;
                         }
@@ -42,15 +42,15 @@ namespace Jandan.UWP.Core.Tools
 
         public static string NetworkStatus()
         {
-            if (!ConnectionHelper.IsInternetAvailable)
+            if (!NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable)
             {
                 return "无网络连接";
             }
 
-            switch (ConnectionHelper.ConnectionType)
+            switch (NetworkHelper.Instance.ConnectionInformation.ConnectionType)
             {
                 case ConnectionType.Ethernet:
-                    if (ConnectionHelper.IsInternetOnMeteredConnection)
+                    if (NetworkHelper.Instance.ConnectionInformation.IsInternetOnMeteredConnection)
                     {
                         return "按流量计费的以太网连接";
                     }
@@ -59,7 +59,7 @@ namespace Jandan.UWP.Core.Tools
                         return "以太网";
                     }
                 case ConnectionType.WiFi:
-                    if (ConnectionHelper.IsInternetOnMeteredConnection)
+                    if (NetworkHelper.Instance.ConnectionInformation.IsInternetOnMeteredConnection)
                     {
                         return "按流量计费的WiFi";
                     }
