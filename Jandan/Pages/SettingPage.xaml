@@ -65,17 +65,29 @@
                         <ToggleSwitch RelativePanel.AlignRightWithPanel="True" MinWidth="0" x:Name="tsNoImagesMode" IsOn="{Binding IsNoImageMode, Mode=TwoWay}" Toggled="tsNoImagesMode_Toggled" Margin="0,0,20,0" RelativePanel.AlignVerticalCenterWithPanel="True"/>
                     </RelativePanel>
                 </StackPanel>
-                <StackPanel Grid.Row="3" Padding="10">
+                <StackPanel Grid.Row="4" Padding="10">
+                    <StackPanel>
+                        <TextBlock Text="账号" Style="{StaticResource HeaderTextBlockStyle}"/>
+                        <Rectangle Fill="Gray" Margin="0,4,0,0" Height="1"/>
+                    </StackPanel>
                     <RelativePanel>
-                        <TextBlock Text="吐槽信息" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,4,0,0" />
+                        <TextBlock Text="新鲜事评论账号" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,4,0,0" />
                         <Button RelativePanel.AlignRightWithPanel="True" Background="Transparent" x:Name="btnIDandEmail" Content="设置" Margin="0,0,10,0" Click="btnIDandEmail_Click"/>
                         <TextBlock x:Name="UserNameText" Text="[用户名]" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" RelativePanel.Below="btnIDandEmail" Margin="16,0,0,0" Foreground="Gray"/>
                         <TextBlock x:Name="UserName" Text="{Binding ID, Mode=OneWay}" TextWrapping="Wrap" RelativePanel.RightOf="UserNameText" RelativePanel.Below="btnIDandEmail" Margin="16,0,0,0" Foreground="Gray"/>
                         <TextBlock x:Name="EmailAddText" Text="[邮箱]" TextWrapping="Wrap"  RelativePanel.AlignLeftWithPanel="True" RelativePanel.Below="UserNameText" Margin="16,0,0,0" Foreground="Gray"/>
                         <TextBlock x:Name="EmailAdd" Text="{Binding Email, Mode=OneWay}" RelativePanel.RightOf="EmailAddText" TextWrapping="Wrap" RelativePanel.Below="UserNameText" Margin="16,0,0,0" Foreground="Gray"/>
                     </RelativePanel>
+                    <RelativePanel>
+                        <TextBlock x:Name="ThirdPartyTextBlock" Text="第三方评论账号（仅支持微博）" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,4,0,0" />
+                        <Button RelativePanel.AlignRightWithPanel="True" Background="Transparent" Content="设置" Margin="0,0,10,0" Click="btnThirdPartyAccount_Click"/>
+                        <StackPanel RelativePanel.AlignLeftWithPanel="True" RelativePanel.Below="ThirdPartyTextBlock" Orientation="Horizontal">
+                            <TextBlock Text="[用户名]" TextWrapping="Wrap" Margin="16,0,0,0" Foreground="Gray"/>
+                            <TextBlock x:Name="UserNameThirdParty" Text="{Binding ThirdPartyName,Mode=OneWay}"  Margin="16,0,0,0" Foreground="Gray"/>
+                        </StackPanel>
+                    </RelativePanel>
                 </StackPanel>
-                <StackPanel Grid.Row="4" Padding="10">
+                <StackPanel Grid.Row="3" Padding="10">
                     <RelativePanel>
                         <TextBlock Text="字号调节(未实现)" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
                         <Slider x:Name="sliderFont" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Minimum="8" Maximum="20" SmallChange="1" StepFrequency="1" LargeChange="4" Value="{Binding Mode=TwoWay, Source={StaticResource ContentFontSize}}" Width="100" Margin="0,0,20,0" />

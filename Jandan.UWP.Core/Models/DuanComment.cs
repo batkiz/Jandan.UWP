@@ -14,6 +14,8 @@ namespace Jandan.UWP.Core.Models
         [DataMember]
         public string ThreadID { get; set; }
         [DataMember]
+        public string ThreadKey { get; set; }
+        [DataMember]
         public string Message { get; set; }
         [DataMember]
         public string ParentID { get; set; }

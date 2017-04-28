@@ -123,8 +123,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Documents\version-2.4.0.txt" />
-    <None Include="Jandan.UWP.UI_TemporaryKey.pfx" />
     <None Include="Jandan_StoreKey.pfx" />
+    <None Include="Jandan.UWP.UI_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Icons\jandan-400.png" />
     <Content Include="Style\jandan_desktop.css" />
@@ -288,6 +288,14 @@
       <Project>{77b94ada-3c66-4af1-abee-b81a2002b26e}</Project>
       <Name>Jandan.UWP.LiveTileTask</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="RestSharp">
+      <HintPath>Account\RestSharp.winmd</HintPath>
+    </Reference>
+    <Reference Include="WeiboSDKForWinRT">
+      <HintPath>Account\WeiboSDKForWinRT.winmd</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

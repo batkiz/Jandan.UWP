@@ -193,25 +193,45 @@ namespace Jandan.UWP.UI
                 vm.ParentId = "";
             }
 
-            var dia = new ContentDialog()
-            {
-                Title = "提示",
-                Content = new CommentSubmitDialogue(DataShareManager.Current.UserName, DataShareManager.Current.EmailAdd),
-                PrimaryButtonText = "发送",
-                SecondaryButtonText = "取消",
-                FullSizeDesired = false,
-                RequestedTheme = DataShareManager.Current.AppTheme
-            };
-            dia.PrimaryButtonClick += Dia_PrimaryButtonClick;
+            //var dia = new ContentDialog()
+            //{
+            //    Title = "提示",
+            //    Content = new CommentSubmitDialogue(DataShareManager.Current.UserName, DataShareManager.Current.EmailAdd),
+            //    PrimaryButtonText = "发送",
+            //    SecondaryButtonText = "取消",
+            //    FullSizeDesired = false,
+            //    RequestedTheme = DataShareManager.Current.AppTheme
+            //};
+            //dia.PrimaryButtonClick += Dia_PrimaryButtonClick;
 
-            var result = await dia.ShowAsync();
+            //var result = await dia.ShowAsync();
 
-            if (result == ContentDialogResult.Primary)
+            //if (result == ContentDialogResult.Primary)
+            //{
+
+            if (string.IsNullOrEmpty(DataShareManager.Current.AccessToken))
             {
-                var message = $"message={response}&thread_id={vm.ThreadId}&parent_id={vm.ParentId}&author_name={DataShareManager.Current.UserName}&author_email={DataShareManager.Current.EmailAdd}";
+                var dialog = new ContentDialog()
+                {
+                    Title = "提示",
+                    Content = "请先在[设置]页面设置第三方账号！",
+                    PrimaryButtonText = "确定",
+                    FullSizeDesired = false,
+                    RequestedTheme = DataShareManager.Current.AppTheme
+                };
+
+                dialog.PrimaryButtonClick += (_s, _e) => { };
+                await dialog.ShowAsync();
+
+                return;
+            }
+
+            var message = $"message={response}&access_token={DataShareManager.Current.AccessToken}&thread_key={vm.ThreadKey}&parent_id={vm.ParentId}";
 
                 var r = await vm.PostComment(message);
 
+            if (r != null)
+            {
                 vm.TextBoxComment = "";
 
                 JsonObject j = new JsonObject();
@@ -219,7 +239,12 @@ namespace Jandan.UWP.UI
                 {
                     System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString() + "评论成功！");
                 }
+                
+                string DuanID = vm.ThreadKey.Substring(vm.ThreadKey.IndexOf('-') + 1);
+                vm.Update(DuanID);
             }
+                
+            //}
         }
 
         private void Dia_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

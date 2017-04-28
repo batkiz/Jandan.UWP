@@ -84,12 +84,29 @@ namespace Jandan.UWP.Control
 
             //if (result == ContentDialogResult.Primary)
             {
-                if (string.IsNullOrEmpty(DataShareManager.Current.UserName)||string.IsNullOrEmpty(DataShareManager.Current.EmailAdd))
+                //if (string.IsNullOrEmpty(DataShareManager.Current.UserName)||string.IsNullOrEmpty(DataShareManager.Current.EmailAdd))
+                //{
+                //    var dialog = new ContentDialog()
+                //    {
+                //        Title = "提示",
+                //        Content = "请先在[设置]页面设置用户名和邮箱！",
+                //        PrimaryButtonText = "确定",
+                //        FullSizeDesired = false,
+                //        RequestedTheme = DataShareManager.Current.AppTheme
+                //    };
+
+                //    dialog.PrimaryButtonClick += (_s, _e) => { };
+                //    await dialog.ShowAsync();
+
+                //    return;
+                //}
+
+                if (string.IsNullOrEmpty(DataShareManager.Current.AccessToken))
                 {
                     var dialog = new ContentDialog()
                     {
                         Title = "提示",
-                        Content = "请先在[设置]页面设置用户名和邮箱！",
+                        Content = "请先在[设置]页面设置第三方账号！",
                         PrimaryButtonText = "确定",
                         FullSizeDesired = false,
                         RequestedTheme = DataShareManager.Current.AppTheme
@@ -101,17 +118,25 @@ namespace Jandan.UWP.Control
                     return;
                 }
 
-                var message = $"message={response}&thread_id={_dViewModel.ThreadId}&parent_id={_dViewModel.ParentId}&author_name={DataShareManager.Current.UserName}&author_email={DataShareManager.Current.EmailAdd}";
+                // 改为微博token格式
+                //var message = $"message={response}&thread_id={_dViewModel.ThreadId}&parent_id={_dViewModel.ParentId}&author_name={DataShareManager.Current.UserName}&author_email={DataShareManager.Current.EmailAdd}";
+                var message = $"message={response}&access_token={DataShareManager.Current.AccessToken}&thread_key={_dViewModel.ThreadKey}&parent_id={_dViewModel.ParentId}";
 
-                var r = await _dViewModel.PostComment(message);
+                var r = await _dViewModel.PostComment(message);                
 
-                _dViewModel.TextBoxComment = "";
-
-                JsonObject j = new JsonObject();
-                if (JsonObject.TryParse(r, out j))
+                if (r != null)
                 {
-                    Debug.WriteLine(DateTime.Now.ToString() + j["response"].GetObject()["status"].ToString());
-                }                
+                    _dViewModel.TextBoxComment = "";
+
+                    JsonObject j = new JsonObject();
+                    if (JsonObject.TryParse(r, out j))
+                    {
+                        Debug.WriteLine(DateTime.Now.ToString() + j["response"].GetObject()["status"].ToString());
+                    }
+
+                    string DuanID = _dViewModel.ThreadKey.Substring(_dViewModel.ThreadKey.IndexOf('-') + 1);
+                    _dViewModel.Update(DuanID);
+                }                              
             }            
         }
 

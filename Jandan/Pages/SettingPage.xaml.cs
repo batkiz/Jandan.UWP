@@ -18,6 +18,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using WeiboSDKForWinRT;
+using RestSharp;
+using Windows.Security.Authentication.Web;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -232,6 +236,12 @@ namespace Jandan.UWP.UI
             }
         }
 
+        private void Printlog(string info)
+        {
+#if DEBUG
+            Debug.WriteLine(DateTime.Now.ToString() + " " + info);
+#endif
+        }
         private async void btnIDandEmail_Click(object sender, RoutedEventArgs e)
         {
             var dia = new ContentDialog()
@@ -245,7 +255,7 @@ namespace Jandan.UWP.UI
             };
             dia.PrimaryButtonClick += Dia_PrimaryButtonClick;
 
-            await dia.ShowAsync();
+            await dia.ShowAsync();            
         }
 
         private void Dia_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -254,6 +264,49 @@ namespace Jandan.UWP.UI
 
             DataShareManager.Current.UpdateUserName(csd.UserName);
             DataShareManager.Current.UpdateEmailAdd(csd.Email);
+        }
+
+        private async void btnThirdPartyAccount_Click(object sender, RoutedEventArgs e)
+        {
+            //**********************************************
+            //临时改为新浪微博登录认证测试
+
+            await _viewModel.GetAuthAsync();
+
+            _viewModel.Update();
+
+            // 你在开放平台上填写的回调URI
+            //string cbUri = @"http://jandan.net";
+            //Uri callbackUri = new Uri(cbUri);
+
+            //// 新浪微博授权地址
+            //string wbauthUriStr = $"https://jandan.duoshuo.com/login/weibo/?sso=1&redirect_uri=http://jandan.net/";
+
+            //Uri wbAuthUri = new Uri(wbauthUriStr);
+
+            //// 获取授权
+            //WebAuthenticationResult result = await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, wbAuthUri, callbackUri);
+
+            //// 处理结果
+            //if (result.ResponseStatus == WebAuthenticationStatus.Success)
+            //{
+            //    string cburi = result.ResponseData;
+            //    // 取得授权码
+            //    // code是附加在回调URI后，以?code=xxxxxxxxxxxxxx的形式出现，作为URI的查询字符串
+            //    string code = cburi.Substring(cburi.IndexOf('=') + 1);
+
+            //    DataShareManager.Current.AccessToken = code;
+
+            //    Printlog($"回调URI：{cburi}\n授权码：{code}");
+            //}
+            //else if (result.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
+            //{
+            //    Printlog("错误：" + result.ResponseErrorDetail.ToString());
+            //}
+            //else if (result.ResponseStatus == WebAuthenticationStatus.UserCancel)
+            //{
+            //    Printlog("你取消了操作。");
+            //}
         }
     }
 }

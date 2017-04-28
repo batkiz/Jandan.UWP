@@ -1,13 +1,17 @@
-﻿using System;
+﻿using Jandan.UWP.Core.HTTP;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Security.Authentication.Web;
 
 namespace Jandan.UWP.Core.ViewModels
 {
     public class SettingViewModel : ViewModelBase
     {
+        private APIService _api = new APIService();
+
         private bool _isDarkMode;
         public bool IsDarkMode
         {
@@ -56,6 +60,13 @@ namespace Jandan.UWP.Core.ViewModels
             set { _email = value; OnPropertyChanged(); }
         }
 
+        private string _thirdpartyname;
+        public string ThirdPartyName
+        {
+            get { return _thirdpartyname; }
+            set { _thirdpartyname = value; OnPropertyChanged(); }
+        }
+
         public string IdandEmail
         {
             get { return $"用户名:{ID}     邮箱:{Email}"; }
@@ -68,7 +79,7 @@ namespace Jandan.UWP.Core.ViewModels
             DataShareManager.Current.ShareDataChanged += Current_ShareDataChanged;
         }
 
-        private void Update()
+        public void Update()
         {
             IsDarkMode = DataShareManager.Current.AppTheme == Windows.UI.Xaml.ElementTheme.Dark ? true : false;
 
@@ -80,6 +91,8 @@ namespace Jandan.UWP.Core.ViewModels
 
             ID = DataShareManager.Current.UserName;
             Email = DataShareManager.Current.EmailAdd;
+
+            ThirdPartyName = DataShareManager.Current.ThirdPartyUserName;
         }
 
         private void Current_ShareDataChanged()
@@ -94,6 +107,8 @@ namespace Jandan.UWP.Core.ViewModels
 
             ID = DataShareManager.Current.UserName;
             Email = DataShareManager.Current.EmailAdd;
+
+            ThirdPartyName = DataShareManager.Current.ThirdPartyUserName;
         }
 
         public void ExchangeDarkMode(bool isDark)
@@ -109,6 +124,17 @@ namespace Jandan.UWP.Core.ViewModels
         public void ExchangeAutoDarkMode(bool isAuto)
         {
             DataShareManager.Current.UpdateAutoDarkMode(isAuto);
+        }
+
+        private void Printlog(string info)
+        {
+#if DEBUG
+            System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString() + " " + info);
+#endif
+        }
+        public async Task GetAuthAsync()
+        {
+            await _api.GetAccessTokenAsync();
         }
     }
 }

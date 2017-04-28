@@ -134,5 +134,36 @@ namespace Jandan.UWP.Core.HTTP
                 return null;
             }
         }
+        /// <summary>
+        /// 向服务器发送post请求 返回服务器回复数据(string)
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="body"></param>
+        /// <returns></returns>
+        public async static Task<string> SendPostRequestUrl(string url, string body)
+        {
+            try
+            {
+                HttpRequestMessage mSent = new HttpRequestMessage(HttpMethod.Post, new Uri(url));
+                mSent.Content = new HttpStringContent(body, Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/x-www-form-urlencoded");
+
+                HttpClient client = new HttpClient();
+
+                var a = new Models.About();
+                var client_name = $"Jandan UWP App V{a.VersionNumber}";
+                client.DefaultRequestHeaders.Add("user-agent", client_name);
+                client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
+                client.DefaultRequestHeaders.CacheControl.MaxAge = new TimeSpan(0);
+
+                HttpResponseMessage response = await client.SendRequestAsync(mSent);
+                response.EnsureSuccessStatusCode();
+
+                return await response.Content.ReadAsStringAsync();
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

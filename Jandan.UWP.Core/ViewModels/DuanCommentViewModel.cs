@@ -51,8 +51,9 @@ namespace Jandan.UWP.Core.ViewModels
         }
 
         public string ThreadId { get; set; }
-        public string ParentId { get; set; } 
-        
+        public string ParentId { get; set; }
+        public string ThreadKey { get; set; }
+
         public DuanCommentViewModel()
         {
             _commentList = new CollectionViewSource();
@@ -60,6 +61,7 @@ namespace Jandan.UWP.Core.ViewModels
 
             ThreadId = "";
             ParentId = "";
+            ThreadKey = "";
             TextBoxComment = "";
         }        
 
@@ -113,6 +115,7 @@ namespace Jandan.UWP.Core.ViewModels
 
                     /////////////////////////////////////////
                     ThreadId = t.ThreadID;
+                    ThreadKey = t.ThreadKey;
                     /////////////////////////////////////////
                 });      
                 

@@ -55,6 +55,11 @@ namespace Jandan.UWP.Core.ViewModels
             }
         }
 
+        // 微博Token
+        public string AccessToken { get; private set; }
+        public string ThirdPartyUserName { get; private set; }
+        public string ThirdPartyUserId { get; private set; }
+
         // 主题模式(夜间模式或日间模式)        
         public ElementTheme AppTheme { get; private set; }
 
@@ -165,6 +170,7 @@ namespace Jandan.UWP.Core.ViewModels
         {
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            #region Theme-related
             // APP_THEME = 0 Light mode | APP_THEME = 1 Dark mode
             if (roamingSettings.Values.ContainsKey("APP_THEME"))
             {
@@ -207,7 +213,8 @@ namespace Jandan.UWP.Core.ViewModels
             {
                 EndTime = new TimeSpan(7, 30, 0);
             }
-
+            #endregion
+            #region Account-related
             // User Name and Email
             if (localSettings.Values.ContainsKey("USER_NAME"))
             {
@@ -226,6 +233,32 @@ namespace Jandan.UWP.Core.ViewModels
                 EmailAdd = "";
             }
 
+            // Third-party User Name and Id
+            if (localSettings.Values.ContainsKey("USER_NAME_3RD"))
+            {
+                ThirdPartyUserName = localSettings.Values["USER_NAME_3RD"].ToString();
+            }
+            else
+            {
+                ThirdPartyUserName = "";
+            }
+            if (localSettings.Values.ContainsKey("USER_ID_3RD"))
+            {
+                ThirdPartyUserId = localSettings.Values["USER_ID_3RD"].ToString();
+            }
+            else
+            {
+                ThirdPartyUserId = "";
+            }
+            if (localSettings.Values.ContainsKey("TOKEN_3RD"))
+            {
+                AccessToken = localSettings.Values["TOKEN_3RD"].ToString();
+            }
+            else
+            {
+                AccessToken = "";
+            }
+            #endregion
             // NSFW = 0 No NSFW images | NSFW = 1 Show NSFW images
             if (roamingSettings.Values.ContainsKey("NSFW"))
             {
@@ -320,6 +353,30 @@ namespace Jandan.UWP.Core.ViewModels
             EmailAdd = e;
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             localSettings.Values["EMAIL_ADDR"] = EmailAdd;
+            OnShareDataChanged();
+        }
+
+        public void UpdateUserName3rd(string e)
+        {
+            ThirdPartyUserName = e;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["USER_NAME_3RD"] = ThirdPartyUserName;
+            OnShareDataChanged();
+        }
+
+        public void UpdateUserId3rd(string e)
+        {
+            ThirdPartyUserId = e;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["USER_ID_3RD"] = ThirdPartyUserId;
+            OnShareDataChanged();
+        }
+
+        public void UpdateAccessToken(string e)
+        {
+            AccessToken = e;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["TOKEN_3RD"] = AccessToken;
             OnShareDataChanged();
         }
 

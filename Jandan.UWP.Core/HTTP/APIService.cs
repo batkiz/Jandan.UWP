@@ -1,5 +1,6 @@
 ﻿using Jandan.UWP.Core.Models;
 using Jandan.UWP.Core.Tools;
+using Jandan.UWP.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Data.Json;
+using Windows.Security.Authentication.Web;
 
 namespace Jandan.UWP.Core.HTTP
 {
@@ -646,6 +648,11 @@ namespace Jandan.UWP.Core.HTTP
                         var postList = json["response"].GetArray();
                         if (postList != null && postList.GetArray().Count != 0)
                         {
+                            //*****************************************************
+                            var thread = json["thread"].GetObject();
+                            var thread_key = thread["thread_key"].GetString();
+                            //*****************************************************
+
                             var parentPosts = json["parentPosts"].GetObject();
                             var floorLevel = 1;
                             foreach (var j in postList)
@@ -677,6 +684,7 @@ namespace Jandan.UWP.Core.HTTP
                                     {
                                         PostID = postItem.GetNamedString("post_id"),
                                         ThreadID = postItem.GetNamedString("thread_id"),
+                                        ThreadKey = thread_key,
                                         Message = postItem.GetNamedString("message"),
                                         ParentID = postItem["parent_id"].ValueType == JsonValueType.String ? postItem.GetNamedString("parent_id") : "0",
                                         PostDate = datetime.ToString(),
@@ -794,6 +802,77 @@ namespace Jandan.UWP.Core.HTTP
                 return null;
             }
         }
+        
+        private void Printlog(string info)
+        {
+#if DEBUG
+            Debug.WriteLine(DateTime.Now.ToString() + " " + info);
+#endif
+        }
+        public async Task GetAccessTokenAsync()
+        {
+            // 新浪微博授权地址
+            string authUrl = $"https://jandan.duoshuo.com/login/weibo/?sso=1&redirect_uri=http://jandan.net/";
+            Uri wbAuthUri = new Uri(authUrl);
+
+            // 回调地址
+            string cbUri = @"http://jandan.net";
+            Uri callbackUri = new Uri(cbUri);
+
+            // 获取授权
+            WebAuthenticationResult result = await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, wbAuthUri, callbackUri);
+
+            // 处理结果
+            if (result.ResponseStatus == WebAuthenticationStatus.Success)
+            {
+                string cburi = result.ResponseData;
+                // 取得授权码
+                // code是附加在回调URI后，以?code=xxxxxxxxxxxxxx的形式出现，作为URI的查询字符串
+                string code = cburi.Substring(cburi.IndexOf('=') + 1);
+                                
+                Printlog($"回调URI：{cburi}\n授权码：{code}");
+
+                try
+                {
+                    string url = @"http://api.duoshuo.com/oauth2/access_token";
+                    string msg = $"client_id=jandan&code={code}";
+                    string returned_msg = await BaseService.SendPostRequestUrl(url, msg);
+
+                    if (returned_msg != null)
+                    {
+                        Printlog("请求token数据成功");
+                        var accessInfo = JsonObject.Parse(returned_msg);
+
+                        var access_token = accessInfo["access_token"].GetString();
+                        DataShareManager.Current.UpdateAccessToken(access_token);
+                        //DataShareManager.Current.AccessToken = access_token;
+
+                        var user_id = accessInfo["user_id"].GetString();
+                        var user_info = await GetJson($"http://api.duoshuo.com/users/profile.json?user_id={user_id}");
+                        DataShareManager.Current.UpdateUserId3rd(user_id);
+
+                        if (user_info != null)
+                        {
+                            var response = user_info["response"].GetObject();
+                            //DataShareManager.Current.ThirdPartyUserName = response["name"].GetString();
+                            DataShareManager.Current.UpdateUserName3rd(response["name"].GetString());
+                        }
+                    }                    
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+            else if (result.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
+            {
+                Printlog("错误：" + result.ResponseErrorDetail.ToString());
+            }
+            else if (result.ResponseStatus == WebAuthenticationStatus.UserCancel)
+            {
+                Printlog("你取消了操作。");
+            }
+        }
 
         public async Task<string> Vote(string ID, bool isLike)
         {
@@ -818,7 +897,7 @@ namespace Jandan.UWP.Core.HTTP
             try
             {
                 string url = ServiceURL.URL_PUSH_DUAN_COMMENT;
-                string returned_msg = await BaseService.SendPostRequestUrlEncodedOfficial(url, comment);
+                string returned_msg = await BaseService.SendPostRequestUrl(url, comment);
 
                 return returned_msg;
             }
