@@ -809,10 +809,35 @@ namespace Jandan.UWP.Core.HTTP
             Debug.WriteLine(DateTime.Now.ToString() + " " + info);
 #endif
         }
-        public async Task GetAccessTokenAsync()
+        public async Task GetAccessTokenAsync(string s)
         {
+            string authUrl = "";
+
+            switch (s)
+            {
+                case "微博":
+                    authUrl = ServiceURL.URL_DUOSHUO_WEIBO;
+                    break;
+                case "QQ":
+                    authUrl = ServiceURL.URL_DUOSHUO_QQ;
+                    break;
+                case "百度":
+                    authUrl = ServiceURL.URL_DUOSHUO_BAIDU;
+                    break;
+                case "豆瓣":
+                    authUrl = ServiceURL.URL_DUOSHUO_DOUBAN;
+                    break;
+                case "人人":
+                    authUrl = ServiceURL.URL_DUOSHUO_RENREN;
+                    break;
+                case "开心网":
+                    authUrl = ServiceURL.URL_DUOSHUO_KAIXIN;
+                    break;
+                default:
+                    break;
+            }
             // 新浪微博授权地址
-            string authUrl = $"https://jandan.duoshuo.com/login/weibo/?sso=1&redirect_uri=http://jandan.net/";
+            //string authUrl = $"https://jandan.duoshuo.com/login/weibo/?sso=1&redirect_uri=http://jandan.net/";
             Uri wbAuthUri = new Uri(authUrl);
 
             // 回调地址

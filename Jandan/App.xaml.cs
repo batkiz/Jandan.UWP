@@ -14,6 +14,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
+
 namespace Jandan.UWP.UI
 {
     /// <summary>
@@ -59,6 +60,9 @@ namespace Jandan.UWP.UI
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Windows.Foundation.Size(350, 600));
             //ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size { Width = 400, Height = 700 };
             //ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+
+            
+
 
             Frame rootFrame = Window.Current.Content as Frame;
 

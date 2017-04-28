@@ -132,9 +132,9 @@ namespace Jandan.UWP.Core.ViewModels
             System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString() + " " + info);
 #endif
         }
-        public async Task GetAuthAsync()
+        public async Task GetAuthAsync(string s)
         {
-            await _api.GetAccessTokenAsync();
+            await _api.GetAccessTokenAsync(s);
         }
     }
 }

@@ -74,6 +74,8 @@ namespace Jandan.UWP.Core.ViewModels
 
             CommentList.Source = null;
 
+            ThreadKey = $"comment-{commentID}";
+
             var list = await _api.GetDuanComments(commentID);
             if (list != null)
             {
@@ -115,7 +117,6 @@ namespace Jandan.UWP.Core.ViewModels
 
                     /////////////////////////////////////////
                     ThreadId = t.ThreadID;
-                    ThreadKey = t.ThreadKey;
                     /////////////////////////////////////////
                 });      
                 

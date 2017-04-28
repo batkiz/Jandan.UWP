@@ -18,10 +18,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using WeiboSDKForWinRT;
-using RestSharp;
 using Windows.Security.Authentication.Web;
 using System.Diagnostics;
+using Jandan.UWP.Core.HTTP;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -266,14 +265,31 @@ namespace Jandan.UWP.UI
             DataShareManager.Current.UpdateEmailAdd(csd.Email);
         }
 
-        private async void btnThirdPartyAccount_Click(object sender, RoutedEventArgs e)
+        private static void ShowFlyout(object sender)
+        {
+            FrameworkElement element = sender as FrameworkElement;
+            if (element != null)
+            {
+                FlyoutBase.ShowAttachedFlyout(element);
+            }
+        }
+
+        private void btnThirdPartyAccount_Click(object sender, RoutedEventArgs e)
         {
             //**********************************************
             //临时改为新浪微博登录认证测试
 
-            await _viewModel.GetAuthAsync();
+            ShowFlyout(sender);
 
-            _viewModel.Update();
+            //await _viewModel.GetAuthAsync();
+
+            //_viewModel.Update();
+
+
+
+
+
+
 
             // 你在开放平台上填写的回调URI
             //string cbUri = @"http://jandan.net";
@@ -307,6 +323,22 @@ namespace Jandan.UWP.UI
             //{
             //    Printlog("你取消了操作。");
             //}
+        }
+
+        private async void MenuFlyoutItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var s = sender as MenuFlyoutItem;
+
+            await _viewModel.GetAuthAsync(s.Text);
+            _viewModel.Update();
+        }
+
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            //var s = sender as MenuFlyoutItem;
+
+            //await _viewModel.GetAuthAsync(s.Text);
+            //_viewModel.Update();
         }
     }
 }

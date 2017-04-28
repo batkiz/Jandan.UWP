@@ -1,6 +1,8 @@
 ﻿using System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Notifications;
+using Windows.Data.Xml.Dom;
 
 namespace Jandan.UWP.Core.ViewModels
 {
@@ -89,6 +91,9 @@ namespace Jandan.UWP.Core.ViewModels
         public bool isCortanaRegistered { get; private set; }
         public bool isLiveTileRegistered { get; private set; }
 
+        // 本地存储的版本号,用于和关于信息中的版本号进行比较,如果不一致,则显示这一版本的更新内容
+        public string StoredVersionNumber { get; private set; }
+
         private static DataShareManager _current;
         public static DataShareManager Current
         {
@@ -126,8 +131,38 @@ namespace Jandan.UWP.Core.ViewModels
             LoadData();
 
             CheckAppTheme();
+
+            CheckUpdatedContent();
         }
 
+        // 判断本地存储版本号和关于信息中的当前版本号是否一致,不一致则显示更新内容,并将本地存储版本号更新为关于信息中的版本号
+        private void CheckUpdatedContent()
+        {
+            Jandan.UWP.Core.Models.About a = new Models.About();
+            
+            Version curr_version = new Version(a.VersionNumber);
+            Version stor_version = new Version(StoredVersionNumber);
+
+            if (curr_version != stor_version)
+            {
+                ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText01;
+                XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+
+                XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                toastTextElements[0].AppendChild(toastXml.CreateTextNode("在多说项目即将关闭之际，UWP版煎蛋终于支持多说评论了……快去设置页面设置一下吧"));
+
+                XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/Square150x150Logo.scale-200.png");
+                ((XmlElement)toastImageAttributes[0]).SetAttribute("alt", "red graphic");
+
+                ToastNotification toast = new ToastNotification(toastXml);
+                ToastNotificationManager.CreateToastNotifier().Show(toast);
+
+                UpdateVersionNumber(curr_version.ToString());
+            }            
+        }
+
+        // 检查夜间模式设置
         public void CheckAppTheme()
         {
             if (isAutoDarkMode)
@@ -166,6 +201,7 @@ namespace Jandan.UWP.Core.ViewModels
             }
         }
 
+        // 从本地设置和漫游设置中读取设置参数
         private void LoadData()
         {
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
@@ -259,6 +295,18 @@ namespace Jandan.UWP.Core.ViewModels
                 AccessToken = "";
             }
             #endregion
+
+            // Version Number Check
+            if (localSettings.Values.ContainsKey("CURR_VERSION"))
+            {
+                StoredVersionNumber = localSettings.Values["CURR_VERSION"].ToString();
+            }
+            else
+            {
+                StoredVersionNumber = "0.0.0";
+            }
+
+
             // NSFW = 0 No NSFW images | NSFW = 1 Show NSFW images
             if (roamingSettings.Values.ContainsKey("NSFW"))
             {
@@ -310,6 +358,14 @@ namespace Jandan.UWP.Core.ViewModels
             isNoImageMode = isNoImg;
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
             roamingSettings.Values["NO_IMAGE_MODE"] = isNoImageMode ? 0 : 1;
+            OnShareDataChanged();
+        }
+
+        public void UpdateVersionNumber(string v)
+        {
+            StoredVersionNumber = v;            
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["CURR_VERSION"] = StoredVersionNumber;
             OnShareDataChanged();
         }
 

@@ -46,8 +46,18 @@
         
         // 优评
         public static string URL_HOTCOMM = "http://i.jandan.net/?oxwlxojflwblxbsapi=jandan.get_hottest_comments&include=";
-        
+
+        // 多说接口
+        public static string URL_DUOSHUO_WEIBO  = @"https://jandan.duoshuo.com/login/weibo/?sso=1&redirect_uri=http://jandan.net/";
+        public static string URL_DUOSHUO_QQ     = @"https://jandan.duoshuo.com/login/qq/?sso=1&redirect_uri=http://jandan.net/";
+        public static string URL_DUOSHUO_BAIDU  = @"https://jandan.duoshuo.com/login/baidu/?sso=1&redirect_uri=http://jandan.net/";
+        public static string URL_DUOSHUO_DOUBAN = @"https://jandan.duoshuo.com/login/douban/?sso=1&redirect_uri=http://jandan.net/";
+        public static string URL_DUOSHUO_RENREN = @"https://jandan.duoshuo.com/login/renren/?sso=1&redirect_uri=http://jandan.net/";
+        public static string URL_DUOSHUO_KAIXIN = @"https://jandan.duoshuo.com/login/kaixin/?sso=1&redirect_uri=http://jandan.net/";
+
         // 不受欢迎公式(oo + xx) >= 50 && (oo / xx) < 0.618
         // 包含NSFW
+
+
     }
 }
