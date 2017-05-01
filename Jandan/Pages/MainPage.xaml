@@ -133,6 +133,7 @@
             <toolkit:HamburgerMenu.OptionsItemsSource>
                 <toolkit:HamburgerMenuItemCollection>
                     <toolkit:HamburgerMenuGlyphItem Label="设  置" Glyph="&#xE713;"/>
+                    <toolkit:HamburgerMenuGlyphItem Label="关  于" Glyph="&#xE897;"/>
                 </toolkit:HamburgerMenuItemCollection>
             </toolkit:HamburgerMenu.OptionsItemsSource>
         </toolkit:HamburgerMenu>

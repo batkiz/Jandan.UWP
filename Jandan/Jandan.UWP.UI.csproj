@@ -20,7 +20,7 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>AC339D2697B2B3C8C85859FFC9F14B2B7E4DB875</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>7E7654C1DAF8930478F9BB631C9CC4F5B5B4BAB4</PackageCertificateThumbprint>
     <HockeyAppResourceId>fe343c5b7ea64d2f8858d8b4b74838ca</HockeyAppResourceId>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
@@ -295,6 +295,17 @@
       <Project>{77b94ada-3c66-4af1-abee-b81a2002b26e}</Project>
       <Name>Jandan.UWP.LiveTileTask</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
+      <Name>Microsoft Engagement Framework</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -38,8 +38,10 @@
                 <HyperlinkButton Name="LinkJandan" Content="Jandan" NavigateUri="http://jandan.net/" RelativePanel.Below="QuoteJandan" Background="Transparent"/>
                 <TextBlock Name="QuotePullToRefresh" Text="插件：PullToRefresh.UWP" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="LinkJandan"/>
                 <HyperlinkButton Name="LinkPullToRefresh" Content="NuGet" NavigateUri="https://www.nuget.org/packages/PullToRefresh.UWP" RelativePanel.Below="QuotePullToRefresh" Background="Transparent"/>
-                <TextBlock Name="Device" Text="设备信息" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="LinkPullToRefresh"/>
-                <TextBlock Name="DeviceText" Text="{x:Bind _viewModel.Abouts.ModelType, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Device"/>
+                <!--<TextBlock Name="Device" Text="设备信息" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="LinkPullToRefresh"/>
+                <TextBlock Name="DeviceText" Text="{x:Bind _viewModel.Abouts.ModelType, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Device"/>-->
+                <TextBlock Name="Privacy" Text="隐私策略" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="LinkPullToRefresh"/>
+                <HyperlinkButton Name="PrivacyURL" Content="GitHub" NavigateUri="https://github.com/raysworld/Jandan.UWP/blob/master/Privacy%20Policy" RelativePanel.Below="Privacy" Background="Transparent"/>
             </RelativePanel>
         </ScrollViewer>
         

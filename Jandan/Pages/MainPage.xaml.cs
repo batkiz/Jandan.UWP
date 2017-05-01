@@ -179,6 +179,9 @@ namespace Jandan.UWP.UI
                 case "设  置":
                     mainFrame.Navigate(typeof(SettingPage), null, new ContinuumNavigationTransitionInfo());
                     break;
+                case "关  于":
+                    mainFrame.Navigate(typeof(AboutPage), null, new ContinuumNavigationTransitionInfo());
+                    break;
                 default:
                     break;
             }
