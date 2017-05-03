@@ -1,6 +1,9 @@
 ﻿using Jandan.UWP.Core.Models;
+using Jandan.UWP.Core.Tools;
 using Jandan.UWP.Core.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -101,6 +104,37 @@ namespace Jandan.UWP.UI
             if (delta > 10 && Frame.CanGoBack)
             {
                 Frame.GoBack();
+            }
+        }
+
+        private async void FreshFavButton_Click(object sender, RoutedEventArgs e)
+        {
+            // 读取当前收藏列表
+            var fresh_list = await FileHelper.Current.ReadXmlObjectAsync<List<Fresh>>("fresh.xml");
+
+            if (fresh_list == null) fresh_list = new List<Fresh>();
+
+            // 检查当前新鲜事是否已经收藏
+            if (!_viewModel.IsFavourite) // 未收藏，则加入收藏
+            {
+                // 增加当前新鲜事到收藏列表
+                fresh_list.Add(_viewModel.FreshDetails.FreshInfo);
+                // 写入收藏列表
+                await FileHelper.Current.WriteXmlObjectAsync<List<Fresh>>(fresh_list, "fresh.xml");
+
+                _viewModel.IsFavourite = true;
+                // 收藏成功通知
+            }
+            else // 已收藏，则取消收藏
+            {
+                //fresh_list.Remove(_viewModel.FreshDetails.FreshInfo);
+                fresh_list.RemoveAll(f => f.ID == _viewModel.FreshDetails.FreshInfo.ID);
+
+                // 写入收藏列表
+                await FileHelper.Current.WriteXmlObjectAsync<List<Fresh>>(fresh_list, "fresh.xml");
+
+                _viewModel.IsFavourite = false;
+                // 取消收藏成功通知
             }
         }
     }

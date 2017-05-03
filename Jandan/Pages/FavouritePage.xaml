@@ -12,6 +12,118 @@
     xmlns:model="using:Jandan.UWP.Core.Models"
     NavigationCacheMode="Enabled">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <local:BooleanToFavStringConverter x:Key="booleanToFavString"></local:BooleanToFavStringConverter>
+
+            <DataTemplate x:Key="FreshGridItemNarrowTemplate" x:DataType="model:Fresh">
+                <Grid Name="gridListItems" HorizontalAlignment="Stretch" BorderBrush="Black" Margin="8,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Margin="4,0" VerticalAlignment="Center" RelativePanel.AlignVerticalCenterWithPanel="True" HorizontalAlignment="Stretch" RelativePanel.AlignLeftWithPanel="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="70*"></RowDefinition>
+                            <RowDefinition Height="30*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <RelativePanel Grid.Row="0">
+                            <TextBlock Name="FreshNewsTitle" Text="{x:Bind Title, Mode=OneWay}" FontSize="16" TextWrapping="Wrap" Margin="0,5,0,3"/>
+                        </RelativePanel>
+                        <RelativePanel Grid.Row="2">
+                            <TextBlock Name="FreshNewsAuthor" Text="{x:Bind Author.Name, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,2"/>
+                            <TextBlock Name="FreshNewsAt" Text="  @  " FontSize="12" TextWrapping="Wrap" RelativePanel.RightOf="FreshNewsAuthor" Margin="0,2"/>
+                            <TextBlock Name="FreshNewsTag" Text="{x:Bind Tag[0].Title, Mode=OneWay}" FontSize="12" TextWrapping="WrapWholeWords" RelativePanel.RightOf="FreshNewsAt" Margin="0,2"/>
+                        </RelativePanel>
+                        <RelativePanel Grid.Row="1" VerticalAlignment="Bottom" >
+                            <TextBlock Name="FreshNewsDate" Text="{x:Bind Date, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,2"/>
+                        </RelativePanel>
+                    </Grid>
+                    <Grid Grid.Column="1" Margin="4">
+                        <toolkitcontrol:ImageEx Name="FreshNewsImage" Source="{x:Bind Thumb_c, Mode=OneWay}" Height="100" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" VerticalAlignment="Center"/>
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="DuanDataStyle" x:DataType="model:Duan">
+                <Grid Margin="0" Padding="5" Holding="Grid_Holding" RightTapped="Grid_RightTapped">
+                    <FlyoutBase.AttachedFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="复制" Tapped="MenuFlyoutCopy_Tapped"/>
+                        </MenuFlyout>
+                    </FlyoutBase.AttachedFlyout>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <RelativePanel Grid.Row="0">
+                        <TextBlock Name="DuanAuthor" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"></TextBlock>
+                        <TextBlock Name="DuanID" Text="{x:Bind DuanID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"></TextBlock>
+                        <TextBlock Name="DuanDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="DuanAuthor"></TextBlock>
+                    </RelativePanel>
+                    <RelativePanel Grid.Row="1" Name="ContentPanel">
+                        <TextBlock Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>
+                    </RelativePanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,5">                        
+                        <Button Name="DuanViewCommentButton" Content="{StaticResource RateBarComment}" Click="DuanComment_Click" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"></Button>
+                        <Button Name="DuanFavButton" Content="取消收藏" Click="DuanFavButton_Click" MaxWidth="100" MinWidth="100" Style="{StaticResource RateBarButtonStyle}"></Button>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="BoringPicsDataStyle" x:DataType="model:BoringPic">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <RelativePanel Grid.Row="0" Margin="8,4">
+                        <TextBlock Name="BoringAuthor" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"/>
+                        <TextBlock Name="BoringID" Text="{x:Bind PicID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"/>
+                        <TextBlock Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
+                    </RelativePanel>
+                    <StackPanel Grid.Row="1" Margin="8,4">
+                        <TextBlock Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
+                        <toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,5">
+                        <Button Name="DuanViewCommentButton" Content="{StaticResource RateBarComment}" Click="BoringComment_Click" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"></Button>
+                        <Button Name="DuanFavButton" Content="取消收藏" Click="BoringFavButton_Click" MaxWidth="100" MinWidth="100" Style="{StaticResource RateBarButtonStyle}"></Button>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="GirlPicsDataStyle" x:DataType="model:BoringPic">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <RelativePanel Grid.Row="0" Margin="8,4">
+                        <TextBlock Name="BoringAuthor" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"/>
+                        <TextBlock Name="BoringID" Text="{x:Bind PicID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"/>
+                        <TextBlock Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
+                    </RelativePanel>
+                    <StackPanel Grid.Row="1" Margin="8,4">
+                        <TextBlock Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
+                        <toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,5">
+                        <Button Name="DuanViewCommentButton" Content="{StaticResource RateBarComment}" Click="BoringComment_Click" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"></Button>
+                        <Button Name="DuanFavButton" Content="取消收藏" Click="GirlFavButton_Click" MaxWidth="100" MinWidth="100" Style="{StaticResource RateBarButtonStyle}"></Button>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            <Style x:Key="DuanListViewItemStyle" TargetType="ListViewItem">
+                <Setter Property="Margin" Value="8,4,8,4"></Setter>
+                <Setter Property="Padding" Value="0"></Setter>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                <Setter Property="MinHeight" Value="0"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -22,18 +134,18 @@
             <!--顶部-->
             <TextBlock Name="PageBackButton" Text="&#xE71D;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
             <TextBlock Name="PageTitle" Text="收藏" RelativePanel.RightOf="PageBackButton" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
-            <Button Name="RefreshButton" Content="&#xE117;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarButtonStyle}"/>
+            <Button Name="RefreshButton" Content="&#xE117;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarButtonStyle}" Click="RefreshButton_Click"/>
         </RelativePanel>
         <!--SplitView.Content放无聊图, Pane放评论-->
         <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right">
             <!--SplitView.Pane放评论, 分为两行, 第一行为标题栏, 第二行为评论-->
             <SplitView.Pane>
-                <Grid/>
+                <jandancontrol:CommentListControl x:Name="CommentControl"></jandancontrol:CommentListControl>
             </SplitView.Pane>
             <!--SplitView.Pane放无聊图正文-->
             <SplitView.Content>
                 <Grid>
-                    <Pivot Name="BoringPivot">
+                    <Pivot x:Name="BoringPivot">
                         <Pivot.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding}" FontSize="18"/>
@@ -41,18 +153,45 @@
                         </Pivot.HeaderTemplate>
                         <PivotItem Header="新鲜事">
                             <Grid Margin="-8, 0">
+                                <pullcontrol:PullToRefreshBox x:Name="FreshPullToRefresh" RefreshInvoked="pullToRefreshBar_RefreshInvoked" RefreshThreshold="100">
+                                    <toolkitcontrol:AdaptiveGridView x:Name="FreshGridView" ItemTemplate="{StaticResource FreshGridItemNarrowTemplate}" ItemsSource="{x:Bind _viewModel.Fresh, Mode=OneWay}" ItemClick="FreshGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False" HorizontalContentAlignment="Stretch">
+                                        <toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
+                                            <Style TargetType="GridViewItem">
+                                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                                <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
+                                            </Style>
+                                        </toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
+                                    </toolkitcontrol:AdaptiveGridView>
+                                </pullcontrol:PullToRefreshBox>
                             </Grid>
                         </PivotItem>
                         <PivotItem Header="段子">
                             <Grid Margin="-8, 0">
+                                <pullcontrol:PullToRefreshBox x:Name="DuanPullToRefresh" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
+                                    <ListView Name="DuanListView" ItemsSource="{x:Bind _viewModel.Duan, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ItemContainerStyle="{StaticResource DuanListViewItemStyle}"></ListView>
+                                </pullcontrol:PullToRefreshBox>
                             </Grid>
                         </PivotItem>
                         <PivotItem Header="无聊图">
                             <Grid Margin="-8, 0">
+                                <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Pics, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False">
+                                    <toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
+                                        <Style TargetType="GridViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                        </Style>
+                                    </toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
+                                </toolkitcontrol:AdaptiveGridView>
                             </Grid>
                         </PivotItem>
                         <PivotItem Header="  ">
                             <Grid Margin="-8, 0">
+                                <toolkitcontrol:AdaptiveGridView x:Name="GirlGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Girls, Mode=OneWay}" ItemTemplate="{StaticResource GirlPicsDataStyle}" ItemClick="GirlGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False">
+                                    <toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
+                                        <Style TargetType="GridViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                        </Style>
+                                    </toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
+                                </toolkitcontrol:AdaptiveGridView>
                             </Grid>
                         </PivotItem>
                     </Pivot>

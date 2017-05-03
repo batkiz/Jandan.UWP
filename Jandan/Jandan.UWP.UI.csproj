@@ -122,10 +122,12 @@
     <Content Include="Cortana\VoiceCommandsFile.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Documents\version-2.5.0.txt" />
+    <Content Include="Documents\version-2.6.0.txt" />
     <None Include="Jandan_StoreKey.pfx" />
     <None Include="Jandan.UWP.UI_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Favourite\fav_fresh.xml" />
+    <Content Include="Favourite\fav_test.xml" />
     <Content Include="Icons\jandan-400.png" />
     <Content Include="Style\jandan_desktop.css" />
     <Content Include="Style\jandan_desktop_ex.css" />
@@ -146,6 +148,7 @@
       <DependentUpon>CommentListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Control\ScalableGrid.cs" />
+    <Compile Include="Converter\Converters.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -297,16 +300,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
-      <Name>Microsoft Engagement Framework</Name>
-    </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

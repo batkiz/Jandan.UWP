@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Data.Json;
+using Jandan.UWP.Core.Tools;
+using System.Collections.Generic;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -239,8 +241,8 @@ namespace Jandan.UWP.UI
         {
             ShowFlyout(sender);
         }
-
-        private async void MenuFlyoutItem_Tapped(object sender, TappedRoutedEventArgs e)
+                
+        private async void MenuFlyoutCopy_Tapped(object sender, TappedRoutedEventArgs e)
         {
             var m = sender as MenuFlyoutItem;
             var d = m.DataContext as Duan;
@@ -252,8 +254,42 @@ namespace Jandan.UWP.UI
 
             await PopupMessage("复制成功！", 40, 2000);
         }
+
+        private async void MenuFlyoutFav_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var m = sender as MenuFlyoutItem;
+            var d = m.DataContext as Duan;
+
+            // 读取当前收藏列表
+            var duan_list = await FileHelper.Current.ReadXmlObjectAsync<List<Duan>>("duan.xml");
+
+            if (duan_list == null) duan_list = new List<Duan>();
+            
+            // 检查当前段子是否已经收藏
+            if (! duan_list.Exists(t => t.DuanID == d.DuanID)) // 未收藏，则加入收藏
+            {
+                // 增加当前段子到收藏列表
+                duan_list.Add(d);
+
+                // 写入收藏列表
+                await FileHelper.Current.WriteXmlObjectAsync<List<Duan>>(duan_list, "duan.xml");
+
+                // 收藏成功通知
+                await PopupMessage("收藏成功！", 40, 2000);
+            }
+            else // 已收藏，则取消收藏
+            {
+                duan_list.RemoveAll(f => f.DuanID == d.DuanID);
+
+                // 写入收藏列表
+                await FileHelper.Current.WriteXmlObjectAsync<List<Duan>>(duan_list, "duan.xml");
+
+                // 取消收藏成功通知
+                await PopupMessage("取消收藏成功！", 40, 2000);
+            }            
+        }
         #endregion
-                
+
         private async Task PopupMessage(string message, double textWidth, int disTime)
         {
             textBlockPopup.Text = message;

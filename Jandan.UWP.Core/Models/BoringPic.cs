@@ -83,7 +83,7 @@ namespace Jandan.UWP.Core.Models
         }
 
 
-        public static List<ImageItem> parse(string JSONString, bool isThumb = false)
+        public static List<ImageItem> Parse(string JSONString, bool isThumb = false)
         {
             List<ImageItem> url_list = new List<ImageItem>();
 
@@ -120,7 +120,7 @@ namespace Jandan.UWP.Core.Models
         //}
 
         // Hot图的图片Url与无聊图、妹子图不同，需单独处理
-        public static List<ImageItem> parseHot(string JSONString)
+        public static List<ImageItem> ParseHot(string JSONString)
         {
             List<ImageItem> url_list = new List<ImageItem>();
 
@@ -139,7 +139,7 @@ namespace Jandan.UWP.Core.Models
             return url_list;
         }
 
-        public static List<ImageItem> parseHotThumb(string JSONString)
+        public static List<ImageItem> ParseHotThumb(string JSONString)
         {
             List<ImageItem> url_list = new List<ImageItem>();
 
@@ -164,7 +164,7 @@ namespace Jandan.UWP.Core.Models
         /// </summary>
         /// <param name="JSONString"></param>
         /// <returns></returns>
-        public static void parseURL(string JSONString, out List<ImageItem> scr_list, out List<ImageItem> thumb_list)
+        public static void ParseURL(string JSONString, out List<ImageItem> scr_list, out List<ImageItem> thumb_list)
         {
             scr_list = new List<ImageItem>();
             thumb_list = new List<ImageItem>();

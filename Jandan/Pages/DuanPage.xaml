@@ -10,14 +10,15 @@
     xmlns:pullcontrol="using:PullToRefresh.UWP"
     mc:Ignorable="d"
     NavigationCacheMode="Enabled" Loaded="Page_Loaded">
-
+    
     <Page.Resources>
-        <ResourceDictionary>
+        <ResourceDictionary>            
             <DataTemplate x:Key="DuanDataStyle" x:DataType="model:Duan">
                 <Grid Margin="0" Padding="5" Holding="Grid_Holding" RightTapped="Grid_RightTapped">
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout>
-                            <MenuFlyoutItem Text="复制" Tapped="MenuFlyoutItem_Tapped"/>
+                            <MenuFlyoutItem Text="复制" Tapped="MenuFlyoutCopy_Tapped"/>
+                            <MenuFlyoutItem Text="收藏" Tapped="MenuFlyoutFav_Tapped"/>
                         </MenuFlyout>
                     </FlyoutBase.AttachedFlyout>
                     <Grid.RowDefinitions>

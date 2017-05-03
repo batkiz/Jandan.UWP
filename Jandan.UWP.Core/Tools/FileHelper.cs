@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -43,11 +44,11 @@ namespace Jandan.UWP.Core.Tools
         {
             var folder_1 = await _local_folder.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
             var folder_2 = await _local_folder.CreateFolderAsync("data_cache", CreationCollisionOption.OpenIfExists);
-            var folder_3 = await _local_folder.CreateFolderAsync("cache", CreationCollisionOption.OpenIfExists);
+            var folder_3 = await _local_folder.CreateFolderAsync("favourite", CreationCollisionOption.OpenIfExists);
 
             _local_cache_folders.Add(folder_1);
             _local_cache_folders.Add(folder_2);
-            _local_cache_folders.Add(folder_3);
+            //_local_cache_folders.Add(folder_3);
         }
         public async Task WriteObjectAsync<T>(T obj, string filename)
         {
@@ -89,6 +90,63 @@ namespace Jandan.UWP.Core.Tools
             catch
             {
                 return null;
+            }
+        }
+
+        public async Task WriteXmlObjectAsync<T>(T obj, string filename)
+        {
+#if DEBUG
+            Debug.WriteLine(DateTime.Now.ToString() + " " + $"写入Xml数据：{filename}");
+#endif
+            try
+            {
+                var folder = await _local_folder.CreateFolderAsync("favourite", CreationCollisionOption.OpenIfExists);
+                var file = await folder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
+
+                using (IRandomAccessStream raStream = await file.OpenAsync(FileAccessMode.ReadWrite))
+                {
+                    using (IOutputStream outStream = raStream.GetOutputStreamAt(0))
+                    {
+                        // 创建序列化对象写入数据
+                        DataContractSerializer serializer = new DataContractSerializer(typeof(T));
+                        serializer.WriteObject(outStream.AsStreamForWrite(), obj);
+                        await outStream.FlushAsync();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+#if DEBUG
+                Debug.WriteLine(DateTime.Now.ToString() + " " + e.Message);
+#endif
+            }
+        }
+        public async Task<T> ReadXmlObjectAsync<T>(string filename)
+        {
+#if DEBUG
+            Debug.WriteLine(DateTime.Now.ToString() + " " + $"读取Xml数据：{filename}");
+#endif
+            try
+            {
+                T sessionState_ = default(T);
+
+                var folder = await _local_folder.CreateFolderAsync("favourite", CreationCollisionOption.OpenIfExists);
+                var file = await folder.GetFileAsync(filename);
+                if (file == null)
+                {
+                    return sessionState_;
+                }
+                using (IInputStream inStream = await file.OpenSequentialReadAsync())
+                {
+                    DataContractSerializer serializer = new DataContractSerializer(typeof(T));
+
+                    sessionState_ = (T)serializer.ReadObject(inStream.AsStreamForRead());
+                }
+                return sessionState_;
+            }
+            catch
+            {
+                return default(T);
             }
         }
 

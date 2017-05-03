@@ -8,7 +8,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" ManipulationCompleted="Page_ManipulationCompleted">
-    
+
+    <Page.Resources>
+        <local:BooleanToFavStringConverter x:Key="booleanToFavString"></local:BooleanToFavStringConverter>
+    </Page.Resources>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -56,19 +60,24 @@
                        RelativePanel.RightOf="PageBackButton"
                        RelativePanel.AlignVerticalCenterWithPanel="True"
                        Style="{StaticResource TitleBarTextBlockStyle}"/>
-            <Button Name="FreshShareButton"
+            <StackPanel RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Orientation="Horizontal">
+                <Button Name="FreshShareButton"
                     Content="&#xE72D;"
-                    RelativePanel.LeftOf="FreshCommentButton"
                     Click="ShareButton_Click"
                     Style="{StaticResource TitleBarButtonStyle}">
-            </Button>
-            <Button Name="FreshCommentButton"
+                </Button>
+                <Button Name="FreshFavButton"
+                    Content="{Binding IsFavourite, Converter={StaticResource booleanToFavString}, Mode=TwoWay}"
+                    Click="FreshFavButton_Click"
+                    Style="{StaticResource TitleBarButtonStyle}">
+                </Button>
+                <Button Name="FreshCommentButton"
                     Content="&#xE90A;"
-                    RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignVerticalCenterWithPanel="True"
                     Click="FreshCommentButton_Click"
                     Style="{StaticResource TitleBarButtonStyle}">
-            </Button>
+                </Button>
+            </StackPanel>
+            
         </RelativePanel>
         <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped">
             <SplitView.Pane>

@@ -75,6 +75,14 @@ namespace Jandan.UWP.Core.HTTP
                             }
                         }
                         await FileHelper.Current.WriteObjectAsync<List<Fresh>>(list, "fresh_list.json");
+
+
+                        //******************************************
+                        //await FileHelper.Current.WriteXmlObjectAsync<List<Fresh>>(list, "fresh.xml");
+                        //******************************************
+
+
+
                         return list;
                     }
                     else
@@ -370,8 +378,8 @@ namespace Jandan.UWP.Core.HTTP
                                     PicID = ID,
                                     Author = (j.GetObject())["comment_author"].GetString(),
                                     Content = (j.GetObject())["text_content"].GetString().Replace("\n", "").Replace("\r", ""),
-                                    Urls = BoringPic.parse((j.GetObject())["pics"].ToString()),
-                                    Thumb = BoringPic.parse((j.GetObject())["pics"].ToString(), true),
+                                    Urls = BoringPic.Parse((j.GetObject())["pics"].ToString()),
+                                    Thumb = BoringPic.Parse((j.GetObject())["pics"].ToString(), true),
                                     Date = (j.GetObject())["comment_date"].GetString(),
                                     VotePositive = int.Parse(j.GetObject().GetNamedString("vote_positive")),
                                     VoteNegative = int.Parse(j.GetObject().GetNamedString("vote_negative")),
@@ -445,7 +453,7 @@ namespace Jandan.UWP.Core.HTTP
 
                                 List<ImageItem> scr_list;
                                 List<ImageItem> thumb_list;
-                                BoringPic.parseURL((j.GetObject())["comment_content"].GetString(), out scr_list, out thumb_list);
+                                BoringPic.ParseURL((j.GetObject())["comment_content"].GetString(), out scr_list, out thumb_list);
 
                                 //var urls = BoringPic.parseHot((j.GetObject())["pics"].ToString());
                                 //var thumb = BoringPic.parseHotThumb((j.GetObject())["pics"].ToString());

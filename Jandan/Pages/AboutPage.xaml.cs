@@ -55,7 +55,14 @@ namespace Jandan.UWP.UI
         {
             try
             {
-                this.Frame.GoBack();
+                if (DataShareManager.Current.PreviousPageIndex == PageIndex.MeiziPage)
+                {
+                    this.Frame.Navigate(typeof(FreshPage));
+                }
+                else
+                {
+                    this.Frame.GoBack();
+                }
             }
             catch (Exception)
             {

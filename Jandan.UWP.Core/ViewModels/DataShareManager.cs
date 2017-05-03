@@ -18,7 +18,8 @@ namespace Jandan.UWP.Core.ViewModels
         PicDetailPage = 6,
         MeiziPage = 7,
         AboutPage = 8,
-        SettingPage = 9
+        SettingPage = 9,
+        FavouritePage = 10
     };
 
     public sealed class DataShareManager
@@ -149,7 +150,7 @@ namespace Jandan.UWP.Core.ViewModels
                 XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
 
                 XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                toastTextElements[0].AppendChild(toastXml.CreateTextNode("在多说项目即将关闭之际，UWP版煎蛋终于支持多说评论了……快去设置页面设置一下吧"));
+                toastTextElements[0].AppendChild(toastXml.CreateTextNode("新版本支持本地收藏功能了~欢迎试用~"));
 
                 XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                 ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/Square150x150Logo.scale-200.png");

@@ -48,7 +48,7 @@
                     <FontIcon Glyph="&#xE71D;"/>
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton Name="Favourite" Label="收  藏" Tag="5" RelativePanel.RightOf="Hot" Click="AppBarButton_clicked" Visibility="Collapsed">
+            <AppBarButton Name="Favourite" Label="收  藏" Tag="5" RelativePanel.RightOf="Hot" Click="AppBarButton_clicked">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE728;"/>
                 </AppBarButton.Icon>
@@ -126,7 +126,7 @@
                     <toolkit:HamburgerMenuGlyphItem Label="无聊图" Glyph="&#xEB9F;"></toolkit:HamburgerMenuGlyphItem>
                     <toolkit:HamburgerMenuGlyphItem Label="段  子" Glyph="&#xE134;"></toolkit:HamburgerMenuGlyphItem>
                     <toolkit:HamburgerMenuGlyphItem Label="热  榜" Glyph="&#xE71D;"></toolkit:HamburgerMenuGlyphItem>
-                    <!--<toolkit:HamburgerMenuGlyphItem Label="收  藏" Glyph="&#xE728;"></toolkit:HamburgerMenuGlyphItem>-->
+                    <toolkit:HamburgerMenuGlyphItem Label="收  藏" Glyph="&#xE728;"></toolkit:HamburgerMenuGlyphItem>
                 </toolkit:HamburgerMenuItemCollection>
             </toolkit:HamburgerMenu.ItemsSource>
 

@@ -1,6 +1,7 @@
 ﻿using Jandan.UWP.Control;
 using Jandan.UWP.Core.Data;
 using Jandan.UWP.Core.Models;
+using Jandan.UWP.Core.Tools;
 using Jandan.UWP.Core.ViewModels;
 using Microsoft.Toolkit.Uwp.UI;
 using System;
@@ -76,7 +77,7 @@ namespace Jandan.UWP.UI
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             DataShareManager.Current.CurrentPageIndex = PageIndex.PicDetailPage;
-
+            
             base.OnNavigatedTo(e);
             object[] parameters = e.Parameter as object[];
             if (parameters[0] != null)
@@ -88,7 +89,6 @@ namespace Jandan.UWP.UI
                 DetailType = (PicDetailType)parameters[1];
                 ItemList = parameters[2];
             }
-
             SystemNavigationManager.GetForCurrentView().BackRequested += PicDetailPage_BackRequested;            
         }
 
@@ -106,6 +106,12 @@ namespace Jandan.UWP.UI
 
         private void OnBackRequested()
         {
+            if (DataShareManager.Current.PreviousPageIndex == PageIndex.FavouritePage)
+            {
+                this.Frame.Navigate(typeof(FavouritePage));
+                return;
+            }
+
             switch (DetailType)
             {
                 case PicDetailType.Boring:
@@ -263,15 +269,21 @@ namespace Jandan.UWP.UI
         private async void PreviousPic()
         {
             var list = ItemList as ObservableCollection<BoringPic>;
-            var idx = list.IndexOf(CurrentItem);
-            if (idx != 0)
+            try
             {
-                this.Frame.Navigate(typeof(ImageViewer), new object[] { list.ElementAt(idx - 1), DetailType, ItemList });
+                var idx = list.IndexOf(CurrentItem);
+                if (idx != 0)
+                {
+                    this.Frame.Navigate(typeof(ImageViewer), new object[] { list.ElementAt(idx - 1), DetailType, ItemList });
+                }
+                else
+                {
+                    await PopupMessage("已经是第一张了哦", 65, 2000);
+                }
             }
-            else
-            {
-                await PopupMessage("已经是第一张了哦", 65, 2000);
-            }
+            catch (Exception)
+            {                
+            }            
         }
 
         private void buttonNext_Click(object sender, RoutedEventArgs e)
@@ -282,27 +294,40 @@ namespace Jandan.UWP.UI
         private async void NextPic()
         {
             var list = ItemList as ObservableCollection<BoringPic>;
-            var idx = list.IndexOf(CurrentItem);
-            if (idx != list.Count - 1)
+
+            try
             {
-                this.Frame.Navigate(typeof(ImageViewer), new object[] { list.ElementAt(idx + 1), DetailType, ItemList });
+                var idx = list.IndexOf(CurrentItem);
+                if (idx != list.Count - 1)
+                {
+                    this.Frame.Navigate(typeof(ImageViewer), new object[] { list.ElementAt(idx + 1), DetailType, ItemList });
+                }
+                else if (DetailType == PicDetailType.Boring)
+                {
+                    var b = ItemList as BoringIncrementalLoadingCollection;
+                    if (b != null)
+                    {
+                        await b.LoadMoreItemsAsync(0);
+                        this.Frame.Navigate(typeof(ImageViewer), new object[] { b.ElementAt(idx + 1), DetailType, b });
+                    }
+                }
+                else if (DetailType == PicDetailType.Meizi)
+                {
+                    var b = ItemList as MeiziIncrementalLoadingCollection;
+                    if (b != null)
+                    {
+                        await b.LoadMoreItemsAsync(0);
+                        this.Frame.Navigate(typeof(ImageViewer), new object[] { b.ElementAt(idx + 1), DetailType, b });
+                    }
+                }
+                else
+                {
+                    await PopupMessage("已经是最后一张了哦", 68, 2000);
+                }
             }
-            else if (DetailType == PicDetailType.Boring)
+            catch (Exception)
             {
-                var b = ItemList as BoringIncrementalLoadingCollection;
-                await b.LoadMoreItemsAsync(0);
-                this.Frame.Navigate(typeof(ImageViewer), new object[] { b.ElementAt(idx + 1), DetailType, b });
-            }
-            else if (DetailType == PicDetailType.Meizi)
-            {
-                var b = ItemList as MeiziIncrementalLoadingCollection;
-                await b.LoadMoreItemsAsync(0);
-                this.Frame.Navigate(typeof(ImageViewer), new object[] { b.ElementAt(idx + 1), DetailType, b });
-            }
-            else
-            {
-                await PopupMessage("已经是最后一张了哦", 68, 2000);
-            }
+            }            
         }
 
         private async Task PopupMessage(string message, double textWidth, int disTime)
@@ -312,6 +337,47 @@ namespace Jandan.UWP.UI
             popTips.IsOpen = true;
             await Task.Delay(disTime);
             popTips.IsOpen = false;
+        }
+
+        private async void ImageFavButton_Click(object sender, RoutedEventArgs e)
+        {
+            string xml_name = "";
+            if (DetailType == PicDetailType.Boring || DetailType == PicDetailType.Hot)
+            {
+                xml_name = "boring.xml";
+            }
+            else
+            {
+                xml_name = "girl.xml";
+            }
+
+            // 读取当前收藏列表
+            var boring_list = await FileHelper.Current.ReadXmlObjectAsync<List<BoringPic>>(xml_name);
+
+            if (boring_list == null) boring_list = new List<BoringPic>();
+
+            // 检查当前新鲜事是否已经收藏
+            if (!_viewModel.IsFavourite) // 未收藏，则加入收藏
+            {
+                // 增加当前新鲜事到收藏列表
+                boring_list.Add(_viewModel.BoringPicture);
+                // 写入收藏列表
+                await FileHelper.Current.WriteXmlObjectAsync<List<BoringPic>>(boring_list, xml_name);
+
+                _viewModel.IsFavourite = true;
+                // 收藏成功通知
+            }
+            else // 已收藏，则取消收藏
+            {
+                //fresh_list.Remove(_viewModel.FreshDetails.FreshInfo);
+                boring_list.RemoveAll(f => f.PicID == _viewModel.BoringPicture.PicID);
+
+                // 写入收藏列表
+                await FileHelper.Current.WriteXmlObjectAsync<List<BoringPic>>(boring_list, xml_name);
+
+                _viewModel.IsFavourite = false;
+                // 取消收藏成功通知
+            }
         }
     }
     
