@@ -142,7 +142,9 @@ namespace Jandan.UWP.UI
             }
             catch (Exception ex)
             {
+#if DEBUG
                 System.Diagnostics.Debug.WriteLine("Installing Voice Commands Failed: " + ex.ToString());
+#endif
             }
         }
 

@@ -131,7 +131,17 @@ namespace Jandan.UWP.Control
                     JsonObject j = new JsonObject();
                     if (JsonObject.TryParse(r, out j))
                     {
+#if DEBUG
                         Debug.WriteLine(DateTime.Now.ToString() + j["response"].GetObject()["status"].ToString());
+#endif
+                        if (j["response"].GetObject()["status"].ToString().ToLower().Contains("approved"))
+                        {
+                            PopupMessage(1000, "评论成功");
+                        }
+                        else
+                        {
+                            PopupMessage(1000, "评论似乎没成功╮(╯_╰)╭");
+                        }
                     }
 
                     string DuanID = _dViewModel.ThreadKey.Substring(_dViewModel.ThreadKey.IndexOf('-') + 1);
@@ -146,6 +156,19 @@ namespace Jandan.UWP.Control
 
             DataShareManager.Current.UserName = csd.UserName;
             DataShareManager.Current.EmailAdd = csd.Email;
+        }
+
+        private async void PopupMessage(int ms, string msg)
+        {
+            popText.Text = msg;
+
+            double L = popTips.ActualWidth;
+            double l = popText.ActualWidth;
+            PopBorder.Margin = new Thickness((L - l) / 2, 0, 0, 0);
+
+            popTips.IsOpen = true;   // 提示再按一次
+            await Task.Delay(ms);  // 1000ms后关闭提示
+            popTips.IsOpen = false;
         }
     }
 }

@@ -107,7 +107,8 @@ namespace Jandan.UWP.Core.ViewModels
 
                         try
                         {
-                            t.Message = $"{t.Message}\n回复 {t.ParentComment.AuthorName}:\n{t.ParentComment.Message}";
+                            //t.Message = $"{t.Message}\n回复 {t.ParentComment.AuthorName}:\n{t.ParentComment.Message}";
+                            t.Message = $"{t.Message}\n\n{t.ParentComment.AuthorName}:\n{t.ParentComment.Message}";
                         }
                         catch (Exception)
                         {

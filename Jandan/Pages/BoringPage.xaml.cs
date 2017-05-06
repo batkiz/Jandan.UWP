@@ -84,7 +84,7 @@ namespace Jandan.UWP.UI
 
             if (msg == null)
             {
-                await PopupMessage("网络不好，请稍后重试", 90, 2000);
+                PopupMessage(2000, "网络不好，请稍后重试");
 
                 return;
             }
@@ -100,7 +100,7 @@ namespace Jandan.UWP.UI
                     var b1 = c.Children[0] as Button;
                     b1.Foreground = new SolidColorBrush(Colors.Red);
 
-                    await PopupMessage("感谢您的OO！", 64, 2000);
+                    PopupMessage(2000, "感谢您的OO！");
                 }
                 else
                 {
@@ -111,22 +111,26 @@ namespace Jandan.UWP.UI
                     var b2 = c.Children[2] as Button;
                     b2.Foreground = new SolidColorBrush(Colors.Red);
 
-                    await PopupMessage("感谢您的XX！", 64, 2000);
+                    PopupMessage(2000, "感谢您的XX！");
                 }
             }
             else if (msg.Contains("YOU'VE VOTED"))
             {
-                await PopupMessage("您已投过票了", 60, 2000);
+                PopupMessage(2000, "您已投过票了");
             }
         }
 
-        private async Task PopupMessage(string message, double textWidth, int disTime)
+        private async void PopupMessage(int ms, string msg)
         {
-            textBlockMeiziCount.Text = message;
-            popTipsMeizi.HorizontalOffset = -textWidth;
-            popTipsMeizi.IsOpen = true;   // 提示再按一次
-            await Task.Delay(disTime);  // 1000ms后关闭提示
-            popTipsMeizi.IsOpen = false;
+            popText.Text = msg;
+
+            double L = popTips.ActualWidth;
+            double l = popText.ActualWidth;
+            PopBorder.Margin = new Thickness((L - l) / 2, 0, 0, 0);
+
+            popTips.IsOpen = true;   // 提示再按一次
+            await Task.Delay(ms);  // 1000ms后关闭提示
+            popTips.IsOpen = false;
         }
 
         private void Tucao_Click(object sender, RoutedEventArgs e)
@@ -156,10 +160,8 @@ namespace Jandan.UWP.UI
                 secret_count = 0;
                 return;
             }
-
-            string tips = $"再点击{5 - secret_count}次进入妹子图";
-
-            await PopupMessage(tips, 75, 2000);
+            
+            PopupMessage(2000, $"再点击{5 - secret_count}次进入妹子图");
         }
 
         private void DuanSplitView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)

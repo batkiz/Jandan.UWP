@@ -30,7 +30,7 @@ namespace Jandan.UWP.UI
             DispatcherManager.Current.Dispatcher = Dispatcher;
         }       
 
-        private async void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
+        private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
         {
             if (DataShareManager.Current.CurrentPageIndex == PageIndex.FreshPage)
             {
@@ -40,10 +40,11 @@ namespace Jandan.UWP.UI
                 }
                 else
                 {
-                    popTips.IsOpen = true;   // 提示再按一次
+                    PopupMessage(1000, "再按一次退出");
                     e.Handled = true;
-                    await Task.Delay(1000);  // 1000ms后关闭提示
-                    popTips.IsOpen = false;
+                    //popTips.IsOpen = true;   // 提示再按一次
+                    //await Task.Delay(1000);  // 1000ms后关闭提示
+                    //popTips.IsOpen = false;
                 }
             }            
             else if (DataShareManager.Current.PreviousPageIndex == PageIndex.FreshDetailPage
@@ -187,6 +188,17 @@ namespace Jandan.UWP.UI
             }
         }
 
-        
+        private async void PopupMessage(int ms, string msg)
+        {
+            popText.Text = msg;
+
+            double L = popTips.ActualWidth;
+            double l = popText.ActualWidth;
+            PopBorder.Margin = new Thickness((L - l) / 2, 0, 0, 0);
+
+            popTips.IsOpen = true;   // 提示再按一次
+            await Task.Delay(ms);  // 1000ms后关闭提示
+            popTips.IsOpen = false;
+        }
     }
 }

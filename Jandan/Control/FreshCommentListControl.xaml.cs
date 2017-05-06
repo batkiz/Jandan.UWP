@@ -115,7 +115,9 @@ namespace Jandan.UWP.Control
                 JsonObject j = new JsonObject();
                 if (JsonObject.TryParse(r, out j))
                 {
+#if DEBUG
                     Debug.WriteLine(DateTime.Now.ToString() + j["status"].ToString());
+#endif
                 }                
             }            
         }

@@ -88,13 +88,13 @@
                     <pullcontrol:PullToRefreshBox x:Name="DuanPullToRefresh" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
                         <ListView Name="DuanListView" ItemsSource="{x:Bind _viewModel.Duans, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ContainerContentChanging="DuanListView_ContainerContentChanging" ItemContainerStyle="{StaticResource DuanListViewItemStyle}"></ListView>
                     </pullcontrol:PullToRefreshBox>
-                    <Popup Name="popTipVote" IsOpen="False" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalOffset="-45" VerticalOffset="-100">
-                        <Grid Name="PopupGrid" BorderThickness="5" Margin="0,0,0,0" HorizontalAlignment="Center">
-                            <Grid.Background>
+                    <Popup Grid.Row="1" x:Name="popTips" IsOpen="False" Margin="0,0,0,30" VerticalAlignment="Bottom" >
+                        <Border x:Name="PopBorder">
+                            <Border.Background>
                                 <SolidColorBrush Color="Black" Opacity="0.8"/>
-                            </Grid.Background>
-                            <TextBlock Name="textBlockPopup"  Foreground="White" Text="网络不好，请稍后重试" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,5" />
-                        </Grid>
+                            </Border.Background>
+                            <TextBlock x:Name="popText" Foreground="White" Text="再按一次退出" Margin="10,5"/>
+                        </Border>
                     </Popup>
                 </Grid>
             </SplitView.Content>

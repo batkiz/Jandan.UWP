@@ -129,7 +129,9 @@ namespace Jandan.UWP.CortanaTask
 
         private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
+#if DEBUG
             System.Diagnostics.Debug.WriteLine("Task cancelled, clean up");
+#endif
 
             if (this._taskDerral != null)
 

@@ -243,7 +243,9 @@ namespace Jandan.UWP.UI
                 JsonObject j = new JsonObject();
                 if (JsonObject.TryParse(r, out j))
                 {
+#if DEBUG
                     System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString() + "评论成功！");
+#endif
                 }
                 
                 string DuanID = vm.ThreadKey.Substring(vm.ThreadKey.IndexOf('-') + 1);

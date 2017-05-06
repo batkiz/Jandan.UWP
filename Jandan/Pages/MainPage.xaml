@@ -139,15 +139,15 @@
         </toolkit:HamburgerMenu>
 
         <!--弹出消息,确认是否退出程序-->
-        <Popup Name="popTips"
+        <Popup Grid.Row="1" x:Name="popTips"
                IsOpen="False" 
-               Margin="0,0,0,100" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
-            <Grid BorderThickness="5" Margin="-49,0,0,0" HorizontalAlignment="Center">
-                <Grid.Background>
+               Margin="0,0,0,30" VerticalAlignment="Bottom" >
+            <Border x:Name="PopBorder">
+                <Border.Background>
                     <SolidColorBrush Color="Black" Opacity="0.8"/>
-                </Grid.Background>
-                <TextBlock Foreground="White" Text="再按一次退出" HorizontalAlignment="Center" Margin="10,5"/>
-            </Grid>
+                </Border.Background>
+                <TextBlock x:Name="popText" Foreground="White" Text="再按一次退出" Margin="10,5"/>
+            </Border>
         </Popup>
     </Grid>
 </Page>
