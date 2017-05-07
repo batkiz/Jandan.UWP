@@ -43,8 +43,6 @@ namespace Jandan.UWP.UI
             this.InitializeComponent();
 
             this.DataContext = _viewModel = new BoringViewModel();
-            //this.CommentControl.
-            //DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
         }
         /// <summary>
         /// 从其他页面导航回到无聊图
@@ -85,7 +83,6 @@ namespace Jandan.UWP.UI
             if (msg == null)
             {
                 PopupMessage(2000, "网络不好，请稍后重试");
-
                 return;
             }
 
@@ -123,13 +120,14 @@ namespace Jandan.UWP.UI
         private async void PopupMessage(int ms, string msg)
         {
             popText.Text = msg;
+            popText.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
             double L = popTips.ActualWidth;
             double l = popText.ActualWidth;
             PopBorder.Margin = new Thickness((L - l) / 2, 0, 0, 0);
 
-            popTips.IsOpen = true;   // 提示再按一次
-            await Task.Delay(ms);  // 1000ms后关闭提示
+            popTips.IsOpen = true;
+            await Task.Delay(ms);
             popTips.IsOpen = false;
         }
 
@@ -147,10 +145,10 @@ namespace Jandan.UWP.UI
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.UpdateBoringPics();
+            RefreshPage();
         }
 
-        private async void PageTitle_Tapped(object sender, TappedRoutedEventArgs e)
+        private void PageTitle_Tapped(object sender, TappedRoutedEventArgs e)
         {
             secret_count++;
 
@@ -181,6 +179,39 @@ namespace Jandan.UWP.UI
         }
 
         private void BoringPullToRefresh_RefreshInvoked(DependencyObject sender, object args)
+        {
+            RefreshPage();
+        }
+
+        private void showNSFW_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (showNSFW.IsOn)
+            {
+                PopupMessage(2000, "显示NSFW图片");
+            }
+            else
+            {
+                PopupMessage(2000, "隐藏NSFW图片");
+            }
+
+            RefreshPage();
+        }
+
+        private void showUnwelcome_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (showUnwelcome.IsOn)
+            {
+                PopupMessage(2000, "显示不受欢迎的图片");
+            }
+            else
+            {
+                PopupMessage(2000, "隐藏不受欢迎的图片");
+            }
+
+            RefreshPage();
+        }
+
+        private void RefreshPage()
         {
             _viewModel.UpdateBoringPics();
         }

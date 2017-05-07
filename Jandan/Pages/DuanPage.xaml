@@ -69,7 +69,7 @@
                 <Button.Flyout>
                     <Flyout>
                         <StackPanel>
-                            <ToggleSwitch Name="showUnwelcome" IsOn="{x:Bind _viewModel.IsShowUnwelcome, Mode=TwoWay}" OffContent="隐藏" OnContent="显示">显示/隐藏不受欢迎的段子</ToggleSwitch>
+                            <ToggleSwitch x:Name="showUnwelcome" IsOn="{x:Bind _viewModel.IsShowUnwelcome, Mode=TwoWay}" OffContent="隐藏" OnContent="显示" Toggled="showUnwelcome_Toggled">显示/隐藏不受欢迎的段子</ToggleSwitch>
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
@@ -88,7 +88,7 @@
                     <pullcontrol:PullToRefreshBox x:Name="DuanPullToRefresh" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
                         <ListView Name="DuanListView" ItemsSource="{x:Bind _viewModel.Duans, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ContainerContentChanging="DuanListView_ContainerContentChanging" ItemContainerStyle="{StaticResource DuanListViewItemStyle}"></ListView>
                     </pullcontrol:PullToRefreshBox>
-                    <Popup Grid.Row="1" x:Name="popTips" IsOpen="False" Margin="0,0,0,30" VerticalAlignment="Bottom" >
+                    <Popup Grid.Row="1" x:Name="popTips" IsOpen="False" Margin="0,0,0,60" VerticalAlignment="Bottom" >
                         <Border x:Name="PopBorder">
                             <Border.Background>
                                 <SolidColorBrush Color="Black" Opacity="0.8"/>

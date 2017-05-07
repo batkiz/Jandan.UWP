@@ -165,7 +165,7 @@ namespace Jandan.UWP.UI
                 }                
             }
 
-            await PopupMessage("已经保存到图片文件夹", 80, 2000);
+            PopupMessage(2000, "已经保存到图片文件夹");
         }
 
         private static ulong CreateHash64(string str)
@@ -268,7 +268,7 @@ namespace Jandan.UWP.UI
             PreviousPic();
         }
 
-        private async void PreviousPic()
+        private void PreviousPic()
         {
             var list = ItemList as ObservableCollection<BoringPic>;
             try
@@ -280,7 +280,7 @@ namespace Jandan.UWP.UI
                 }
                 else
                 {
-                    await PopupMessage("已经是第一张了哦", 65, 2000);
+                    PopupMessage(2000, "已经是第一张了哦");
                 }
             }
             catch (Exception)
@@ -324,7 +324,7 @@ namespace Jandan.UWP.UI
                 }
                 else
                 {
-                    await PopupMessage("已经是最后一张了哦", 68, 2000);
+                    PopupMessage(2000, "已经是最后一张了哦");
                 }
             }
             catch (Exception)
@@ -332,12 +332,17 @@ namespace Jandan.UWP.UI
             }            
         }
 
-        private async Task PopupMessage(string message, double textWidth, int disTime)
+        private async void PopupMessage(int ms, string msg)
         {
-            popupMsg.Text = message;
-            popTips.HorizontalOffset = -textWidth;
+            popText.Text = msg;
+            popText.Measure(new Windows.Foundation.Size(double.PositiveInfinity, double.PositiveInfinity));
+
+            double L = popTips.ActualWidth;
+            double l = popText.ActualWidth;
+            PopBorder.Margin = new Thickness((L - l) / 2, 0, 0, 0);
+
             popTips.IsOpen = true;
-            await Task.Delay(disTime);
+            await Task.Delay(ms);
             popTips.IsOpen = false;
         }
 
@@ -368,6 +373,7 @@ namespace Jandan.UWP.UI
 
                 _viewModel.IsFavourite = true;
                 // 收藏成功通知
+                PopupMessage(2000, "收藏成功！");
             }
             else // 已收藏，则取消收藏
             {
@@ -379,6 +385,7 @@ namespace Jandan.UWP.UI
 
                 _viewModel.IsFavourite = false;
                 // 取消收藏成功通知
+                PopupMessage(2000, "取消收藏成功！");
             }
         }
     }

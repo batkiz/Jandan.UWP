@@ -14,6 +14,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
+            <local:ImageConverter x:Key="imgCvt"/>
             <DataTemplate x:Key="BoringPicsDataStyle" x:DataType="model:BoringPic">
                 <Grid Margin="8,4">
                     <Grid.RowDefinitions>
@@ -28,7 +29,8 @@
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="0,0,0,4" >
                         <TextBlock Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" MaxHeight="40"/>
-                        <toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />
+                        <!--<toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />-->
+                        <toolkitcontrol:ImageEx Source="{x:Bind Thumb, Converter={StaticResource imgCvt}, Mode=OneWay}" />
                     </StackPanel>
                     <RelativePanel Grid.Row="2" Margin="0,5">
                         <Button Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click"/>
@@ -82,8 +84,8 @@
                 <Button.Flyout>
                     <Flyout>
                         <StackPanel>
-                            <ToggleSwitch Name="showNSFW" IsOn="{x:Bind Path=_viewModel.IsShowNSFW, Mode=TwoWay}" OffContent="隐藏" OnContent="显示">显示/隐藏NSFW图片</ToggleSwitch>
-                            <ToggleSwitch Name="showUnwelcome" IsOn="{x:Bind Path=_viewModel.IsShowUnwelcome, Mode=TwoWay}" OffContent="隐藏" OnContent="显示">显示/隐藏不受欢迎的图片</ToggleSwitch>
+                            <ToggleSwitch x:Name="showNSFW" IsOn="{x:Bind Path=_viewModel.IsShowNSFW, Mode=TwoWay}" OffContent="隐藏" OnContent="显示" Toggled="showNSFW_Toggled">显示/隐藏NSFW图片</ToggleSwitch>
+                            <ToggleSwitch x:Name="showUnwelcome" IsOn="{x:Bind Path=_viewModel.IsShowUnwelcome, Mode=TwoWay}" OffContent="隐藏" OnContent="显示" Toggled="showUnwelcome_Toggled">显示/隐藏不受欢迎的图片</ToggleSwitch>
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
@@ -110,7 +112,7 @@
                         </toolkitcontrol:AdaptiveGridView>
                     </pullcontrol:PullToRefreshBox>
                     <!--弹出消息，提示妹子图-->
-                    <Popup Grid.Row="1" x:Name="popTips" IsOpen="False" Margin="0,0,0,30" VerticalAlignment="Bottom" >   
+                    <Popup Grid.Row="1" x:Name="popTips" IsOpen="False" Margin="0,0,0,60" VerticalAlignment="Bottom" >   
                         <Border x:Name="PopBorder">
                             <Border.Background>
                                 <SolidColorBrush Color="Black" Opacity="0.8"/>

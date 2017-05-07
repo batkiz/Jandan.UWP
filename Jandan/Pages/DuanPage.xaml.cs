@@ -293,19 +293,13 @@ namespace Jandan.UWP.UI
         private async void PopupMessage(int ms, string msg)
         {
             popText.Text = msg;
+            popText.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
             double L = popTips.ActualWidth;
-            double l = popText.ActualWidth;
+            double l = popText.ActualWidth;           
             PopBorder.Margin = new Thickness((L - l) / 2, 0, 0, 0);
+
             popTips.IsOpen = true;
-            await Task.Delay(1);
-            popTips.IsOpen = false;
-
-            L = popTips.ActualWidth;
-            l = popText.ActualWidth;
-            PopBorder.Margin = new Thickness((L - l) / 2, 0, 0, 0);
-
-            popTips.IsOpen = true; 
             await Task.Delay(ms);
             popTips.IsOpen = false;
         }
@@ -317,7 +311,21 @@ namespace Jandan.UWP.UI
 
         private void RelativePanel_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            _viewModel.Update();
+            RefreshPage();
+        }
+
+        private void showUnwelcome_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (showUnwelcome.IsOn)
+            {
+                PopupMessage(2000, "显示不受欢迎的段子");
+            }
+            else
+            {
+                PopupMessage(2000, "隐藏不受欢迎的段子");
+            }
+
+            RefreshPage();
         }
     }
 }

@@ -124,6 +124,7 @@ namespace Jandan.UWP.UI
 
                 _viewModel.IsFavourite = true;
                 // 收藏成功通知
+                PopupMessage(2000, "收藏成功！");
             }
             else // 已收藏，则取消收藏
             {
@@ -135,7 +136,22 @@ namespace Jandan.UWP.UI
 
                 _viewModel.IsFavourite = false;
                 // 取消收藏成功通知
+                PopupMessage(2000, "取消收藏成功！");
             }
+        }
+
+        private async void PopupMessage(int ms, string msg)
+        {
+            popText.Text = msg;
+            popText.Measure(new Windows.Foundation.Size(double.PositiveInfinity, double.PositiveInfinity));
+
+            double L = popTips.ActualWidth;
+            double l = popText.ActualWidth;
+            PopBorder.Margin = new Thickness((L - l) / 2, 0, 0, 0);
+
+            popTips.IsOpen = true;
+            await Task.Delay(ms);
+            popTips.IsOpen = false;
         }
     }
 

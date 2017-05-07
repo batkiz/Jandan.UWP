@@ -160,13 +160,21 @@
             </StackPanel>
         </RelativePanel>
         <ContentControl x:Name="ContentPanel" Grid.Row="1" Content="{x:Bind _viewModel, Mode=OneWay}" ContentTemplate="{StaticResource PivotVisualPanel}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-        <Popup Grid.Row="1" Name="popTips" IsOpen="False" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"  HorizontalOffset="-65" VerticalOffset="-100">
+        <!--<Popup Grid.Row="1" Name="popTips" IsOpen="False" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"  HorizontalOffset="-65" VerticalOffset="-100">
             <Grid BorderThickness="5" Margin="0,0,0,0" HorizontalAlignment="Center">
                 <Grid.Background>
                     <SolidColorBrush Color="Black" Opacity="0.8"/>
                 </Grid.Background>
                 <TextBlock Name="popupMsg" Foreground="White" Text="已经是第一张了哦" HorizontalAlignment="Center" Margin="10,5"/>
             </Grid>
+        </Popup>-->
+        <Popup Grid.Row="1" x:Name="popTips" IsOpen="False" Margin="0,0,0,60" VerticalAlignment="Bottom" >
+            <Border x:Name="PopBorder">
+                <Border.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.8"/>
+                </Border.Background>
+                <TextBlock x:Name="popText" Foreground="White" Text="再按一次退出" Margin="10,5"/>
+            </Border>
         </Popup>
     </Grid>
 </Page>

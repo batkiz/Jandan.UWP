@@ -14,6 +14,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
+            <local:ImageConverter x:Key="imgCvt"/>
             <DataTemplate x:Key="MeiziPicsDataStyle" x:DataType="model:BoringPic">
                 <Grid Margin="8,4">
                     <Grid.RowDefinitions>
@@ -28,7 +29,7 @@
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="0,0,0,4">
                         <TextBlock Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
-                        <toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />
+                        <toolkitcontrol:ImageEx Source="{x:Bind Thumb, Converter={StaticResource imgCvt}, Mode=OneWay}" />
                     </StackPanel>
                     <RelativePanel Grid.Row="2" Margin="0,5">
                         <Button Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click"/>
@@ -97,14 +98,13 @@
                             </toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
                         </toolkitcontrol:AdaptiveGridView>
                     </pullcontrol:PullToRefreshBox>
-                    <!--弹出消息，提示妹子图-->
-                    <Popup Name="popTipsMeizi" IsOpen="False" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" HorizontalOffset="-75" VerticalOffset="-100">
-                        <Grid BorderThickness="5" Margin="0,0,0,0" HorizontalAlignment="Center">
-                            <Grid.Background>
+                    <Popup Grid.Row="1" x:Name="popTips" IsOpen="False" Margin="0,0,0,60" VerticalAlignment="Bottom" >
+                        <Border x:Name="PopBorder">
+                            <Border.Background>
                                 <SolidColorBrush Color="Black" Opacity="0.8"/>
-                            </Grid.Background>
-                            <TextBlock Name="textBlockMeiziCount"  Foreground="White" Text="还差x次进入妹子图" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,5" />
-                        </Grid>
+                            </Border.Background>
+                            <TextBlock x:Name="popText" Foreground="White" Text="再按一次退出" Margin="10,5"/>
+                        </Border>
                     </Popup>
                 </Grid>
             </SplitView.Content>

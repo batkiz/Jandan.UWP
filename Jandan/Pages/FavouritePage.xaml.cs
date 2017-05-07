@@ -115,7 +115,7 @@ namespace Jandan.UWP.UI
             dataPackage.SetText(copied_content);
             Clipboard.SetContent(dataPackage);
 
-            //await PopupMessage("复制成功！", 40, 2000);
+            PopupMessage(2000, "复制成功");
         }
 
         private void pullToRefreshBar_RefreshInvoked(DependencyObject sender, object args)
@@ -138,6 +138,7 @@ namespace Jandan.UWP.UI
                 await FileHelper.Current.WriteXmlObjectAsync<List<Duan>>(duan_list, "duan.xml");
 
                 m.Content = "收藏";
+                PopupMessage(2000, "取消收藏成功");
             }
             else
             {
@@ -149,6 +150,7 @@ namespace Jandan.UWP.UI
                 await FileHelper.Current.WriteXmlObjectAsync<List<Duan>>(duan_list, "duan.xml");
 
                 m.Content = "取消收藏";
+                PopupMessage(2000, "再次收藏成功");
             }
         }
         
@@ -167,6 +169,7 @@ namespace Jandan.UWP.UI
                 await FileHelper.Current.WriteXmlObjectAsync<List<BoringPic>>(boring_list, "boring.xml");
 
                 m.Content = "收藏";
+                PopupMessage(2000, "取消收藏成功");
             }
             else
             {
@@ -178,6 +181,7 @@ namespace Jandan.UWP.UI
                 await FileHelper.Current.WriteXmlObjectAsync<List<BoringPic>>(boring_list, "boring.xml");
 
                 m.Content = "取消收藏";
+                PopupMessage(2000, "再次收藏成功");
             }
         }
 
@@ -196,6 +200,7 @@ namespace Jandan.UWP.UI
                 await FileHelper.Current.WriteXmlObjectAsync<List<BoringPic>>(boring_list, "girl.xml");
 
                 m.Content = "收藏";
+                PopupMessage(2000, "取消收藏成功");
             }
             else
             {
@@ -207,6 +212,7 @@ namespace Jandan.UWP.UI
                 await FileHelper.Current.WriteXmlObjectAsync<List<BoringPic>>(boring_list, "girl.xml");
 
                 m.Content = "取消收藏";
+                PopupMessage(2000, "再次收藏成功");
             }
         }
 
@@ -222,6 +228,20 @@ namespace Jandan.UWP.UI
             var boring_list = await FileHelper.Current.ReadXmlObjectAsync<List<BoringPic>>("girl.xml");
             ObservableCollection<BoringPic> imageList = new ObservableCollection<BoringPic>(boring_list);
             this.Frame.Navigate(typeof(ImageViewer), new object[] { e.ClickedItem as BoringPic, PicDetailType.Meizi, imageList });
+        }
+
+        private async void PopupMessage(int ms, string msg)
+        {
+            popText.Text = msg;
+            popText.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
+            double L = popTips.ActualWidth;
+            double l = popText.ActualWidth;
+            PopBorder.Margin = new Thickness((L - l) / 2, 0, 0, 0);
+
+            popTips.IsOpen = true;
+            await System.Threading.Tasks.Task.Delay(ms);
+            popTips.IsOpen = false;
         }
     }
 }

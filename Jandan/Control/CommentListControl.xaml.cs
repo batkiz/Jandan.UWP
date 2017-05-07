@@ -161,13 +161,14 @@ namespace Jandan.UWP.Control
         private async void PopupMessage(int ms, string msg)
         {
             popText.Text = msg;
+            popText.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
             double L = popTips.ActualWidth;
             double l = popText.ActualWidth;
             PopBorder.Margin = new Thickness((L - l) / 2, 0, 0, 0);
 
-            popTips.IsOpen = true;   // 提示再按一次
-            await Task.Delay(ms);  // 1000ms后关闭提示
+            popTips.IsOpen = true;
+            await Task.Delay(ms);
             popTips.IsOpen = false;
         }
     }

@@ -195,6 +195,14 @@
                             </Grid>
                         </PivotItem>
                     </Pivot>
+                    <Popup Grid.Row="1" x:Name="popTips" IsOpen="False" Margin="0,0,0,60" VerticalAlignment="Bottom" >
+                        <Border x:Name="PopBorder">
+                            <Border.Background>
+                                <SolidColorBrush Color="Black" Opacity="0.8"/>
+                            </Border.Background>
+                            <TextBlock x:Name="popText" Foreground="White" Text="再按一次退出" Margin="10,5"/>
+                        </Border>
+                    </Popup>
                 </Grid>
             </SplitView.Content>
         </SplitView>
