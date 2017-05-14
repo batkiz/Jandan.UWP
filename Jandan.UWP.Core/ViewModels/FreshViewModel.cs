@@ -80,7 +80,7 @@ namespace Jandan.UWP.Core.ViewModels
             FreshIncrementalLoadingCollection c = new FreshIncrementalLoadingCollection();
             list?.ForEach((t) =>
             {
-                if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
+                if (DataShareManager.Current.IsNoImageMode && ConnectivityHelper.isMeteredConnection)
                 {
                     t.Thumb_c = "ms-appx:///Assets/No_Image_150.png";
                 }
@@ -103,7 +103,7 @@ namespace Jandan.UWP.Core.ViewModels
 
             list?.ForEach((t) =>
             {
-                if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
+                if (DataShareManager.Current.IsNoImageMode && ConnectivityHelper.isMeteredConnection)
                 {
                     t.Thumb_c = "ms-appx:///Assets/No_Image_150.png";
                 }

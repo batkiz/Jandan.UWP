@@ -4,6 +4,7 @@ using Jandan.UWP.Core.Models;
 using Jandan.UWP.Core.Tools;
 using Jandan.UWP.Core.ViewModels;
 using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -45,8 +46,45 @@ namespace Jandan.UWP.UI
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;            
         }
 
-        private void ShareButton_Click(object sender, RoutedEventArgs e)
+        string si;
+        private async void ShareButton_Click(object sender, RoutedEventArgs e)
         {
+            var pics = _viewModel.BoringPicture;
+            si = "";
+
+            if (pics.Urls.Count > 1)
+            {
+                ListView lv = new ListView();
+                lv.ItemsSource = pics.Urls;
+                lv.IsItemClickEnabled = true;
+                lv.ItemClick += (_s, _e) => 
+                {
+                    var s = _e.ClickedItem as ImageItem;
+                    si = s.URL;
+                };
+
+                var dialog = new ContentDialog()
+                {
+                    Title = "请选择要分享的图片",
+                    Content = lv,
+                    PrimaryButtonText = "确定",
+                    FullSizeDesired = false,
+                    RequestedTheme = DataShareManager.Current.AppTheme
+                };
+
+                dialog.PrimaryButtonClick += (_s, _e) => { };
+                await dialog.ShowAsync();
+            }
+            else
+            {
+                si = pics.Urls[0].URL;
+            }
+
+            if (string.IsNullOrEmpty(si))
+            {
+                return;
+            }
+
             Windows.ApplicationModel.DataTransfer.DataTransferManager.ShowShareUI();
         }
 
@@ -55,15 +93,16 @@ namespace Jandan.UWP.UI
             DataRequest request = args.Request;
             request.Data.Properties.Title = "煎蛋网 - 无聊图";
             request.Data.Properties.Description = $"来自煎蛋网分享的无聊图，ID{CurrentItem.PicID}";
-            request.Data.SetText($"来自煎蛋网的分享：{CurrentItem.Content}");
+            var msg = string.IsNullOrEmpty(CurrentItem.Content) ? $"ID{CurrentItem.PicID}" : CurrentItem.Content;
+            request.Data.SetText($"来自煎蛋网的分享：{msg}");
 
-            var pics = _viewModel.BoringPicture;
-            var url = pics.Urls[0];
+            //var pics = _viewModel.BoringPicture;
+            //var url = pics.Urls[0];
             
             //To ensure image is cached
-            var bitmapimage = await ImageCache.Instance.GetFromCacheAsync(new Uri(url.URL));
+            var bitmapimage = await ImageCache.Instance.GetFromCacheAsync(new Uri(si));
             //Get the name of the file
-            var name = CreateHash64(url.URL).ToString();
+            var name = CreateHash64(si).ToString();
             //Get the ImageCache Folder
             var folder = await ApplicationData.Current.TemporaryFolder.GetFolderAsync("ImageCache");
             //Get the StorageFile
@@ -387,6 +426,16 @@ namespace Jandan.UWP.UI
                 // 取消收藏成功通知
                 PopupMessage(2000, "取消收藏成功！");
             }
+        }
+        
+        private void PicListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var c = e.ClickedItem as ImageItem;
+
+            PopupImageViewerControl pivc = new PopupImageViewerControl();
+
+            var msg = $"发布者：{CurrentItem.Author}  ID：{CurrentItem.PicID}";
+            pivc.Show(c.URL, msg);
         }
     }
     

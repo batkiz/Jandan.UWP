@@ -62,7 +62,7 @@ namespace Jandan.UWP.Core.ViewModels
             MeiziIncrementalLoadingCollection c = new MeiziIncrementalLoadingCollection();
             list?.ForEach((t) =>
             {
-                if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
+                if (DataShareManager.Current.IsNoImageMode && ConnectivityHelper.isMeteredConnection)
                 {
                     t.Urls = t.Thumb;
                 }
@@ -83,7 +83,7 @@ namespace Jandan.UWP.Core.ViewModels
             MeiziIncrementalLoadingCollection c = new MeiziIncrementalLoadingCollection();
             list?.ForEach((t) =>
             {
-                if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
+                if (DataShareManager.Current.IsNoImageMode && ConnectivityHelper.isMeteredConnection)
                 {
                     t.Urls = t.Thumb;
                 }

@@ -52,7 +52,7 @@
                             <TextBlock Grid.Row="0" Text="{x:Bind PicID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" Padding="8" VerticalAlignment="Center" TextAlignment="Right"/>
                             <TextBlock Grid.Row="0" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" Padding="8" VerticalAlignment="Center" TextAlignment="Left"/>
                             <TextBlock Grid.Row="1" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" Padding="8" VerticalAlignment="Center"/>
-                            <ListView Grid.Row="2" x:Name="PicListView" ItemsSource="{x:Bind Urls, Mode=OneWay}" ItemContainerStyle="{StaticResource CommentListViewImageStyle}" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False" HorizontalAlignment="Center" IsHitTestVisible="False">
+                            <ListView Grid.Row="2" x:Name="PicListView" ItemsSource="{x:Bind Urls, Mode=OneWay}" ItemContainerStyle="{StaticResource CommentListViewImageStyle}" IsItemClickEnabled="True" IsMultiSelectCheckBoxEnabled="False" HorizontalAlignment="Center" ItemClick="PicListView_ItemClick" SelectionMode="None">
                                 <ListView.ItemTemplate>
                                     <DataTemplate  x:DataType="model:ImageItem">
                                         <Grid Margin="8,4" HorizontalAlignment="Center">

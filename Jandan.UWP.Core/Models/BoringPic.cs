@@ -168,16 +168,31 @@ namespace Jandan.UWP.Core.Models
         {
             scr_list = new List<ImageItem>();
             thumb_list = new List<ImageItem>();
+            
+            //if (Regex.IsMatch(JSONString, @"<img src=\""//(.+?)\"""))//"<img src=\\\"//(.+?)\\\""
+            //{
+            //    var url = Regex.Match(JSONString, @"<img src=\""//(.+?)\""");
+            //    var scr = $"http://{url.Groups[1].Value}";
+            //    ImageItem thumbUrl = new ImageItem(scr);//thumb180
+            //    ImageItem imageUrl = new ImageItem(Regex.Replace(scr, @"(sinaimg\.cn/.+?/)", "sinaimg.cn/large/"));
+
+            //    scr_list.Add(imageUrl);
+            //    thumb_list.Add(thumbUrl);
+            //}
 
             if (Regex.IsMatch(JSONString, @"<img src=\""//(.+?)\"""))//"<img src=\\\"//(.+?)\\\""
             {
-                var url = Regex.Match(JSONString, @"<img src=\""//(.+?)\""");
-                var scr = $"http://{url.Groups[1].Value}";
-                ImageItem thumbUrl = new ImageItem(scr);//thumb180
-                ImageItem imageUrl = new ImageItem(Regex.Replace(scr, @"(sinaimg\.cn/.+?/)", "sinaimg.cn/large/"));
+                var urls = Regex.Matches(JSONString, @"<img src=\""//(.+?)\""");
 
-                scr_list.Add(imageUrl);
-                thumb_list.Add(thumbUrl);
+                foreach (Match item in urls)
+                {
+                    var scr = $"http://{item.Groups[1].Value}";
+                    ImageItem thumbUrl = new ImageItem(scr);//thumb180
+                    ImageItem imageUrl = new ImageItem(Regex.Replace(scr, @"(sinaimg\.cn/.+?/)", "sinaimg.cn/large/"));
+
+                    scr_list.Add(imageUrl);
+                    thumb_list.Add(thumbUrl);
+                }                
             }
         }
     }

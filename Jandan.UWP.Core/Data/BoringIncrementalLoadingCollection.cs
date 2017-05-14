@@ -70,7 +70,7 @@ namespace Jandan.UWP.Core.Data
                     //{
                     //    t.Readed = true;
                     //}
-                    if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
+                    if (DataShareManager.Current.IsNoImageMode && ConnectivityHelper.isMeteredConnection)
                     {
                         t.Urls = t.Thumb;
                     }

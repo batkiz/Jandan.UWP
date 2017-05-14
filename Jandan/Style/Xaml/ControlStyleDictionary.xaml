@@ -43,10 +43,10 @@
     </Style>
 
     <Style x:Key="TitlePivotHeaderStyle" TargetType="PivotHeaderItem">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource SecHeaderFontSize}, Mode=TwoWay}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource SecHeaderFontSize}, Mode=OneWay}"/>
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
-    
+
     <!--页面中部内容呈现相关资源-->
     <Style x:Key="ContentPanelListViewStyle" TargetType="ListView">
         <Setter Property="SelectionMode" Value="None"/>
@@ -67,27 +67,27 @@
         <Setter Property="Padding" Value="10,10,10,10"/>
     </Style>    
     <Style x:Key="ItemAuthorTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontSize}, Mode=TwoWay}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontSize}, Mode=OneWay}"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
     <Style x:Key="ItemIDTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontSize}, Mode=TwoWay}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontSize}, Mode=OneWay}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="ItemDateTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontSize}, Mode=TwoWay}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontSize}, Mode=OneWay}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="ItemContentTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentFontSize}, Mode=TwoWay}"/>
+        <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource ContentFontSize}, Mode=OneWay}"/>-->
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Margin" Value="0,8,0,0"/>
     </Style>
     <Style x:Key="RateBarButtonStyle" TargetType="Button">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource RateBarFontSize}, Mode=TwoWay}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource RateBarFontSize}, Mode=OneWay}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Width" Value="35"/>
@@ -103,7 +103,7 @@
         </Setter>
     </Style>
     <Style x:Key="RateBarTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource RateBarFontSize}, Mode=TwoWay}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource RateBarFontSize}, Mode=OneWay}"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Foreground" Value="Gray"/>
@@ -136,7 +136,7 @@
 
     <!--关于页面相关资源-->
     <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource TopHeaderFontSize}, Mode=TwoWay}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource TopHeaderFontSize}, Mode=OneWay}"/>
         <Setter Property="Padding" Value="0,4,0,2"/>
     </Style>
     <Style x:Key="ContentTextBlockStyle" TargetType="TextBlock">
@@ -153,7 +153,7 @@
     </Style>
     <Style x:Key="CommentListTitleTextStyle" TargetType="TextBlock">
         <Setter Property="Text" Value="评论列表" />
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource SecHeaderFontSize}, Mode=TwoWay}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource SecHeaderFontSize}, Mode=OneWay}"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Padding" Value="20,0,0,0"/>
     </Style>
@@ -162,18 +162,18 @@
         <Setter Property="FontWeight" Value="SemiBold"/>
     </Style>
     <Style x:Key="CommentLevelTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontSize}, Mode=TwoWay}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontSize}, Mode=OneWay}"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="CommentDateTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontSize}, Mode=TwoWay}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontSize}, Mode=OneWay}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="CommentContentTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentFontSize}, Mode=TwoWay}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentFontSize}, Mode=OneWay}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Margin" Value="0,0,0,2"/>
         <Setter Property="Padding" Value="0,0,0,2"/>

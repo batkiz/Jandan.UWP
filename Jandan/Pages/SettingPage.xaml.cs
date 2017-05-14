@@ -37,12 +37,12 @@ namespace Jandan.UWP.UI
         {
             this.InitializeComponent();
 
-            if (DataShareManager.Current.isCortanaRegistered)
+            if (DataShareManager.Current.IsCortanaRegistered)
             {
                 btnRegCortana.Content = "已注册";
                 btnRegCortana.IsEnabled = false;
             }
-            if (DataShareManager.Current.isLiveTileRegistered)
+            if (DataShareManager.Current.IsLiveTileRegistered)
             {
                 btnRegLiveTile.Content = "已注册";
                 btnRegLiveTile.IsEnabled = false;
@@ -341,6 +341,13 @@ namespace Jandan.UWP.UI
 
             //await _viewModel.GetAuthAsync(s.Text);
             //_viewModel.Update();
+        }
+
+        private void sliderFont_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            double d = (double)Application.Current.Resources["ContentFontSize"];
+
+            Application.Current.Resources["ContentFontSize"] = e.NewValue;
         }
     }
 }

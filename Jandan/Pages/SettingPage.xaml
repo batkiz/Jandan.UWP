@@ -101,7 +101,8 @@
                 <StackPanel Grid.Row="3" Padding="10">
                     <RelativePanel>
                         <TextBlock Text="字号调节(未实现)" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
-                        <Slider x:Name="sliderFont" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Minimum="8" Maximum="20" SmallChange="1" StepFrequency="1" LargeChange="4" Value="{Binding Mode=TwoWay, Source={StaticResource ContentFontSize}}" Width="100" Margin="0,0,20,0" />
+                        <!--<Slider x:Name="sliderFont" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Minimum="8" Maximum="20" SmallChange="1" StepFrequency="1" LargeChange="4" Value="{Binding Mode=TwoWay, Source={StaticResource ContentFontSize}}" Width="100" Margin="0,0,20,0" ValueChanged="sliderFont_ValueChanged" />-->
+                        <Slider x:Name="sliderFont" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Minimum="8" Maximum="20" SmallChange="1" StepFrequency="1" LargeChange="4" Value="{Binding Source={StaticResource ContentFontSize}, Mode=OneWay}" Width="100" Margin="0,0,20,0" ValueChanged="sliderFont_ValueChanged"></Slider> 
                     </RelativePanel>
                 </StackPanel>
                 <StackPanel Grid.Row="5" Padding="10">

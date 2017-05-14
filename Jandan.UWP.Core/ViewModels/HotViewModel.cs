@@ -73,7 +73,7 @@ namespace Jandan.UWP.Core.ViewModels
             ObservableCollection<BoringPic> d = new ObservableCollection<BoringPic>();
             pics?.ForEach((t) =>
             {
-                if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
+                if (DataShareManager.Current.IsNoImageMode && ConnectivityHelper.isMeteredConnection)
                 {
                     t.Urls = t.Thumb;
                 }
@@ -166,7 +166,7 @@ namespace Jandan.UWP.Core.ViewModels
             ObservableCollection<BoringPic> c = new ObservableCollection<BoringPic>();
             list?.ForEach((t) =>
             {
-                if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
+                if (DataShareManager.Current.IsNoImageMode && ConnectivityHelper.isMeteredConnection)
                 {
                     t.Urls = t.Thumb;
                 }

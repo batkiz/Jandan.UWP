@@ -1,4 +1,5 @@
 ﻿using Jandan.UWP.Core.Models;
+using Jandan.UWP.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,32 @@ using Windows.UI.Xaml.Data;
 
 namespace Jandan.UWP.UI
 {
+    public class FontSizeToValueConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            var v = (PageFontSize)value;
+
+            switch (v)
+            {
+                case PageFontSize.Small:
+                    return (double)8;
+                    
+                default:
+                case PageFontSize.Normal:
+                    return (double)16;
+                    
+                case PageFontSize.Large:
+                    return (double)20;                    
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class ImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)

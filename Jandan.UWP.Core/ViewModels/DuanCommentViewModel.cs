@@ -81,7 +81,7 @@ namespace Jandan.UWP.Core.ViewModels
             {
                 list?.ForEach((t) =>
                 {
-                    if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
+                    if (DataShareManager.Current.IsNoImageMode && ConnectivityHelper.isMeteredConnection)
                     {
                         t.AuthorAvatarUri = new Uri("ms-appx:///Icons/jandan-400.png");
                     }

@@ -12,7 +12,11 @@
     NavigationCacheMode="Enabled" Loaded="Page_Loaded">
     
     <Page.Resources>
-        <ResourceDictionary>            
+        <ResourceDictionary>
+            <local:FontSizeToValueConverter x:Key="ftvCvt"></local:FontSizeToValueConverter>
+            <Style x:Key="DuanItemContentTextStyle" BasedOn="{StaticResource ItemContentTextStyle}" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
             <DataTemplate x:Key="DuanDataStyle" x:DataType="model:Duan">
                 <Grid Margin="0" Padding="5" Holding="Grid_Holding" RightTapped="Grid_RightTapped">
                     <FlyoutBase.AttachedFlyout>

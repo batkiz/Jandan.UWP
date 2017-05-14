@@ -76,7 +76,7 @@ namespace Jandan.UWP.Core.Data
                     //{
                     //    t.Readed = true;
                     //}
-                    if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
+                    if (DataShareManager.Current.IsNoImageMode && ConnectivityHelper.isMeteredConnection)
                     {
                         t.Thumb_c = "ms-appx:///Assets/No_Image_150.png";
                     }

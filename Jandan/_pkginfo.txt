@@ -1,1 +1,1 @@
-D:\Projects\Visual Studio\_APP\Jandan.UWP\Jandan\bin\ARM\Release\Upload\Jandan.UWP.UI_2.6.3.0\Jandan.UWP.UI_2.6.3.0_x86_x64_arm.appxbundle
+D:\Projects\Visual Studio\_APP\Jandan.UWP\Jandan\bin\ARM\Release\Upload\Jandan.UWP.UI_2.6.5.0\Jandan.UWP.UI_2.6.5.0_x86_x64_arm.appxbundle

@@ -21,6 +21,7 @@ namespace Jandan.UWP.Core.ViewModels
         SettingPage = 9,
         FavouritePage = 10
     };
+    public enum PageFontSize { Small = 1, Normal = 2, Large = 3};
 
     public sealed class DataShareManager
     {
@@ -58,6 +59,9 @@ namespace Jandan.UWP.Core.ViewModels
             }
         }
 
+        // 字号大小
+        public PageFontSize FontSizes = PageFontSize.Normal;
+
         // 微博Token
         public string AccessToken { get; private set; }
         public string ThirdPartyUserName { get; private set; }
@@ -68,7 +72,7 @@ namespace Jandan.UWP.Core.ViewModels
 
        
         // 是否省流模式
-        public bool isNoImageMode { get; private set; }
+        public bool IsNoImageMode { get; private set; }
 
         // 是否自动切换夜间模式
         public bool isAutoDarkMode { get; private set; }
@@ -89,8 +93,8 @@ namespace Jandan.UWP.Core.ViewModels
         // 评论邮箱
         public string EmailAdd { get; set; }
 
-        public bool isCortanaRegistered { get; private set; }
-        public bool isLiveTileRegistered { get; private set; }
+        public bool IsCortanaRegistered { get; private set; }
+        public bool IsLiveTileRegistered { get; private set; }
 
         // 本地存储的版本号,用于和关于信息中的版本号进行比较,如果不一致,则显示这一版本的更新内容
         public string StoredVersionNumber { get; private set; }
@@ -150,7 +154,8 @@ namespace Jandan.UWP.Core.ViewModels
                 XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
 
                 XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                toastTextElements[0].AppendChild(toastXml.CreateTextNode("新版本支持本地收藏功能了~欢迎试用~"));
+                var msg = "更新日志：\n1. 修复从热榜进入图片详情时只显示第一张的问题\n2.分享图片时可选择分享哪一张\n3.图片详情界面点击图片可以查看大图，支持滚轮和手势缩放\n4.提示消息优化";
+                toastTextElements[0].AppendChild(toastXml.CreateTextNode(msg));
 
                 XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                 ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/Square150x150Logo.scale-200.png");
@@ -219,11 +224,11 @@ namespace Jandan.UWP.Core.ViewModels
             }
             if (roamingSettings.Values.ContainsKey("NO_IMAGE_MODE"))
             {
-                isNoImageMode = int.Parse(roamingSettings.Values["NO_IMAGE_MODE"].ToString()) == 0 ? true : false;
+                IsNoImageMode = int.Parse(roamingSettings.Values["NO_IMAGE_MODE"].ToString()) == 0 ? true : false;
             }
             else
             {
-                isNoImageMode = false;
+                IsNoImageMode = false;
             }
 
             if (roamingSettings.Values.ContainsKey("AUTO_DARK_MODE"))
@@ -331,21 +336,21 @@ namespace Jandan.UWP.Core.ViewModels
             // CORTANA = 0 Not Registered | CORTANA = 1 Registered
             if (localSettings.Values.ContainsKey("CORTANA"))
             {
-                isCortanaRegistered = int.Parse(localSettings.Values["CORTANA"].ToString()) == 0 ? false : true;
+                IsCortanaRegistered = int.Parse(localSettings.Values["CORTANA"].ToString()) == 0 ? false : true;
             }
             else
             {
-                isCortanaRegistered = false;
+                IsCortanaRegistered = false;
             }
 
             // LIVETILE = 0 Not Registered | LIVETILE = 1 Registered
             if (localSettings.Values.ContainsKey("LIVETILE"))
             {
-                isLiveTileRegistered = int.Parse(localSettings.Values["LIVETILE"].ToString()) == 0 ? false : true;
+                IsLiveTileRegistered = int.Parse(localSettings.Values["LIVETILE"].ToString()) == 0 ? false : true;
             }
             else
             {
-                isLiveTileRegistered = false;
+                IsLiveTileRegistered = false;
             }
         }
 
@@ -356,9 +361,9 @@ namespace Jandan.UWP.Core.ViewModels
 
         internal void UpdateNoImage(bool isNoImg)
         {
-            isNoImageMode = isNoImg;
+            IsNoImageMode = isNoImg;
             var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-            roamingSettings.Values["NO_IMAGE_MODE"] = isNoImageMode ? 0 : 1;
+            roamingSettings.Values["NO_IMAGE_MODE"] = IsNoImageMode ? 0 : 1;
             OnShareDataChanged();
         }
 
@@ -471,7 +476,7 @@ namespace Jandan.UWP.Core.ViewModels
 
         public void EnableCortana()
         {
-            isCortanaRegistered = true;
+            IsCortanaRegistered = true;
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             localSettings.Values["CORTANA"] = 1;
             OnShareDataChanged();
@@ -479,7 +484,7 @@ namespace Jandan.UWP.Core.ViewModels
 
         public void EnableLiveTile()
         {
-            isLiveTileRegistered = true;
+            IsLiveTileRegistered = true;
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             localSettings.Values["LIVETILE"] = 1;
             OnShareDataChanged();

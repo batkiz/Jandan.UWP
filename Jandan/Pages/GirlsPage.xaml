@@ -29,7 +29,7 @@
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="0,0,0,4">
                         <TextBlock Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
-                        <toolkitcontrol:ImageEx Source="{x:Bind Thumb, Converter={StaticResource imgCvt}, Mode=OneWay}" />
+                        <toolkitcontrol:ImageEx MinHeight="240" Source="{x:Bind Thumb, Converter={StaticResource imgCvt}, Mode=OneWay}" />
                     </StackPanel>
                     <RelativePanel Grid.Row="2" Margin="0,5">
                         <Button Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click"/>

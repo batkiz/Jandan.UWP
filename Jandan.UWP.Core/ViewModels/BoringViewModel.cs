@@ -89,7 +89,7 @@ namespace Jandan.UWP.Core.ViewModels
             BoringIncrementalLoadingCollection c = new BoringIncrementalLoadingCollection();
             boring?.ForEach((t) =>
             {
-                if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
+                if (DataShareManager.Current.IsNoImageMode && ConnectivityHelper.isMeteredConnection)
                 {
                     t.Urls = t.Thumb;
                 }
@@ -118,7 +118,7 @@ namespace Jandan.UWP.Core.ViewModels
                 var comment = t.Content.Replace("\n", "").Replace("\r", "");
                 t.Content = comment;
 
-                if (DataShareManager.Current.isNoImageMode && ConnectivityHelper.isMeteredConnection)
+                if (DataShareManager.Current.IsNoImageMode && ConnectivityHelper.isMeteredConnection)
                 {
                     t.Urls = t.Thumb;
                 }

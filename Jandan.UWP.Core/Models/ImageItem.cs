@@ -18,6 +18,11 @@ namespace Jandan.UWP.Core.Models
         public ImageItem(string url)
         {
             URL = url;
-        }        
+        }
+
+        public override string ToString()
+        {
+            return URL;
+        }
     }
 }

@@ -83,7 +83,7 @@ namespace Jandan.UWP.Core.ViewModels
         {
             IsDarkMode = DataShareManager.Current.AppTheme == Windows.UI.Xaml.ElementTheme.Dark ? true : false;
 
-            IsNoImageMode = DataShareManager.Current.isNoImageMode ? true : false;
+            IsNoImageMode = DataShareManager.Current.IsNoImageMode ? true : false;
 
             IsAutoDarkMode = DataShareManager.Current.isAutoDarkMode ? true : false;
             StartTime = DataShareManager.Current.StartTime;
@@ -99,7 +99,7 @@ namespace Jandan.UWP.Core.ViewModels
         {
             IsDarkMode = DataShareManager.Current.AppTheme == Windows.UI.Xaml.ElementTheme.Dark ? true : false;
 
-            IsNoImageMode = DataShareManager.Current.isNoImageMode ? true : false;
+            IsNoImageMode = DataShareManager.Current.IsNoImageMode ? true : false;
 
             IsAutoDarkMode = DataShareManager.Current.isAutoDarkMode ? true : false;
             StartTime = DataShareManager.Current.StartTime;
