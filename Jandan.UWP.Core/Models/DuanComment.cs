@@ -34,6 +34,9 @@ namespace Jandan.UWP.Core.Models
         [DataMember]
         public bool IsHot { get; set; } = false;
         [DataMember]
+        public int VipUser { get; set; } = 0; //00-普通游客 10 IsJandanUser-小编蓝名 01 IsTipUser-打赏橙名
+        
+        [DataMember]
         public string OrderNumber { get; set; }
     }
 

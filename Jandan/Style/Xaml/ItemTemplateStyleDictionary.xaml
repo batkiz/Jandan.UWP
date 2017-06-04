@@ -6,6 +6,8 @@
     xmlns:viewmodel="using:Jandan.UWP.Core.ViewModels"
     xmlns:control="using:Microsoft.Toolkit.Uwp.UI.Controls">
 
+    <local:IntToColorConverter x:Key="IntToColorCvt"></local:IntToColorConverter>
+
     <DataTemplate x:Key="CommentListDateTemplateStyle">
         <Grid BorderThickness="0" BorderBrush="{x:Null}">
             <Grid.ColumnDefinitions>
@@ -16,14 +18,16 @@
                 <Image MinWidth="50" Source="{Binding AuthorAvatarUri}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4" MaxWidth="58"></Image>
             </RelativePanel>
             <RelativePanel Grid.Column="1">
-                <TextBlock Name="DuanCommentAuthor" Text="{Binding AuthorName}" Style="{StaticResource CommentAuthorTextStyle}"></TextBlock>
-                <TextBlock Name="DuanCommentDate" Text="{Binding PostDate}" RelativePanel.Below="DuanCommentAuthor" Style="{StaticResource CommentDateTextStyle}"></TextBlock>
-                <TextBlock Name="DuanCommentFloorLevel" RelativePanel.RightOf="DuanCommentAuthor" RelativePanel.AlignRightWithPanel="True" HorizontalAlignment="Right" Text="{Binding OrderNumber}" Style="{StaticResource CommentLevelTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanCommentAuthor" Foreground="{Binding VipUser, Mode=OneWay, Converter={StaticResource IntToColorCvt}}" Text="{Binding AuthorName}" Style="{StaticResource CommentAuthorTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanCommentDate" Text="{Binding PostDate}" RelativePanel.Below="DuanCommentAuthor" Style="{StaticResource CommentDateTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanCommentFloorLevel" RelativePanel.RightOf="DuanCommentAuthor" RelativePanel.AlignRightWithPanel="True" HorizontalAlignment="Right" Text="{Binding OrderNumber}" Style="{StaticResource CommentLevelTextStyle}"></TextBlock>
 
-                <TextBlock Name="DuanCommentContent" Text="{Binding Message}" RelativePanel.Below="DuanCommentDate" Style="{StaticResource CommentContentTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanCommentContent" Text="{Binding Message}" RelativePanel.Below="DuanCommentDate" Style="{StaticResource CommentContentTextStyle}"></TextBlock>
 
-                <TextBlock Name="DuanVotePositiveIcon" Text="{StaticResource CommentRateBarOO}" RelativePanel.Below="DuanCommentContent" MaxWidth="25" MinWidth="25" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
-                <TextBlock Name="DuanVotePositive" Text="{Binding Like}" RelativePanel.Below="DuanCommentContent" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanVotePositiveIcon" Text="{StaticResource CommentRateBarOO}" RelativePanel.Below="DuanCommentContent" MaxWidth="25" MinWidth="25" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanVotePositive" Text="{Binding Like}" RelativePanel.Below="DuanCommentContent" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanVoteNegativeIcon" Text="{StaticResource CommentRateBarXX}" RelativePanel.Below="DuanCommentContent" RelativePanel.RightOf="DuanVotePositive" MaxWidth="25" MinWidth="25" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanVoteNegative" Text="{Binding Dislike}" RelativePanel.Below="DuanCommentContent" RelativePanel.RightOf="DuanVoteNegativeIcon" MaxWidth="25" MinWidth="25" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
             </RelativePanel>
         </Grid>
     </DataTemplate>

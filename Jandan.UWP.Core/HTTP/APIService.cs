@@ -657,70 +657,55 @@ namespace Jandan.UWP.Core.HTTP
                         var postList = json["tucao"].GetArray();
                         if (postList != null && postList.GetArray().Count != 0)
                         {
-                            ////*****************************************************
-                            var thread = json["thread"].GetObject();
-                            var thread_key = thread["thread_key"].GetString();
-                            ////*****************************************************
-
-                            var parentPosts = json["parentPosts"].GetObject();
                             var floorLevel = 1;
-
 
                             foreach (var j in postList)
                             {
-                                string postID = j.GetString();
-
                                 try
                                 {
-                                    var postItem = parentPosts.GetNamedObject(postID);
-                                    // 获取评论用户图像URL
-                                    string authorURL;
-                                    try
-                                    {
-                                        var jsonAuthor = postItem["author"].GetObject();
-                                        authorURL = jsonAuthor["avatar_url"].ValueType == JsonValueType.String ? jsonAuthor.GetNamedString("avatar_url") : "null";
-                                    }
-                                    catch (Exception)
-                                    {
-                                        authorURL = "null";
-                                    }
+                                    string comment_id = (j.GetObject())["comment_ID"].GetString();
+                                    string comment_post_id = (j.GetObject())["comment_post_ID"].GetString();
+                                    string comment_author = (j.GetObject())["comment_author"].GetString();
+                                    string comment_date = (j.GetObject())["comment_date"].GetString();
+                                    string comment_content = (j.GetObject())["comment_content"].GetString();
+                                    string comment_parent = (j.GetObject())["comment_parent"].GetString();
+                                    string comment_reply_ID = (j.GetObject())["comment_reply_ID"].GetString();
+                                    string vote_positive = (j.GetObject())["vote_positive"].GetString();
+                                    string vote_negative = (j.GetObject())["vote_negative"].GetString();
+                                    int is_tip_user = (int)(j.GetObject())["is_tip_user"].GetNumber();
+                                    int is_jandan_user = (int)(j.GetObject())["is_jandan_user"].GetNumber();
 
-                                    // 获取评论列表
-                                    var timestr = postItem.GetNamedString("created_at");
-                                    CultureInfo cultureInfo = new CultureInfo("en-US");
-                                    string format = "yyyy-MM-ddTHH:mm:sszzz";
-                                    DateTime datetime = DateTime.ParseExact(timestr, format, cultureInfo);
-                                    
                                     list.Add(new DuanComment
                                     {
-                                        PostID = postItem.GetNamedString("post_id"),
-                                        ThreadID = postItem.GetNamedString("thread_id"),
-                                        ThreadKey = thread_key,
-                                        Message = postItem.GetNamedString("message"),
-                                        ParentID = postItem["parent_id"].ValueType == JsonValueType.String ? postItem.GetNamedString("parent_id") : "0",
-                                        PostDate = datetime.ToString(),
-                                        AuthorName = postItem["author"].GetObject().GetNamedString("name"),
-                                        AuthorAvatarUri = new Uri((authorURL.Equals("null") || authorURL.Equals("")) ? "ms-appx:///Icons/jandan-400.png" : authorURL),
-                                        Like = (int)postItem.GetNamedNumber("likes"),
-                                        Dislike = (int)postItem.GetNamedNumber("dislikes"),
-                                        OrderNumber = $"{floorLevel++}楼"
+                                        PostID = comment_id,
+                                        ThreadID = comment_post_id,
+                                        ThreadKey = comment_post_id,
+                                        Message = comment_content,
+                                        ParentID = comment_reply_ID,
+                                        PostDate = comment_date,
+                                        AuthorName = comment_author,
+                                        AuthorAvatarUri = new Uri("ms-appx:///Icons/jandan-400.png"),
+                                        Like = int.Parse(vote_positive),
+                                        Dislike = int.Parse(vote_negative),
+                                        OrderNumber = $"{floorLevel++}楼",
+                                        VipUser = 10 * is_jandan_user + is_tip_user
                                     });
                                 }
-                                catch (System.Exception)
+                                catch (Exception)
                                 {
 #if DEBUG
-                                    Debug.WriteLine("存在以下Post ID无对应评论：" + postID);
+                                    Debug.WriteLine("吐槽JSON解析错误");
 #endif
-                                }                                
+                                }                          
                             }
 
                             // 标记热门评论
-                            var hotPosts = json["hotPosts"].GetArray();
+                            var hotPosts = json["hot_tucao"].GetArray();
                             foreach (var h in hotPosts)
                             {
                                 list?.ForEach((t) =>
                                 {
-                                    if (t.PostID == h.GetString())
+                                    if (t.PostID == (h.GetObject())["comment_ID"].GetString())
                                     {
                                         t.IsHot = true;
                                     }
