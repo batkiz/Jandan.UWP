@@ -646,23 +646,26 @@ namespace Jandan.UWP.Core.HTTP
                     return list;
                 }
                 else
-                {                    
-                    JsonObject json = await GetJson($"{ServiceURL.URL_COMMENT_LIST}comment-{DuanID}");
+                {
+                    //JsonObject json = await GetJson($"{ServiceURL.URL_COMMENT_LIST}comment-{DuanID}");
+                    JsonObject json = await GetJson($"{ServiceURL.URL_COMMENT_LIST}{DuanID}");
 
                     if (json != null)
                     {
                         List<DuanComment> list = new List<DuanComment>();
 
-                        var postList = json["response"].GetArray();
+                        var postList = json["tucao"].GetArray();
                         if (postList != null && postList.GetArray().Count != 0)
                         {
-                            //*****************************************************
+                            ////*****************************************************
                             var thread = json["thread"].GetObject();
                             var thread_key = thread["thread_key"].GetString();
-                            //*****************************************************
+                            ////*****************************************************
 
                             var parentPosts = json["parentPosts"].GetObject();
                             var floorLevel = 1;
+
+
                             foreach (var j in postList)
                             {
                                 string postID = j.GetString();

@@ -18,7 +18,9 @@
 
         // 评论列表
         // 段子等号后加comment-[comment_ID]
-        public static string URL_COMMENT_LIST = "http://jandan.duoshuo.com/api/threads/listPosts.json?thread_key=";
+        //public static string URL_COMMENT_LIST = "http://jandan.duoshuo.com/api/threads/listPosts.json?thread_key=";
+        public static string URL_COMMENT_LIST = "http://jandan.net/tucao/";
+
 
         // 发表段子、无聊图评论
         public static string URL_PUSH_DUAN_COMMENT = "http://jandan.duoshuo.com/api/posts/create.json";
