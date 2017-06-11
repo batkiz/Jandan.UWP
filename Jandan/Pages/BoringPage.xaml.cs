@@ -60,6 +60,11 @@ namespace Jandan.UWP.UI
             secret_count = 0;
 
             base.OnNavigatedTo(e);
+
+            if (DataShareManager.Current.CurrentPageIndex == DataShareManager.Current.PreviousPageIndex)
+            {
+                RefreshPage();
+            }
         }
 
         private void DuanVotePositiveIcon_Click(object sender, RoutedEventArgs e)

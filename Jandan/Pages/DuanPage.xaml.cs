@@ -30,6 +30,7 @@ namespace Jandan.UWP.UI
         /// 段子的View Model
         /// </summary>
         DuanViewModel _viewModel;
+        //PopupMessageControl _popupMsg = new PopupMessageControl();
 
         // 用于从其他页面返回时保持滚动条的位置
         private static double _persistedItemContainerHeight = -1;
@@ -57,6 +58,11 @@ namespace Jandan.UWP.UI
                 return;
             }
             base.OnNavigatedTo(e);
+
+            if (DataShareManager.Current.CurrentPageIndex == DataShareManager.Current.PreviousPageIndex)
+            {
+                RefreshPage();
+            }
         }
 
         #endregion
@@ -319,10 +325,12 @@ namespace Jandan.UWP.UI
             if (showUnwelcome.IsOn)
             {
                 PopupMessage(2000, "显示不受欢迎的段子");
+                //_popupMsg.ShowAsync("显示不受欢迎的段子", 2000);
             }
             else
             {
                 PopupMessage(2000, "隐藏不受欢迎的段子");
+                //_popupMsg.ShowAsync("隐藏不受欢迎的段子", 2000);
             }
 
             RefreshPage();
