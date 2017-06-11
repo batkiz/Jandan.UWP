@@ -220,7 +220,7 @@ namespace Jandan.UWP.UI
 
         private void DuanCommentListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var d = e.ClickedItem as DuanComment;
+            var d = e.ClickedItem as Tucao;
             var user_name = d.AuthorName;
             var vm = _viewModel._dViewModel;
 
@@ -273,7 +273,7 @@ namespace Jandan.UWP.UI
             //}
 
             //var message = $"message={response}&access_token={DataShareManager.Current.AccessToken}&thread_key={vm.ThreadKey}&parent_id={vm.ParentId}";
-            var message = $"author={DataShareManager.Current.UserName}&email={DataShareManager.Current.EmailAdd}&content={response}&comment_id={vm.ThreadId}";
+            var message = $"author={DataShareManager.Current.UserName}&email={DataShareManager.Current.EmailAdd}&content={response}&comment_id={vm.CommentId}";
 
             var r = await vm.PostComment(message);
 
@@ -289,7 +289,7 @@ namespace Jandan.UWP.UI
 #endif
                 }
                 
-                string DuanID = vm.ThreadKey.Substring(vm.ThreadKey.IndexOf('-') + 1);
+                string DuanID = vm.CommentId.Substring(vm.CommentId.IndexOf('-') + 1);
                 vm.Update(DuanID);
             }
                 

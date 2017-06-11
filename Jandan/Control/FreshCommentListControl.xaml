@@ -35,6 +35,16 @@
             </ListView.GroupStyle>
         </ListView>
         <ProgressRing Grid.Row="1" Name="LoadingCommentProgressBar" IsActive="{x:Bind _dViewModel.IsLoadingComments, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Popup Grid.Row="1" x:Name="popTips"
+               IsOpen="False" 
+               Margin="0,0,0,30" VerticalAlignment="Bottom" >
+            <Border x:Name="PopBorder">
+                <Border.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.8"/>
+                </Border.Background>
+                <TextBlock x:Name="popText" Foreground="White" Text="评论成功" Margin="10,5"/>
+            </Border>
+        </Popup>
         <!--回复栏-->
         <RelativePanel Grid.Row="2" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,8,0,8" Opacity="0.8">
             <TextBox Name="CommentInputTextBox" Text="{x:Bind _dViewModel.TextBoxComment, Mode=TwoWay}" RelativePanel.AlignLeftWithPanel="True" RelativePanel.LeftOf="CommentSubmitButton" Margin="10,0,5,0" PlaceholderText="输入评论..." InputScope="Chat" ToolTipService.ToolTip="" AcceptsReturn="True" Padding="10,3,6,5"/>

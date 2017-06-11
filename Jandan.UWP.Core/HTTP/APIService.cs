@@ -181,7 +181,7 @@ namespace Jandan.UWP.Core.HTTP
                                 CommentIDList = $"{CommentIDList},{CommentID}";
                             }
 
-                            JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
+                            //JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
                             foreach (var j in ja)
                             {                                
                                 string ID = (j.GetObject())["comment_ID"].GetString();
@@ -193,7 +193,8 @@ namespace Jandan.UWP.Core.HTTP
                                 var comment_count = "";
                                 try
                                 {
-                                    comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")).ToString();
+                                    //comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")).ToString();
+                                    comment_count = j.GetObject().GetNamedString("sub_comment_count");
                                 }
                                 catch (Exception)
                                 {
@@ -266,7 +267,7 @@ namespace Jandan.UWP.Core.HTTP
                                 CommentIDList = $"{CommentIDList},{CommentID}";
                             }
 
-                            JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
+                            //JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
                             foreach (var j in ja)
                             {
                                 //var id = (j.GetObject())["id"] == null ? "000" : (j.GetObject())["id"].GetNumber().ToString();
@@ -284,7 +285,8 @@ namespace Jandan.UWP.Core.HTTP
                                 var comment_count = "";
                                 try
                                 {
-                                    comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{id}").GetNamedNumber("comments")).ToString();
+                                    //comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{id}").GetNamedNumber("comments")).ToString();
+                                    comment_count = j.GetObject().GetNamedString("sub_comment_count");
                                 }
                                 catch (Exception)
                                 {
@@ -359,14 +361,15 @@ namespace Jandan.UWP.Core.HTTP
                                 CommentIDList = $"{CommentIDList},{CommentID}";
                             }
 
-                            JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
+                            //JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
                             foreach (var j in ja)
                             {
                                 string ID = (j.GetObject())["comment_ID"].GetString();
                                 var comment_count = "";
                                 try
                                 {
-                                    comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")).ToString();
+                                    //comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")).ToString();
+                                    comment_count = j.GetObject().GetNamedString("sub_comment_count");
                                 }
                                 catch (Exception)
                                 {
@@ -434,14 +437,15 @@ namespace Jandan.UWP.Core.HTTP
                                 CommentIDList = $"{CommentIDList},{CommentID}";
                             }
 
-                            JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
+                            //JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
                             foreach (var j in ja)
                             {
                                 string ID = (j.GetObject())["comment_ID"].GetString();
                                 var comment_count = "";
                                 try
                                 {
-                                    comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")).ToString();
+                                    //comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")).ToString();
+                                    comment_count = j.GetObject().GetNamedString("sub_comment_count");
                                 }
                                 catch (Exception)
                                 {
@@ -522,14 +526,15 @@ namespace Jandan.UWP.Core.HTTP
                                 CommentIDList = $"{CommentIDList},{CommentID}";
                             }
 
-                            JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
+                            //JsonObject jsonCommentCount = await GetJson(ServiceURL.URL_COMMENT_COUNTS + CommentIDList);
                             foreach (var j in ja)
                             {
                                 string ID = (j.GetObject())["comment_ID"].GetString();
                                 var comment_count = "";
                                 try
                                 {
-                                    comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")).ToString();
+                                    //comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{ID}").GetNamedNumber("comments")).ToString();
+                                    comment_count = j.GetObject().GetNamedString("sub_comment_count");
                                 }
                                 catch (Exception)
                                 {
@@ -636,13 +641,13 @@ namespace Jandan.UWP.Core.HTTP
         /// 获取段子/无聊图评论
         /// </summary>
         /// <returns></returns>
-        public async Task<List<DuanComment>> GetDuanComments(string DuanID)
+        public async Task<List<Tucao>> GetTucao(string DuanID)
         {
             try
             {
                 if (!ConnectivityHelper.isInternetAvailable)  //无网络连接
                 {
-                    List<DuanComment> list = await FileHelper.Current.ReadObjectAsync<List<DuanComment>>($"DuanComment-{DuanID}.json");
+                    List<Tucao> list = await FileHelper.Current.ReadObjectAsync<List<Tucao>>($"DuanComment-{DuanID}.json");
                     return list;
                 }
                 else
@@ -652,9 +657,29 @@ namespace Jandan.UWP.Core.HTTP
 
                     if (json != null)
                     {
-                        List<DuanComment> list = new List<DuanComment>();
+                        List<Tucao> list = new List<Tucao>();
 
                         var postList = json["tucao"].GetArray();
+
+                        // 判断吐槽是否还有下一页，并添加到当前评论列表中
+                        var has_next_page = json["has_next_page"].GetBoolean();
+                        while (has_next_page)
+                        {
+                            // 首先获取当前列表最后一项comment_ID
+                            var last_comment_ID = (postList[postList.Count - 1].GetObject())["comment_ID"].GetString();
+
+                            // 获取下一页评论
+                            JsonObject json2 = await GetJson($"{ServiceURL.URL_COMMENT_LIST}{DuanID}/n/{last_comment_ID}");
+
+                            // 与当前postList合并
+                            foreach (var j in json2["tucao"].GetArray())
+                            {
+                                postList.Add(j);
+                            }
+
+                            has_next_page = json2["has_next_page"].GetBoolean();
+                        }
+
                         if (postList != null && postList.GetArray().Count != 0)
                         {
                             var floorLevel = 1;
@@ -675,7 +700,7 @@ namespace Jandan.UWP.Core.HTTP
                                     int is_tip_user = (int)(j.GetObject())["is_tip_user"].GetNumber();
                                     int is_jandan_user = (int)(j.GetObject())["is_jandan_user"].GetNumber();
 
-                                    list.Add(new DuanComment
+                                    list.Add(new Tucao
                                     {
                                         PostID = comment_id,
                                         ThreadID = comment_post_id,
@@ -712,7 +737,7 @@ namespace Jandan.UWP.Core.HTTP
                                 });
                             }
                         }
-                        await FileHelper.Current.WriteObjectAsync<List<DuanComment>>(list, string.Format("DuanComment-{0}.json", DuanID));
+                        await FileHelper.Current.WriteObjectAsync<List<Tucao>>(list, string.Format("DuanComment-{0}.json", DuanID));
                         return list;
                     }
                     else

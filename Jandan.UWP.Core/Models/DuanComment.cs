@@ -7,7 +7,7 @@ namespace Jandan.UWP.Core.Models
     /// 段子评论
     /// </summary>
     [DataContract]
-    public class DuanComment
+    public class Tucao
     {
         [DataMember]
         public string PostID { get; set; }

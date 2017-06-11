@@ -71,14 +71,14 @@
                         <Rectangle Fill="Gray" Margin="0,4,0,0" Height="1"/>
                     </StackPanel>
                     <RelativePanel>
-                        <TextBlock Text="新鲜事评论账号" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,4,0,0" />
+                        <TextBlock Text="评论账号" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,4,0,0" />
                         <Button RelativePanel.AlignRightWithPanel="True" Background="Transparent" x:Name="btnIDandEmail" Content="设置" Margin="0,0,10,0" Click="btnIDandEmail_Click"/>
                         <TextBlock x:Name="UserNameText" Text="[用户名]" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" RelativePanel.Below="btnIDandEmail" Margin="16,0,0,0" Foreground="Gray"/>
                         <TextBlock x:Name="UserName" Text="{Binding ID, Mode=OneWay}" TextWrapping="Wrap" RelativePanel.RightOf="UserNameText" RelativePanel.Below="btnIDandEmail" Margin="16,0,0,0" Foreground="Gray"/>
                         <TextBlock x:Name="EmailAddText" Text="[邮箱]" TextWrapping="Wrap"  RelativePanel.AlignLeftWithPanel="True" RelativePanel.Below="UserNameText" Margin="16,0,0,0" Foreground="Gray"/>
                         <TextBlock x:Name="EmailAdd" Text="{Binding Email, Mode=OneWay}" RelativePanel.RightOf="EmailAddText" TextWrapping="Wrap" RelativePanel.Below="UserNameText" Margin="16,0,0,0" Foreground="Gray"/>
                     </RelativePanel>
-                    <RelativePanel>
+                    <!--<RelativePanel>
                         <TextBlock x:Name="ThirdPartyTextBlock" Text="第三方评论账号" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,4,0,0" />
                         <Button RelativePanel.AlignRightWithPanel="True" Background="Transparent" Content="设置" Margin="0,0,10,0" Click="btnThirdPartyAccount_Click">
                             <FlyoutBase.AttachedFlyout>
@@ -86,7 +86,7 @@
                                     <MenuFlyoutItem Text="微博" Tapped="MenuFlyoutItem_Tapped" Click="MenuFlyoutItem_Click"></MenuFlyoutItem>
                                     <MenuFlyoutItem Text="QQ" Tapped="MenuFlyoutItem_Tapped" Click="MenuFlyoutItem_Click"></MenuFlyoutItem>
                                     <MenuFlyoutItem Text="豆瓣" Tapped="MenuFlyoutItem_Tapped" Click="MenuFlyoutItem_Click"></MenuFlyoutItem>
-                                    <!--<MenuFlyoutItem Text="百度" Tapped="MenuFlyoutItem_Tapped" Click="MenuFlyoutItem_Click"></MenuFlyoutItem>-->
+                                    --><!--<MenuFlyoutItem Text="百度" Tapped="MenuFlyoutItem_Tapped" Click="MenuFlyoutItem_Click"></MenuFlyoutItem>--><!--
                                     <MenuFlyoutItem Text="人人" Tapped="MenuFlyoutItem_Tapped" Click="MenuFlyoutItem_Click"></MenuFlyoutItem>
                                     <MenuFlyoutItem Text="开心网" Tapped="MenuFlyoutItem_Tapped" Click="MenuFlyoutItem_Click"></MenuFlyoutItem>
                                 </MenuFlyout>
@@ -96,7 +96,7 @@
                             <TextBlock Text="[用户名]" TextWrapping="Wrap" Margin="16,0,0,0" Foreground="Gray"/>
                             <TextBlock x:Name="UserNameThirdParty" Text="{Binding ThirdPartyName,Mode=OneWay}"  Margin="16,0,0,0" Foreground="Gray"/>
                         </StackPanel>
-                    </RelativePanel>
+                    </RelativePanel>-->
                 </StackPanel>
                 <StackPanel Grid.Row="3" Padding="10">
                     <RelativePanel>

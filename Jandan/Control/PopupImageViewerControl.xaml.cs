@@ -142,6 +142,10 @@ namespace Jandan.UWP.Control
             {
                 this.ManipulationMode = ManipulationModes.System | ManipulationModes.Scale;
             }
+            else if (st.ScaleX == 0.5 && st.ScaleY == 0.5)
+            {
+                this.ManipulationMode = ManipulationModes.System | ManipulationModes.Scale;
+            }
             else
             {
                 this.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY | ManipulationModes.Scale | ManipulationModes.TranslateInertia;

@@ -2,7 +2,7 @@
 
 namespace Jandan.UWP.Core.Models
 {
-    public class DuanCommentInGroup: List<DuanComment>
+    public class DuanCommentInGroup: List<Tucao>
     {
         // Group Header
         public string Key { get; set; }

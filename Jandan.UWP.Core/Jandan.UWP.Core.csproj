@@ -129,7 +129,6 @@
     <Compile Include="Models\FreshDetail.cs" />
     <Compile Include="Models\ImageItem.cs" />
     <Compile Include="Models\Tags.cs" />
-    <Compile Include="Models\Tucao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\BackgroundTaskAction.cs" />
     <Compile Include="Tools\ConnectivityHelper.cs" />

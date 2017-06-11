@@ -52,7 +52,7 @@ namespace Jandan.UWP.Core.ViewModels
 
         public string ThreadId { get; set; }
         public string ParentId { get; set; }
-        public string ThreadKey { get; set; }
+        public string CommentId { get; set; }
 
         public DuanCommentViewModel()
         {
@@ -61,7 +61,7 @@ namespace Jandan.UWP.Core.ViewModels
 
             ThreadId = "";
             ParentId = "";
-            ThreadKey = "";
+            CommentId = "";
             TextBoxComment = "";
         }        
 
@@ -74,9 +74,9 @@ namespace Jandan.UWP.Core.ViewModels
 
             CommentList.Source = null;
 
-            ThreadKey = $"comment-{commentID}";
+            CommentId = commentID;
 
-            var list = await _api.GetDuanComments(commentID);
+            var list = await _api.GetTucao(commentID);
             if (list != null)
             {
                 list?.ForEach((t) =>

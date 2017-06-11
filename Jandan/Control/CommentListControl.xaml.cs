@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Data.Json;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -53,7 +54,7 @@ namespace Jandan.UWP.Control
 
         private void DuanCommentListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var d = e.ClickedItem as DuanComment;
+            var d = e.ClickedItem as Tucao;
             var user_name = d.AuthorName;
 
             _dViewModel.TextBoxComment = $"@{user_name}: ";
@@ -121,32 +122,31 @@ namespace Jandan.UWP.Control
                 // 改为微博token格式
                 //var message = $"message={response}&thread_id={_dViewModel.ThreadId}&parent_id={_dViewModel.ParentId}&author_name={DataShareManager.Current.UserName}&author_email={DataShareManager.Current.EmailAdd}";
                 //var message = $"message={response}&access_token={DataShareManager.Current.AccessToken}&thread_key={_dViewModel.ThreadKey}&parent_id={_dViewModel.ParentId}";
-                var message = $"author={DataShareManager.Current.UserName}&email={DataShareManager.Current.EmailAdd}&content={response}&comment_id={_dViewModel.ThreadId}";
+                var message = $"author={DataShareManager.Current.UserName}&email={DataShareManager.Current.EmailAdd}&content={response}&comment_id={_dViewModel.CommentId}";
 
                 var r = await _dViewModel.PostComment(message);                
 
                 if (r != null)
                 {
-                    _dViewModel.TextBoxComment = "";
-
                     JsonObject j = new JsonObject();
                     if (JsonObject.TryParse(r, out j))
                     {
 #if DEBUG
-                        Debug.WriteLine(DateTime.Now.ToString() + j["response"].GetObject()["status"].ToString());
+                        Debug.WriteLine(DateTime.Now.ToString());
 #endif
-                        if (j["response"].GetObject()["status"].ToString().ToLower().Contains("approved"))
+                        if (j["code"].GetNumber() == 0)
                         {
-                            PopupMessage(1000, "评论成功");
+                            PopupMessage(1000, j["msg"].GetString()+"(审核后才能看到评论)");
+
+                            _dViewModel.TextBoxComment = "";
+                            
+                            _dViewModel.Update(_dViewModel.CommentId);
                         }
                         else
                         {
-                            PopupMessage(1000, "评论似乎没成功╮(╯_╰)╭");
-                        }
+                            PopupMessage(1000, j["msg"].GetString());
+                        }                        
                     }
-
-                    string DuanID = _dViewModel.ThreadKey.Substring(_dViewModel.ThreadKey.IndexOf('-') + 1);
-                    _dViewModel.Update(DuanID);
                 }                              
             }            
         }
@@ -171,6 +171,36 @@ namespace Jandan.UWP.Control
             popTips.IsOpen = true;
             await Task.Delay(ms);
             popTips.IsOpen = false;
+        }
+
+        private void DuanCommentListView_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            var d = e.OriginalSource as TextBlock;
+
+            if (d != null)
+            {
+                CopyToClipboard(d.Text);
+            }
+        }
+
+        private void CopyToClipboard(string s)
+        {
+            string copied_content = s;
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.SetText(copied_content);
+            Clipboard.SetContent(dataPackage);
+
+            PopupMessage(2000, "评论已复制到粘贴板");
+        }
+
+        private void DuanCommentListView_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            var d = e.OriginalSource as TextBlock;
+
+            if (d != null)
+            {
+                CopyToClipboard(d.Text);
+            }
         }
     }
 }
