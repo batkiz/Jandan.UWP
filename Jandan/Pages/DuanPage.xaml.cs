@@ -57,6 +57,11 @@ namespace Jandan.UWP.UI
                 return;
             }
             base.OnNavigatedTo(e);
+
+            if (DataShareManager.Current.CurrentPageIndex == DataShareManager.Current.PreviousPageIndex)
+            {
+                RefreshPage();
+            }
         }
 
         #endregion
