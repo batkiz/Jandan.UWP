@@ -7,7 +7,7 @@ namespace Jandan.UWP.Core.Models
     /// 段子评论
     /// </summary>
     [DataContract]
-    public class DuanComment
+    public class Tucao
     {
         [DataMember]
         public string PostID { get; set; }
@@ -33,6 +33,9 @@ namespace Jandan.UWP.Core.Models
         public int Dislike { get; set; }
         [DataMember]
         public bool IsHot { get; set; } = false;
+        [DataMember]
+        public int VipUser { get; set; } = 0; //00-普通游客 10 IsJandanUser-小编蓝名 01 IsTipUser-打赏橙名
+        
         [DataMember]
         public string OrderNumber { get; set; }
     }

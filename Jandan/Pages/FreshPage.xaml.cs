@@ -42,9 +42,19 @@ namespace Jandan.UWP.UI
                 return;
             }
             base.OnNavigatedTo(e);
+
+            if (DataShareManager.Current.CurrentPageIndex == DataShareManager.Current.PreviousPageIndex)
+            {
+                RefreshPage();
+            }
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshPage();
+        }
+
+        private void RefreshPage()
         {
             _viewModel.Update();
         }
@@ -60,7 +70,7 @@ namespace Jandan.UWP.UI
 
         private void FreshPullToRefresh_RefreshInvoked(DependencyObject sender, object args)
         {
-            _viewModel.Update();
+            RefreshPage();
         }
 
         private void PageTitleIcon_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
@@ -80,7 +90,7 @@ namespace Jandan.UWP.UI
 
         private void RelativePanel_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            _viewModel.Update();
+            RefreshPage();
         }
     }
 }

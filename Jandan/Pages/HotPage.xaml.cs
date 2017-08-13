@@ -46,6 +46,11 @@ namespace Jandan.UWP.UI
                 return;
             }
             base.OnNavigatedTo(e);
+
+            if (DataShareManager.Current.CurrentPageIndex == DataShareManager.Current.PreviousPageIndex)
+            {
+                RefreshPage();
+            }
         }
 
         private void BoringGridView_ItemClick(object sender, ItemClickEventArgs e)
@@ -234,6 +239,11 @@ namespace Jandan.UWP.UI
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
+            RefreshPage();
+        }
+
+        private void RefreshPage()
+        {
             _viewModel.UpdateHotPics();
             _viewModel.UpdateHotDuan();
             _viewModel.UpdateHotComm();
@@ -251,9 +261,7 @@ namespace Jandan.UWP.UI
 
         private void RelativePanel_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            _viewModel.UpdateHotPics();
-            _viewModel.UpdateHotDuan();
-            _viewModel.UpdateHotComm();
+            RefreshPage();
         }
     }
 }

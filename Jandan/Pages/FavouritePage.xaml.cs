@@ -40,25 +40,33 @@ namespace Jandan.UWP.UI
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             DataShareManager.Current.CurrentPageIndex = PageIndex.FavouritePage;
-
-            _viewModel.Update();
-
+            
             if (e.NavigationMode == NavigationMode.Back)
             {
                 return;
             }
             base.OnNavigatedTo(e);
 
+            if (DataShareManager.Current.CurrentPageIndex == DataShareManager.Current.PreviousPageIndex)
+            {
+                RefreshPage();
+            }
+
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshPage();
+        }
+
+        private void RefreshPage()
         {
             _viewModel.Update();
         }
 
         private void FreshPullToRefresh_RefreshInvoked(DependencyObject sender, object args)
         {
-            _viewModel.Update();
+            RefreshPage();
         }
 
         private void FreshGridView_ItemClick(object sender, ItemClickEventArgs e)
@@ -120,7 +128,7 @@ namespace Jandan.UWP.UI
 
         private void pullToRefreshBar_RefreshInvoked(DependencyObject sender, object args)
         {
-            _viewModel.Update();
+            RefreshPage();
         }
 
         private async void DuanFavButton_Click(object sender, RoutedEventArgs e)

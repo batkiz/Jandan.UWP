@@ -106,11 +106,13 @@ namespace Jandan.UWP.Control
                 }
                 
                 var message = $"post_id={currentId}&name={DataShareManager.Current.UserName}&email={DataShareManager.Current.EmailAdd}&content={response}";
-
-
+                
                 var r = await _dViewModel.PostComment(message);
-
-                _dViewModel.TextBoxComment = "";
+                if (r == null)
+                {
+                    PopupMessage(1000, "评论似乎没成功╮(╯_╰)╭");
+                    return;
+                }               
 
                 JsonObject j = new JsonObject();
                 if (JsonObject.TryParse(r, out j))
@@ -118,6 +120,16 @@ namespace Jandan.UWP.Control
 #if DEBUG
                     Debug.WriteLine(DateTime.Now.ToString() + j["status"].ToString());
 #endif
+                    if (j["status"].ToString()=="ok")
+                    {
+                        _dViewModel.TextBoxComment = "";
+
+                        PopupMessage(1000, "评论成功！(审核后才能看到评论)");
+                    }
+                    else
+                    {
+                        PopupMessage(1000, "评论似乎没成功╮(╯_╰)╭");
+                    }
                 }                
             }            
         }
@@ -128,6 +140,20 @@ namespace Jandan.UWP.Control
 
             DataShareManager.Current.UserName = csd.UserName;
             DataShareManager.Current.EmailAdd = csd.Email;
+        }
+
+        private async void PopupMessage(int ms, string msg)
+        {
+            popText.Text = msg;
+            popText.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
+            double L = popTips.ActualWidth;
+            double l = popText.ActualWidth;
+            PopBorder.Margin = new Thickness((L - l) / 2, 0, 0, 0);
+
+            popTips.IsOpen = true;
+            await Task.Delay(ms);
+            popTips.IsOpen = false;
         }
     }
 }

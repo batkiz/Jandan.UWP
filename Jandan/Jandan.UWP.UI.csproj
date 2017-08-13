@@ -123,7 +123,7 @@
     <Content Include="Cortana\VoiceCommandsFile.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Documents\version-2.6.5.txt" />
+    <Content Include="Documents\version-2.7.1.txt" />
     <None Include="Jandan_StoreKey.pfx" />
     <None Include="Jandan.UWP.UI_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
@@ -150,6 +150,9 @@
     </Compile>
     <Compile Include="Control\PopupImageViewerControl.xaml.cs">
       <DependentUpon>PopupImageViewerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\PopupMessageControl.xaml.cs">
+      <DependentUpon>PopupMessageControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Control\ScalableGrid.cs" />
     <Compile Include="Converter\Converters.cs" />
@@ -231,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Control\PopupImageViewerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\PopupMessageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

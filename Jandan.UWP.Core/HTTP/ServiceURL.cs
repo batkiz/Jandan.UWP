@@ -18,10 +18,13 @@
 
         // 评论列表
         // 段子等号后加comment-[comment_ID]
-        public static string URL_COMMENT_LIST = "http://jandan.duoshuo.com/api/threads/listPosts.json?thread_key=";
+        //public static string URL_COMMENT_LIST = "http://jandan.duoshuo.com/api/threads/listPosts.json?thread_key=";
+        public static string URL_COMMENT_LIST = "http://i.jandan.net/tucao/";
+
 
         // 发表段子、无聊图评论
-        public static string URL_PUSH_DUAN_COMMENT = "http://jandan.duoshuo.com/api/posts/create.json";
+        //public static string URL_PUSH_DUAN_COMMENT = "http://jandan.duoshuo.com/api/posts/create.json";
+        public static string URL_PUSH_DUAN_COMMENT = "http://i.jandan.net/jandan-tucao.php";
 
         // 投票
         public static string URL_VOTE = "http://i.jandan.net/index.php?acv_ajax=true&option={0}";

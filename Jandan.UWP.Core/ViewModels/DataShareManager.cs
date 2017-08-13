@@ -154,7 +154,7 @@ namespace Jandan.UWP.Core.ViewModels
                 XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
 
                 XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                var msg = "更新日志：\n1. 修复从热榜进入图片详情时只显示第一张的问题\n2.分享图片时可选择分享哪一张\n3.图片详情界面点击图片可以查看大图，支持滚轮和手势缩放\n4.提示消息优化";
+                var msg = "更新日志：\n1. 更新为煎蛋新评论系统\n注：如有UWP开发者请联系我（邮箱请见关于页面），希望可以帮我解决字号调节问题";
                 toastTextElements[0].AppendChild(toastXml.CreateTextNode(msg));
 
                 XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");

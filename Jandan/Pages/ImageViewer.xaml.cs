@@ -220,7 +220,7 @@ namespace Jandan.UWP.UI
 
         private void DuanCommentListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var d = e.ClickedItem as DuanComment;
+            var d = e.ClickedItem as Tucao;
             var user_name = d.AuthorName;
             var vm = _viewModel._dViewModel;
 
@@ -238,28 +238,12 @@ namespace Jandan.UWP.UI
                 vm.ParentId = "";
             }
 
-            //var dia = new ContentDialog()
-            //{
-            //    Title = "提示",
-            //    Content = new CommentSubmitDialogue(DataShareManager.Current.UserName, DataShareManager.Current.EmailAdd),
-            //    PrimaryButtonText = "发送",
-            //    SecondaryButtonText = "取消",
-            //    FullSizeDesired = false,
-            //    RequestedTheme = DataShareManager.Current.AppTheme
-            //};
-            //dia.PrimaryButtonClick += Dia_PrimaryButtonClick;
-
-            //var result = await dia.ShowAsync();
-
-            //if (result == ContentDialogResult.Primary)
-            //{
-
-            if (string.IsNullOrEmpty(DataShareManager.Current.AccessToken))
+            if (string.IsNullOrEmpty(DataShareManager.Current.UserName) || string.IsNullOrEmpty(DataShareManager.Current.EmailAdd))
             {
                 var dialog = new ContentDialog()
                 {
                     Title = "提示",
-                    Content = "请先在[设置]页面设置第三方账号！",
+                    Content = "请先在[设置]页面设置用户名和邮箱！",
                     PrimaryButtonText = "确定",
                     FullSizeDesired = false,
                     RequestedTheme = DataShareManager.Current.AppTheme
@@ -271,9 +255,27 @@ namespace Jandan.UWP.UI
                 return;
             }
 
-            var message = $"message={response}&access_token={DataShareManager.Current.AccessToken}&thread_key={vm.ThreadKey}&parent_id={vm.ParentId}";
+            //if (string.IsNullOrEmpty(DataShareManager.Current.AccessToken))
+            //{
+            //    var dialog = new ContentDialog()
+            //    {
+            //        Title = "提示",
+            //        Content = "请先在[设置]页面设置第三方账号！",
+            //        PrimaryButtonText = "确定",
+            //        FullSizeDesired = false,
+            //        RequestedTheme = DataShareManager.Current.AppTheme
+            //    };
 
-                var r = await vm.PostComment(message);
+            //    dialog.PrimaryButtonClick += (_s, _e) => { };
+            //    await dialog.ShowAsync();
+
+            //    return;
+            //}
+
+            //var message = $"message={response}&access_token={DataShareManager.Current.AccessToken}&thread_key={vm.ThreadKey}&parent_id={vm.ParentId}";
+            var message = $"author={DataShareManager.Current.UserName}&email={DataShareManager.Current.EmailAdd}&content={response}&comment_id={vm.CommentId}";
+
+            var r = await vm.PostComment(message);
 
             if (r != null)
             {
@@ -287,7 +289,7 @@ namespace Jandan.UWP.UI
 #endif
                 }
                 
-                string DuanID = vm.ThreadKey.Substring(vm.ThreadKey.IndexOf('-') + 1);
+                string DuanID = vm.CommentId.Substring(vm.CommentId.IndexOf('-') + 1);
                 vm.Update(DuanID);
             }
                 
