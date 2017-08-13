@@ -14,55 +14,55 @@ namespace Jandan.UWP.Core.ViewModels
         public bool IsDarkMode
         {
             get { return _isDarkMode; }
-            set { _isDarkMode = value; OnPropertyChanged(); }
+            set { Set(ref _isDarkMode, value); }
         }
 
         private bool _isAutoDarkMode;
         public bool IsAutoDarkMode
         {
             get { return _isAutoDarkMode; }
-            set { _isAutoDarkMode = value; OnPropertyChanged(); }
+            set { Set(ref _isAutoDarkMode, value); }
         }
 
         private bool _isNoImageMode;
         public bool IsNoImageMode
         {
             get { return _isNoImageMode; }
-            set { _isNoImageMode = value;OnPropertyChanged(); }
+            set { Set(ref _isNoImageMode, value); }
         }
 
         private TimeSpan _startTime;
         public TimeSpan StartTime
         {
             get { return _startTime; }
-            set { _startTime = value; OnPropertyChanged(); }
+            set { Set(ref _startTime, value); }
         }
 
         private TimeSpan _endTime;
         public TimeSpan EndTime
         {
             get { return _endTime; }
-            set { _endTime = value; OnPropertyChanged(); }
+            set { Set(ref _endTime, value); }
         }
 
         private string _id;
         public string ID
         {
             get { return _id; }
-            set { _id = value; OnPropertyChanged(); }
+            set { Set(ref _id, value); }
         }
         private string _email;
         public string Email
         {
             get { return _email; }
-            set { _email = value; OnPropertyChanged(); }
+            set { Set(ref _email, value); }
         }
 
         private string _thirdpartyname;
         public string ThirdPartyName
         {
             get { return _thirdpartyname; }
-            set { _thirdpartyname = value; OnPropertyChanged(); }
+            set { Set(ref _thirdpartyname, value); }
         }
 
         public string IdandEmail

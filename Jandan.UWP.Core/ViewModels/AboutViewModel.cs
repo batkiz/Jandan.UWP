@@ -10,7 +10,7 @@ namespace Jandan.UWP.Core.ViewModels
         public About Abouts
         {
             get { return _abouts; }
-            set { _abouts = value; OnPropertyChanged(); }
+            set { Set(ref _abouts, value); }
         }
 
         public AboutViewModel()

@@ -22,8 +22,7 @@ namespace Jandan.UWP.Core.ViewModels
             }
             set
             {
-                _is_loading_comments = value;
-                OnPropertyChanged();
+                Set(ref _is_loading_comments, value);
             }
         }
 
@@ -31,7 +30,7 @@ namespace Jandan.UWP.Core.ViewModels
         public CollectionViewSource CommentList
         {
             get { return _commentList; }
-            set { _commentList = value; OnPropertyChanged(); }
+            set { Set(ref _commentList, value); }
         }
 
         private string _textbox_comment;
@@ -43,8 +42,7 @@ namespace Jandan.UWP.Core.ViewModels
             }
             set
             {
-                _textbox_comment = value;
-                OnPropertyChanged();
+                Set(ref _textbox_comment, value);
             }
         }
 

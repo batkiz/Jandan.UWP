@@ -14,29 +14,15 @@ namespace Jandan.UWP.Core.ViewModels
         private bool _is_loading;
         public bool IsLoading
         {
-            get
-            {
-                return _is_loading;
-            }
-            set
-            {
-                _is_loading = value;
-                OnPropertyChanged();
-            }
+            get { return _is_loading; }
+            set { Set(ref _is_loading, value); }
         }
 
         private DuanIncrementalLoadingCollection _duans;
         public DuanIncrementalLoadingCollection Duans
         {
-            get
-            {
-                return _duans;
-            }
-            set
-            {
-                _duans = value;
-                OnPropertyChanged();
-            }
+            get { return _duans; }
+            set { Set(ref _duans, value); }
         }
 
         private bool _is_show_unwelcome;
@@ -48,8 +34,7 @@ namespace Jandan.UWP.Core.ViewModels
             }
             set
             {
-                _is_show_unwelcome = value;
-                OnPropertyChanged();
+                Set(ref _is_show_unwelcome, value);
                 Update();
                 DataShareManager.Current.UpdateUnwelcome(_is_show_unwelcome);
             }

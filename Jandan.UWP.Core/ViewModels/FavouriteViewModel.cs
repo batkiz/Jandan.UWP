@@ -28,8 +28,7 @@ namespace Jandan.UWP.Core.ViewModels
             }
             set
             {
-                _is_loading = value;
-                OnPropertyChanged();
+                Set(ref _is_loading, value);
             }
         }
 
@@ -37,28 +36,28 @@ namespace Jandan.UWP.Core.ViewModels
         public ObservableCollection<Fresh> Fresh
         {
             get { return _fresh; }
-            set { _fresh = value; OnPropertyChanged(); }
+            set { Set(ref _fresh, value); }
         }
 
         private ObservableCollection<Duan> _duan;
         public ObservableCollection<Duan> Duan
         {
             get { return _duan; }
-            set { _duan = value; OnPropertyChanged(); }
+            set { Set(ref _duan, value);  }
         }
 
         private ObservableCollection<BoringPic> _pics;
         public ObservableCollection<BoringPic> Pics
         {
             get { return _pics; }
-            set { _pics = value; OnPropertyChanged(); }
+            set { Set(ref _pics, value); }
         }
 
         private ObservableCollection<BoringPic> _girls;
         public ObservableCollection<BoringPic> Girls
         {
             get { return _girls; }
-            set { _girls = value; OnPropertyChanged(); }
+            set { Set(ref _girls, value); }
         }
 
         public FavouriteViewModel()

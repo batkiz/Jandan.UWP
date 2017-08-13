@@ -17,36 +17,29 @@ namespace Jandan.UWP.Core.ViewModels
         private bool _is_loading;
         public bool IsLoading
         {
-            get
-            {
-                return _is_loading;
-            }
-            set
-            {
-                _is_loading = value;
-                OnPropertyChanged();
-            }
+            get            {                return _is_loading;            }
+            set            {                Set(ref _is_loading, value);            }
         }
 
         private ObservableCollection<BoringPic> _pics;
         public ObservableCollection<BoringPic> Pics
         {
             get { return _pics; }
-            set { _pics = value; OnPropertyChanged(); }
+            set { Set(ref _pics, value); }
         }
 
         private ObservableCollection<Duan> _duan;
         public ObservableCollection<Duan> Duan
         {
             get { return _duan; }
-            set { _duan = value; OnPropertyChanged(); }
+            set { Set(ref _duan, value); }
         }
 
         private ObservableCollection<BestFreshComment> _comm;
         public ObservableCollection<BestFreshComment> Comm
         {
             get { return _comm; }
-            set { _comm = value; OnPropertyChanged(); }
+            set { Set(ref _comm, value); }
         }
 
         public HotViewModel()

@@ -17,13 +17,13 @@ namespace Jandan.UWP.Core.ViewModels
         public bool IsLoading { get; set; }
 
         private FreshDetail _freshDetails;
-        public FreshDetail FreshDetails { get { return _freshDetails; } set { _freshDetails = value; OnPropertyChanged(); } }
+        public FreshDetail FreshDetails { get { return _freshDetails; } set { Set(ref _freshDetails, value); } }
 
         private bool _isFavourite;
-        public bool IsFavourite { get { return _isFavourite; } set { _isFavourite = value; OnPropertyChanged(); } }
+        public bool IsFavourite { get { return _isFavourite; } set { Set(ref _isFavourite, value); } }
 
         private double _freshWidth;
-        public double FreshWidth { get { return _freshWidth; } set { _freshWidth = value; OnPropertyChanged(); } }
+        public double FreshWidth { get { return _freshWidth; } set { Set(ref _freshWidth, value);  } }
 
         public FreshDetailViewModel()
         {

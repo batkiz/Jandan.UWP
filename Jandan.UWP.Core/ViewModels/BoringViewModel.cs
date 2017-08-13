@@ -19,8 +19,7 @@ namespace Jandan.UWP.Core.ViewModels
             }
             set
             {
-                _is_loading = value;
-                OnPropertyChanged();
+                Set(ref _is_loading, value);
             }
         }
 
@@ -33,8 +32,7 @@ namespace Jandan.UWP.Core.ViewModels
             }
             set
             {
-                _is_show_nsfw = value;
-                OnPropertyChanged();
+                Set(ref _is_show_nsfw, value);
                 //UpdateBoringPics();
                 DataShareManager.Current.UpdateNSFW(_is_show_nsfw);
             }
@@ -49,8 +47,7 @@ namespace Jandan.UWP.Core.ViewModels
             }
             set
             {
-                _is_show_unwelcome = value;
-                OnPropertyChanged();
+                Set(ref _is_show_unwelcome, value);
                 //UpdateBoringPics();
                 DataShareManager.Current.UpdateUnwelcome(_is_show_unwelcome);
             }
@@ -60,7 +57,7 @@ namespace Jandan.UWP.Core.ViewModels
         public BoringIncrementalLoadingCollection Boring
         {
             get { return _boring; }
-            set { _boring = value; OnPropertyChanged(); }
+            set { Set(ref _boring, value);  }
         }
 
         public BoringViewModel()

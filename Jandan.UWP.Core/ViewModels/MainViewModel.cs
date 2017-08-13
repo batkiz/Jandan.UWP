@@ -11,14 +11,14 @@ namespace Jandan.UWP.Core.ViewModels
         public ElementTheme AppTheme
         {
             get { return _appTheme; }
-            set { _appTheme = value; OnPropertyChanged(); }
+            set { Set(ref _appTheme, value); }
         }
 
         private bool _is_loading;
         public bool IsLoading
         {
             get { return _is_loading; }
-            set { _is_loading = value; OnPropertyChanged(); }
+            set { Set(ref _is_loading, value); }
         } 
 
         public MainViewModel()

@@ -22,8 +22,7 @@ namespace Jandan.UWP.Core.ViewModels
             }
             set
             {
-                _is_loading = value;
-                OnPropertyChanged();
+                Set(ref _is_loading, value);
             }
         }
 
@@ -36,8 +35,7 @@ namespace Jandan.UWP.Core.ViewModels
             }
             set
             {
-                _meizi = value;
-                OnPropertyChanged();
+                Set(ref _meizi, value);
             }
         }
 

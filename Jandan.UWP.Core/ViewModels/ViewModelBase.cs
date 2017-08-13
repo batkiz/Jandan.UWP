@@ -15,30 +15,18 @@ namespace Jandan.UWP.Core.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected async void OnPropertyChanged([CallerMemberName]string propertyName = "")
+        protected void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
         {
-            if (PropertyChanged != null)
+            if (Equals(storage, value))
             {
-                if (DispatcherManager.Current.Dispatcher == null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-                }
-                else
-                {
-                    if (DispatcherManager.Current.Dispatcher.HasThreadAccess)
-                    {
-                        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-                    }
-                    else
-                    {
-                        await DispatcherManager.Current.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
-                            delegate ()
-                            {
-                                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-                            });
-                    }
-                }
+                return;
             }
+
+            storage = value;
+            OnPropertyChanged(propertyName);
         }
+
+        protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
     }
 }

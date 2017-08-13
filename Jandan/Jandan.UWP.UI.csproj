@@ -139,9 +139,6 @@
     <PRIResource Include="String\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Control\DuoshuoSelectionControl.xaml.cs">
-      <DependentUpon>DuoshuoSelectionControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Control\FreshCommentListControl.xaml.cs">
       <DependentUpon>FreshCommentListControl.xaml</DependentUpon>
     </Compile>
@@ -154,7 +151,6 @@
     <Compile Include="Control\PopupMessageControl.xaml.cs">
       <DependentUpon>PopupMessageControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\ScalableGrid.cs" />
     <Compile Include="Converter\Converters.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
@@ -221,10 +217,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Control\DuoshuoSelectionControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Control\FreshCommentListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

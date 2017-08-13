@@ -14,7 +14,7 @@ namespace Jandan.UWP.Core.ViewModels
         public DuanCommentViewModel _dViewModel { get; set; }
 
         private bool _isFavourite;
-        public bool IsFavourite { get { return _isFavourite; } set { _isFavourite = value; OnPropertyChanged(); } }
+        public bool IsFavourite { get { return _isFavourite; } set { Set(ref _isFavourite, value);  } }
 
         public PicDetailViewModel()
         {
