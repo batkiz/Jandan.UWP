@@ -100,7 +100,8 @@ namespace Jandan.UWP.Core.ViewModels
             list?.ForEach((t) =>
             {
                 var msg = t.Content;                
-                t.Content = Regex.Replace(msg, "<.+?>", "");
+                t.Content = Regex.Replace(msg, "<.+?>", "");//去除文字中的html标记
+                //t.Content = $"<!DOCTYPE html><html><head><title>{t.DuanID}</title></head><body><p>{t.Content}</p></body></html>";
 
                 if (IsItemAdded(t))
                 {

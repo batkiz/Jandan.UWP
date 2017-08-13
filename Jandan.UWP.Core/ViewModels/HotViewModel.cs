@@ -53,7 +53,7 @@ namespace Jandan.UWP.Core.ViewModels
 
         public HotViewModel()
         {
-            LoadCache();
+            //LoadCache();
             UpdateHotPics();
             UpdateHotDuan();
             UpdateHotComm();
@@ -88,6 +88,9 @@ namespace Jandan.UWP.Core.ViewModels
             ObservableCollection<Duan> e = new ObservableCollection<Duan>();
             duan?.ForEach((t) =>
             {
+                //t.Content = $"<!DOCTYPE html><html><head><title>{t.DuanID}</title></head><body><p>{t.Content}</p></body></html>";
+                t.Content.Replace("&#", "\\&#");
+
                 e.Add(t);
             });
             Duan = e;
@@ -193,6 +196,8 @@ namespace Jandan.UWP.Core.ViewModels
                 var comment = t.Content;
                 comment = Regex.Replace(comment, "OO.+?XX.+?]", "");
                 t.Content = comment;
+
+                t.Content = t.Content.Replace(@"&#8230;", "……");
                 c.Add(t);
             });
             Duan = c;
