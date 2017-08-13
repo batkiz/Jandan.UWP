@@ -13,8 +13,6 @@ namespace Jandan.UWP.Core.ViewModels
 {
     public class MeiziViewModel : ViewModelBase
     {
-        private APIService _api = new APIService();
-
         private bool _is_loading;
         public bool IsLoading
         {
@@ -78,7 +76,7 @@ namespace Jandan.UWP.Core.ViewModels
         public async void Update()
         {
             IsLoading = true;
-            var list = await _api.GetMeiziPics(1);
+            var list = await APIService.GetMeiziPics(1);
 
             MeiziIncrementalLoadingCollection c = new MeiziIncrementalLoadingCollection();
             list?.ForEach((t) =>
@@ -117,7 +115,7 @@ namespace Jandan.UWP.Core.ViewModels
         {
             var b = Meizi;
 
-            var msg = await _api.Vote(boring.PicID, isLike);
+            var msg = await APIService.Vote(boring.PicID, isLike);
 
             if (string.IsNullOrEmpty(msg))
             {

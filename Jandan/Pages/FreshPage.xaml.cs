@@ -24,13 +24,13 @@ namespace Jandan.UWP.UI
     /// </summary>
     public sealed partial class FreshPage : Page
     {
-        FreshViewModel _viewModel;
+        FreshViewModel ViewModel { get; } = new FreshViewModel();
 
         public FreshPage()
         {
             this.InitializeComponent();
 
-            DataContext = _viewModel = new FreshViewModel();
+            DataContext = ViewModel;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -56,7 +56,7 @@ namespace Jandan.UWP.UI
 
         private void RefreshPage()
         {
-            _viewModel.Update();
+            ViewModel.Update();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

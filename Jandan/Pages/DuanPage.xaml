@@ -74,7 +74,7 @@
                 <Button.Flyout>
                     <Flyout>
                         <StackPanel>
-                            <ToggleSwitch x:Name="showUnwelcome" IsOn="{x:Bind _viewModel.IsShowUnwelcome, Mode=TwoWay}" OffContent="隐藏" OnContent="显示" Toggled="showUnwelcome_Toggled">显示/隐藏不受欢迎的段子</ToggleSwitch>
+                            <ToggleSwitch x:Name="showUnwelcome" IsOn="{x:Bind ViewModel.IsShowUnwelcome, Mode=TwoWay}" OffContent="隐藏" OnContent="显示" Toggled="showUnwelcome_Toggled">显示/隐藏不受欢迎的段子</ToggleSwitch>
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
@@ -91,7 +91,7 @@
             <SplitView.Content>
                 <Grid>
                     <pullcontrol:PullToRefreshBox x:Name="DuanPullToRefresh" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
-                        <ListView Name="DuanListView" ItemsSource="{x:Bind _viewModel.Duans, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ContainerContentChanging="DuanListView_ContainerContentChanging" ItemContainerStyle="{StaticResource DuanListViewItemStyle}"></ListView>
+                        <ListView Name="DuanListView" ItemsSource="{x:Bind ViewModel.Duans, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ContainerContentChanging="DuanListView_ContainerContentChanging" ItemContainerStyle="{StaticResource DuanListViewItemStyle}"></ListView>
                     </pullcontrol:PullToRefreshBox>
                     <Popup Grid.Row="1" x:Name="popTips" IsOpen="False" Margin="0,0,0,60" VerticalAlignment="Bottom" >
                         <Border x:Name="PopBorder">
@@ -104,7 +104,7 @@
                 </Grid>
             </SplitView.Content>
         </SplitView>
-        <ProgressRing Grid.Row="1" Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind _viewModel.IsLoading, Mode=OneWay}"></ProgressRing>
+        <ProgressRing Grid.Row="1" Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"></ProgressRing>
 
     </Grid>
 </Page>

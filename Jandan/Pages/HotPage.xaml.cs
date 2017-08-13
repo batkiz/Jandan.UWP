@@ -28,13 +28,13 @@ namespace Jandan.UWP.UI
     /// </summary>
     public sealed partial class HotPage : Page
     {
-        HotViewModel _viewModel;
+        HotViewModel ViewModel { get; } = new HotViewModel();
 
         public HotPage()
         {
             this.InitializeComponent();
 
-            this.DataContext = _viewModel = new HotViewModel();
+            this.DataContext = ViewModel;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -55,7 +55,7 @@ namespace Jandan.UWP.UI
 
         private void BoringGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.Frame.Navigate(typeof(ImageViewer), new object[] { e.ClickedItem as BoringPic, PicDetailType.Hot, _viewModel.Pics });
+            this.Frame.Navigate(typeof(ImageViewer), new object[] { e.ClickedItem as BoringPic, PicDetailType.Hot, ViewModel.Pics });
         }
 
         private void BestCommentListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -79,7 +79,7 @@ namespace Jandan.UWP.UI
             var boring = b.DataContext as BoringPic;
             var c = b.Parent as RelativePanel;
 
-            var msg = await _viewModel.Vote(boring, true);
+            var msg = await ViewModel.Vote(boring, true);
 
             if (msg == null)
             {
@@ -188,7 +188,7 @@ namespace Jandan.UWP.UI
             var duan = b.DataContext as Duan;
             var c = b.Parent as RelativePanel;
 
-            var msg = await _viewModel.Vote(duan, true);
+            var msg = await ViewModel.Vote(duan, true);
 
             if (msg == null)
             {
@@ -244,9 +244,9 @@ namespace Jandan.UWP.UI
 
         private void RefreshPage()
         {
-            _viewModel.UpdateHotPics();
-            _viewModel.UpdateHotDuan();
-            _viewModel.UpdateHotComm();
+            ViewModel.UpdateHotPics();
+            ViewModel.UpdateHotDuan();
+            ViewModel.UpdateHotComm();
         }
 
         private void DuanSplitView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)

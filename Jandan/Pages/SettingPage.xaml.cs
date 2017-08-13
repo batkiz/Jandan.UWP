@@ -31,7 +31,7 @@ namespace Jandan.UWP.UI
     /// </summary>
     public sealed partial class SettingPage : Page
     {
-        SettingViewModel _viewModel;
+        SettingViewModel ViewModel { get; } = new SettingViewModel();
 
         public SettingPage()
         {
@@ -61,8 +61,7 @@ namespace Jandan.UWP.UI
                 return;
             }
             base.OnNavigatedTo(e);
-            this.DataContext = _viewModel = new SettingViewModel();
-
+            this.DataContext = ViewModel;
         }
 
         private void PageBackButton_Click(object sender, RoutedEventArgs e)
@@ -155,17 +154,17 @@ namespace Jandan.UWP.UI
 
         private void tsDarkMode_Toggled(object sender, RoutedEventArgs e)
         {
-            _viewModel.ExchangeDarkMode((sender as ToggleSwitch).IsOn);
+            ViewModel.ExchangeDarkMode((sender as ToggleSwitch).IsOn);
         }
 
         private void tsNoImagesMode_Toggled(object sender, RoutedEventArgs e)
         {
-            _viewModel.ExchangeNoImageMode((sender as ToggleSwitch).IsOn);
+            ViewModel.ExchangeNoImageMode((sender as ToggleSwitch).IsOn);
         }
 
         private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            _viewModel.ExchangeAutoDarkMode((sender as ToggleSwitch).IsOn);
+            ViewModel.ExchangeAutoDarkMode((sender as ToggleSwitch).IsOn);
 
             if (tsAutoDarkMode.IsOn)
             {
@@ -326,15 +325,7 @@ namespace Jandan.UWP.UI
             //    Printlog("你取消了操作。");
             //}
         }
-
-        private async void MenuFlyoutItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            var s = sender as MenuFlyoutItem;
-
-            await _viewModel.GetAuthAsync(s.Text);
-            _viewModel.Update();
-        }
-
+        
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             //var s = sender as MenuFlyoutItem;

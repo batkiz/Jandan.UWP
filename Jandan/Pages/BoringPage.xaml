@@ -84,8 +84,8 @@
                 <Button.Flyout>
                     <Flyout>
                         <StackPanel>
-                            <ToggleSwitch x:Name="showNSFW" IsOn="{x:Bind Path=_viewModel.IsShowNSFW, Mode=TwoWay}" OffContent="隐藏" OnContent="显示" Toggled="showNSFW_Toggled">显示/隐藏NSFW图片</ToggleSwitch>
-                            <ToggleSwitch x:Name="showUnwelcome" IsOn="{x:Bind Path=_viewModel.IsShowUnwelcome, Mode=TwoWay}" OffContent="隐藏" OnContent="显示" Toggled="showUnwelcome_Toggled">显示/隐藏不受欢迎的图片</ToggleSwitch>
+                            <ToggleSwitch x:Name="showNSFW" IsOn="{x:Bind Path=ViewModel.IsShowNSFW, Mode=TwoWay}" OffContent="隐藏" OnContent="显示" Toggled="showNSFW_Toggled">显示/隐藏NSFW图片</ToggleSwitch>
+                            <ToggleSwitch x:Name="showUnwelcome" IsOn="{x:Bind Path=ViewModel.IsShowUnwelcome, Mode=TwoWay}" OffContent="隐藏" OnContent="显示" Toggled="showUnwelcome_Toggled">显示/隐藏不受欢迎的图片</ToggleSwitch>
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
@@ -103,7 +103,7 @@
             <SplitView.Content>
                 <Grid Margin="8,4">
                     <pullcontrol:PullToRefreshBox x:Name="BoringPullToRefresh" RefreshInvoked="BoringPullToRefresh_RefreshInvoked">
-                        <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Boring, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick" SelectionMode="None" IsItemClickEnabled="True" IsMultiSelectCheckBoxEnabled="False">
+                        <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind ViewModel.Boring, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick" SelectionMode="None" IsItemClickEnabled="True" IsMultiSelectCheckBoxEnabled="False">
                             <toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
                                 <Style TargetType="GridViewItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -123,6 +123,6 @@
                 </Grid>
             </SplitView.Content>
         </SplitView>
-        <ProgressRing Grid.Row="1" Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind _viewModel.IsLoading, Mode=OneWay}"/>
+        <ProgressRing Grid.Row="1" Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"/>
     </Grid>
 </Page>

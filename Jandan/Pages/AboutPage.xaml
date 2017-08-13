@@ -23,23 +23,23 @@
         <ScrollViewer Grid.Row="1">
             <RelativePanel Padding="5" Margin="5,0">
                 <TextBlock Name="Version" Text="版本" Style="{StaticResource HeaderTextBlockStyle}"/>
-                <TextBlock Name="VersionNumber" Text="{x:Bind _viewModel.Abouts.VersionNumber, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Version"/>
+                <TextBlock Name="VersionNumber" Text="{x:Bind ViewModel.Abouts.VersionNumber, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Version"/>
                 <TextBlock Name="Author" Text="作者" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="VersionNumber"/>
-                <TextBlock Name="AuthorName" Text="{x:Bind _viewModel.Abouts.AuthorName, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Author"/>
+                <TextBlock Name="AuthorName" Text="{x:Bind ViewModel.Abouts.AuthorName, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Author"/>
                 <TextBlock Name="HelpSuggestion" Text="帮助与建议" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="AuthorName"/>
-                <TextBlock Name="HelpSuggestionText" Text="{x:Bind _viewModel.Abouts.HelpAndSuggestion, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="HelpSuggestion"/>
+                <TextBlock Name="HelpSuggestionText" Text="{x:Bind ViewModel.Abouts.HelpAndSuggestion, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="HelpSuggestion"/>
                 <HyperlinkButton Name="Feedback" Content="邮件反馈" NavigateUri="mailto:raysworld@qq.com?subject=[Jandan.UWP反馈]&amp;body=开发者你给我出来！！！" RelativePanel.Below="HelpSuggestionText" Background="Transparent"/>
                 <TextBlock Name="Denote" Text="捐赠" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="Feedback"/>
-                <TextBlock Name="DenoteText" Text="{x:Bind _viewModel.Abouts.DenoteText, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Denote"/>
+                <TextBlock Name="DenoteText" Text="{x:Bind ViewModel.Abouts.DenoteText, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Denote"/>
                 <TextBlock Name="Update" Text="版本更新" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="DenoteText"/>
-                <TextBlock Name="UpdateText" Text="{x:Bind _viewModel.Abouts.UpdateTextSource, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Update"/>
+                <TextBlock Name="UpdateText" Text="{x:Bind ViewModel.Abouts.UpdateTextSource, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Update"/>
                 <TextBlock Name="Quote" Text="引用" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="UpdateText"/>
                 <TextBlock Name="QuoteJandan" Text="源数据：煎蛋网" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Quote"/>
                 <HyperlinkButton Name="LinkJandan" Content="Jandan" NavigateUri="http://jandan.net/" RelativePanel.Below="QuoteJandan" Background="Transparent"/>
                 <TextBlock Name="QuotePullToRefresh" Text="插件：PullToRefresh.UWP" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="LinkJandan"/>
                 <HyperlinkButton Name="LinkPullToRefresh" Content="NuGet" NavigateUri="https://www.nuget.org/packages/PullToRefresh.UWP" RelativePanel.Below="QuotePullToRefresh" Background="Transparent"/>
                 <!--<TextBlock Name="Device" Text="设备信息" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="LinkPullToRefresh"/>
-                <TextBlock Name="DeviceText" Text="{x:Bind _viewModel.Abouts.ModelType, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Device"/>-->
+                <TextBlock Name="DeviceText" Text="{x:Bind ViewModel.Abouts.ModelType, Mode=OneWay}" Style="{StaticResource ContentTextBlockStyle}" RelativePanel.Below="Device"/>-->
                 <TextBlock Name="Privacy" Text="隐私策略" Style="{StaticResource HeaderTextBlockStyle}" RelativePanel.Below="LinkPullToRefresh"/>
                 <HyperlinkButton Name="PrivacyURL" Content="GitHub" NavigateUri="https://github.com/raysworld/Jandan.UWP/blob/master/Privacy%20Policy" RelativePanel.Below="Privacy" Background="Transparent"/>
             </RelativePanel>

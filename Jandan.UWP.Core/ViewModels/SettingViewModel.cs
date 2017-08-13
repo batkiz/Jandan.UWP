@@ -10,8 +10,6 @@ namespace Jandan.UWP.Core.ViewModels
 {
     public class SettingViewModel : ViewModelBase
     {
-        private APIService _api = new APIService();
-
         private bool _isDarkMode;
         public bool IsDarkMode
         {
@@ -131,10 +129,6 @@ namespace Jandan.UWP.Core.ViewModels
 #if DEBUG
             System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString() + " " + info);
 #endif
-        }
-        public async Task GetAuthAsync(string s)
-        {
-            await _api.GetAccessTokenAsync(s);
         }
     }
 }

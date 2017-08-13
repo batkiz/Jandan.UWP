@@ -31,7 +31,7 @@ namespace Jandan.UWP.UI
         /// <summary>
         /// 无聊图的View Model
         /// </summary>
-        BoringViewModel _viewModel;
+        BoringViewModel ViewModel { get; } = new BoringViewModel();
 
         /// <summary>
         /// 用于进入妹子图的计数
@@ -42,7 +42,7 @@ namespace Jandan.UWP.UI
         {
             this.InitializeComponent();
 
-            this.DataContext = _viewModel = new BoringViewModel();
+            this.DataContext = ViewModel;
         }
         /// <summary>
         /// 从其他页面导航回到无聊图
@@ -83,7 +83,7 @@ namespace Jandan.UWP.UI
             var boring = b.DataContext as BoringPic;
             var c = b.Parent as RelativePanel;
 
-            var msg = await _viewModel.Vote(boring, isLike);
+            var msg = await ViewModel.Vote(boring, isLike);
 
             if (msg == null)
             {
@@ -180,7 +180,7 @@ namespace Jandan.UWP.UI
         private void BoringGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             //this.Frame.Navigate(typeof(PicDetailPage), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, _viewModel.Boring });
-            this.Frame.Navigate(typeof(ImageViewer), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, _viewModel.Boring });
+            this.Frame.Navigate(typeof(ImageViewer), new object[] { e.ClickedItem as BoringPic, PicDetailType.Boring, ViewModel.Boring });
         }
 
         private void BoringPullToRefresh_RefreshInvoked(DependencyObject sender, object args)
@@ -218,7 +218,7 @@ namespace Jandan.UWP.UI
 
         private void RefreshPage()
         {
-            _viewModel.UpdateBoringPics();
+            ViewModel.UpdateBoringPics();
         }
     }
 }

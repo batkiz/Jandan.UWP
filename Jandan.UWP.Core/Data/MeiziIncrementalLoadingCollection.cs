@@ -58,7 +58,7 @@ namespace Jandan.UWP.Core.Data
             try
             {
                 DataLoading?.Invoke();
-                list = await _api.GetMeiziPics(DataShareManager.Current.MeiziItemPage++);
+                list = await APIService.GetMeiziPics(DataShareManager.Current.MeiziItemPage++);
             }
             catch (Exception)
             {

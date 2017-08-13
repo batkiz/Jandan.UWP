@@ -14,8 +14,6 @@ namespace Jandan.UWP.Core.ViewModels
 {
     public class FreshViewModel : ViewModelBase
     {
-        private APIService _api = new APIService();
-
         private bool _is_loading;
         public bool IsLoading
         {
@@ -97,7 +95,7 @@ namespace Jandan.UWP.Core.ViewModels
         public async void Update()
         {
             IsLoading = true;
-            var list = await _api.GetFresh(1);
+            var list = await APIService.GetFresh(1);
 
             FreshIncrementalLoadingCollection c = new FreshIncrementalLoadingCollection();
 

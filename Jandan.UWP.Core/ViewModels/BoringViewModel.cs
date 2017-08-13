@@ -10,8 +10,6 @@ namespace Jandan.UWP.Core.ViewModels
 {
     public class BoringViewModel : ViewModelBase
     {
-        private APIService _api = new APIService();
-
         private bool _is_loading;
         public bool IsLoading
         {
@@ -110,7 +108,7 @@ namespace Jandan.UWP.Core.ViewModels
         public async void UpdateBoringPics()
         {
             IsLoading = true;
-            var list = await _api.GetBoringPics(1);
+            var list = await APIService.GetBoringPics(1);
 
             BoringIncrementalLoadingCollection c = new BoringIncrementalLoadingCollection();
             list?.ForEach((t) =>
@@ -176,7 +174,7 @@ namespace Jandan.UWP.Core.ViewModels
         {
             var b = Boring;
 
-            var msg = await _api.Vote(boring.PicID, isLike);
+            var msg = await APIService.Vote(boring.PicID, isLike);
 
             if (string.IsNullOrEmpty(msg))
             {

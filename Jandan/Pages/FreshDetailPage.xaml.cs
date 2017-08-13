@@ -19,7 +19,7 @@ namespace Jandan.UWP.UI
     /// </summary>
     public sealed partial class FreshDetailPage : Page
     {
-        private FreshDetailViewModel _viewModel;
+        private FreshDetailViewModel ViewModel { get; } = new FreshDetailViewModel();
         DataTransferManager dataTransferManager;
 
         public FreshDetailPage()
@@ -33,7 +33,7 @@ namespace Jandan.UWP.UI
 
         private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs e)
         {
-            var FreshNews = _viewModel.FreshDetails;
+            var FreshNews = ViewModel.FreshDetails;
 
             DataRequest request = e.Request;
             request.Data.Properties.Title = "煎蛋网 - 新鲜事";
@@ -59,10 +59,12 @@ namespace Jandan.UWP.UI
                 switch ((int)parameters[0])
                 {
                     case 0:
-                        this.DataContext = _viewModel = new FreshDetailViewModel(parameters[1] as Fresh);
+                        ViewModel.Update(parameters[1] as Fresh);
+                        this.DataContext = ViewModel;
                         break;
                     case 1:
-                        this.DataContext = _viewModel = new FreshDetailViewModel(parameters[1] as BestFreshComment);
+                        ViewModel.Update(parameters[1] as BestFreshComment);
+                        this.DataContext = ViewModel;
                         break;
                     default:
                         break;
@@ -84,7 +86,7 @@ namespace Jandan.UWP.UI
 
         private void FreshCommentButton_Click(object sender, RoutedEventArgs e)
         {
-            string commentId = _viewModel.FreshDetails.FreshInfo.ID;
+            string commentId = ViewModel.FreshDetails.FreshInfo.ID;
 
             CommentControl.Update(commentId);
             DuanSplitView.IsPaneOpen = true;
@@ -115,26 +117,26 @@ namespace Jandan.UWP.UI
             if (fresh_list == null) fresh_list = new List<Fresh>();
 
             // 检查当前新鲜事是否已经收藏
-            if (!_viewModel.IsFavourite) // 未收藏，则加入收藏
+            if (!ViewModel.IsFavourite) // 未收藏，则加入收藏
             {
                 // 增加当前新鲜事到收藏列表
-                fresh_list.Add(_viewModel.FreshDetails.FreshInfo);
+                fresh_list.Add(ViewModel.FreshDetails.FreshInfo);
                 // 写入收藏列表
                 await FileHelper.Current.WriteXmlObjectAsync<List<Fresh>>(fresh_list, "fresh.xml");
 
-                _viewModel.IsFavourite = true;
+                ViewModel.IsFavourite = true;
                 // 收藏成功通知
                 PopupMessage(2000, "收藏成功！");
             }
             else // 已收藏，则取消收藏
             {
                 //fresh_list.Remove(_viewModel.FreshDetails.FreshInfo);
-                fresh_list.RemoveAll(f => f.ID == _viewModel.FreshDetails.FreshInfo.ID);
+                fresh_list.RemoveAll(f => f.ID == ViewModel.FreshDetails.FreshInfo.ID);
 
                 // 写入收藏列表
                 await FileHelper.Current.WriteXmlObjectAsync<List<Fresh>>(fresh_list, "fresh.xml");
 
-                _viewModel.IsFavourite = false;
+                ViewModel.IsFavourite = false;
                 // 取消收藏成功通知
                 PopupMessage(2000, "取消收藏成功！");
             }

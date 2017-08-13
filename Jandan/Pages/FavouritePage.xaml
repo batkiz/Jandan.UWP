@@ -154,7 +154,7 @@
                         <PivotItem Header="新鲜事">
                             <Grid Margin="-8, 0">
                                 <pullcontrol:PullToRefreshBox x:Name="FreshPullToRefresh" RefreshInvoked="pullToRefreshBar_RefreshInvoked" RefreshThreshold="100">
-                                    <toolkitcontrol:AdaptiveGridView x:Name="FreshGridView" ItemTemplate="{StaticResource FreshGridItemNarrowTemplate}" ItemsSource="{x:Bind _viewModel.Fresh, Mode=OneWay}" ItemClick="FreshGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False" HorizontalContentAlignment="Stretch">
+                                    <toolkitcontrol:AdaptiveGridView x:Name="FreshGridView" ItemTemplate="{StaticResource FreshGridItemNarrowTemplate}" ItemsSource="{x:Bind ViewModel.Fresh, Mode=OneWay}" ItemClick="FreshGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False" HorizontalContentAlignment="Stretch">
                                         <toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
                                             <Style TargetType="GridViewItem">
                                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -168,13 +168,13 @@
                         <PivotItem Header="段子">
                             <Grid Margin="-8, 0">
                                 <pullcontrol:PullToRefreshBox x:Name="DuanPullToRefresh" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
-                                    <ListView Name="DuanListView" ItemsSource="{x:Bind _viewModel.Duan, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ItemContainerStyle="{StaticResource DuanListViewItemStyle}"></ListView>
+                                    <ListView Name="DuanListView" ItemsSource="{x:Bind ViewModel.Duan, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ItemContainerStyle="{StaticResource DuanListViewItemStyle}"></ListView>
                                 </pullcontrol:PullToRefreshBox>
                             </Grid>
                         </PivotItem>
                         <PivotItem Header="无聊图">
                             <Grid Margin="-8, 0">
-                                <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Pics, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False">
+                                <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind ViewModel.Pics, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False">
                                     <toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
                                         <Style TargetType="GridViewItem">
                                             <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -185,7 +185,7 @@
                         </PivotItem>
                         <PivotItem Header="  ">
                             <Grid Margin="-8, 0">
-                                <toolkitcontrol:AdaptiveGridView x:Name="GirlGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Girls, Mode=OneWay}" ItemTemplate="{StaticResource GirlPicsDataStyle}" ItemClick="GirlGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False">
+                                <toolkitcontrol:AdaptiveGridView x:Name="GirlGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind ViewModel.Girls, Mode=OneWay}" ItemTemplate="{StaticResource GirlPicsDataStyle}" ItemClick="GirlGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False">
                                     <toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
                                         <Style TargetType="GridViewItem">
                                             <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>

@@ -29,13 +29,13 @@ namespace Jandan.UWP.UI
         /// <summary>
         /// 妹子图的View Model
         /// </summary>
-        MeiziViewModel _viewModel;
+        MeiziViewModel ViewModel { get; } = new MeiziViewModel();
 
         public GirlsPage()
         {
             this.InitializeComponent();
 
-            DataContext = _viewModel = new MeiziViewModel();
+            DataContext = ViewModel;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -66,7 +66,7 @@ namespace Jandan.UWP.UI
 
         private void BoringGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.Frame.Navigate(typeof(ImageViewer), new object[] { e.ClickedItem as BoringPic, PicDetailType.Meizi, _viewModel.Meizi });
+            this.Frame.Navigate(typeof(ImageViewer), new object[] { e.ClickedItem as BoringPic, PicDetailType.Meizi, ViewModel.Meizi });
         }
 
         private void DuanVotePositiveIcon_Click(object sender, RoutedEventArgs e)
@@ -84,7 +84,7 @@ namespace Jandan.UWP.UI
             var boring = b.DataContext as BoringPic;
             var c = b.Parent as RelativePanel;
 
-            var msg = await _viewModel.Vote(boring, isLike);
+            var msg = await ViewModel.Vote(boring, isLike);
 
             if (msg == null)
             {
@@ -162,7 +162,7 @@ namespace Jandan.UWP.UI
 
         private void RefreshPage()
         {
-            _viewModel.Update();
+            ViewModel.Update();
         }
     }
 }

@@ -19,8 +19,6 @@ namespace Jandan.UWP.Core.ViewModels
 {
     public class FavouriteViewModel : ViewModelBase
     {
-        private APIService _api = new APIService();
-
         private bool _is_loading;
         public bool IsLoading
         {

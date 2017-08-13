@@ -17,13 +17,13 @@ namespace Jandan.UWP.Core.HTTP
     /// </summary>
     public class APIService : APIBaseService
     {
-        private string _local_path = Windows.Storage.ApplicationData.Current.LocalCacheFolder.Path;
+        private static string _local_path = Windows.Storage.ApplicationData.Current.LocalCacheFolder.Path;
 
         /// <summary>
         /// 新鲜事列表
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Fresh>> GetFresh(int pageNum)
+        public static async Task<List<Fresh>> GetFresh(int pageNum)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace Jandan.UWP.Core.HTTP
                 }
                 else
                 {
-                    JsonObject json = await GetJson(string.Format(ServiceURL.URL_FRESH_NEWS, pageNum));
+                    JsonObject json = await GetJson(string.Format(ServiceURL.API_GET_FRESH_NEWS, pageNum));
 
                     if (json != null)
                     {
@@ -101,7 +101,7 @@ namespace Jandan.UWP.Core.HTTP
         /// 新鲜事详情
         /// </summary>
         /// <returns></returns>
-        public async Task<FreshDetail> GetFreshDetail(Fresh fresh)
+        public static async Task<FreshDetail> GetFreshDetail(Fresh fresh)
         {
             try
             {
@@ -112,7 +112,7 @@ namespace Jandan.UWP.Core.HTTP
                 }
                 else
                 {
-                    JsonObject json = await GetJson(string.Format(ServiceURL.URL_FRESH_NEWS_DETAIL, fresh.ID));
+                    JsonObject json = await GetJson(string.Format(ServiceURL.API_GET_FRESH_NEWS_DETAIL, fresh.ID));
 
                     if (json != null)
                     {
@@ -146,7 +146,7 @@ namespace Jandan.UWP.Core.HTTP
         /// 段子列表
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Duan>> GetDuan(int pageNum)
+        public static async Task<List<Duan>> GetDuan(int pageNum)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace Jandan.UWP.Core.HTTP
                 }
                 else
                 {
-                    JsonObject json = await GetJson(string.Format(ServiceURL.URL_DUANZI, pageNum));
+                    JsonObject json = await GetJson(string.Format(ServiceURL.API_GET_DUANZI, pageNum));
 
                     if (json != null)
                     {
@@ -232,7 +232,7 @@ namespace Jandan.UWP.Core.HTTP
         /// 无聊图列表
         /// </summary>
         /// <returns></returns>
-        public async Task<List<BoringPic>> GetBoringPics(int pageNum)
+        public static async Task<List<BoringPic>> GetBoringPics(int pageNum)
         {
             try
             {
@@ -250,7 +250,7 @@ namespace Jandan.UWP.Core.HTTP
                 }
                 else
                 {
-                    JsonObject json = await GetJson(string.Format(ServiceURL.URL_BORING_PICTURE, pageNum));
+                    JsonObject json = await GetJson(string.Format(ServiceURL.API_GET_BORING_PICTURE, pageNum));
 
                     if (json != null)
                     {
@@ -326,7 +326,7 @@ namespace Jandan.UWP.Core.HTTP
         /// 妹子图列表
         /// </summary>
         /// <returns></returns>
-        public async Task<List<BoringPic>> GetMeiziPics(int pageNum)
+        public static async Task<List<BoringPic>> GetMeiziPics(int pageNum)
         {
             try
             {
@@ -344,7 +344,7 @@ namespace Jandan.UWP.Core.HTTP
                 }
                 else
                 {
-                    JsonObject json = await GetJson(string.Format(ServiceURL.URL_MEIZI, pageNum));
+                    JsonObject json = await GetJson(string.Format(ServiceURL.API_GET_MEIZI, pageNum));
 
                     if (json != null)
                     {
@@ -409,7 +409,7 @@ namespace Jandan.UWP.Core.HTTP
         /// 热门无聊图列表
         /// </summary>
         /// <returns></returns>
-        public async Task<List<BoringPic>> GetHotPics()
+        public static async Task<List<BoringPic>> GetHotPics()
         {
             try
             {
@@ -420,7 +420,7 @@ namespace Jandan.UWP.Core.HTTP
                 }
                 else
                 {
-                    JsonObject json = await GetJson(ServiceURL.URL_HOTPICS);
+                    JsonObject json = await GetJson(ServiceURL.API_GET_HOTPICS);
 
                     if (json != null)
                     {
@@ -498,7 +498,7 @@ namespace Jandan.UWP.Core.HTTP
         /// 热门无聊图列表
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Duan>> GetHotDuan()
+        public static async Task<List<Duan>> GetHotDuan()
         {
             try
             {
@@ -509,7 +509,7 @@ namespace Jandan.UWP.Core.HTTP
                 }
                 else
                 {
-                    JsonObject json = await GetJson(ServiceURL.URL_HOTDUAN);
+                    JsonObject json = await GetJson(ServiceURL.API_GET_HOTDUAN);
 
                     if (json != null)
                     {
@@ -572,7 +572,7 @@ namespace Jandan.UWP.Core.HTTP
         /// 获取新鲜事评论
         /// </summary>
         /// <returns></returns>
-        public async Task<List<BestFreshComment>> GetHotComments()
+        public static async Task<List<BestFreshComment>> GetHotComments()
         {
             try
             {
@@ -583,7 +583,7 @@ namespace Jandan.UWP.Core.HTTP
                 }
                 else
                 {
-                    JsonObject json = await GetJson(ServiceURL.URL_HOTCOMM); //"comment-" + 
+                    JsonObject json = await GetJson(ServiceURL.API_GET_HOTCOMM); //"comment-" + 
 
                     if (json != null)
                     {
@@ -641,7 +641,7 @@ namespace Jandan.UWP.Core.HTTP
         /// 获取段子/无聊图评论
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Tucao>> GetTucao(string DuanID)
+        public static async Task<List<Tucao>> GetTucao(string DuanID)
         {
             try
             {
@@ -653,7 +653,7 @@ namespace Jandan.UWP.Core.HTTP
                 else
                 {
                     //JsonObject json = await GetJson($"{ServiceURL.URL_COMMENT_LIST}comment-{DuanID}");
-                    JsonObject json = await GetJson($"{ServiceURL.URL_COMMENT_LIST}{DuanID}");
+                    JsonObject json = await GetJson($"{ServiceURL.API_POST_COMMENT_LIST}{DuanID}");
 
                     if (json != null)
                     {
@@ -669,7 +669,7 @@ namespace Jandan.UWP.Core.HTTP
                             var last_comment_ID = (postList[postList.Count - 1].GetObject())["comment_ID"].GetString();
 
                             // 获取下一页评论
-                            JsonObject json2 = await GetJson($"{ServiceURL.URL_COMMENT_LIST}{DuanID}/n/{last_comment_ID}");
+                            JsonObject json2 = await GetJson($"{ServiceURL.API_POST_COMMENT_LIST}{DuanID}/n/{last_comment_ID}");
 
                             // 与当前postList合并
                             foreach (var j in json2["tucao"].GetArray())
@@ -756,7 +756,7 @@ namespace Jandan.UWP.Core.HTTP
         /// 获取新鲜事评论
         /// </summary>
         /// <returns></returns>
-        public async Task<List<FreshComment>> GetFreshComments(string DuanID)
+        public static async Task<List<FreshComment>> GetFreshComments(string DuanID)
         {
             try
             {
@@ -767,7 +767,7 @@ namespace Jandan.UWP.Core.HTTP
                 }
                 else
                 {
-                    JsonObject json = await GetJson(string.Format(ServiceURL.URL_FRESH_COMMENTS, DuanID)); //"comment-" + 
+                    JsonObject json = await GetJson(string.Format(ServiceURL.API_GET_FRESH_COMMENTS, DuanID)); //"comment-" + 
 
                     if (json != null)
                     {
@@ -832,103 +832,14 @@ namespace Jandan.UWP.Core.HTTP
             Debug.WriteLine(DateTime.Now.ToString() + " " + info);
 #endif
         }
-        public async Task GetAccessTokenAsync(string s)
-        {
-            string authUrl = "";
 
-            switch (s)
-            {
-                case "微博":
-                    authUrl = ServiceURL.URL_DUOSHUO_WEIBO;
-                    break;
-                case "QQ":
-                    authUrl = ServiceURL.URL_DUOSHUO_QQ;
-                    break;
-                case "百度":
-                    authUrl = ServiceURL.URL_DUOSHUO_BAIDU;
-                    break;
-                case "豆瓣":
-                    authUrl = ServiceURL.URL_DUOSHUO_DOUBAN;
-                    break;
-                case "人人":
-                    authUrl = ServiceURL.URL_DUOSHUO_RENREN;
-                    break;
-                case "开心网":
-                    authUrl = ServiceURL.URL_DUOSHUO_KAIXIN;
-                    break;
-                default:
-                    break;
-            }
-            // 新浪微博授权地址
-            //string authUrl = $"https://jandan.duoshuo.com/login/weibo/?sso=1&redirect_uri=http://jandan.net/";
-            Uri wbAuthUri = new Uri(authUrl);
-
-            // 回调地址
-            string cbUri = @"http://jandan.net";
-            Uri callbackUri = new Uri(cbUri);
-
-            // 获取授权
-            WebAuthenticationResult result = await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, wbAuthUri, callbackUri);
-
-            // 处理结果
-            if (result.ResponseStatus == WebAuthenticationStatus.Success)
-            {
-                string cburi = result.ResponseData;
-                // 取得授权码
-                // code是附加在回调URI后，以?code=xxxxxxxxxxxxxx的形式出现，作为URI的查询字符串
-                string code = cburi.Substring(cburi.IndexOf('=') + 1);
-                                
-                Printlog($"回调URI：{cburi}\n授权码：{code}");
-
-                try
-                {
-                    string url = @"http://api.duoshuo.com/oauth2/access_token";
-                    string msg = $"client_id=jandan&code={code}";
-                    string returned_msg = await BaseService.SendPostRequestUrl(url, msg);
-
-                    if (returned_msg != null)
-                    {
-                        Printlog("请求token数据成功");
-                        var accessInfo = JsonObject.Parse(returned_msg);
-
-                        var access_token = accessInfo["access_token"].GetString();
-                        DataShareManager.Current.UpdateAccessToken(access_token);
-                        //DataShareManager.Current.AccessToken = access_token;
-
-                        var user_id = accessInfo["user_id"].GetString();
-                        var user_info = await GetJson($"http://api.duoshuo.com/users/profile.json?user_id={user_id}");
-                        DataShareManager.Current.UpdateUserId3rd(user_id);
-
-                        if (user_info != null)
-                        {
-                            var response = user_info["response"].GetObject();
-                            //DataShareManager.Current.ThirdPartyUserName = response["name"].GetString();
-                            DataShareManager.Current.UpdateUserName3rd(response["name"].GetString());
-                        }
-                    }                    
-                }
-                catch (Exception)
-                {
-
-                }
-            }
-            else if (result.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
-            {
-                Printlog("错误：" + result.ResponseErrorDetail.ToString());
-            }
-            else if (result.ResponseStatus == WebAuthenticationStatus.UserCancel)
-            {
-                Printlog("你取消了操作。");
-            }
-        }
-
-        public async Task<string> Vote(string ID, bool isLike)
+        public static async Task<string> Vote(string ID, bool isLike)
         {
             int like = isLike ? 1 : 0;
 
             try
             {
-                string url = string.Format(ServiceURL.URL_VOTE, like);
+                string url = string.Format(ServiceURL.API_POST_VOTE, like);
                 string body = $"ID={ID}";
                 string returned_msg = await BaseService.SendPostRequestUrlEncodedOfficial(url, body);
 
@@ -940,7 +851,7 @@ namespace Jandan.UWP.Core.HTTP
             }
         }
 
-        public async Task<string> PostComment(string comment)
+        public static async Task<string> PostComment(string comment)
         {
             try
             {
@@ -955,7 +866,7 @@ namespace Jandan.UWP.Core.HTTP
             }
         }
 
-        public async Task<string> PostFreshComment(string comment)
+        public static async Task<string> PostFreshComment(string comment)
         {
             try
             {

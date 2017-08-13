@@ -99,7 +99,7 @@ namespace Jandan.UWP.CortanaTask
 
             try
             {
-                var response = await _api.GetFresh(1);
+                var response = await APIService.GetFresh(1);
                 if (response?.Count != 0)
                 {
                     return response;
@@ -225,7 +225,7 @@ namespace Jandan.UWP.CortanaTask
 
             try
             {
-                var response = await _api.GetBoringPics(1);
+                var response = await APIService.GetBoringPics(1);
                 if (response?.Count != 0)
                 {
                     return response;
@@ -294,7 +294,7 @@ namespace Jandan.UWP.CortanaTask
 
             try
             {
-                var response = await _api.GetDuan(1);
+                var response = await APIService.GetDuan(1);
                 if (response?.Count != 0)
                 {
                     return response;

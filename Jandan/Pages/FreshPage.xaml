@@ -101,7 +101,7 @@
             <Button Name="RefreshButton" Content="&#xE72C;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"></Button>
         </RelativePanel>
         <pullcontrol:PullToRefreshBox Grid.Row="1" x:Name="FreshPullToRefresh" RefreshInvoked="FreshPullToRefresh_RefreshInvoked" RefreshThreshold="100">
-            <toolkitcontrol:AdaptiveGridView x:Name="FreshGridView" ItemTemplate="{StaticResource FreshGridItemNarrowTemplate}" ItemsSource="{x:Bind _viewModel.News, Mode=OneWay}" ItemClick="FreshGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False" HorizontalContentAlignment="Stretch">
+            <toolkitcontrol:AdaptiveGridView x:Name="FreshGridView" ItemTemplate="{StaticResource FreshGridItemNarrowTemplate}" ItemsSource="{x:Bind ViewModel.News, Mode=OneWay}" ItemClick="FreshGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False" HorizontalContentAlignment="Stretch">
                 <toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
                     <Style TargetType="GridViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -110,6 +110,6 @@
                 </toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
             </toolkitcontrol:AdaptiveGridView>
         </pullcontrol:PullToRefreshBox>
-        <ProgressRing Grid.Row="1" Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind _viewModel.IsLoading, Mode=OneWay}"></ProgressRing>
+        <ProgressRing Grid.Row="1" Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"></ProgressRing>
     </Grid>
 </Page>

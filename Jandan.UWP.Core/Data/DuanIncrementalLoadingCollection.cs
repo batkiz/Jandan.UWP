@@ -58,7 +58,7 @@ namespace Jandan.UWP.Core.Data
             try
             {
                 DataLoading?.Invoke();
-                list = await _api.GetDuan(DataShareManager.Current.DuanItemPage++);
+                list = await APIService.GetDuan(DataShareManager.Current.DuanItemPage++);
             }
             catch (Exception)
             {

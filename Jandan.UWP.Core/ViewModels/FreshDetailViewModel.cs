@@ -14,8 +14,6 @@ namespace Jandan.UWP.Core.ViewModels
 {
     public class FreshDetailViewModel : ViewModelBase
     {
-        private APIService _api = new APIService();
-
         public bool IsLoading { get; set; }
 
         private FreshDetail _freshDetails;
@@ -26,6 +24,13 @@ namespace Jandan.UWP.Core.ViewModels
 
         private double _freshWidth;
         public double FreshWidth { get { return _freshWidth; } set { _freshWidth = value; OnPropertyChanged(); } }
+
+        public FreshDetailViewModel()
+        {
+            _freshDetails = new FreshDetail() { FreshInfo = null, FreshContentSlim = "", FreshContentEx = "" };
+
+            Update(_freshDetails.FreshInfo);
+        }
 
         public FreshDetailViewModel(Fresh fresh)
         {
@@ -62,7 +67,7 @@ namespace Jandan.UWP.Core.ViewModels
             IsFavourite = await CheckIfFavouriteAsync(fresh);
 
             // 加载新鲜事内容和格式
-            var fresh_detail = await _api.GetFreshDetail(fresh);
+            var fresh_detail = await APIService.GetFreshDetail(fresh);
 
             if (fresh_detail == null)
             {
@@ -70,6 +75,8 @@ namespace Jandan.UWP.Core.ViewModels
             }
             else
             {
+                fresh_detail.FreshInfo = fresh;
+
                 // 根据设备类型设置不同的CSS文件
                 //string css = SetCss();
                 // 处理文档中各种格式标记
@@ -87,6 +94,12 @@ namespace Jandan.UWP.Core.ViewModels
                 IsLoading = false;
             }
             FreshDetails = fresh_detail;
+        }
+
+        public void Update(BestFreshComment best)
+        {
+            var fresh = best.FreshNews.FreshInfo;
+            Update(fresh);
         }
 
         private static string SetTitle(Fresh fresh)

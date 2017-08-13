@@ -28,13 +28,13 @@ namespace Jandan.UWP.UI
     /// </summary>
     public sealed partial class FavouritePage : Page
     {
-        FavouriteViewModel _viewModel;
+        FavouriteViewModel ViewModel { get; } = new FavouriteViewModel();
 
         public FavouritePage()
         {
             this.InitializeComponent();
 
-            this.DataContext = _viewModel = new FavouriteViewModel();
+            this.DataContext = ViewModel = new FavouriteViewModel();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -61,7 +61,7 @@ namespace Jandan.UWP.UI
 
         private void RefreshPage()
         {
-            _viewModel.Update();
+            ViewModel.Update();
         }
 
         private void FreshPullToRefresh_RefreshInvoked(DependencyObject sender, object args)

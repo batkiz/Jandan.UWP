@@ -20,7 +20,7 @@ namespace Jandan.UWP.UI
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        MainViewModel _viewModel;        
+        MainViewModel ViewModel { get; } = new MainViewModel();        
 
         public MainPage()
         {
@@ -71,7 +71,7 @@ namespace Jandan.UWP.UI
             base.OnNavigatedTo(e);
             DataShareManager.Current.CurrentPageIndex = PageIndex.MainPage;
 
-            this.DataContext = _viewModel = new MainViewModel();
+            this.DataContext = ViewModel;
             //SetRequestedTheme();
 
             mainFrame.Navigate(typeof(FreshPage));
@@ -114,7 +114,7 @@ namespace Jandan.UWP.UI
 
         private void SecBtnDarkMode_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.ToggleAPPTheme();
+            ViewModel.ToggleAPPTheme();
         }
 
         private void SecBtnAbout_Click(object sender, RoutedEventArgs e)
@@ -134,7 +134,7 @@ namespace Jandan.UWP.UI
 
         private async void MainCommandBar_Opening(object sender, object e)
         {
-            SecBtnDarkMode.Label = _viewModel.AppTheme == ElementTheme.Dark ? "日间模式" : "夜间模式";
+            SecBtnDarkMode.Label = ViewModel.AppTheme == ElementTheme.Dark ? "日间模式" : "夜间模式";
 
             // 检查当前缓存使用
             var size = await FileHelper.Current.GetCacheSize();

@@ -60,7 +60,7 @@ namespace Jandan.UWP.Core.Data
             try
             {
                 DataLoading?.Invoke();
-                list = await _api.GetFresh(DataShareManager.Current.FreshNewsPage++);
+                list = await APIService.GetFresh(DataShareManager.Current.FreshNewsPage++);
             }
             catch (Exception)
             {

@@ -54,7 +54,7 @@ namespace Jandan.UWP.Core.Data
             try
             {
                 DataLoading?.Invoke();
-                list = await _api.GetBoringPics(DataShareManager.Current.BoringItemPage++);
+                list = await APIService.GetBoringPics(DataShareManager.Current.BoringItemPage++);
             }
             catch (Exception)
             {

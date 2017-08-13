@@ -30,7 +30,7 @@ namespace Jandan.UWP.UI
     /// </summary>
     public sealed partial class ImageViewer : Page
     {
-        PicDetailViewModel _viewModel;
+        PicDetailViewModel ViewModel { get; } = new PicDetailViewModel();
 
         object ItemList;
         BoringPic CurrentItem;
@@ -49,7 +49,7 @@ namespace Jandan.UWP.UI
         string si;
         private async void ShareButton_Click(object sender, RoutedEventArgs e)
         {
-            var pics = _viewModel.BoringPicture;
+            var pics = ViewModel.BoringPicture;
             si = "";
 
             if (pics.Urls.Count > 1)
@@ -122,7 +122,8 @@ namespace Jandan.UWP.UI
             if (parameters[0] != null)
             {
                 var p = parameters[0] as BoringPic;
-                this.DataContext = _viewModel = new PicDetailViewModel(p);
+                ViewModel.ReloadPics(p);
+                this.DataContext = ViewModel;
 
                 CurrentItem = p;
                 DetailType = (PicDetailType)parameters[1];
@@ -174,7 +175,7 @@ namespace Jandan.UWP.UI
 
         private async void PicDownload_Click(object sender, RoutedEventArgs e)
         {
-            var pics = _viewModel.BoringPicture;
+            var pics = ViewModel.BoringPicture;
 
             foreach (var url in pics.Urls)
             {
@@ -222,7 +223,7 @@ namespace Jandan.UWP.UI
         {
             var d = e.ClickedItem as Tucao;
             var user_name = d.AuthorName;
-            var vm = _viewModel._dViewModel;
+            var vm = ViewModel._dViewModel;
 
             vm.TextBoxComment = $"@{user_name}: ";
             vm.ParentId = d.PostID;
@@ -230,7 +231,7 @@ namespace Jandan.UWP.UI
 
         private async void CommentSubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            var vm = _viewModel._dViewModel;
+            var vm = ViewModel._dViewModel;
             var response = vm.TextBoxComment;
 
             if (!response.StartsWith("@") && !string.IsNullOrEmpty(vm.ParentId))
@@ -405,26 +406,26 @@ namespace Jandan.UWP.UI
             if (boring_list == null) boring_list = new List<BoringPic>();
 
             // 检查当前新鲜事是否已经收藏
-            if (!_viewModel.IsFavourite) // 未收藏，则加入收藏
+            if (!ViewModel.IsFavourite) // 未收藏，则加入收藏
             {
                 // 增加当前新鲜事到收藏列表
-                boring_list.Add(_viewModel.BoringPicture);
+                boring_list.Add(ViewModel.BoringPicture);
                 // 写入收藏列表
                 await FileHelper.Current.WriteXmlObjectAsync<List<BoringPic>>(boring_list, xml_name);
 
-                _viewModel.IsFavourite = true;
+                ViewModel.IsFavourite = true;
                 // 收藏成功通知
                 PopupMessage(2000, "收藏成功！");
             }
             else // 已收藏，则取消收藏
             {
                 //fresh_list.Remove(_viewModel.FreshDetails.FreshInfo);
-                boring_list.RemoveAll(f => f.PicID == _viewModel.BoringPicture.PicID);
+                boring_list.RemoveAll(f => f.PicID == ViewModel.BoringPicture.PicID);
 
                 // 写入收藏列表
                 await FileHelper.Current.WriteXmlObjectAsync<List<BoringPic>>(boring_list, xml_name);
 
-                _viewModel.IsFavourite = false;
+                ViewModel.IsFavourite = false;
                 // 取消收藏成功通知
                 PopupMessage(2000, "取消收藏成功！");
             }

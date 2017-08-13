@@ -7,8 +7,6 @@ namespace Jandan.UWP.Core.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        APIService _api = new APIService();
-
         private ElementTheme _appTheme;
         public ElementTheme AppTheme
         {

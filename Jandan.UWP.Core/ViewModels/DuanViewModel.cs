@@ -11,8 +11,6 @@ namespace Jandan.UWP.Core.ViewModels
 {
     public class DuanViewModel : ViewModelBase, IDisposable
     {
-        private APIService _api = new APIService();
-
         private bool _is_loading;
         public bool IsLoading
         {
@@ -94,7 +92,7 @@ namespace Jandan.UWP.Core.ViewModels
         public async void Update()
         {
             IsLoading = true;
-            var list = await _api.GetDuan(1);
+            var list = await APIService.GetDuan(1);
 
             DuanIncrementalLoadingCollection c = new DuanIncrementalLoadingCollection();
             list?.ForEach((t) =>
@@ -150,14 +148,14 @@ namespace Jandan.UWP.Core.ViewModels
 
         public async Task<string> Vote(string ID, bool isLike)
         {
-            return await _api.Vote(ID, isLike);
+            return await APIService.Vote(ID, isLike);
         }
 
         public async Task<string> Vote(Duan duan, bool isLike)
         {
             var d = Duans;
 
-            var msg = await _api.Vote(duan.DuanID, isLike);
+            var msg = await APIService.Vote(duan.DuanID, isLike);
 
             if (string.IsNullOrEmpty(msg))
             {

@@ -169,7 +169,7 @@
                         </Pivot.HeaderTemplate>
                         <PivotItem Header="无聊图">
                             <Grid Margin="-8, 0">
-                                <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind _viewModel.Pics, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False">
+                                <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind ViewModel.Pics, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False">
                                     <toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
                                         <Style TargetType="GridViewItem">
                                             <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -180,12 +180,12 @@
                         </PivotItem>
                         <PivotItem Header="段子">
                             <Grid Margin="-8, 0">
-                                <ListView Name="DuanListView" ItemsSource="{x:Bind _viewModel.Duan, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ItemContainerStyle="{StaticResource PicListItemStyleTemplate}"/>
+                                <ListView Name="DuanListView" ItemsSource="{x:Bind ViewModel.Duan, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ItemContainerStyle="{StaticResource PicListItemStyleTemplate}"/>
                             </Grid>
                         </PivotItem>
                         <PivotItem Header="优评">
                             <Grid Margin="-8, 0">
-                                <ListView Name="BestCommentListView" ItemsSource="{x:Bind _viewModel.Comm, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource BestCommentDataStyle}" ItemContainerStyle="{StaticResource PicListItemStyleTemplate}" ItemClick="BestCommentListView_ItemClick"/>
+                                <ListView Name="BestCommentListView" ItemsSource="{x:Bind ViewModel.Comm, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource BestCommentDataStyle}" ItemContainerStyle="{StaticResource PicListItemStyleTemplate}" ItemClick="BestCommentListView_ItemClick"/>
                             </Grid>
                         </PivotItem>
                     </Pivot>
@@ -201,6 +201,6 @@
                 </Grid>
             </SplitView.Content>
         </SplitView>
-        <ProgressRing Grid.Row="1" Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind _viewModel.IsLoading, Mode=OneWay}"/>
+        <ProgressRing Grid.Row="1" Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"/>
     </Grid>
 </Page>

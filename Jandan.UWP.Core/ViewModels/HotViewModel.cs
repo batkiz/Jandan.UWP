@@ -14,8 +14,6 @@ namespace Jandan.UWP.Core.ViewModels
 {
     public class HotViewModel : ViewModelBase
     {
-        private APIService _api = new APIService();
-
         private bool _is_loading;
         public bool IsLoading
         {
@@ -111,7 +109,7 @@ namespace Jandan.UWP.Core.ViewModels
         {
             var d = Duan;
 
-            var msg = await _api.Vote(duan.DuanID, isLike);
+            var msg = await APIService.Vote(duan.DuanID, isLike);
 
             if (string.IsNullOrEmpty(msg))
             {
@@ -138,7 +136,7 @@ namespace Jandan.UWP.Core.ViewModels
         {
             var b = Pics;
 
-            var msg = await _api.Vote(boring.PicID, isLike);
+            var msg = await APIService.Vote(boring.PicID, isLike);
 
             if (string.IsNullOrEmpty(msg))
             {
@@ -164,7 +162,7 @@ namespace Jandan.UWP.Core.ViewModels
         public async void UpdateHotPics()
         {
             IsLoading = true;
-            var list = await _api.GetHotPics();
+            var list = await APIService.GetHotPics();
 
             ObservableCollection<BoringPic> c = new ObservableCollection<BoringPic>();
             list?.ForEach((t) =>
@@ -188,7 +186,7 @@ namespace Jandan.UWP.Core.ViewModels
         public async void UpdateHotDuan()
         {
             IsLoading = true;
-            var list = await _api.GetHotDuan();
+            var list = await APIService.GetHotDuan();
 
             ObservableCollection<Duan> c = new ObservableCollection<Duan>();
             list?.ForEach((t) =>
@@ -208,7 +206,7 @@ namespace Jandan.UWP.Core.ViewModels
         public async void UpdateHotComm()
         {
             IsLoading = true;
-            var list = await _api.GetHotComments();
+            var list = await APIService.GetHotComments();
 
             ObservableCollection<BestFreshComment> c = new ObservableCollection<BestFreshComment>();
             list?.ForEach((t) =>

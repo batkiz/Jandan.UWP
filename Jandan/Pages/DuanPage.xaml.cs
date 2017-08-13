@@ -29,7 +29,7 @@ namespace Jandan.UWP.UI
         /// <summary>
         /// 段子的View Model
         /// </summary>
-        DuanViewModel _viewModel;
+        DuanViewModel ViewModel { get; } = new DuanViewModel();
         //PopupMessageControl _popupMsg = new PopupMessageControl();
 
         // 用于从其他页面返回时保持滚动条的位置
@@ -42,8 +42,7 @@ namespace Jandan.UWP.UI
         {
             this.InitializeComponent();
 
-            this.DataContext = _viewModel = new DuanViewModel();
-            //DuanCommentListView.DataContext = _dViewModel = new DuanCommentViewModel();
+            this.DataContext = ViewModel;
         }
         /// <summary>
         /// 从其他页面导航回到段子
@@ -78,19 +77,19 @@ namespace Jandan.UWP.UI
 
         private IAsyncOperation<object> GetItem(string key)
         {
-            if (_viewModel.Duans == null)
+            if (ViewModel.Duans == null)
             {
                 return null;
             }
             return Task.Run(() =>
             {
-                if (_viewModel.Duans.Count <= 0)
+                if (ViewModel.Duans.Count <= 0)
                 {
                     return null;
                 }
                 else
                 {
-                    return (object)_viewModel.Duans.FirstOrDefault(i => i.DuanID == key);
+                    return (object)ViewModel.Duans.FirstOrDefault(i => i.DuanID == key);
                 }
             }).AsAsyncOperation();
         }
@@ -143,7 +142,7 @@ namespace Jandan.UWP.UI
 
         public void RefreshPage()
         {
-            _viewModel.Update();
+            ViewModel.Update();
         }
 
         private void pullToRefreshBar_RefreshInvoked(DependencyObject sender, object args)
@@ -187,7 +186,7 @@ namespace Jandan.UWP.UI
             var duan = b.DataContext as Duan;
             var c = b.Parent as RelativePanel;
 
-            var msg = await _viewModel.Vote(duan, true);
+            var msg = await ViewModel.Vote(duan, true);
 
             if (msg == null)
             {

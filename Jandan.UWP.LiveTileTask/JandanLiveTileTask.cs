@@ -78,7 +78,7 @@ namespace Jandan.UWP.LiveTileTask
 
             try
             {
-                var response = await _api.GetFresh(1);
+                var response = await APIService.GetFresh(1);
                 if (response?.Count != 0)
                 {
                     List<Fresh> n = new List<Fresh>();

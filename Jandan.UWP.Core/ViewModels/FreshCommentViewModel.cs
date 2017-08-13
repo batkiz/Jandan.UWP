@@ -10,8 +10,6 @@ namespace Jandan.UWP.Core.ViewModels
 {
     public class FreshCommentViewModel :ViewModelBase
     {
-        private APIService _api = new APIService();
-
         private bool _is_loading_comments;
         public bool IsLoadingComments
         {
@@ -74,7 +72,7 @@ namespace Jandan.UWP.Core.ViewModels
 
             CommentList.Source = null;
 
-            var list = await _api.GetFreshComments(commentID);
+            var list = await APIService.GetFreshComments(commentID);
 
             if (list != null)
             {
@@ -124,7 +122,7 @@ namespace Jandan.UWP.Core.ViewModels
 
         public async Task<string> PostComment(string comment)
         {
-            var msg = await _api.PostFreshComment(comment);
+            var msg = await APIService.PostFreshComment(comment);
 
             return msg;
         }

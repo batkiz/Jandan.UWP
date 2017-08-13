@@ -13,8 +13,6 @@ namespace Jandan.UWP.Core.ViewModels
 {
     public class DuanCommentViewModel : ViewModelBase
     {
-        private APIService _api = new APIService();
-
         private bool _is_loading_comments;
         public bool IsLoadingComments
         {
@@ -76,7 +74,7 @@ namespace Jandan.UWP.Core.ViewModels
 
             CommentId = commentID;
 
-            var list = await _api.GetTucao(commentID);
+            var list = await APIService.GetTucao(commentID);
             if (list != null)
             {
                 list?.ForEach((t) =>
@@ -166,7 +164,7 @@ namespace Jandan.UWP.Core.ViewModels
 
         public async Task<string> PostComment(string comment)
         {
-            var msg =  await _api.PostComment(comment);
+            var msg =  await APIService.PostComment(comment);
 
             return msg;
         }

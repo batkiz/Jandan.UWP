@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.UI;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,6 +10,7 @@ using Windows.Data.Json;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.Web.Http;
 
 namespace Jandan.UWP.Core.HTTP
 {
@@ -16,108 +19,93 @@ namespace Jandan.UWP.Core.HTTP
     /// </summary>
     public class APIBaseService
     {
-        private void Printlog(string info)
+        // 打印调试信息到调试输出窗口
+        private static void Printlog(string info)
         {
 #if DEBUG
             Debug.WriteLine(DateTime.Now.ToString() + " " + info);
 #endif
         }
-        protected async Task<JsonObject> GetJson(string url)
+
+        /// <summary>
+        /// 获取指定URL的Json数据
+        /// </summary>
+        /// <param name="url">获取数据的URL</param>
+        /// <returns>获取到的Json对象</returns>
+        protected static async Task<JsonObject> GetJson(string url)
         {
-            try
+            using (var request = new HttpHelperRequest(new Uri(url), HttpMethod.Get))
             {
-                string json = await BaseService.SendGetRequest(url);
-                if (json != null)
+                using (var response = await HttpHelper.Instance.SendRequestAsync(request))
                 {
-                    Printlog("请求Json数据成功 URL：" + url);
-                    return JsonObject.Parse(json);
-                }
-                else
-                {
-                    Printlog("请求Json数据失败 URL：" + url);
-                    return null;
-                }
-            }
-            catch
-            {
-                Printlog("请求Json数据失败 URL：" + url);
-                return null;
-            }
-        }
-        protected async Task<string> GetHtml(string url)
-        {
-            try
-            {
-                string html = await BaseService.SendGetRequest(url);
-                //byte[] bytes = Encoding.UTF8.GetBytes(html);
-                //html = Encoding.GetEncoding("GBK").GetString(bytes);
-                Printlog("请求Html数据成功 URL：" + url);
-                return html;
-            }
-            catch
-            {
-                Printlog("请求Html数据失败 URL：" + url);
-                return null;
-            }
-        }
-        protected async Task<WriteableBitmap> GetImage(string url)
-        {
-            try
-            {
-                IBuffer buffer = await BaseService.SendGetRequestAsBytes(url);
-                if (buffer != null)
-                {
-                    BitmapImage bi = new BitmapImage();
-                    WriteableBitmap wb = null; Stream stream2Write;
-                    using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+                    try
                     {
-
-                        stream2Write = stream.AsStreamForWrite();
-
-                        await stream2Write.WriteAsync(buffer.ToArray(), 0, (int)buffer.Length);
-
-                        await stream2Write.FlushAsync();
-                        stream.Seek(0);
-
-                        await bi.SetSourceAsync(stream);
-
-                        wb = new WriteableBitmap(bi.PixelWidth, bi.PixelHeight);
-                        stream.Seek(0);
-                        await wb.SetSourceAsync(stream);
-
-                        return wb;
+                        string json = await response.GetTextResultAsync();
+                        if (json != null)
+                        {
+                            Printlog("请求Json数据成功 URL：" + url);
+                            return JsonObject.Parse(json);
+                        }
+                        else
+                        {
+                            Printlog("请求Json数据为空 URL：" + url);
+                            return null;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        Printlog("请求Json数据失败 URL：" + url);
+                        return null;
                     }
                 }
-                else
-                {
-                    return null;
-                }
-            }
-            catch
-            {
-                return null;
             }
         }
 
         /// <summary>
-        /// 在windows runtime component项目中使用  下载图片
+        /// 获取指定URL的Html数据
         /// </summary>
-        /// <param name="url"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        protected async Task GetImageInRuntimeComponent(string url, string name)
+        /// <param name="url">获取数据的URL</param>
+        /// <returns>获取到的字符串，表示html页面</returns>
+        protected static async Task<string> GetHtml(string url)
         {
-            try
+            using (var request = new HttpHelperRequest(new Uri(url), HttpMethod.Get))
             {
-                var folder = await ApplicationData.Current.LocalCacheFolder.CreateFolderAsync("images_cache", CreationCollisionOption.OpenIfExists);
-
-                var file = await StorageFile.CreateStreamedFileFromUriAsync(name, new Uri(url), RandomAccessStreamReference.CreateFromUri(new Uri(url)));
-                file = await file.CopyAsync(folder);
+                using (var response = await HttpHelper.Instance.SendRequestAsync(request))
+                {
+                    try
+                    {
+                        string html = await response.GetTextResultAsync();
+                        if (html != null)
+                        {
+                            Printlog("请求html数据成功 URL：" + url);
+                            return html;
+                        }
+                        else
+                        {
+                            Printlog("请求html数据为空 URL：" + url);
+                            return null;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        Printlog("请求html数据失败 URL：" + url);
+                        return null;
+                    }
+                }
             }
-            catch
-            {
+        }
 
-            }
+        /// <summary>
+        /// 获取指定URL的图像数据
+        /// </summary>
+        /// <param name="url">获取数据的URL</param>
+        /// <returns>获取到的图像</returns>
+        protected static async Task<BitmapImage> GetImage(string url)
+        {
+            // Load a specific image from the cache. If the image is not in the cache, ImageCache will try to download and store it
+            var bitmapImage = await ImageCache.Instance.GetFromCacheAsync(new Uri(url));
+
+            return bitmapImage;
         }
     }
 }

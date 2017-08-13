@@ -24,7 +24,7 @@ namespace Jandan.UWP.UI
     /// </summary>
     public sealed partial class AboutPage : Page
     {
-        AboutViewModel _viewModel;
+        AboutViewModel ViewModel { get; } = new AboutViewModel();
 
         public AboutPage()
         {
@@ -43,7 +43,7 @@ namespace Jandan.UWP.UI
                 return;
             }
             base.OnNavigatedTo(e);
-            this.DataContext = _viewModel = new AboutViewModel();
+            this.DataContext = ViewModel;
 
         }
         /// <summary>
