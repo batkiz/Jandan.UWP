@@ -16,17 +16,21 @@
             <local:AuthorToNameConverter x:Key="authorCvt"></local:AuthorToNameConverter>
             <local:TagToStringConverter x:Key="tagCvt"></local:TagToStringConverter>
             <local:TimeToStringConverter x:Key="timeCvt"></local:TimeToStringConverter>
+            <local:UrlToStringConverter x:Key="urlCvt"></local:UrlToStringConverter>
             <DataTemplate 
                 x:Key="FreshNewsGridViewTemplate"
                 x:DataType="model:Fresh">
                 <Grid x:Name="FreshNewsTemplateGrid" Margin="2" >
                     <Grid.Background>
-                        <ImageBrush ImageSource="{x:Bind Path=Thumb_c, Mode=OneWay}" Opacity="0.8" Stretch="UniformToFill"></ImageBrush>
+                        <ImageBrush ImageSource="{x:Bind Path=Thumb_c, Converter={StaticResource urlCvt}, Mode=OneWay}" Opacity="0.8" Stretch="UniformToFill"></ImageBrush>
                     </Grid.Background>
+                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+                    <!--<toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb_c, Mode=OneWay}" Stretch="UniformToFill"/>-->
+                    
                     <StackPanel Grid.Row="0" Margin="0" Padding="10,5" VerticalAlignment="Top">
                         <TextBlock x:Name="CommentCount" HorizontalAlignment="Right" Text="{x:Bind Path=Comment_count, Mode=OneWay}" Style="{StaticResource FreshNewsCommentCountStyle}"></TextBlock>
                     </StackPanel>
@@ -47,7 +51,7 @@
             <DataTemplate x:Key="FreshGridItemNarrowTemplate" x:DataType="model:Fresh">
                 <Grid x:Name="gridListItems" HorizontalAlignment="Stretch" BorderBrush="Black" Margin="8,0">
                     <Grid.Background>
-                        <ImageBrush ImageSource="{x:Bind Thumb_c, Mode=OneWay}" Stretch="UniformToFill"/>
+                        <ImageBrush ImageSource="{x:Bind Path=Thumb_c, Converter={StaticResource urlCvt}, Mode=OneWay}" Stretch="UniformToFill"/>
                     </Grid.Background>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="60*"/>
