@@ -10,6 +10,7 @@
     xmlns:jandancontrol="using:Jandan.UWP.Control"
     xmlns:pullcontrol="using:PullToRefresh.UWP"
     xmlns:model="using:Jandan.UWP.Core.Models"
+    xmlns:viewmodel="using:Jandan.UWP.Core.ViewModels"
     NavigationCacheMode="Enabled">
 
     <Page.Resources>
@@ -63,7 +64,7 @@
                         <TextBlock x:Name="DuanDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="DuanAuthor"></TextBlock>
                     </RelativePanel>
                     <RelativePanel Grid.Row="1" Name="ContentPanel">
-                        <TextBlock x:Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>
+                        <TextBlock x:Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>
                     </RelativePanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,5">                        
                         <Button x:Name="DuanViewCommentButton" Content="{StaticResource RateBarComment}" Click="DuanComment_Click" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"></Button>
@@ -84,7 +85,7 @@
                         <TextBlock x:Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="8,4">
-                        <TextBlock x:Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
+                        <TextBlock x:Name="BoringContent" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
                         <toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,5">
@@ -106,7 +107,7 @@
                         <TextBlock x:Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="8,4">
-                        <TextBlock x:Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
+                        <TextBlock x:Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
                         <toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,5">

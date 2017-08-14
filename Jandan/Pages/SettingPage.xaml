@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     x:Class="Jandan.UWP.UI.SettingPage"
+    xmlns:viewmodel="using:Jandan.UWP.Core.ViewModels"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -83,11 +84,8 @@
                 <StackPanel Grid.Row="3" Padding="10">
                     <RelativePanel>
                         <TextBlock x:Name="FontSizeTextBlock" Text="字号调节" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
-                        <ComboBox x:Name="comboxFontSize" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" SelectionChanged="comboxFontSize_SelectionChanged">
-                            <ComboBoxItem Content="Small"/>
-                            <ComboBoxItem Content="Normal"/>
-                            <ComboBoxItem Content="Large"/>
-                        </ComboBox>
+                        <Slider x:Name="FontSizeSlider" RelativePanel.AlignRightWithPanel="True"  RelativePanel.AlignVerticalCenterWithPanel="True"  Value="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=TwoWay}" Minimum="12" Maximum="36" Width="80" Margin="-10,0,10,0" ></Slider>
+                        <TextBlock x:Name="FontSizeText" Text="{Binding ElementName=FontSizeSlider, Path=Value, Mode=OneWay}" RelativePanel.LeftOf="FontSizeSlider" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="-17,0,20,0"/>
                     </RelativePanel>
                 </StackPanel>
                 <StackPanel Grid.Row="5" Padding="10">

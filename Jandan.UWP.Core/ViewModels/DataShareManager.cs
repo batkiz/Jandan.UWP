@@ -47,7 +47,7 @@ namespace Jandan.UWP.Core.ViewModels
         }
 
         // 字号大小
-        public PageFontSize FontSizes { get; private set; } = PageFontSize.Normal;
+        //public PageFontSize FontSizes { get; private set; } = PageFontSize.Normal;
         public double FontSize { get; set; } = 20;
 
         // 主题模式(夜间模式或日间模式)        
@@ -272,23 +272,11 @@ namespace Jandan.UWP.Core.ViewModels
             // Font Size
             if (localSettings.Values.ContainsKey("FONT_SIZE"))
             {
-                switch (localSettings.Values["FONT_SIZE"].ToString())
-                {
-                    case "1":
-                        FontSizes = PageFontSize.Small;
-                        break;
-                    default:
-                    case "2":
-                        FontSizes = PageFontSize.Normal;
-                        break;
-                    case "3":
-                        FontSizes = PageFontSize.Large;
-                        break;
-                }                
+                FontSize = double.Parse(roamingSettings.Values["FONT_SIZE"].ToString());
             }
             else
             {
-                FontSizes = PageFontSize.Normal;
+                FontSize = 16;
             }
 
             // NSFW = 0 No NSFW images | NSFW = 1 Show NSFW images
@@ -345,11 +333,11 @@ namespace Jandan.UWP.Core.ViewModels
             OnShareDataChanged();
         }
 
-        public void UpdateFontSize(PageFontSize p)
+        public void UpdateFontSize(double p)
         {
-            FontSizes = p;
+            FontSize = p;
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            localSettings.Values["FONT_SIZE"] = (int)FontSizes;
+            localSettings.Values["FONT_SIZE"] = (int)FontSize;
             OnShareDataChanged();
         }
 

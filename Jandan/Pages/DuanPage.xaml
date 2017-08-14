@@ -81,7 +81,7 @@
                 </Button.Flyout>
             </Button>
             <Button x:Name="RefreshButton" Content="&#xE72C;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
-            <Button x:Name="FontSizeButton" Content="&#xE71E;" RelativePanel.LeftOf="FilterButton" Style="{StaticResource TitleBarButtonStyle}">
+            <!--<Button x:Name="FontSizeButton" Content="&#xE71E;" RelativePanel.LeftOf="FilterButton" Style="{StaticResource TitleBarButtonStyle}">
                 <Button.Flyout>
                     <Flyout>
                         <StackPanel>
@@ -89,7 +89,7 @@
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
-            </Button>
+            </Button>-->
         </RelativePanel>
 
         <!--SplitView.Content放段子, Pane放评论-->

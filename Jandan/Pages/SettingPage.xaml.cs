@@ -281,28 +281,6 @@ namespace Jandan.UWP.UI
 
             //await _viewModel.GetAuthAsync(s.Text);
             //_viewModel.Update();
-        }
-
-       
-        private void comboxFontSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var cb = sender as ComboBox;
-            var cbi = cb.SelectedItem as ComboBoxItem;
-            var s = cbi.Content.ToString();
-
-            switch (s.ToLower())
-            {
-                case "small":
-                    ViewModel.SwitchFontSize(PageFontSize.Small);
-                    break;
-                default:
-                case "normal":
-                    ViewModel.SwitchFontSize(PageFontSize.Normal);
-                    break;
-                case "large":
-                    ViewModel.SwitchFontSize(PageFontSize.Large);
-                    break;
-            }
-        }
+        }       
     }
 }

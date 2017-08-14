@@ -10,6 +10,7 @@
     xmlns:jandancontrol="using:Jandan.UWP.Control"
     xmlns:pullcontrol="using:PullToRefresh.UWP"
     xmlns:model="using:Jandan.UWP.Core.Models"
+    xmlns:viewmodel="using:Jandan.UWP.Core.ViewModels"
     NavigationCacheMode="Enabled">
 
     <Page.Resources>
@@ -28,7 +29,7 @@
                         <TextBlock x:Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="0,0,0,4">
-                        <TextBlock x:Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
+                        <TextBlock x:Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
                         <toolkitcontrol:ImageEx MinHeight="240" Source="{x:Bind Thumb, Converter={StaticResource imgCvt}, Mode=OneWay}" />
                     </StackPanel>
                     <RelativePanel Grid.Row="2" Margin="0,5">

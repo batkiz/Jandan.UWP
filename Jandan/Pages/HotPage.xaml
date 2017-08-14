@@ -10,6 +10,7 @@
     xmlns:jandancontrol="using:Jandan.UWP.Control"
     xmlns:pullcontrol="using:PullToRefresh.UWP"
     xmlns:model="using:Jandan.UWP.Core.Models"
+    xmlns:viewmodel="using:Jandan.UWP.Core.ViewModels"
     NavigationCacheMode="Enabled">
 
     <Page.Resources>
@@ -28,7 +29,7 @@
                         <TextBlock x:Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="8,4">
-                        <TextBlock x:Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
+                        <TextBlock x:Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
                         <toolkitcontrol:ImageEx MinHeight="240" VerticalAlignment="Top" Source="{x:Bind Thumb, Converter={StaticResource imgCvt}, Mode=OneWay}" />
                     </StackPanel>
                     <RelativePanel Grid.Row="2" Margin="5">
@@ -59,7 +60,7 @@
                         <TextBlock x:Name="DuanDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="DuanAuthor"></TextBlock>
                     </RelativePanel>
                     <RelativePanel Grid.Row="1" Name="ContentPanel">
-                        <TextBlock x:Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>
+                        <TextBlock x:Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>
                     </RelativePanel>
                     <!--<WebView Grid.Row="1" Name="webDuanContent" local:ExtensionHTMLStringProperties.HtmlString="{x:Bind Content, Mode=OneWay}" MinWidth="289" MinHeight="58" />-->
                     <RelativePanel Grid.Row="2">
@@ -97,7 +98,7 @@
 
                     <RelativePanel Grid.Row="0" Name="ContentPanel" Grid.Column="1" Margin="5,0">
                         <TextBlock x:Name="BestCommentTitle" Text="{x:Bind Title, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" FontWeight="Bold" Margin="0,8"></TextBlock>
-                        <TextBlock x:Name="BestCommentContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" RelativePanel.Below="BestCommentTitle" Margin="0,4"></TextBlock>
+                        <TextBlock x:Name="BestCommentContent" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" RelativePanel.Below="BestCommentTitle" Margin="0,4"></TextBlock>
                     </RelativePanel>
 
                     <RelativePanel Grid.Row="1" Margin="0,5" Grid.Column="1">

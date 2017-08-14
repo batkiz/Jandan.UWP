@@ -57,14 +57,7 @@ namespace Jandan.UWP.Core.ViewModels
             get { return _email; }
             set { Set(ref _email, value); }
         }        
-
-        private PageFontSize _fontSize;
-        public PageFontSize FontSize
-        {
-            get { return _fontSize; }
-            set { Set(ref _fontSize, value); }
-        }
-
+        
         public string IdandEmail
         {
             get { return $"用户名:{ID}     邮箱:{Email}"; }
@@ -89,8 +82,6 @@ namespace Jandan.UWP.Core.ViewModels
 
             ID = DataShareManager.Current.UserName;
             Email = DataShareManager.Current.EmailAdd;
-
-            FontSize = DataShareManager.Current.FontSizes;
         }
 
         private void Current_ShareDataChanged()
@@ -105,14 +96,7 @@ namespace Jandan.UWP.Core.ViewModels
 
             ID = DataShareManager.Current.UserName;
             Email = DataShareManager.Current.EmailAdd;
-
-            FontSize = DataShareManager.Current.FontSizes;
-        }
-
-        public void SwitchFontSize(PageFontSize p)
-        {
-            DataShareManager.Current.UpdateFontSize(p);
-        }
+        }        
 
         public void ExchangeDarkMode(bool isDark)
         {
