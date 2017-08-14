@@ -274,58 +274,7 @@ namespace Jandan.UWP.UI
                 FlyoutBase.ShowAttachedFlyout(element);
             }
         }
-
-        private void btnThirdPartyAccount_Click(object sender, RoutedEventArgs e)
-        {
-            //**********************************************
-            //临时改为新浪微博登录认证测试
-
-            ShowFlyout(sender);
-
-            //await _viewModel.GetAuthAsync();
-
-            //_viewModel.Update();
-
-
-
-
-
-
-
-            // 你在开放平台上填写的回调URI
-            //string cbUri = @"http://jandan.net";
-            //Uri callbackUri = new Uri(cbUri);
-
-            //// 新浪微博授权地址
-            //string wbauthUriStr = $"https://jandan.duoshuo.com/login/weibo/?sso=1&redirect_uri=http://jandan.net/";
-
-            //Uri wbAuthUri = new Uri(wbauthUriStr);
-
-            //// 获取授权
-            //WebAuthenticationResult result = await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, wbAuthUri, callbackUri);
-
-            //// 处理结果
-            //if (result.ResponseStatus == WebAuthenticationStatus.Success)
-            //{
-            //    string cburi = result.ResponseData;
-            //    // 取得授权码
-            //    // code是附加在回调URI后，以?code=xxxxxxxxxxxxxx的形式出现，作为URI的查询字符串
-            //    string code = cburi.Substring(cburi.IndexOf('=') + 1);
-
-            //    DataShareManager.Current.AccessToken = code;
-
-            //    Printlog($"回调URI：{cburi}\n授权码：{code}");
-            //}
-            //else if (result.ResponseStatus == WebAuthenticationStatus.ErrorHttp)
-            //{
-            //    Printlog("错误：" + result.ResponseErrorDetail.ToString());
-            //}
-            //else if (result.ResponseStatus == WebAuthenticationStatus.UserCancel)
-            //{
-            //    Printlog("你取消了操作。");
-            //}
-        }
-        
+                
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             //var s = sender as MenuFlyoutItem;
@@ -334,11 +283,26 @@ namespace Jandan.UWP.UI
             //_viewModel.Update();
         }
 
-        private void sliderFont_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+       
+        private void comboxFontSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            double d = (double)Application.Current.Resources["ContentFontSize"];
+            var cb = sender as ComboBox;
+            var cbi = cb.SelectedItem as ComboBoxItem;
+            var s = cbi.Content.ToString();
 
-            Application.Current.Resources["ContentFontSize"] = e.NewValue;
+            switch (s.ToLower())
+            {
+                case "small":
+                    ViewModel.SwitchFontSize(PageFontSize.Small);
+                    break;
+                default:
+                case "normal":
+                    ViewModel.SwitchFontSize(PageFontSize.Normal);
+                    break;
+                case "large":
+                    ViewModel.SwitchFontSize(PageFontSize.Large);
+                    break;
+            }
         }
     }
 }

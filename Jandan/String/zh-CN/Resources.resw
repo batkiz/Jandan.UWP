@@ -117,7 +117,103 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppBarBtnAbout.Label" xml:space="preserve">
+    <value>关  于</value>
+  </data>
+  <data name="AppBarBtnFav.Label" xml:space="preserve">
+    <value>收  藏</value>
+  </data>
+  <data name="AppBarBtnFresh.Label" xml:space="preserve">
+    <value>新鲜事</value>
+  </data>
+  <data name="AppBarBtnHot.Label" xml:space="preserve">
+    <value>热  榜</value>
+  </data>
+  <data name="AppBarBtnJoke.Label" xml:space="preserve">
+    <value>段  子</value>
+  </data>
+  <data name="AppBarBtnNetworkConnection.Label" xml:space="preserve">
+    <value>无网络连接</value>
+  </data>
+  <data name="AppBarBtnPics.Label" xml:space="preserve">
+    <value>无聊图</value>
+  </data>
+  <data name="AppBarBtnSetting.Label" xml:space="preserve">
+    <value>设  置</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>煎蛋UWP</value>
+  </data>
+  <data name="CleanupCache" xml:space="preserve">
+    <value>清理缓存</value>
+  </data>
+  <data name="DarkModeOff" xml:space="preserve">
+    <value>日间模式</value>
+  </data>
+  <data name="DarkModeOn" xml:space="preserve">
+    <value>夜间模式</value>
+  </data>
+  <data name="DuanPageTitle.Text" xml:space="preserve">
+    <value>段子</value>
+  </data>
+  <data name="FavPageTitle.Text" xml:space="preserve">
+    <value>收藏</value>
+  </data>
+  <data name="FavPivotFresh.Header" xml:space="preserve">
+    <value>新鲜事</value>
+  </data>
+  <data name="FavPivotGirl.Header" xml:space="preserve">
+    <value>妹子图</value>
+  </data>
+  <data name="FavPivotJoke.Header" xml:space="preserve">
+    <value>段子</value>
+  </data>
+  <data name="FavPivotPics.Header" xml:space="preserve">
+    <value>无聊图</value>
+  </data>
+  <data name="FreshPageTitle.Text" xml:space="preserve">
+    <value>新鲜事</value>
+  </data>
+  <data name="GirlPageTitle.Text" xml:space="preserve">
+    <value>妹子图</value>
+  </data>
+  <data name="HotPageTitle.Text" xml:space="preserve">
+    <value>热榜</value>
+  </data>
+  <data name="HotPivotBest.Header" xml:space="preserve">
+    <value>优评</value>
+  </data>
+  <data name="HotPivotJoke.Header" xml:space="preserve">
+    <value>段子</value>
+  </data>
+  <data name="HotPivotPics.Header" xml:space="preserve">
+    <value>无聊图</value>
+  </data>
+  <data name="MenuItemAbout.Label" xml:space="preserve">
+    <value>关  于</value>
+  </data>
+  <data name="MenuItemFav.Label" xml:space="preserve">
+    <value>收  藏</value>
+  </data>
+  <data name="MenuItemFresh.Label" xml:space="preserve">
+    <value>新鲜事</value>
+  </data>
+  <data name="MenuItemHot.Label" xml:space="preserve">
+    <value>热  榜</value>
+  </data>
+  <data name="MenuItemJoke.Label" xml:space="preserve">
+    <value>段  子</value>
+  </data>
+  <data name="MenuItemPics.Label" xml:space="preserve">
+    <value>无聊图</value>
+  </data>
+  <data name="MenuItemSettings.Label" xml:space="preserve">
+    <value>设  置</value>
+  </data>
+  <data name="NetworkConnection" xml:space="preserve">
+    <value>网络状态</value>
+  </data>
+  <data name="PicsPageTitle.Text" xml:space="preserve">
+    <value>无聊图</value>
   </data>
 </root>

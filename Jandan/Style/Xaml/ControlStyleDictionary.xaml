@@ -3,6 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Jandan.UWP.UI">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Style/Xaml/_Colors.xaml"/>
+        <ResourceDictionary Source="/Style/Xaml/_FontSizes.xaml"/>
+        <ResourceDictionary Source="/Style/Xaml/_Thickness.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
     <!--页面顶端标题栏相关资源-->
     <LinearGradientBrush x:Key="JandanControlHighlightAltListAccentHighBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Color="Gray"  Offset="0.0" x:Name="GradientStop1"/>
@@ -43,7 +49,7 @@
     </Style>
 
     <Style x:Key="TitlePivotHeaderStyle" TargetType="PivotHeaderItem">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource SecHeaderFontSize}, Mode=OneWay}"/>
+        <Setter Property="FontSize" Value="{StaticResource SecHeaderFontSize}"/>
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 
@@ -65,29 +71,29 @@
         <Setter Property="IsDoubleTapEnabled" Value="False"/>
         <Setter Property="IsItemClickEnabled" Value="True"/>
         <Setter Property="Padding" Value="10,10,10,10"/>
-    </Style>    
+    </Style>
     <Style x:Key="ItemAuthorTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontSize}, Mode=OneWay}"/>
+        <Setter Property="FontSize" Value="{StaticResource ContentInfoFontSize}"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
     <Style x:Key="ItemIDTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontSize}, Mode=OneWay}"/>
+        <Setter Property="FontSize" Value="{StaticResource ContentInfoFontSize}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="ItemDateTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontSize}, Mode=OneWay}"/>
+        <Setter Property="FontSize" Value="{StaticResource ContentInfoFontSize}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="ItemContentTextStyle" TargetType="TextBlock">
-        <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource ContentFontSize}, Mode=OneWay}"/>-->
+        <Setter Property="FontSize" Value="{StaticResource ContentFontSize}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Margin" Value="0,8,0,0"/>
     </Style>
     <Style x:Key="RateBarButtonStyle" TargetType="Button">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource RateBarFontSize}, Mode=OneWay}"/>
+        <Setter Property="FontSize" Value="{StaticResource RateBarFontSize}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Width" Value="35"/>
@@ -103,7 +109,7 @@
         </Setter>
     </Style>
     <Style x:Key="RateBarTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource RateBarFontSize}, Mode=OneWay}"/>
+        <Setter Property="FontSize" Value="{StaticResource RateBarFontSize}"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Foreground" Value="Gray"/>
@@ -136,7 +142,7 @@
 
     <!--关于页面相关资源-->
     <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource TopHeaderFontSize}, Mode=OneWay}"/>
+        <Setter Property="FontSize" Value="{StaticResource TopHeaderFontSize}"/>
         <Setter Property="Padding" Value="0,4,0,2"/>
     </Style>
     <Style x:Key="ContentTextBlockStyle" TargetType="TextBlock">
@@ -153,7 +159,7 @@
     </Style>
     <Style x:Key="CommentListTitleTextStyle" TargetType="TextBlock">
         <Setter Property="Text" Value="评论列表" />
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource SecHeaderFontSize}, Mode=OneWay}"/>
+        <Setter Property="FontSize" Value="{StaticResource SecHeaderFontSize}"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Padding" Value="20,0,0,0"/>
     </Style>
@@ -162,29 +168,45 @@
         <Setter Property="FontWeight" Value="SemiBold"/>
     </Style>
     <Style x:Key="CommentLevelTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontSize}, Mode=OneWay}"/>
+        <Setter Property="FontSize" Value="{StaticResource CommentContentInfoFontSize}"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="CommentDateTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontSize}, Mode=OneWay}"/>
+        <Setter Property="FontSize" Value="{StaticResource CommentContentInfoFontSize}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="CommentContentTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentFontSize}, Mode=OneWay}"/>
+        <Setter Property="FontSize" Value="{StaticResource CommentContentFontSize}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Margin" Value="0,0,0,2"/>
         <Setter Property="Padding" Value="0,0,0,2"/>
     </Style>
 
-    <x:Double x:Key="TopHeaderFontSize">20</x:Double>
-    <x:Double x:Key="SecHeaderFontSize">18</x:Double>
-    <x:Double x:Key="RateBarFontSize">13</x:Double>
-    <x:Double x:Key="ContentInfoFontSize">12</x:Double>
-    <x:Double x:Key="ContentFontSize">16</x:Double>
-    <x:Double x:Key="CommentContentFontSize">13</x:Double>
-    <x:Double x:Key="CommentContentInfoFontSize">10</x:Double>
+
+    <Style x:Key="FreshNewsTitleStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#FFC50000"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="TextWrapping" Value="WrapWholeWords"/>
+    </Style>
+    <Style x:Key="FreshNewsAuthorStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="TextWrapping" Value="WrapWholeWords"/>
+    </Style>
+    <Style x:Key="FreshNewsCommentCountStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="DarkOrange"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+
 
 </ResourceDictionary>

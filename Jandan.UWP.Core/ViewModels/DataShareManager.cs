@@ -37,35 +37,18 @@ namespace Jandan.UWP.Core.ViewModels
         public bool IsPicDetailPageSizeChanged { get; set; } = false;
 
         // 当前页面索引值
-        private PageIndex _previousPageIndex = PageIndex.MainPage;
+        //private PageIndex _previousPageIndex = PageIndex.MainPage;
+        public PageIndex PreviousPageIndex { get; private set; } = PageIndex.MainPage;
         private PageIndex _currentPageIndex = PageIndex.MainPage;
-        public PageIndex PreviousPageIndex
-        {
-            get
-            {
-                return _previousPageIndex;
-            }
-        }
         public PageIndex CurrentPageIndex
         {
-            get
-            {
-                return _currentPageIndex;
-            }
-            set
-            {
-                _previousPageIndex = _currentPageIndex;
-                _currentPageIndex = value;
-            }
+            get { return _currentPageIndex; }
+            set { PreviousPageIndex = _currentPageIndex; _currentPageIndex = value; }
         }
 
         // 字号大小
-        public PageFontSize FontSizes = PageFontSize.Normal;
-
-        // 微博Token
-        public string AccessToken { get; private set; }
-        public string ThirdPartyUserName { get; private set; }
-        public string ThirdPartyUserId { get; private set; }
+        public PageFontSize FontSizes { get; private set; } = PageFontSize.Normal;
+        public double FontSize { get; set; } = 20;
 
         // 主题模式(夜间模式或日间模式)        
         public ElementTheme AppTheme { get; private set; }
@@ -274,32 +257,6 @@ namespace Jandan.UWP.Core.ViewModels
             {
                 EmailAdd = "";
             }
-
-            // Third-party User Name and Id
-            if (localSettings.Values.ContainsKey("USER_NAME_3RD"))
-            {
-                ThirdPartyUserName = localSettings.Values["USER_NAME_3RD"].ToString();
-            }
-            else
-            {
-                ThirdPartyUserName = "";
-            }
-            if (localSettings.Values.ContainsKey("USER_ID_3RD"))
-            {
-                ThirdPartyUserId = localSettings.Values["USER_ID_3RD"].ToString();
-            }
-            else
-            {
-                ThirdPartyUserId = "";
-            }
-            if (localSettings.Values.ContainsKey("TOKEN_3RD"))
-            {
-                AccessToken = localSettings.Values["TOKEN_3RD"].ToString();
-            }
-            else
-            {
-                AccessToken = "";
-            }
             #endregion
 
             // Version Number Check
@@ -312,6 +269,27 @@ namespace Jandan.UWP.Core.ViewModels
                 StoredVersionNumber = "0.0.0";
             }
 
+            // Font Size
+            if (localSettings.Values.ContainsKey("FONT_SIZE"))
+            {
+                switch (localSettings.Values["FONT_SIZE"].ToString())
+                {
+                    case "1":
+                        FontSizes = PageFontSize.Small;
+                        break;
+                    default:
+                    case "2":
+                        FontSizes = PageFontSize.Normal;
+                        break;
+                    case "3":
+                        FontSizes = PageFontSize.Large;
+                        break;
+                }                
+            }
+            else
+            {
+                FontSizes = PageFontSize.Normal;
+            }
 
             // NSFW = 0 No NSFW images | NSFW = 1 Show NSFW images
             if (roamingSettings.Values.ContainsKey("NSFW"))
@@ -367,6 +345,14 @@ namespace Jandan.UWP.Core.ViewModels
             OnShareDataChanged();
         }
 
+        public void UpdateFontSize(PageFontSize p)
+        {
+            FontSizes = p;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["FONT_SIZE"] = (int)FontSizes;
+            OnShareDataChanged();
+        }
+
         public void UpdateVersionNumber(string v)
         {
             StoredVersionNumber = v;            
@@ -415,30 +401,6 @@ namespace Jandan.UWP.Core.ViewModels
             EmailAdd = e;
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             localSettings.Values["EMAIL_ADDR"] = EmailAdd;
-            OnShareDataChanged();
-        }
-
-        public void UpdateUserName3rd(string e)
-        {
-            ThirdPartyUserName = e;
-            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            localSettings.Values["USER_NAME_3RD"] = ThirdPartyUserName;
-            OnShareDataChanged();
-        }
-
-        public void UpdateUserId3rd(string e)
-        {
-            ThirdPartyUserId = e;
-            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            localSettings.Values["USER_ID_3RD"] = ThirdPartyUserId;
-            OnShareDataChanged();
-        }
-
-        public void UpdateAccessToken(string e)
-        {
-            AccessToken = e;
-            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            localSettings.Values["TOKEN_3RD"] = AccessToken;
             OnShareDataChanged();
         }
 

@@ -40,12 +40,38 @@ namespace Jandan.UWP.Core.ViewModels
             }
         }
 
+        private double _fontSize;
+        public double FontSize
+        {
+            get { return _fontSize; }
+            set { Set(ref _fontSize, value); }
+        }
+
         public DuanViewModel()
         {
             //Update();
-            //DataShareManager.Current.ShareDataChanged += Current_ShareDataChanged;
+            DataShareManager.Current.ShareDataChanged += Current_ShareDataChanged;
             LoadCache();
             Update();
+
+            FontSize = 20;
+        }
+
+        private void Current_ShareDataChanged()
+        {
+            switch (DataShareManager.Current.FontSizes)
+            {
+                case PageFontSize.Small:
+                    FontSize = 12;
+                    break;
+                default:
+                case PageFontSize.Normal:
+                    FontSize = 16;
+                    break;
+                case PageFontSize.Large:
+                    FontSize = 20;
+                    break;
+            }
         }
 
         public async void LoadCache()

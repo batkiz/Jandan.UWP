@@ -23,21 +23,21 @@
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <RelativePanel Grid.Row="0" Margin="8,4">
-                        <TextBlock Name="BoringAuthor" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"/>
-                        <TextBlock Name="BoringID" Text="{x:Bind PicID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"/>
-                        <TextBlock Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
+                        <TextBlock x:Name="BoringAuthor" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"/>
+                        <TextBlock x:Name="BoringID" Text="{x:Bind PicID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"/>
+                        <TextBlock x:Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="8,4">
-                        <TextBlock Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
+                        <TextBlock x:Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
                         <toolkitcontrol:ImageEx MinHeight="240" VerticalAlignment="Top" Source="{x:Bind Thumb, Converter={StaticResource imgCvt}, Mode=OneWay}" />
                     </StackPanel>
                     <RelativePanel Grid.Row="2" Margin="5">
-                        <Button Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="HotImagePositiveIcon_Click"/>
-                        <TextBlock Name="DuanVotePositive" Text="{x:Bind VotePositive, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource RateBarTextStyle}"/>
-                        <Button Name="DuanVoteNegativeIcon" Content="{StaticResource RateBarXX}" RelativePanel.RightOf="DuanVotePositive" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="HotImageNegativeIcon_Click"/>
-                        <TextBlock Name="DuanVoteNegative" Text="{x:Bind VoteNegative, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVoteNegativeIcon" Style="{StaticResource RateBarTextStyle}"/>
-                        <Button Name="DuanViewComment" Content="{StaticResource RateBarComment}" Click="DuanViewComment_Click" RelativePanel.RightOf="DuanVoteNegative" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"/>
-                        <TextBlock Name="DuanCommentCount" Text="{x:Bind CommentCount, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanViewComment" Style="{StaticResource RateBarTextStyle}"/>
+                        <Button x:Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="HotImagePositiveIcon_Click"/>
+                        <TextBlock x:Name="DuanVotePositive" Text="{x:Bind VotePositive, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource RateBarTextStyle}"/>
+                        <Button x:Name="DuanVoteNegativeIcon" Content="{StaticResource RateBarXX}" RelativePanel.RightOf="DuanVotePositive" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="HotImageNegativeIcon_Click"/>
+                        <TextBlock x:Name="DuanVoteNegative" Text="{x:Bind VoteNegative, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVoteNegativeIcon" Style="{StaticResource RateBarTextStyle}"/>
+                        <Button x:Name="DuanViewComment" Content="{StaticResource RateBarComment}" Click="DuanViewComment_Click" RelativePanel.RightOf="DuanVoteNegative" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"/>
+                        <TextBlock x:Name="DuanCommentCount" Text="{x:Bind CommentCount, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanViewComment" Style="{StaticResource RateBarTextStyle}"/>
                     </RelativePanel>
                 </Grid>
             </DataTemplate>
@@ -54,21 +54,21 @@
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <RelativePanel Grid.Row="0">
-                        <TextBlock Name="DuanAuthor" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"></TextBlock>
-                        <TextBlock Name="DuanID" Text="{x:Bind DuanID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"></TextBlock>
-                        <TextBlock Name="DuanDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="DuanAuthor"></TextBlock>
+                        <TextBlock x:Name="DuanAuthor" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"></TextBlock>
+                        <TextBlock x:Name="DuanID" Text="{x:Bind DuanID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"></TextBlock>
+                        <TextBlock x:Name="DuanDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="DuanAuthor"></TextBlock>
                     </RelativePanel>
                     <RelativePanel Grid.Row="1" Name="ContentPanel">
-                        <TextBlock Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>
+                        <TextBlock x:Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>
                     </RelativePanel>
                     <!--<WebView Grid.Row="1" Name="webDuanContent" local:ExtensionHTMLStringProperties.HtmlString="{x:Bind Content, Mode=OneWay}" MinWidth="289" MinHeight="58" />-->
                     <RelativePanel Grid.Row="2">
-                        <Button Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click"/>
-                        <TextBlock Name="DuanVotePositive" Text="{x:Bind VotePositive, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource RateBarTextStyle}"/>
-                        <Button Name="DuanVoteNegativeIcon" Content="{StaticResource RateBarXX}" RelativePanel.RightOf="DuanVotePositive" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVoteNegativeIcon_Click"/>
-                        <TextBlock Name="DuanVoteNegative" Text="{x:Bind VoteNegative, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVoteNegativeIcon" Style="{StaticResource RateBarTextStyle}"/>
-                        <Button Name="DuanViewCommentButton" Content="{StaticResource RateBarComment}" Click="Duan_Tucao_Click" RelativePanel.RightOf="DuanVoteNegative" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"/>
-                        <TextBlock Name="DuanCommentCount" Text="{x:Bind CommentCount, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanViewCommentButton" Style="{StaticResource RateBarTextStyle}"/>
+                        <Button x:Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click"/>
+                        <TextBlock x:Name="DuanVotePositive" Text="{x:Bind VotePositive, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource RateBarTextStyle}"/>
+                        <Button x:Name="DuanVoteNegativeIcon" Content="{StaticResource RateBarXX}" RelativePanel.RightOf="DuanVotePositive" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVoteNegativeIcon_Click"/>
+                        <TextBlock x:Name="DuanVoteNegative" Text="{x:Bind VoteNegative, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVoteNegativeIcon" Style="{StaticResource RateBarTextStyle}"/>
+                        <Button x:Name="DuanViewCommentButton" Content="{StaticResource RateBarComment}" Click="Duan_Tucao_Click" RelativePanel.RightOf="DuanVoteNegative" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"/>
+                        <TextBlock x:Name="DuanCommentCount" Text="{x:Bind CommentCount, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanViewCommentButton" Style="{StaticResource RateBarTextStyle}"/>
                     </RelativePanel>
                 </Grid>
             </DataTemplate>
@@ -91,20 +91,20 @@
                     </Grid.RowDefinitions>
 
                     <RelativePanel Grid.Row="0" Grid.RowSpan="2" Margin="5,0">
-                        <TextBlock Name="BestCommentAuthor" Text="{x:Bind AuthorName, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"></TextBlock>
-                        <TextBlock Name="BestCommentDate" Text="{x:Bind PostDate, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BestCommentAuthor"></TextBlock>
+                        <TextBlock x:Name="BestCommentAuthor" Text="{x:Bind AuthorName, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"></TextBlock>
+                        <TextBlock x:Name="BestCommentDate" Text="{x:Bind PostDate, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BestCommentAuthor"></TextBlock>
                     </RelativePanel>
 
                     <RelativePanel Grid.Row="0" Name="ContentPanel" Grid.Column="1" Margin="5,0">
-                        <TextBlock Name="BestCommentTitle" Text="{x:Bind Title, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" FontWeight="Bold" Margin="0,8"></TextBlock>
-                        <TextBlock Name="BestCommentContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" RelativePanel.Below="BestCommentTitle" Margin="0,4"></TextBlock>
+                        <TextBlock x:Name="BestCommentTitle" Text="{x:Bind Title, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" FontWeight="Bold" Margin="0,8"></TextBlock>
+                        <TextBlock x:Name="BestCommentContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" RelativePanel.Below="BestCommentTitle" Margin="0,4"></TextBlock>
                     </RelativePanel>
 
                     <RelativePanel Grid.Row="1" Margin="0,5" Grid.Column="1">
-                        <Button Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.LeftOf="DuanVotePositive" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}"/>
-                        <TextBlock Name="DuanVotePositive" Text="{x:Bind Like, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.LeftOf="DuanVoteNegativeIcon" Style="{StaticResource RateBarTextStyle}"/>
-                        <Button Name="DuanVoteNegativeIcon" Content="{StaticResource RateBarXX}" RelativePanel.LeftOf="DuanVoteNegative" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}"/>
-                        <TextBlock Name="DuanVoteNegative" Text="{x:Bind Dislike, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignRightWithPanel="True" Style="{StaticResource RateBarTextStyle}"/>
+                        <Button x:Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.LeftOf="DuanVotePositive" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}"/>
+                        <TextBlock x:Name="DuanVotePositive" Text="{x:Bind Like, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.LeftOf="DuanVoteNegativeIcon" Style="{StaticResource RateBarTextStyle}"/>
+                        <Button x:Name="DuanVoteNegativeIcon" Content="{StaticResource RateBarXX}" RelativePanel.LeftOf="DuanVoteNegative" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}"/>
+                        <TextBlock x:Name="DuanVoteNegative" Text="{x:Bind Dislike, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignRightWithPanel="True" Style="{StaticResource RateBarTextStyle}"/>
                     </RelativePanel>
                 </Grid>
             </DataTemplate>
@@ -148,12 +148,12 @@
 
         <RelativePanel Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,9,0,9" DoubleTapped="RelativePanel_DoubleTapped">
             <!--顶部-->
-            <TextBlock Name="PageBackButton" Text="&#xE71D;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
-            <TextBlock Name="PageTitle" Text="热榜" RelativePanel.RightOf="PageBackButton" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
-            <Button Name="RefreshButton" Content="&#xE72C;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
+            <TextBlock x:Name="PageBackButton" Text="&#xE71D;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
+            <TextBlock x:Name="PageTitle" x:Uid="HotPageTitle" RelativePanel.RightOf="PageBackButton" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"/>
+            <Button x:Name="RefreshButton" Content="&#xE72C;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
         </RelativePanel>
         <!--SplitView.Content放无聊图, Pane放评论-->
-        <SplitView Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped" PaneClosed="DuanSplitView_PaneClosed">
+        <SplitView x:Name="DuanSplitView" Grid.Row="1" PanePlacement="Right" DoubleTapped="DuanSplitView_DoubleTapped" PaneClosed="DuanSplitView_PaneClosed">
             <!--SplitView.Pane放评论, 分为两行, 第一行为标题栏, 第二行为评论-->
             <SplitView.Pane>
                 <jandancontrol:CommentListControl x:Name="CommentControl"></jandancontrol:CommentListControl>
@@ -161,13 +161,13 @@
             <!--SplitView.Pane放无聊图正文-->
             <SplitView.Content>
                 <Grid>
-                    <Pivot Name="BoringPivot">
+                    <Pivot x:Name="BoringPivot">
                         <Pivot.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding}" FontSize="18"/>
                             </DataTemplate>
                         </Pivot.HeaderTemplate>
-                        <PivotItem Header="无聊图">
+                        <PivotItem x:Uid="HotPivotPics">
                             <Grid Margin="-8, 0">
                                 <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind ViewModel.Pics, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False">
                                     <toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
@@ -178,12 +178,12 @@
                                 </toolkitcontrol:AdaptiveGridView>
                             </Grid>
                         </PivotItem>
-                        <PivotItem Header="段子">
+                        <PivotItem x:Uid="HotPivotJoke">
                             <Grid Margin="-8, 0">
                                 <ListView Name="DuanListView" ItemsSource="{x:Bind ViewModel.Duan, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ItemContainerStyle="{StaticResource PicListItemStyleTemplate}"/>
                             </Grid>
                         </PivotItem>
-                        <PivotItem Header="优评">
+                        <PivotItem x:Uid="HotPivotBest">
                             <Grid Margin="-8, 0">
                                 <ListView Name="BestCommentListView" ItemsSource="{x:Bind ViewModel.Comm, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource BestCommentDataStyle}" ItemContainerStyle="{StaticResource PicListItemStyleTemplate}" ItemClick="BestCommentListView_ItemClick"/>
                             </Grid>
@@ -201,6 +201,6 @@
                 </Grid>
             </SplitView.Content>
         </SplitView>
-        <ProgressRing Grid.Row="1" Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"/>
+        <ProgressRing Grid.Row="1" x:Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"/>
     </Grid>
 </Page>

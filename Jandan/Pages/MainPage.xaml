@@ -28,43 +28,43 @@
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch" 
                     Opening="MainCommandBar_Opening">
-            <AppBarButton Name="FreshNews" Label="新鲜事" Tag="1" RelativePanel.AlignLeftWithPanel="True" Click="AppBarButton_clicked">
+            <AppBarButton x:Name="FreshNews" x:Uid="AppBarBtnFresh" Tag="1" RelativePanel.AlignLeftWithPanel="True" Click="AppBarButton_clicked">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE80F;"/>
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton Name="Duanzi" Label="段  子" Tag="2" RelativePanel.RightOf="FreshNews" Click="AppBarButton_clicked">
+            <AppBarButton x:Name="Duanzi" x:Uid="AppBarBtnJoke" Tag="2" RelativePanel.RightOf="FreshNews" Click="AppBarButton_clicked">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE134;"/>
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton Name="BoringPics" Label="无聊图" Tag="3" RelativePanel.RightOf="Duanzi" Click="AppBarButton_clicked">
+            <AppBarButton x:Name="BoringPics" x:Uid="AppBarBtnPics" Tag="3" RelativePanel.RightOf="Duanzi" Click="AppBarButton_clicked">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xEB9F;"/>
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton Name="Hot" Label="热  榜" Tag="4" RelativePanel.RightOf="BoringPics" Click="AppBarButton_clicked">
+            <AppBarButton x:Name="Hot" x:Uid="AppBarBtnHot" Tag="4" RelativePanel.RightOf="BoringPics" Click="AppBarButton_clicked">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE71D;"/>
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton Name="Favourite" Label="收  藏" Tag="5" RelativePanel.RightOf="Hot" Click="AppBarButton_clicked">
+            <AppBarButton x:Name="Favourite" x:Uid="AppBarBtnFav" Tag="5" RelativePanel.RightOf="Hot" Click="AppBarButton_clicked">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE728;"/>
                 </AppBarButton.Icon>
             </AppBarButton>
             
             <CommandBar.SecondaryCommands>
-                <AppBarButton Name="NetStatus" Label="无网络连接" IsEnabled="False" IsHitTestVisible="False">
+                <AppBarButton x:Name="NetStatus" x:Uid="AppBarBtnNetworkConnection" IsEnabled="False" IsHitTestVisible="False">
                     <AppBarButton.Foreground>
                         <SolidColorBrush Color="{ThemeResource SystemBaseMediumLowColor}"/>
                     </AppBarButton.Foreground>
                 </AppBarButton>
                 <AppBarSeparator></AppBarSeparator>
-                <AppBarButton Name="SecBenSetting" Label="设置" Click="SecBtnSetting_Click"/>
-                <AppBarButton Name="SecBtnDarkMode" Label="夜间模式" Click="SecBtnDarkMode_Click"/>
-                <AppBarButton Name="SecBtnSetting" Label="清理缓存" Click="SecBtnClearCache_Click"/>
-                <AppBarButton Name="SecBtnAbout" Label="关于" Click="SecBtnAbout_Click"/>
+                <AppBarButton x:Name="SecBenSetting" x:Uid="AppBarBtnSetting" Click="SecBtnSetting_Click"/>
+                <AppBarButton x:Name="SecBtnDarkMode" x:Uid="AppBarBtnDarkMode" Click="SecBtnDarkMode_Click"/>
+                <AppBarButton x:Name="SecBtnSetting" x:Uid="AppBarBtnFav" Click="SecBtnClearCache_Click"/>
+                <AppBarButton x:Name="SecBtnAbout" x:Uid="AppBarBtnAbout" Click="SecBtnAbout_Click"/>
             </CommandBar.SecondaryCommands>            
         </CommandBar>
     </Page.BottomAppBar>
@@ -116,24 +116,24 @@
         </VisualStateManager.VisualStateGroups>
 
         <!--主页面,显示各个板块-->
-        <Frame Name="mainFrame" Margin="0,0,0,48"/>
+        <Frame x:Name="mainFrame" Margin="0,0,0,48"/>
 
         <!--汉堡菜单-->
         <toolkit:HamburgerMenu x:Name="HamburgerMainMenu" ItemTemplate="{StaticResource HamburgerMenuItem}" OptionsItemTemplate="{StaticResource HamburgerMenuItem}" ItemClick="HamburgerMainMenu_ItemClick" OptionsItemClick="HamburgerMainMenu_ItemClick" Background="{ThemeResource AppBarBackground}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}" PaneBackground="{ThemeResource AppBarBackground}">
             <toolkit:HamburgerMenu.ItemsSource>
                 <toolkit:HamburgerMenuItemCollection>
-                    <toolkit:HamburgerMenuGlyphItem Label="新鲜事" Glyph="&#xE80F;"></toolkit:HamburgerMenuGlyphItem>
-                    <toolkit:HamburgerMenuGlyphItem Label="无聊图" Glyph="&#xEB9F;"></toolkit:HamburgerMenuGlyphItem>
-                    <toolkit:HamburgerMenuGlyphItem Label="段  子" Glyph="&#xE134;"></toolkit:HamburgerMenuGlyphItem>
-                    <toolkit:HamburgerMenuGlyphItem Label="热  榜" Glyph="&#xE71D;"></toolkit:HamburgerMenuGlyphItem>
-                    <toolkit:HamburgerMenuGlyphItem Label="收  藏" Glyph="&#xE728;"></toolkit:HamburgerMenuGlyphItem>
+                    <toolkit:HamburgerMenuGlyphItem x:Uid="MenuItemFresh" Glyph="&#xE80F;"></toolkit:HamburgerMenuGlyphItem>
+                    <toolkit:HamburgerMenuGlyphItem x:Uid="MenuItemPics"  Glyph="&#xEB9F;"></toolkit:HamburgerMenuGlyphItem>
+                    <toolkit:HamburgerMenuGlyphItem x:Uid="MenuItemJoke"  Glyph="&#xE134;"></toolkit:HamburgerMenuGlyphItem>
+                    <toolkit:HamburgerMenuGlyphItem x:Uid="MenuItemHot" Glyph="&#xE71D;"></toolkit:HamburgerMenuGlyphItem>
+                    <toolkit:HamburgerMenuGlyphItem x:Uid="MenuItemFav" Glyph="&#xE728;"></toolkit:HamburgerMenuGlyphItem>
                 </toolkit:HamburgerMenuItemCollection>
             </toolkit:HamburgerMenu.ItemsSource>
 
             <toolkit:HamburgerMenu.OptionsItemsSource>
                 <toolkit:HamburgerMenuItemCollection>
-                    <toolkit:HamburgerMenuGlyphItem Label="设  置" Glyph="&#xE713;"/>
-                    <toolkit:HamburgerMenuGlyphItem Label="关  于" Glyph="&#xE897;"/>
+                    <toolkit:HamburgerMenuGlyphItem x:Uid="MenuItemSettings" Glyph="&#xE713;"/>
+                    <toolkit:HamburgerMenuGlyphItem x:Uid="MenuItemAbout" Glyph="&#xE897;"/>
                 </toolkit:HamburgerMenuItemCollection>
             </toolkit:HamburgerMenu.OptionsItemsSource>
         </toolkit:HamburgerMenu>

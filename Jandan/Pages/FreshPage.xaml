@@ -13,49 +13,61 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="FreshGridItemNarrowTemplate" x:DataType="model:Fresh">
-                <Grid Name="gridListItems" HorizontalAlignment="Stretch" BorderBrush="Black" Margin="8,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" Margin="4,0" VerticalAlignment="Center" RelativePanel.AlignVerticalCenterWithPanel="True" HorizontalAlignment="Stretch" RelativePanel.AlignLeftWithPanel="True">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="70*"></RowDefinition>
-                            <RowDefinition Height="30*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <RelativePanel Grid.Row="0">
-                            <TextBlock Name="FreshNewsTitle" Text="{x:Bind Title, Mode=OneWay}" FontSize="16" TextWrapping="Wrap" Margin="0,5,0,3"/>
-                        </RelativePanel>
-                        <RelativePanel Grid.Row="2">
-                            <TextBlock Name="FreshNewsAuthor" Text="{x:Bind Author.Name, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,2"/>
-                            <TextBlock Name="FreshNewsAt" Text="  @  " FontSize="12" TextWrapping="Wrap" RelativePanel.RightOf="FreshNewsAuthor" Margin="0,2"/>
-                            <TextBlock Name="FreshNewsTag" Text="{x:Bind Tag[0].Title, Mode=OneWay}" FontSize="12" TextWrapping="WrapWholeWords" RelativePanel.RightOf="FreshNewsAt" Margin="0,2"/>
-                        </RelativePanel>
-                        <RelativePanel Grid.Row="1" VerticalAlignment="Bottom" >
-                            <TextBlock Name="FreshNewsDate" Text="{x:Bind Date, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,2"/>
-                        </RelativePanel>
-                    </Grid>
-                    <Grid Grid.Column="1" Margin="4">
-                        <toolkitcontrol:ImageEx Name="FreshNewsImage" Source="{x:Bind Thumb_c, Mode=OneWay}" Height="100" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" VerticalAlignment="Center"/>
-                    </Grid>
+            <local:AuthorToNameConverter x:Key="authorCvt"></local:AuthorToNameConverter>
+            <local:TagToStringConverter x:Key="tagCvt"></local:TagToStringConverter>
+            <local:TimeToStringConverter x:Key="timeCvt"></local:TimeToStringConverter>
+            <DataTemplate 
+                x:Key="FreshNewsGridViewTemplate"
+                x:DataType="model:Fresh">
+                <Grid x:Name="FreshNewsTemplateGrid" Margin="2" >
+                    <Grid.Background>
+                        <ImageBrush ImageSource="{x:Bind Path=Thumb_c, Mode=OneWay}" Opacity="0.8" Stretch="UniformToFill"></ImageBrush>
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Margin="0" Padding="10,5" VerticalAlignment="Top">
+                        <TextBlock x:Name="CommentCount" HorizontalAlignment="Right" Text="{x:Bind Path=Comment_count, Mode=OneWay}" Style="{StaticResource FreshNewsCommentCountStyle}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Margin="0" Padding="10,5" VerticalAlignment="Bottom">
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.4"/>
+                        </StackPanel.Background>
+                        <TextBlock x:Name="Date" Text="{x:Bind Path=Date, Converter={StaticResource timeCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                        <TextBlock x:Name="Title" Text="{x:Bind Path=Title, Mode=OneWay}" Style="{StaticResource FreshNewsTitleStyle}"></TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="Author" Text="{x:Bind Path=Author,Converter={StaticResource authorCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                            <TextBlock x:Name="At" Text="@" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                            <TextBlock x:Name="Tag" Text="{x:Bind Path=Tag, Converter={StaticResource tagCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
             </DataTemplate>
-            <DataTemplate x:Key="FreshGridItemWideTemplate" x:DataType="model:Fresh">
-                <Grid Name="gridListItems" BorderBrush="Black" Margin="5" ManipulationMode="System,TranslateX" ManipulationCompleted="gridListItems_ManipulationCompleted" >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <toolkitcontrol:ImageEx Name="FreshNewsImage" Grid.Row="0" MaxHeight="130" Source="{x:Bind Thumb_c, Mode=OneWay}" RelativePanel.AlignRightWithPanel="True" Margin="0,5"/>
-                    <RelativePanel Grid.Row="1" Margin="8,4">
-                        <TextBlock Name="FreshNewsAuthor" Text="{x:Bind Author.Name, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,1"/>
-                        <TextBlock Name="FreshNewsAt" Text="  @  " FontSize="12" TextWrapping="Wrap" RelativePanel.RightOf="FreshNewsAuthor" Margin="0,1"/>
-                        <TextBlock Name="FreshNewsTag" Text="{x:Bind Tag[0].Title, Mode=OneWay}" FontSize="12" TextWrapping="WrapWholeWords" RelativePanel.RightOf="FreshNewsAt" Margin="0,1"/>
-                        <TextBlock Name="FreshNewsDate" Text="{x:Bind Date, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.Below="FreshNewsAuthor" Margin="0,1"/>
-                        <TextBlock Name="FreshNewsTitle" Text="{x:Bind Title, Mode=OneWay}" FontSize="14" TextWrapping="Wrap" Margin="0,3" RelativePanel.Below="FreshNewsDate"/>
-                    </RelativePanel>
+            <DataTemplate x:Key="FreshGridItemNarrowTemplate" x:DataType="model:Fresh">
+                <Grid x:Name="gridListItems" HorizontalAlignment="Stretch" BorderBrush="Black" Margin="8,0">
+                    <Grid.Background>
+                        <ImageBrush ImageSource="{x:Bind Thumb_c, Mode=OneWay}" Stretch="UniformToFill"/>
+                    </Grid.Background>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60*"/>
+                        <ColumnDefinition Width="40*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1" Margin="0" Padding="10,5" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBlock x:Name="CommentCount" HorizontalAlignment="Right" Text="{x:Bind Path=Comment_count, Mode=OneWay}" Style="{StaticResource FreshNewsCommentCountStyle}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Margin="0" Padding="10,5" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.4"/>
+                        </StackPanel.Background>
+                        <TextBlock x:Name="Date" Text="{x:Bind Path=Date, Converter={StaticResource timeCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                        <TextBlock x:Name="Title" Text="{x:Bind Path=Title, Mode=OneWay}" Style="{StaticResource FreshNewsTitleStyle}"></TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="Author" Text="{x:Bind Path=Author,Converter={StaticResource authorCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                            <TextBlock x:Name="At" Text="@" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                            <TextBlock x:Name="Tag" Text="{x:Bind Path=Tag, Converter={StaticResource tagCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
@@ -70,7 +82,7 @@
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>
-                        <Setter Target="FreshGridView.ItemTemplate" Value="{StaticResource FreshGridItemWideTemplate}"/>
+                        <Setter Target="FreshGridView.ItemTemplate" Value="{StaticResource FreshNewsGridViewTemplate}"/>
                         <Setter Target="FreshGridView.ItemHeight" Value="240"/>
                         <Setter Target="FreshGridView.DesiredWidth" Value="{StaticResource ResourceKey=ItemDesiredWidthInWideMode}"/>
                     </VisualState.Setters>
@@ -96,9 +108,9 @@
         </Grid.RowDefinitions>
 
         <RelativePanel Grid.Row="0" Background="{ThemeResource SystemControlHighlightAltListAccentLowBrush}" Padding="0,9,0,9" DoubleTapped="RelativePanel_DoubleTapped" >
-            <TextBlock Name="PageTitleIcon" Text="&#xE80F;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}" DoubleTapped="PageTitleIcon_DoubleTapped"></TextBlock>
-            <TextBlock Name="PageTitle" Text="新鲜事" RelativePanel.RightOf="PageTitleIcon" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"></TextBlock>
-            <Button Name="RefreshButton" Content="&#xE72C;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"></Button>
+            <TextBlock x:Name="PageTitleIcon" Text="&#xE80F;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}" DoubleTapped="PageTitleIcon_DoubleTapped"></TextBlock>
+            <TextBlock x:Name="PageTitle" x:Uid="FreshPageTitle" RelativePanel.RightOf="PageTitleIcon" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource TitleBarTextBlockStyle}"></TextBlock>
+            <Button x:Name="RefreshButton" Content="&#xE72C;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"></Button>
         </RelativePanel>
         <pullcontrol:PullToRefreshBox Grid.Row="1" x:Name="FreshPullToRefresh" RefreshInvoked="FreshPullToRefresh_RefreshInvoked" RefreshThreshold="100">
             <toolkitcontrol:AdaptiveGridView x:Name="FreshGridView" ItemTemplate="{StaticResource FreshGridItemNarrowTemplate}" ItemsSource="{x:Bind ViewModel.News, Mode=OneWay}" ItemClick="FreshGridView_ItemClick" IsItemClickEnabled="True" SelectionMode="None" IsMultiSelectCheckBoxEnabled="False" HorizontalContentAlignment="Stretch">
@@ -110,6 +122,6 @@
                 </toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
             </toolkitcontrol:AdaptiveGridView>
         </pullcontrol:PullToRefreshBox>
-        <ProgressRing Grid.Row="1" Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"></ProgressRing>
+        <ProgressRing Grid.Row="1" x:Name="LoadingRing" Style="{StaticResource LoadingProgressStyle}" IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}"></ProgressRing>
     </Grid>
 </Page>

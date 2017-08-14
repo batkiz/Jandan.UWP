@@ -117,7 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppBarBtnAbout.Label" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AppBarBtnFav.Label" xml:space="preserve">
+    <value>FAVORITE</value>
+  </data>
+  <data name="AppBarBtnFresh.Label" xml:space="preserve">
+    <value>FRESH</value>
+  </data>
+  <data name="AppBarBtnHot.Label" xml:space="preserve">
+    <value>HOT</value>
+  </data>
+  <data name="AppBarBtnJoke.Label" xml:space="preserve">
+    <value>JOKE</value>
+  </data>
+  <data name="AppBarBtnPics.Label" xml:space="preserve">
+    <value>PICS</value>
+  </data>
+  <data name="AppBarBtnSetting.Label" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>Jandan.UWP</value>
+  </data>
+  <data name="CleanupCache" xml:space="preserve">
+    <value>Cleanup Cache</value>
+  </data>
+  <data name="DarkModeOff" xml:space="preserve">
+    <value>Light Mode</value>
+  </data>
+  <data name="DarkModeOn" xml:space="preserve">
+    <value>Dark Mode</value>
+  </data>
+  <data name="DuanPageTitle.Text" xml:space="preserve">
+    <value>JOKE</value>
+  </data>
+  <data name="FavPageTitle.Text" xml:space="preserve">
+    <value>FAVORITE</value>
+  </data>
+  <data name="FavPivotFresh.Header" xml:space="preserve">
+    <value>FRESH</value>
+  </data>
+  <data name="FavPivotGirl.Header" xml:space="preserve">
+    <value>GIRLS</value>
+  </data>
+  <data name="FavPivotJoke.Header" xml:space="preserve">
+    <value>JOKE</value>
+  </data>
+  <data name="FavPivotPics.Header" xml:space="preserve">
+    <value>PICS</value>
+  </data>
+  <data name="FreshPageTitle.Text" xml:space="preserve">
+    <value>FRESH</value>
+  </data>
+  <data name="GirlPageTitle.Text" xml:space="preserve">
+    <value>GIRLS</value>
+  </data>
+  <data name="HotPageTitle.Text" xml:space="preserve">
+    <value>HOT</value>
+  </data>
+  <data name="HotPivotBest.Header" xml:space="preserve">
+    <value>COMMENT</value>
+  </data>
+  <data name="HotPivotJoke.Header" xml:space="preserve">
+    <value>JOKE</value>
+  </data>
+  <data name="HotPivotPics.Header" xml:space="preserve">
+    <value>PICS</value>
+  </data>
+  <data name="MenuItemAbout.Label" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="MenuItemFav.Label" xml:space="preserve">
+    <value>FAVORITE</value>
+  </data>
+  <data name="MenuItemFresh.Label" xml:space="preserve">
+    <value>FRESH</value>
+  </data>
+  <data name="MenuItemHot.Label" xml:space="preserve">
+    <value>HOT</value>
+  </data>
+  <data name="MenuItemJoke.Label" xml:space="preserve">
+    <value>JOKE</value>
+  </data>
+  <data name="MenuItemPics.Label" xml:space="preserve">
+    <value>PICS</value>
+  </data>
+  <data name="MenuItemSettings.Label" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="NetworkConnection" xml:space="preserve">
+    <value>Network Status</value>
+  </data>
+  <data name="PicsPageTitle.Text" xml:space="preserve">
+    <value>PICS</value>
   </data>
 </root>

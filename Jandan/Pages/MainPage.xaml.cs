@@ -72,7 +72,6 @@ namespace Jandan.UWP.UI
             DataShareManager.Current.CurrentPageIndex = PageIndex.MainPage;
 
             this.DataContext = ViewModel;
-            //SetRequestedTheme();
 
             mainFrame.Navigate(typeof(FreshPage));
         }
@@ -134,14 +133,20 @@ namespace Jandan.UWP.UI
 
         private async void MainCommandBar_Opening(object sender, object e)
         {
-            SecBtnDarkMode.Label = ViewModel.AppTheme == ElementTheme.Dark ? "日间模式" : "夜间模式";
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var dmon = loader.GetString("DarkModeOn");
+            var dmof = loader.GetString("DarkModeOff");
+            var nws = loader.GetString("NetworkConnection");
+            var cuc = loader.GetString("CleanupCache");
+
+            SecBtnDarkMode.Label = ViewModel.AppTheme == ElementTheme.Dark ? dmof : dmon;
 
             // 检查当前缓存使用
             var size = await FileHelper.Current.GetCacheSize();
-            SecBtnSetting.Label = $"清理缓存（{FileHelper.Current.GetFormatSize(size)}）";
+            SecBtnSetting.Label = $"{cuc} ({FileHelper.Current.GetFormatSize(size)})";
 
             // 显示当前网络状态
-            NetStatus.Label = $"网络状态({ConnectivityHelper.NetworkStatus()})";
+            NetStatus.Label = $"{nws} ({ConnectivityHelper.NetworkStatus()})";
 
 
         }
@@ -160,27 +165,27 @@ namespace Jandan.UWP.UI
 
         private void JumpToPage(string label)
         {
-            switch (label)
+            switch (label.ToLower())
             {
-                case "新鲜事": case "FreshNews":
+                case "新鲜事": case "freshnews": case "fresh":
                     mainFrame.Navigate(typeof(FreshPage), null, new ContinuumNavigationTransitionInfo());
                     break;
-                case "无聊图": case "BoringPics":
+                case "无聊图": case "boringpics": case "pics":
                     mainFrame.Navigate(typeof(BoringPage), null, new ContinuumNavigationTransitionInfo());
                     break;
-                case "段  子": case "Duanzi":
+                case "段  子": case "duanzi": case "joke":
                     mainFrame.Navigate(typeof(DuanPage), null, new ContinuumNavigationTransitionInfo());
                     break;
-                case "热  榜": case "Hot":
+                case "热  榜": case "hot":
                     mainFrame.Navigate(typeof(HotPage), null, new ContinuumNavigationTransitionInfo());
                     break;
-                case "收  藏": case "Favourite":
+                case "收  藏": case "favourite": case "favorite":
                     mainFrame.Navigate(typeof(FavouritePage), null, new ContinuumNavigationTransitionInfo());
                     break;
-                case "设  置":
+                case "设  置":case "settings":
                     mainFrame.Navigate(typeof(SettingPage), null, new ContinuumNavigationTransitionInfo());
                     break;
-                case "关  于":
+                case "关  于":case "about":
                     mainFrame.Navigate(typeof(AboutPage), null, new ContinuumNavigationTransitionInfo());
                     break;
                 default:

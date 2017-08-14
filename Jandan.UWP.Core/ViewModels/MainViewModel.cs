@@ -34,7 +34,6 @@ namespace Jandan.UWP.Core.ViewModels
 
 
             AppTheme = DataShareManager.Current.AppTheme;
-
             IsLoading = false;
         }
 

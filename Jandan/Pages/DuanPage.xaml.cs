@@ -42,7 +42,7 @@ namespace Jandan.UWP.UI
         {
             this.InitializeComponent();
 
-            this.DataContext = ViewModel;
+            
         }
         /// <summary>
         /// 从其他页面导航回到段子
@@ -57,6 +57,8 @@ namespace Jandan.UWP.UI
                 return;
             }
             base.OnNavigatedTo(e);
+
+            this.DataContext = ViewModel;
 
             if (DataShareManager.Current.CurrentPageIndex == DataShareManager.Current.PreviousPageIndex)
             {
@@ -332,6 +334,11 @@ namespace Jandan.UWP.UI
                 //_popupMsg.ShowAsync("隐藏不受欢迎的段子", 2000);
             }
 
+            RefreshPage();
+        }
+
+        private void sliderFontSize_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
             RefreshPage();
         }
     }
