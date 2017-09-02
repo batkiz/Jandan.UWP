@@ -18,6 +18,8 @@ using Windows.ApplicationModel.DataTransfer;
 using Jandan.UWP.Core.Tools;
 using System.Collections.ObjectModel;
 using Jandan.UWP.Core.Data;
+using Microsoft.Toolkit.Uwp.UI.Controls;
+using Jandan.UWP.Control;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -250,6 +252,14 @@ namespace Jandan.UWP.UI
             popTips.IsOpen = true;
             await System.Threading.Tasks.Task.Delay(ms);
             popTips.IsOpen = false;
+        }
+
+        private void ImageEx_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var s = sender as ImageEx;
+            PopupImageViewerControl pivc = new PopupImageViewerControl();
+
+            pivc.Show(s.Source, "");
         }
     }
 }

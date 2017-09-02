@@ -16,8 +16,13 @@
     <Page.Resources>
         <ResourceDictionary>
             <local:BooleanToFavStringConverter x:Key="booleanToFavString"></local:BooleanToFavStringConverter>
+            <local:AuthorToNameConverter x:Key="authorCvt"></local:AuthorToNameConverter>
+            <local:TagToStringConverter x:Key="tagCvt"></local:TagToStringConverter>
+            <local:TimeToStringConverter x:Key="timeCvt"></local:TimeToStringConverter>
+            <local:UrlToStringConverter x:Key="urlCvt"></local:UrlToStringConverter>
+            <local:CustomDataTemplateSelector x:Key="CDTS" DuanImageTemplate="{StaticResource DuanDataWithImageStyle}" DuanTextTemplate="{StaticResource DuanDataStyle}"/>
 
-            <DataTemplate x:Key="FreshGridItemNarrowTemplate" x:DataType="model:Fresh">
+            <!--<DataTemplate x:Key="FreshGridItemNarrowTemplate" x:DataType="model:Fresh">
                 <Grid x:Name="gridListItems" HorizontalAlignment="Stretch" BorderBrush="Black" Margin="8,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -33,17 +38,43 @@
                             <TextBlock x:Name="FreshNewsTitle" Text="{x:Bind Title, Mode=OneWay}" FontSize="16" TextWrapping="Wrap" Margin="0,5,0,3"/>
                         </RelativePanel>
                         <RelativePanel Grid.Row="2">
-                            <TextBlock x:Name="FreshNewsAuthor" Text="{x:Bind Author.Name, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,2"/>
+                            <TextBlock x:Name="FreshNewsAuthor" Text="{x:Bind Path=Author,Converter={StaticResource authorCvt}, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,2"/>
                             <TextBlock x:Name="FreshNewsAt" Text="  @  " FontSize="12" TextWrapping="Wrap" RelativePanel.RightOf="FreshNewsAuthor" Margin="0,2"/>
-                            <TextBlock x:Name="FreshNewsTag" Text="{x:Bind Tag[0].Title, Mode=OneWay}" FontSize="12" TextWrapping="WrapWholeWords" RelativePanel.RightOf="FreshNewsAt" Margin="0,2"/>
+                            <TextBlock x:Name="FreshNewsTag" Text="{x:Bind Path=Tag, Converter={StaticResource tagCvt}, Mode=OneWay}" FontSize="12" TextWrapping="WrapWholeWords" RelativePanel.RightOf="FreshNewsAt" Margin="0,2"/>
                         </RelativePanel>
                         <RelativePanel Grid.Row="1" VerticalAlignment="Bottom" >
-                            <TextBlock x:Name="FreshNewsDate" Text="{x:Bind Date, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,2"/>
+                            <TextBlock x:Name="FreshNewsDate" Text="{x:Bind Path=Date, Converter={StaticResource timeCvt}, Mode=OneWay}" FontSize="12" TextWrapping="Wrap" RelativePanel.AlignLeftWithPanel="True" Margin="0,2"/>
                         </RelativePanel>
                     </Grid>
                     <Grid Grid.Column="1" Margin="4">
                         <toolkitcontrol:ImageEx x:Name="FreshNewsImage" Source="{x:Bind Thumb_c, Mode=OneWay}" Height="100" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" VerticalAlignment="Center"/>
                     </Grid>
+                </Grid>
+            </DataTemplate>-->
+            <DataTemplate x:Key="FreshGridItemNarrowTemplate" x:DataType="model:Fresh">
+                <Grid x:Name="gridListItems" HorizontalAlignment="Stretch" BorderBrush="Black" Margin="8,0">
+                    <Grid.Background>
+                        <ImageBrush ImageSource="{x:Bind Path=Thumb_c, Converter={StaticResource urlCvt}, Mode=OneWay}" Stretch="UniformToFill"/>
+                    </Grid.Background>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60*"/>
+                        <ColumnDefinition Width="40*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1" Margin="0" Padding="10,5" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBlock x:Name="CommentCount" HorizontalAlignment="Right" Text="{x:Bind Path=Comment_count, Mode=OneWay}" Style="{StaticResource FreshNewsCommentCountStyle}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Margin="0" Padding="10,5" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.5"/>
+                        </StackPanel.Background>
+                        <TextBlock x:Name="Date" Text="{x:Bind Path=Date, Converter={StaticResource timeCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                        <TextBlock x:Name="Title" Text="{x:Bind Path=Title, Mode=OneWay}" Style="{StaticResource FreshNewsTitleStyle}"></TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="Author" Text="{x:Bind Path=Author,Converter={StaticResource authorCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                            <TextBlock x:Name="At" Text="@" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                            <TextBlock x:Name="Tag" Text="{x:Bind Path=Tag, Converter={StaticResource tagCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="DuanDataStyle" x:DataType="model:Duan">
@@ -64,12 +95,41 @@
                         <TextBlock x:Name="DuanDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="DuanAuthor"></TextBlock>
                     </RelativePanel>
                     <RelativePanel Grid.Row="1" Name="ContentPanel">
-                        <TextBlock x:Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>
+                        <!--<TextBlock x:Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>-->
+                        <TextBlock x:Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>
+
                     </RelativePanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,5">                        
                         <Button x:Name="DuanViewCommentButton" Content="{StaticResource RateBarComment}" Click="DuanComment_Click" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"></Button>
                         <Button x:Name="DuanFavButton" Content="取消收藏" Click="DuanFavButton_Click" MaxWidth="100" MinWidth="100" Style="{StaticResource RateBarButtonStyle}"></Button>
                     </StackPanel>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="DuanDataWithImageStyle" x:DataType="model:Duan">
+                <Grid Margin="0" Padding="5" Holding="Grid_Holding" RightTapped="Grid_RightTapped">
+                    <FlyoutBase.AttachedFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="复制" Tapped="MenuFlyoutCopy_Tapped"/>
+                        </MenuFlyout>
+                    </FlyoutBase.AttachedFlyout>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <RelativePanel Grid.Row="0">
+                        <TextBlock x:Name="DuanAuthor" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"></TextBlock>
+                        <TextBlock x:Name="DuanID" Text="{x:Bind DuanID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"></TextBlock>
+                        <TextBlock x:Name="DuanDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="DuanAuthor"></TextBlock>
+                    </RelativePanel>
+                    <RelativePanel Grid.Row="1" Name="ContentPanel">
+                        <toolkitcontrol:ImageEx Source="{x:Bind Content, Mode=OneWay}" MaxWidth="500" Stretch="UniformToFill" Tapped="ImageEx_Tapped" HorizontalAlignment="Center"/>
+                    </RelativePanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,5">
+                        <Button x:Name="DuanViewCommentButton" Content="{StaticResource RateBarComment}" Click="DuanComment_Click" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"></Button>
+                        <Button x:Name="DuanFavButton" Content="取消收藏" Click="DuanFavButton_Click" MaxWidth="100" MinWidth="100" Style="{StaticResource RateBarButtonStyle}"></Button>
+                    </StackPanel>
+
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="BoringPicsDataStyle" x:DataType="model:BoringPic">
@@ -85,7 +145,9 @@
                         <TextBlock x:Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="8,4">
-                        <TextBlock x:Name="BoringContent" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
+                        <!--<TextBlock x:Name="BoringContent" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>-->
+                        <TextBlock x:Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
+
                         <toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,5">
@@ -107,7 +169,9 @@
                         <TextBlock x:Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="8,4">
-                        <TextBlock x:Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
+                        <!--<TextBlock x:Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>-->
+                        <TextBlock x:Name="BoringContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
+
                         <toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,5">
@@ -169,7 +233,11 @@
                         <PivotItem x:Uid="FavPivotJoke">
                             <Grid Margin="-8, 0">
                                 <pullcontrol:PullToRefreshBox x:Name="DuanPullToRefresh" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
-                                    <ListView x:Name="DuanListView" ItemsSource="{x:Bind ViewModel.Duan, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ItemContainerStyle="{StaticResource DuanListViewItemStyle}"></ListView>
+                                    <ListView x:Name="DuanListView" 
+                                              ItemsSource="{x:Bind ViewModel.Duan, Mode=OneWay}" 
+                                              Style="{StaticResource ContentPanelListViewStyle}" 
+                                              ItemTemplateSelector="{StaticResource CDTS}"
+                                              ItemContainerStyle="{StaticResource DuanListViewItemStyle}"></ListView>
                                 </pullcontrol:PullToRefreshBox>
                             </Grid>
                         </PivotItem>

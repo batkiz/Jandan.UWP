@@ -119,7 +119,7 @@
         <Frame x:Name="mainFrame" Margin="0,0,0,48"/>
 
         <!--汉堡菜单-->
-        <toolkit:HamburgerMenu x:Name="HamburgerMainMenu" ItemTemplate="{StaticResource HamburgerMenuItem}" OptionsItemTemplate="{StaticResource HamburgerMenuItem}" ItemClick="HamburgerMainMenu_ItemClick" OptionsItemClick="HamburgerMainMenu_ItemClick" Background="{ThemeResource AppBarBackground}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}" PaneBackground="{ThemeResource AppBarBackground}">
+        <toolkit:HamburgerMenu x:Name="HamburgerMainMenu" OpenPaneLength="240" ItemTemplate="{StaticResource HamburgerMenuItem}" OptionsItemTemplate="{StaticResource HamburgerMenuItem}" ItemClick="HamburgerMainMenu_ItemClick" OptionsItemClick="HamburgerMainMenu_ItemClick" Background="{ThemeResource AppBarBackground}" Foreground="{ThemeResource AppBarItemForegroundThemeBrush}" PaneBackground="{ThemeResource AppBarBackground}">
             <toolkit:HamburgerMenu.ItemsSource>
                 <toolkit:HamburgerMenuItemCollection>
                     <toolkit:HamburgerMenuGlyphItem x:Uid="MenuItemFresh" Glyph="&#xE80F;"></toolkit:HamburgerMenuGlyphItem>

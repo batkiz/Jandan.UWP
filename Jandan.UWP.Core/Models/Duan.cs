@@ -22,5 +22,7 @@ namespace Jandan.UWP.Core.Models
         public int VoteNegative { get; set; }
         [DataMember]
         public string CommentCount { get; set; }
+        [DataMember]
+        public string ContentType { get; set; }
     }
 }

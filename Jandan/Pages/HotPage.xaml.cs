@@ -18,6 +18,8 @@ using Windows.UI.Xaml.Navigation;
 using System.Threading.Tasks;
 using Windows.UI;
 using Windows.ApplicationModel.DataTransfer;
+using Microsoft.Toolkit.Uwp.UI.Controls;
+using Jandan.UWP.Control;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -262,6 +264,14 @@ namespace Jandan.UWP.UI
         private void RelativePanel_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             RefreshPage();
+        }
+
+        private void ImageEx_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var s = sender as ImageEx;
+            PopupImageViewerControl pivc = new PopupImageViewerControl();
+
+            pivc.Show(s.Source, "");
         }
     }
 }

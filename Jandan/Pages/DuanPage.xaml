@@ -9,12 +9,15 @@
     xmlns:viewmodel="using:Jandan.UWP.Core.ViewModels"
     xmlns:jandancontrol="using:Jandan.UWP.Control"
     xmlns:pullcontrol="using:PullToRefresh.UWP"
+    xmlns:toolkitcontrol="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     NavigationCacheMode="Enabled" Loaded="Page_Loaded" RenderTransformOrigin="0.5,0.5">
 
     <Page.Resources>
         <ResourceDictionary>
             <!--<local:FontSizeToValueConverter x:Key="ftvCvt"></local:FontSizeToValueConverter>-->
+            <local:CustomDataTemplateSelector x:Key="CDTS" DuanImageTemplate="{StaticResource DuanDataWithImageStyle}" DuanTextTemplate="{StaticResource DuanDataStyle}"/>
+
             <Style x:Key="DuanItemContentTextStyle" BasedOn="{StaticResource ItemContentTextStyle}" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="16"/>
             </Style>
@@ -22,8 +25,8 @@
                 <Grid Margin="0" Padding="5" Holding="Grid_Holding" RightTapped="Grid_RightTapped">
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout>
-                            <MenuFlyoutItem Text="复制" Tapped="MenuFlyoutCopy_Tapped"/>
-                            <MenuFlyoutItem Text="收藏" Tapped="MenuFlyoutFav_Tapped"/>
+                            <MenuFlyoutItem x:Uid="MenuFlyoutItemCopy" Tapped="MenuFlyoutCopy_Tapped"/>
+                            <MenuFlyoutItem x:Uid="MenuFlyoutItemFav" Tapped="MenuFlyoutFav_Tapped"/>
                         </MenuFlyout>
                     </FlyoutBase.AttachedFlyout>
                     <Grid.RowDefinitions>
@@ -37,7 +40,38 @@
                         <TextBlock x:Name="DuanDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="DuanAuthor"></TextBlock>
                     </RelativePanel>
                     <RelativePanel Grid.Row="1" Name="ContentPanel">
-                        <TextBlock x:Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" />
+                        <!--<TextBlock x:Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" />-->
+                        <TextBlock x:Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" />
+                    </RelativePanel>
+                    <RelativePanel Grid.Row="2" Margin="0,5">
+                        <Button x:Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click"></Button>
+                        <TextBlock x:Name="DuanVotePositive" Text="{x:Bind VotePositive, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource RateBarTextStyle}"></TextBlock>
+                        <Button x:Name="DuanVoteNegativeIcon" Content="{StaticResource RateBarXX}" RelativePanel.RightOf="DuanVotePositive" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVoteNegativeIcon_Click"></Button>
+                        <TextBlock x:Name="DuanVoteNegative" Text="{x:Bind VoteNegative, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVoteNegativeIcon" Style="{StaticResource RateBarTextStyle}"></TextBlock>
+                        <Button x:Name="DuanViewCommentButton" Content="{StaticResource RateBarComment}" Click="Tucao_Click" RelativePanel.RightOf="DuanVoteNegative" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"></Button>
+                        <TextBlock x:Name="DuanCommentCount" Text="{x:Bind CommentCount, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanViewCommentButton" Style="{StaticResource RateBarTextStyle}"></TextBlock>
+                    </RelativePanel>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="DuanDataWithImageStyle" x:DataType="model:Duan">
+                <Grid Margin="0" Padding="5" Holding="Grid_Holding" RightTapped="Grid_RightTapped">
+                    <FlyoutBase.AttachedFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem x:Uid="MenuFlyoutItemFav" Tapped="MenuFlyoutFav_Tapped"/>
+                        </MenuFlyout>
+                    </FlyoutBase.AttachedFlyout>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <RelativePanel Grid.Row="0">
+                        <TextBlock x:Name="DuanAuthor" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"></TextBlock>
+                        <TextBlock x:Name="DuanID" Text="{x:Bind DuanID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"></TextBlock>
+                        <TextBlock x:Name="DuanDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="DuanAuthor"></TextBlock>
+                    </RelativePanel>
+                    <RelativePanel Grid.Row="1" Name="ContentPanel">
+                        <toolkitcontrol:ImageEx Source="{x:Bind Content, Mode=OneWay}" MaxWidth="500" Stretch="UniformToFill" Tapped="ImageEx_Tapped" HorizontalAlignment="Center"/>
                     </RelativePanel>
                     <RelativePanel Grid.Row="2" Margin="0,5">
                         <Button x:Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click"></Button>
@@ -81,15 +115,6 @@
                 </Button.Flyout>
             </Button>
             <Button x:Name="RefreshButton" Content="&#xE72C;" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Click="RefreshButton_Click" Style="{StaticResource TitleBarButtonStyle}"/>
-            <!--<Button x:Name="FontSizeButton" Content="&#xE71E;" RelativePanel.LeftOf="FilterButton" Style="{StaticResource TitleBarButtonStyle}">
-                <Button.Flyout>
-                    <Flyout>
-                        <StackPanel>
-                            <Slider x:Name="sliderFontSize" Minimum="12" Maximum="30" Value="{x:Bind Path=viewmodel:DataShareManager.Current.FontSize, Mode=TwoWay}" ValueChanged="sliderFontSize_ValueChanged"/>
-                        </StackPanel>
-                    </Flyout>
-                </Button.Flyout>
-            </Button>-->
         </RelativePanel>
 
         <!--SplitView.Content放段子, Pane放评论-->
@@ -101,7 +126,13 @@
             <SplitView.Content>
                 <Grid>
                     <pullcontrol:PullToRefreshBox x:Name="DuanPullToRefresh" RefreshInvoked="pullToRefreshBar_RefreshInvoked">
-                        <ListView x:Name="DuanListView" ItemsSource="{x:Bind ViewModel.Duans, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ContainerContentChanging="DuanListView_ContainerContentChanging" ItemContainerStyle="{StaticResource DuanListViewItemStyle}"></ListView>
+                        <ListView x:Name="DuanListView" 
+                                  ItemsSource="{x:Bind ViewModel.Duans, Mode=OneWay}" 
+                                  Style="{StaticResource ContentPanelListViewStyle}"                                    
+                                  ContainerContentChanging="DuanListView_ContainerContentChanging" 
+                                  ItemContainerStyle="{StaticResource DuanListViewItemStyle}"
+                                  ItemTemplateSelector="{StaticResource CDTS}">
+                        </ListView>
                     </pullcontrol:PullToRefreshBox>
                     <Popup Grid.Row="1" x:Name="popTips" IsOpen="False" Margin="0,0,0,60" VerticalAlignment="Bottom" >
                         <Border x:Name="PopBorder">

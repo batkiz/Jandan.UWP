@@ -29,7 +29,9 @@
                         <TextBlock x:Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="0,0,0,4" >
-                        <TextBlock x:Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" MaxHeight="40"/>
+                        <!--<TextBlock x:Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" MaxHeight="40"/>-->
+                        <TextBlock x:Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" MaxHeight="40"/>
+
                         <!--<toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />-->
                         <toolkitcontrol:ImageEx VerticalAlignment="Top" MinHeight="240" Source="{x:Bind Thumb, Converter={StaticResource imgCvt}, Mode=OneWay}" />
                     </StackPanel>

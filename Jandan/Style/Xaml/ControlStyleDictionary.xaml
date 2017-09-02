@@ -22,23 +22,9 @@
         <Setter Property="Background" Value="{ThemeResource JandanControlHighlightAltListAccentHighBrush}"/>
     </Style>
 
-    <!--煎蛋原生主题-->
-    <Style x:Key="TitleBarTextBlockJandanStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="20"/>
-        <Setter Property="Padding" Value="20,0,0,0"/>
-        <Setter Property="Foreground" Value="White"/>
-    </Style>
-    <Style x:Key="TitleBarButtonJandanStyle" TargetType="Button">
-        <Setter Property="FontSize" Value="20"/>
-        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
-        <Setter Property="Margin" Value="0,0,5,0"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="White"/>
-    </Style>
-
     <!--UWP原生主题-->
     <Style x:Key="TitleBarTextBlockStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource LargeTitleFontStyle}, Path=FontSize, Mode=OneWay}"/>
         <Setter Property="Padding" Value="20,0,0,0"/>
     </Style>
     <Style x:Key="TitleBarButtonStyle" TargetType="Button">
@@ -73,22 +59,22 @@
         <Setter Property="Padding" Value="10,10,10,10"/>
     </Style>
     <Style x:Key="ItemAuthorTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{StaticResource ContentInfoFontSize}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
     <Style x:Key="ItemIDTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{StaticResource ContentInfoFontSize}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="ItemDateTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{StaticResource ContentInfoFontSize}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="ItemContentTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{StaticResource ContentFontSize}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentFontStyle}, Path=FontSize, Mode=OneWay}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Margin" Value="0,8,0,0"/>
     </Style>
@@ -164,22 +150,22 @@
         <Setter Property="Padding" Value="20,0,0,0"/>
     </Style>
     <Style x:Key="CommentAuthorTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
     </Style>
     <Style x:Key="CommentLevelTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{StaticResource CommentContentInfoFontSize}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="CommentDateTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{StaticResource CommentContentInfoFontSize}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="CommentContentTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{StaticResource CommentContentFontSize}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentFontStyle}, Path=FontSize, Mode=OneWay}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Margin" Value="0,0,0,2"/>
         <Setter Property="Padding" Value="0,0,0,2"/>
@@ -189,21 +175,21 @@
     <Style x:Key="FreshNewsTitleStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="#FFC50000"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource MediumFontStyle}, Path=FontSize, Mode=OneWay}"/>
         <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
         <Setter Property="TextWrapping" Value="WrapWholeWords"/>
     </Style>
     <Style x:Key="FreshNewsAuthorStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource SmallFontStyle}, Path=FontSize, Mode=OneWay}"/>
         <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
         <Setter Property="TextWrapping" Value="WrapWholeWords"/>
     </Style>
     <Style x:Key="FreshNewsCommentCountStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="DarkOrange"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}"/>
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource MediumFontStyle}, Path=FontSize, Mode=OneWay}"/>
         <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
     </Style>
 

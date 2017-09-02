@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Security.Authentication.Web;
@@ -187,6 +188,15 @@ namespace Jandan.UWP.Core.HTTP
                                 string ID = (j.GetObject())["comment_ID"].GetString();
                                 var author = (j.GetObject())["comment_author"].GetString();
                                 var content = (j.GetObject())["comment_content"].GetString();
+                                var con_type = "text";
+
+                                var s = Regex.Match(content, "<img src=\"(.+)\" />");
+                                if (s.Length != 0)
+                                {
+                                    content = Regex.Replace(content, "<img src=\"(.+)\" />", "$1");
+                                    con_type = "image";
+                                }
+
                                 var date = (j.GetObject())["comment_date"].GetString();
                                 var vote_pos = int.Parse(j.GetObject().GetNamedString("vote_positive"));
                                 var vote_neg = int.Parse(j.GetObject().GetNamedString("vote_negative"));
@@ -209,7 +219,8 @@ namespace Jandan.UWP.Core.HTTP
                                     Date = date,
                                     VotePositive = vote_pos,
                                     VoteNegative = vote_neg,
-                                    CommentCount = comment_count
+                                    CommentCount = comment_count,
+                                    ContentType = con_type
                                 });
                             }
                         }

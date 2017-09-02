@@ -8,6 +8,7 @@
     mc:Ignorable="d"
     xmlns:model="using:Jandan.UWP.Core.Models"
     xmlns:toolkitcontrol="using:Microsoft.Toolkit.Uwp.UI.Controls" 
+    xmlns:toolkitanimation="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:pullcontrol="using:PullToRefresh.UWP"
     Loaded="Page_Loaded" NavigationCacheMode="Enabled">
 
@@ -21,22 +22,18 @@
                 x:Key="FreshNewsGridViewTemplate"
                 x:DataType="model:Fresh">
                 <Grid x:Name="FreshNewsTemplateGrid" Margin="2" >
-                    <Grid.Background>
-                        <ImageBrush ImageSource="{x:Bind Path=Thumb_c, Converter={StaticResource urlCvt}, Mode=OneWay}" Opacity="0.8" Stretch="UniformToFill"></ImageBrush>
-                    </Grid.Background>
-                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <!--<toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb_c, Mode=OneWay}" Stretch="UniformToFill"/>-->
+                    <toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb_c, Converter={StaticResource urlCvt}, Mode=OneWay}" Stretch="UniformToFill" Grid.RowSpan="2"/>
                     
                     <StackPanel Grid.Row="0" Margin="0" Padding="10,5" VerticalAlignment="Top">
                         <TextBlock x:Name="CommentCount" HorizontalAlignment="Right" Text="{x:Bind Path=Comment_count, Mode=OneWay}" Style="{StaticResource FreshNewsCommentCountStyle}"></TextBlock>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Margin="0" Padding="10,5" VerticalAlignment="Bottom">
                         <StackPanel.Background>
-                            <SolidColorBrush Color="Black" Opacity="0.4"/>
+                            <SolidColorBrush Color="Black" Opacity="0.5"/>
                         </StackPanel.Background>
                         <TextBlock x:Name="Date" Text="{x:Bind Path=Date, Converter={StaticResource timeCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
                         <TextBlock x:Name="Title" Text="{x:Bind Path=Title, Mode=OneWay}" Style="{StaticResource FreshNewsTitleStyle}"></TextBlock>
@@ -50,19 +47,17 @@
             </DataTemplate>
             <DataTemplate x:Key="FreshGridItemNarrowTemplate" x:DataType="model:Fresh">
                 <Grid x:Name="gridListItems" HorizontalAlignment="Stretch" BorderBrush="Black" Margin="8,0">
-                    <Grid.Background>
-                        <ImageBrush ImageSource="{x:Bind Path=Thumb_c, Converter={StaticResource urlCvt}, Mode=OneWay}" Stretch="UniformToFill"/>
-                    </Grid.Background>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="60*"/>
                         <ColumnDefinition Width="40*"/>
                     </Grid.ColumnDefinitions>
+                    <toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb_c, Converter={StaticResource urlCvt}, Mode=OneWay}" Stretch="UniformToFill" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
                     <StackPanel Grid.Column="1" Margin="0" Padding="10,5" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <TextBlock x:Name="CommentCount" HorizontalAlignment="Right" Text="{x:Bind Path=Comment_count, Mode=OneWay}" Style="{StaticResource FreshNewsCommentCountStyle}"></TextBlock>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Margin="0" Padding="10,5" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <StackPanel.Background>
-                            <SolidColorBrush Color="Black" Opacity="0.4"/>
+                            <SolidColorBrush Color="Black" Opacity="0.5"/>
                         </StackPanel.Background>
                         <TextBlock x:Name="Date" Text="{x:Bind Path=Date, Converter={StaticResource timeCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
                         <TextBlock x:Name="Title" Text="{x:Bind Path=Title, Mode=OneWay}" Style="{StaticResource FreshNewsTitleStyle}"></TextBlock>

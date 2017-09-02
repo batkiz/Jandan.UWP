@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Data.Json;
 using Jandan.UWP.Core.Tools;
 using System.Collections.Generic;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上提供
 
@@ -340,6 +341,14 @@ namespace Jandan.UWP.UI
         private void sliderFontSize_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             RefreshPage();
+        }
+
+        private void ImageEx_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var s = sender as ImageEx;
+            PopupImageViewerControl pivc = new PopupImageViewerControl();
+            
+            pivc.Show(s.Source, "");
         }
     }
 }

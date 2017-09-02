@@ -189,6 +189,12 @@
   <data name="HotPivotPics.Header" xml:space="preserve">
     <value>无聊图</value>
   </data>
+  <data name="MenuFlyoutItemCopy.Text" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="MenuFlyoutItemFav.Text" xml:space="preserve">
+    <value>收藏</value>
+  </data>
   <data name="MenuItemAbout.Label" xml:space="preserve">
     <value>关  于</value>
   </data>

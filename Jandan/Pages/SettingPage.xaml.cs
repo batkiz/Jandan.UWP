@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Security.Authentication.Web;
 using System.Diagnostics;
 using Jandan.UWP.Core.HTTP;
+using Jandan.UWP.Style;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -281,6 +282,33 @@ namespace Jandan.UWP.UI
 
             //await _viewModel.GetAuthAsync(s.Text);
             //_viewModel.Update();
-        }       
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var s = (string)((Windows.UI.Xaml.Controls.ContentControl)(sender as ComboBox).SelectedValue).Content;
+
+            switch (s.ToLower())
+            {
+                case "small":
+                    SetFontSize(10, 14, 12);
+                    break;
+                default:
+                case "medium":
+                    SetFontSize(12, 16, 14);
+                    break;
+                case "large":
+                    SetFontSize(16, 20, 18);
+                    break;
+            }
+        }
+
+        private void SetFontSize(double cifs, double cfs, double ccfs)
+        {
+            if (Application.Current.Resources["ContentFontStyle"] is FontStyle f1) f1.FontSize = cfs;
+            if (Application.Current.Resources["CommentContentFontStyle"] is FontStyle f2) f2.FontSize = ccfs;
+            if (Application.Current.Resources["ContentInfoFontStyle"] is FontStyle f3) f3.FontSize = cifs;
+            if (Application.Current.Resources["CommentContentInfoFontStyle"] is FontStyle f4) f4.FontSize = cifs;
+        }
     }
 }

@@ -8,5 +8,13 @@
     <!--Medium size margins-->
     <Thickness x:Key="MediumLeftRightMargin">12,0,12,0</Thickness>
     <Thickness x:Key="MediumLeftTopRightBottomMargin">12,12,12,12</Thickness>
+    
+    <!--Width of the Hamburger Menu -->
+    <x:Double x:Key="HamburgerMenuExpandedWidth">240</x:Double>
+    <x:Double x:Key="HamburgerMenuCompactWidth">48</x:Double>
+
+    <Thickness x:Key="MainFrameWideModeMargin">240, 0, 0, 0</Thickness>
+    <Thickness x:Key="MainFrameTabletCompactModeMargin">48, 0, 0, 0</Thickness>
+    <Thickness x:Key="MainFramePhoneCompactModeMargin">0, 0, 0, 48</Thickness>
 
 </ResourceDictionary>

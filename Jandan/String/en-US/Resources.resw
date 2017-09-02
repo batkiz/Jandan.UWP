@@ -186,6 +186,12 @@
   <data name="HotPivotPics.Header" xml:space="preserve">
     <value>PICS</value>
   </data>
+  <data name="MenuFlyoutItemCopy.Text" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="MenuFlyoutItemFav.Text" xml:space="preserve">
+    <value>Save to Favorite</value>
+  </data>
   <data name="MenuItemAbout.Label" xml:space="preserve">
     <value>About</value>
   </data>

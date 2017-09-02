@@ -1,16 +1,11 @@
-﻿using Microsoft.Toolkit.Uwp;
-using Microsoft.Toolkit.Uwp.UI;
+﻿using Microsoft.Toolkit.Uwp.UI;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Data.Json;
-using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Web.Http;
+
 
 namespace Jandan.UWP.Core.HTTP
 {
@@ -34,31 +29,56 @@ namespace Jandan.UWP.Core.HTTP
         /// <returns>获取到的Json对象</returns>
         protected static async Task<JsonObject> GetJson(string url)
         {
-            using (var request = new HttpHelperRequest(new Uri(url), HttpMethod.Get))
+            var uri = new Uri(url);
+            var httpClient = new HttpClient();
+
+            try
             {
-                using (var response = await HttpHelper.Instance.SendRequestAsync(request))
+                var json = await httpClient.GetStringAsync(uri);
+                
+                if (json != null)
                 {
-                    try
-                    {
-                        string json = await response.GetTextResultAsync();
-                        if (json != null)
-                        {
-                            Printlog("请求Json数据成功 URL：" + url);
-                            return JsonObject.Parse(json);
-                        }
-                        else
-                        {
-                            Printlog("请求Json数据为空 URL：" + url);
-                            return null;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        Printlog("请求Json数据失败 URL：" + url);
-                        return null;
-                    }
+                    Printlog("请求Json数据成功 URL：" + url);
+                    return JsonObject.Parse(json);
+                }
+                else
+                {
+                    Printlog("请求Json数据为空 URL：" + url);
+                    return null;
                 }
             }
+            catch (Exception)
+            {
+                Printlog("请求Json数据失败 URL：" + url);
+                return null;
+            }
+
+
+            //using (var request = new HttpHelperRequest(new Uri(url), HttpMethod.Get))
+            //{
+            //    using (var response = await HttpHelper.Instance.SendRequestAsync(request))
+            //    {
+            //        try
+            //        {
+            //            string json = await response.GetTextResultAsync();
+            //            if (json != null)
+            //            {
+            //                Printlog("请求Json数据成功 URL：" + url);
+            //                return JsonObject.Parse(json);
+            //            }
+            //            else
+            //            {
+            //                Printlog("请求Json数据为空 URL：" + url);
+            //                return null;
+            //            }
+            //        }
+            //        catch (Exception)
+            //        {
+            //            Printlog("请求Json数据失败 URL：" + url);
+            //            return null;
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
@@ -68,31 +88,55 @@ namespace Jandan.UWP.Core.HTTP
         /// <returns>获取到的字符串，表示html页面</returns>
         protected static async Task<string> GetHtml(string url)
         {
-            using (var request = new HttpHelperRequest(new Uri(url), HttpMethod.Get))
+            var uri = new Uri(url);
+            var httpClient = new HttpClient();
+
+            try
             {
-                using (var response = await HttpHelper.Instance.SendRequestAsync(request))
+                var html = await httpClient.GetStringAsync(uri);
+
+                if (html != null)
                 {
-                    try
-                    {
-                        string html = await response.GetTextResultAsync();
-                        if (html != null)
-                        {
-                            Printlog("请求html数据成功 URL：" + url);
-                            return html;
-                        }
-                        else
-                        {
-                            Printlog("请求html数据为空 URL：" + url);
-                            return null;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        Printlog("请求html数据失败 URL：" + url);
-                        return null;
-                    }
+                    Printlog("请求html数据成功 URL：" + url);
+                    return html;
+                }
+                else
+                {
+                    Printlog("请求html数据为空 URL：" + url);
+                    return null;
                 }
             }
+            catch (Exception)
+            {
+                Printlog("请求html数据失败 URL：" + url);
+                return null;
+            }
+
+            //using (var request = new HttpHelperRequest(new Uri(url), HttpMethod.Get))
+            //{
+            //    using (var response = await HttpHelper.Instance.SendRequestAsync(request))
+            //    {
+            //        try
+            //        {
+            //            string html = await response.GetTextResultAsync();
+            //            if (html != null)
+            //            {
+            //                Printlog("请求html数据成功 URL：" + url);
+            //                return html;
+            //            }
+            //            else
+            //            {
+            //                Printlog("请求html数据为空 URL：" + url);
+            //                return null;
+            //            }
+            //        }
+            //        catch (Exception)
+            //        {
+            //            Printlog("请求html数据失败 URL：" + url);
+            //            return null;
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>

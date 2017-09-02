@@ -10,12 +10,14 @@
     xmlns:jandancontrol="using:Jandan.UWP.Control"
     xmlns:pullcontrol="using:PullToRefresh.UWP"
     xmlns:model="using:Jandan.UWP.Core.Models"
-    xmlns:viewmodel="using:Jandan.UWP.Core.ViewModels"
+    xmlns:viewmodel="using:Jandan.UWP.Core.ViewModels"    
     NavigationCacheMode="Enabled">
 
     <Page.Resources>
         <ResourceDictionary>
             <local:ImageConverter x:Key="imgCvt"/>
+            <local:CustomDataTemplateSelector x:Key="CDTS" DuanImageTemplate="{StaticResource DuanDataWithImageStyle}" DuanTextTemplate="{StaticResource DuanDataStyle}"/>
+
             <DataTemplate x:Key="BoringPicsDataStyle" x:DataType="model:BoringPic">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -29,7 +31,7 @@
                         <TextBlock x:Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="8,4">
-                        <TextBlock x:Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
+                        <TextBlock x:Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
                         <toolkitcontrol:ImageEx MinHeight="240" VerticalAlignment="Top" Source="{x:Bind Thumb, Converter={StaticResource imgCvt}, Mode=OneWay}" />
                     </StackPanel>
                     <RelativePanel Grid.Row="2" Margin="5">
@@ -60,7 +62,7 @@
                         <TextBlock x:Name="DuanDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="DuanAuthor"></TextBlock>
                     </RelativePanel>
                     <RelativePanel Grid.Row="1" Name="ContentPanel">
-                        <TextBlock x:Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>
+                        <TextBlock x:Name="DuanContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"></TextBlock>
                     </RelativePanel>
                     <!--<WebView Grid.Row="1" Name="webDuanContent" local:ExtensionHTMLStringProperties.HtmlString="{x:Bind Content, Mode=OneWay}" MinWidth="289" MinHeight="58" />-->
                     <RelativePanel Grid.Row="2">
@@ -70,6 +72,36 @@
                         <TextBlock x:Name="DuanVoteNegative" Text="{x:Bind VoteNegative, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVoteNegativeIcon" Style="{StaticResource RateBarTextStyle}"/>
                         <Button x:Name="DuanViewCommentButton" Content="{StaticResource RateBarComment}" Click="Duan_Tucao_Click" RelativePanel.RightOf="DuanVoteNegative" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"/>
                         <TextBlock x:Name="DuanCommentCount" Text="{x:Bind CommentCount, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanViewCommentButton" Style="{StaticResource RateBarTextStyle}"/>
+                    </RelativePanel>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="DuanDataWithImageStyle" x:DataType="model:Duan">
+                <Grid Margin="0" Padding="5" Holding="Grid_Holding" RightTapped="Grid_RightTapped">
+                    <FlyoutBase.AttachedFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="复制" Tapped="MenuFlyoutItem_Tapped"/>
+                        </MenuFlyout>
+                    </FlyoutBase.AttachedFlyout>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <RelativePanel Grid.Row="0">
+                        <TextBlock x:Name="DuanAuthor" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"></TextBlock>
+                        <TextBlock x:Name="DuanID" Text="{x:Bind DuanID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"></TextBlock>
+                        <TextBlock x:Name="DuanDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="DuanAuthor"></TextBlock>
+                    </RelativePanel>
+                    <RelativePanel Grid.Row="1" Name="ContentPanel">
+                        <toolkitcontrol:ImageEx Source="{x:Bind Content, Mode=OneWay}" MaxWidth="500" Stretch="UniformToFill" Tapped="ImageEx_Tapped" HorizontalAlignment="Center"/>
+                    </RelativePanel>
+                    <RelativePanel Grid.Row="2" Margin="0,5">
+                        <Button x:Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click"></Button>
+                        <TextBlock x:Name="DuanVotePositive" Text="{x:Bind VotePositive, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource RateBarTextStyle}"></TextBlock>
+                        <Button x:Name="DuanVoteNegativeIcon" Content="{StaticResource RateBarXX}" RelativePanel.RightOf="DuanVotePositive" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVoteNegativeIcon_Click"></Button>
+                        <TextBlock x:Name="DuanVoteNegative" Text="{x:Bind VoteNegative, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVoteNegativeIcon" Style="{StaticResource RateBarTextStyle}"></TextBlock>
+                        <Button x:Name="DuanViewCommentButton" Content="{StaticResource RateBarComment}" Click="Duan_Tucao_Click" RelativePanel.RightOf="DuanVoteNegative" MaxWidth="50" MinWidth="50" Style="{StaticResource RateBarButtonStyle}"></Button>
+                        <TextBlock x:Name="DuanCommentCount" Text="{x:Bind CommentCount, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanViewCommentButton" Style="{StaticResource RateBarTextStyle}"></TextBlock>
                     </RelativePanel>
                 </Grid>
             </DataTemplate>
@@ -98,7 +130,7 @@
 
                     <RelativePanel Grid.Row="0" Name="ContentPanel" Grid.Column="1" Margin="5,0">
                         <TextBlock x:Name="BestCommentTitle" Text="{x:Bind Title, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" FontWeight="Bold" Margin="0,8"></TextBlock>
-                        <TextBlock x:Name="BestCommentContent" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" RelativePanel.Below="BestCommentTitle" Margin="0,4"></TextBlock>
+                        <TextBlock x:Name="BestCommentContent" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" RelativePanel.Below="BestCommentTitle" Margin="0,4"></TextBlock>
                     </RelativePanel>
 
                     <RelativePanel Grid.Row="1" Margin="0,5" Grid.Column="1">
@@ -181,7 +213,11 @@
                         </PivotItem>
                         <PivotItem x:Uid="HotPivotJoke">
                             <Grid Margin="-8, 0">
-                                <ListView Name="DuanListView" ItemsSource="{x:Bind ViewModel.Duan, Mode=OneWay}" Style="{StaticResource ContentPanelListViewStyle}" ItemTemplate="{StaticResource DuanDataStyle}" ItemContainerStyle="{StaticResource PicListItemStyleTemplate}"/>
+                                <ListView Name="DuanListView" 
+                                          ItemsSource="{x:Bind ViewModel.Duan, Mode=OneWay}" 
+                                          Style="{StaticResource ContentPanelListViewStyle}" 
+                                          ItemTemplateSelector="{StaticResource CDTS}" 
+                                          ItemContainerStyle="{StaticResource PicListItemStyleTemplate}"/>
                             </Grid>
                         </PivotItem>
                         <PivotItem x:Uid="HotPivotBest">

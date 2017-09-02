@@ -7,6 +7,8 @@
     xmlns:jandancontrol="using:Jandan.UWP.Control"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     mc:Ignorable="d" ManipulationCompleted="Page_ManipulationCompleted">
 
     <Page.Resources>
@@ -83,17 +85,18 @@
             <SplitView.Pane>
                 <jandancontrol:FreshCommentListControl x:Name="CommentControl"></jandancontrol:FreshCommentListControl>                
             </SplitView.Pane>
-            <SplitView.Content>
-                <Grid ManipulationMode="System, TranslateX">
-                    <WebView Grid.Row="1" 
+            <SplitView.Content>  
+                    <Grid ManipulationMode="System, TranslateX">
+
+                        <WebView Grid.Row="1" 
                              Name="webFreshDetailSlim"                                
                              local:ExtensionHTMLStringProperties.HtmlString="{Binding FreshDetails.FreshContentSlim}"
                              Margin="12" 
                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
                              ScrollViewer.VerticalScrollMode="Disabled"
                              ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                    </WebView>
-                    <WebView Grid.Row="1" 
+                        </WebView>
+                        <WebView Grid.Row="1" 
                              Name="webFreshDetailEx"
                              local:ExtensionHTMLStringProperties.HtmlString="{Binding FreshDetails.FreshContentEx}" 
                              Margin="20"
@@ -101,16 +104,16 @@
                              ScrollViewer.VerticalScrollMode="Disabled"
                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                              Visibility="Collapsed">
-                    </WebView>
-                    <Popup Grid.Row="1" x:Name="popTips" IsOpen="False" Margin="0,0,0,60" VerticalAlignment="Bottom" >
-                        <Border x:Name="PopBorder">
-                            <Border.Background>
-                                <SolidColorBrush Color="Black" Opacity="0.8"/>
-                            </Border.Background>
-                            <TextBlock x:Name="popText" Foreground="White" Text="再按一次退出" Margin="10,5"/>
-                        </Border>
-                    </Popup>
-                </Grid>
+                        </WebView>
+                        <Popup Grid.Row="1" x:Name="popTips" IsOpen="False" Margin="0,0,0,60" VerticalAlignment="Bottom" >
+                            <Border x:Name="PopBorder">
+                                <Border.Background>
+                                    <SolidColorBrush Color="Black" Opacity="0.8"/>
+                                </Border.Background>
+                                <TextBlock x:Name="popText" Foreground="White" Text="再按一次退出" Margin="10,5"/>
+                            </Border>
+                        </Popup>
+                    </Grid>
             </SplitView.Content>
         </SplitView>
 

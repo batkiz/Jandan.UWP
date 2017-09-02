@@ -1,0 +1,52 @@
+﻿<Data:FreshIncrementalLoadingCollection xmlns:Data="using:Jandan.UWP.Core.Data" xmlns:Models="using:Jandan.UWP.Core.Models" HasMoreItems="True">
+    <Models:Fresh Comment_count="13" Date="2017-08-19 10:00:03" ID="Cras vestibulum maecenas praesent" Thumb_c="http:\/\/img.jandan.net\/news\/2017\/08\/04f32aee9d49075dcdcce2e0f72280d3.jpg" Title="Class duis accumsan aliquam" Url="http:\/\/i.jandan.net\/2017\/08\/19\/audiobooks.html">
+		<Models:Fresh.Author>
+			<Models:Authors Description="Aliquet dictum lectus fusce" First_name="Quisque dictumst" ID="Ante vestibulum" Last_name="Adipiscing parturient sed vivamus" Nickname="Etiam eleifend" Name="Congue cursus" Slug="Vestibulum convallis" Url=""/>
+		</Models:Fresh.Author>
+	</Models:Fresh>
+    <Models:Fresh Comment_count="10" Date="2017-08-19 21:00:09" ID="Eros interdum leo augue" Thumb_c="http:\/\/img.jandan.net\/news\/2017\/08\/a6a872c4188cbd3629875e5166820571.jpg" Title="Habitasse hendrerit lobortis vestibulum" Url="Vestibulum adipiscing">
+		<Models:Fresh.Author>
+            <Models:Authors Description="Justo sem feugiat pulvinar" First_name="Himenaeos pharetra imperdiet malesuada nec" ID="Dapibus egestas" Last_name="Mauris non felis per" Nickname="Adipiscing parturient" Name="Vestibulum fames mattis" Slug="Vestibulum nisi euismod" Url="http:\/\/i.jandan.net\/2017\/08\/19\/eat-more-fruits.html"/>
+		</Models:Fresh.Author>
+	</Models:Fresh>
+    <Models:Fresh Comment_count="10" Date="2017-08-19 20:00:07" ID="Vestibulum tristique" Thumb_c="http:\/\/img.jandan.net\/news\/2017\/08\/7dd65a1f662c346f4e329606b78563af.jpg" Title="Morbi neque adipiscing potenti pretium" Url="Quam netus leo rhoncus">
+		<Models:Fresh.Author>
+			<Models:Authors Description="Rutrum aliquam ante adipiscing phasellus" First_name="Quisque platea primis nulla curabitur" ID="Vestibulum adipiscing ultrices parturient vehicula" Last_name="Cras duis volutpat vivamus nunc" Nickname="Vestibulum vestibulum per" Name="Viverra aliquam integer" Slug="Non vulputate" Url=""/>
+		</Models:Fresh.Author>
+	</Models:Fresh>
+    <Models:Fresh Comment_count="5" Date="2017-08-19 17:27:09" ID="Sem vestibulum adipiscing" Thumb_c="http:\/\/img.jandan.net\/news\/2017\/08\/1d4254c458abf5de6a550b5ac2127644.jpg" Title="Faucibus diam turpis eget" Url="Habitant elit varius">
+		<Models:Fresh.Author>
+            <Models:Authors Description="Lacinia curae" First_name="Nullam eros feugiat" ID="Euismod erat hendrerit" Last_name="Aptent adipiscing auctor" Nickname="Gravida placerat himenaeos leo" Name="Lobortis nascetur hac class pharetra" Slug="Dis interdum est" Url="http:\/\/i.jandan.net\/2017\/08\/19\/hpv-vaccine.html"/>
+		</Models:Fresh.Author>
+	</Models:Fresh>
+    <Models:Fresh Comment_count="14" Date="2017-08-19 17:00:05" ID="Parturient vestibulum malesuada sit" Thumb_c="http:\/\/img.jandan.net\/news\/2017\/08\/29b849f0c6cb1396553daf298dab6605.jpg" Title="Penatibus nisl" Url="Volutpat vestibulum nulla">
+		<Models:Fresh.Author>
+			<Models:Authors Description="3" First_name="Dictumst quisque" ID="Proin viverra aliquam vestibulum adipiscing" Last_name="Mauris eleifend vivamus aliquam augue" Nickname="Mollis montes nam" Name="Vel accumsan bibendum mattis integer" Slug="Pede maecenas praesent" Url=""/>
+		</Models:Fresh.Author>
+	</Models:Fresh>
+    <Models:Fresh Comment_count="5" Date="2017-08-19 16:00:27" ID="Mus eget lobortis curabitur nascetur" Thumb_c="http:\/\/img.jandan.net\/news\/2017\/08\/ac99b8c71834c9c1d03abb2d20e8eb4b.jpg" Title="Elit phasellus" Url="Consequat convallis">
+		<Models:Fresh.Author>
+            <Models:Authors Description="Nunc pulvinar tellus odio sagittis" First_name="Nisl adipiscing dignissim" ID="Parturient nibh nec vestibulum" Last_name="Lacinia parturient elementum laoreet facilisis" Nickname="Vestibulum pharetra placerat" Name="Non gravida per lorem iaculis" Slug="Vestibulum nisi" Url="http:\/\/i.jandan.net\/2017\/08\/19\/would-you-date.html"/>
+		</Models:Fresh.Author>
+	</Models:Fresh>
+    <Models:Fresh Comment_count="15" Date="2017-08-19 15:00:58" ID="Adipiscing parturient integer malesuada nunc" Thumb_c="http:\/\/img.jandan.net\/news\/2017\/08\/de61890019a1d0f8b371b253e2f95699.jpg" Title="Morbi vestibulum vestibulum" Url="">
+		<Models:Fresh.Author>
+            <Models:Authors Description="Tristique per vestibulum" First_name="Praesent netus tincidunt nec" ID="Est aliquet blandit" Last_name="Auctor nulla congue porta" Nickname="Cubilia non dapibus" Name="Leo parturient conubia mus" Slug="Arcu commodo hac porttitor" Url="http:\/\/i.jandan.net\/2017\/08\/19\/diedinhouse-2.html"/>
+		</Models:Fresh.Author>
+	</Models:Fresh>
+    <Models:Fresh Comment_count="16" Date="2017-08-19 14:00:53" ID="Dignissim elementum vel" Thumb_c="http:\/\/img.jandan.net\/news\/2017\/08\/99522f46883063f64cff327965c8ccfb.jpg" Title="Nam curae facilisis" Url="">
+		<Models:Fresh.Author>
+            <Models:Authors Description="Placerat imperdiet mattis" First_name="Litora habitasse luctus hendrerit" ID="Donec libero ligula inceptos" Last_name="Orci magnis dis sodales" Nickname="Interdum vestibulum fusce lobortis" Name="Etiam sed odio parturient" Slug="Vestibulum vestibulum rhoncus adipiscing" Url="http:\/\/i.jandan.net\/2017\/08\/19\/lewis-chessmen.html"/>
+		</Models:Fresh.Author>
+	</Models:Fresh>
+    <Models:Fresh Comment_count="23" Date="2017-08-19 12:30:57" ID="Quisque hac" Thumb_c="http:\/\/img.jandan.net\/news\/2017\/08\/f6685017fc1743136656375d56545129.jpg" Title="Platea amet ante tincidunt leo" Url="">
+		<Models:Fresh.Author>
+            <Models:Authors Description="Curabitur non per justo" First_name="Rutrum praesent parturient" ID="Elit enim nec erat adipiscing" Last_name="Commodo nunc" Nickname="Venenatis odio" Name="Nisi maecenas nisl" Slug="Aliquet eros blandit nibh volutpat" Url="http:\/\/i.jandan.net\/2017\/08\/19\/the-first-time.html"/>
+		</Models:Fresh.Author>
+	</Models:Fresh>
+    <Models:Fresh Comment_count="7" Date="2017-08-19 11:00:54" ID="Facilisi feugiat" Thumb_c="http:\/\/img.jandan.net\/news\/2017\/08\/7b3f322ba23f9c432dba96e71472846a.jpg" Title="Gravida vestibulum iaculis tortor" Url="">
+		<Models:Fresh.Author>
+            <Models:Authors Description="Hendrerit non" First_name="Fermentum nullam aptent laoreet pharetra" ID="Interdum vestibulum porta aenean" Last_name="Auctor nec fringilla parturient" Nickname="Congue placerat quis" Name="Nascetur mauris risus" Slug="Lobortis purus elementum facilisis adipiscing" Url="http:\/\/i.jandan.net\/2017\/08\/19\/batteries-forever.html"/>
+		</Models:Fresh.Author>
+	</Models:Fresh>
+</Data:FreshIncrementalLoadingCollection>
