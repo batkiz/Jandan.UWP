@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Jandan.UWP.Core.Data;
+﻿using Jandan.UWP.Core.Data;
 using Jandan.UWP.Core.HTTP;
 using Jandan.UWP.Core.Models;
 using Jandan.UWP.Core.Tools;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Jandan.UWP.Core.ViewModels
 {
@@ -16,27 +12,15 @@ namespace Jandan.UWP.Core.ViewModels
         private bool _is_loading;
         public bool IsLoading
         {
-            get
-            {
-                return _is_loading;
-            }
-            set
-            {
-                Set(ref _is_loading, value);
-            }
+            get { return _is_loading; }
+            set { Set(ref _is_loading, value); }
         }
 
         private MeiziIncrementalLoadingCollection _meizi;
         public MeiziIncrementalLoadingCollection Meizi
         {
-            get
-            {
-                return _meizi;
-            }
-            set
-            {
-                Set(ref _meizi, value);
-            }
+            get { return _meizi; }
+            set { Set(ref _meizi, value); }
         }
 
         public MeiziViewModel()

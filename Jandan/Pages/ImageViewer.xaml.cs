@@ -256,24 +256,6 @@ namespace Jandan.UWP.UI
                 return;
             }
 
-            //if (string.IsNullOrEmpty(DataShareManager.Current.AccessToken))
-            //{
-            //    var dialog = new ContentDialog()
-            //    {
-            //        Title = "提示",
-            //        Content = "请先在[设置]页面设置第三方账号！",
-            //        PrimaryButtonText = "确定",
-            //        FullSizeDesired = false,
-            //        RequestedTheme = DataShareManager.Current.AppTheme
-            //    };
-
-            //    dialog.PrimaryButtonClick += (_s, _e) => { };
-            //    await dialog.ShowAsync();
-
-            //    return;
-            //}
-
-            //var message = $"message={response}&access_token={DataShareManager.Current.AccessToken}&thread_key={vm.ThreadKey}&parent_id={vm.ParentId}";
             var message = $"author={DataShareManager.Current.UserName}&email={DataShareManager.Current.EmailAdd}&content={response}&comment_id={vm.CommentId}";
 
             var r = await vm.PostComment(message);
@@ -436,8 +418,8 @@ namespace Jandan.UWP.UI
             var c = e.ClickedItem as ImageItem;
 
             PopupImageViewerControl pivc = new PopupImageViewerControl();
-
-            var msg = $"发布者：{CurrentItem.Author}  ID：{CurrentItem.PicID}";
+            
+            var msg = $"发布者：{CurrentItem.Author}  ID：{CurrentItem.PicID}\n[OO] {CurrentItem.VotePositive}  [XX] {CurrentItem.VoteNegative}";
             pivc.Show(c.URL, msg);
         }
     }

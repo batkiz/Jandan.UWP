@@ -13,8 +13,6 @@ namespace Jandan.UWP.Core.Data
 {
     public class MeiziIncrementalLoadingCollection : ObservableCollection<BoringPic>, ISupportIncrementalLoading
     {
-        private APIService _api = new APIService();
-
         private bool _buzy = false;
         private bool _has_more_items = false;
 

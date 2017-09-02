@@ -84,13 +84,12 @@
                 <StackPanel Grid.Row="3" Padding="10">
                     <RelativePanel>
                         <TextBlock x:Name="FontSizeTextBlock" Text="字号调节" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
-                        <Slider x:Name="FontSizeSlider" RelativePanel.AlignRightWithPanel="True"  RelativePanel.AlignVerticalCenterWithPanel="True"  Value="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=TwoWay}" Minimum="12" Maximum="36" Width="80" Margin="-10,0,10,0" ></Slider>
+                        <Slider x:Name="FontSizeSlider" 
+                                RelativePanel.AlignRightWithPanel="True"  RelativePanel.AlignVerticalCenterWithPanel="True" 
+                                Width="80" Margin="-10,0,10,0"
+                                Maximum="2" Minimum="0.5" LargeChange="0.3" SmallChange="0.1" StepFrequency="0.1" TickFrequency="0.1" 
+                                Value="{Binding Path=FontSize, Mode=TwoWay}"/>
                         <TextBlock x:Name="FontSizeText" Text="{Binding ElementName=FontSizeSlider, Path=Value, Mode=OneWay}" RelativePanel.LeftOf="FontSizeSlider" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="-17,0,20,0"/>
-                        <ComboBox Width="64" RenderTransformOrigin="1.819,0.642" Margin="5,0,0,0" RelativePanel.RightOf="FontSizeTextBlock" RelativePanel.AlignVerticalCenterWithPanel="True" SelectionChanged="ComboBox_SelectionChanged">
-                            <ComboBoxItem Content="Small"/>
-                            <ComboBoxItem Content="Medium"/>
-                            <ComboBoxItem Content="Large"/>
-                        </ComboBox>
                     </RelativePanel>
                 </StackPanel>
                 <StackPanel Grid.Row="5" Padding="10">

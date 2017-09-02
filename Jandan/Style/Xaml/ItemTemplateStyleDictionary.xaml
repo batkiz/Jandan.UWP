@@ -18,11 +18,11 @@
                 <Image MinWidth="50" Source="{Binding AuthorAvatarUri}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4" MaxWidth="58"></Image>
             </RelativePanel>
             <RelativePanel Grid.Column="1">
-                <TextBlock x:Name="DuanCommentAuthor" Foreground="{Binding VipUser, Mode=OneWay, Converter={StaticResource IntToColorCvt}}" Text="{Binding AuthorName}" Style="{StaticResource CommentAuthorTextStyle}"></TextBlock>
-                <TextBlock x:Name="DuanCommentDate" Text="{Binding PostDate}" RelativePanel.Below="DuanCommentAuthor" Style="{StaticResource CommentDateTextStyle}"></TextBlock>
-                <TextBlock x:Name="DuanCommentFloorLevel" RelativePanel.RightOf="DuanCommentAuthor" RelativePanel.AlignRightWithPanel="True" HorizontalAlignment="Right" Text="{Binding OrderNumber}" Style="{StaticResource CommentLevelTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanCommentAuthor" Foreground="{Binding VipUser, Mode=OneWay, Converter={StaticResource IntToColorCvt}}" Text="{Binding AuthorName}" FontSize="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource CommentAuthorTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanCommentDate" Text="{Binding PostDate}" RelativePanel.Below="DuanCommentAuthor" FontSize="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource CommentDateTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanCommentFloorLevel" RelativePanel.RightOf="DuanCommentAuthor" RelativePanel.AlignRightWithPanel="True" HorizontalAlignment="Right" Text="{Binding OrderNumber}" FontSize="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource CommentLevelTextStyle}"></TextBlock>
 
-                <TextBlock x:Name="DuanCommentContent" Text="{Binding Message}" RelativePanel.Below="DuanCommentDate" Style="{StaticResource CommentContentTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanCommentContent" Text="{Binding Message}" RelativePanel.Below="DuanCommentDate" FontSize="{Binding Source={StaticResource CommentContentFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource CommentContentTextStyle}"></TextBlock>
 
                 <TextBlock x:Name="DuanVotePositiveIcon" Text="{StaticResource CommentRateBarOO}" RelativePanel.Below="DuanCommentContent" MaxWidth="25" MinWidth="25" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
                 <TextBlock x:Name="DuanVotePositive" Text="{Binding Like}" RelativePanel.Below="DuanCommentContent" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource CommentRateTextStyle}"></TextBlock>

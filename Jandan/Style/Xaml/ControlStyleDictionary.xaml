@@ -59,22 +59,22 @@
         <Setter Property="Padding" Value="10,10,10,10"/>
     </Style>
     <Style x:Key="ItemAuthorTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>
+        <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>-->
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
     <Style x:Key="ItemIDTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>
+        <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>-->
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="ItemDateTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>
+        <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>-->
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="ItemContentTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource ContentFontStyle}, Path=FontSize, Mode=OneWay}"/>
+        <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource ContentFontStyle}, Path=FontSize, Mode=OneWay}"/>-->
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Margin" Value="0,8,0,0"/>
     </Style>
@@ -107,7 +107,7 @@
     <x:String x:Key="RateBarComment">吐槽</x:String>
 
     <Style x:Key="CommentRateTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="FontSize" Value="11"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Foreground" Value="Gray"/>
@@ -150,22 +150,22 @@
         <Setter Property="Padding" Value="20,0,0,0"/>
     </Style>
     <Style x:Key="CommentAuthorTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>
+        <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>-->
         <Setter Property="FontWeight" Value="SemiBold"/>
     </Style>
     <Style x:Key="CommentLevelTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>
+        <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>-->
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="CommentDateTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>
+        <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}"/>-->
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
     <Style x:Key="CommentContentTextStyle" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentFontStyle}, Path=FontSize, Mode=OneWay}"/>
+        <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource CommentContentFontStyle}, Path=FontSize, Mode=OneWay}"/>-->
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Margin" Value="0,0,0,2"/>
         <Setter Property="Padding" Value="0,0,0,2"/>
@@ -175,21 +175,21 @@
     <Style x:Key="FreshNewsTitleStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="#FFC50000"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource MediumFontStyle}, Path=FontSize, Mode=OneWay}"/>
+        <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource MediumFontStyle}, Path=FontSize, Mode=OneWay}"/>-->
         <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
         <Setter Property="TextWrapping" Value="WrapWholeWords"/>
     </Style>
     <Style x:Key="FreshNewsAuthorStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource SmallFontStyle}, Path=FontSize, Mode=OneWay}"/>
+        <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource SmallFontStyle}, Path=FontSize, Mode=OneWay}"/>-->
         <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
         <Setter Property="TextWrapping" Value="WrapWholeWords"/>
     </Style>
     <Style x:Key="FreshNewsCommentCountStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="DarkOrange"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontSize" Value="{Binding Source={StaticResource MediumFontStyle}, Path=FontSize, Mode=OneWay}"/>
+        <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource MediumFontStyle}, Path=FontSize, Mode=OneWay}"/>-->
         <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
     </Style>
 

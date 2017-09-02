@@ -90,7 +90,7 @@ namespace Jandan.UWP.Control
                 this.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY | ManipulationModes.Scale | ManipulationModes.TranslateInertia;
             }
 #if DEBUG
-            PopupInfo.Text = $"x:{st.ScaleY}, y:{st.ScaleY}";
+            //PopupInfo.Text = $"x:{st.ScaleY}, y:{st.ScaleY}";
 #endif
         }
 

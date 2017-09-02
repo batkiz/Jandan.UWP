@@ -35,12 +35,12 @@
                         <StackPanel.Background>
                             <SolidColorBrush Color="Black" Opacity="0.5"/>
                         </StackPanel.Background>
-                        <TextBlock x:Name="Date" Text="{x:Bind Path=Date, Converter={StaticResource timeCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
-                        <TextBlock x:Name="Title" Text="{x:Bind Path=Title, Mode=OneWay}" Style="{StaticResource FreshNewsTitleStyle}"></TextBlock>
+                        <TextBlock x:Name="Date" Text="{x:Bind Path=Date, Converter={StaticResource timeCvt}, Mode=OneWay}" FontSize="{Binding Source={StaticResource SmallFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                        <TextBlock x:Name="Title" Text="{x:Bind Path=Title, Mode=OneWay}" FontSize="{Binding Source={StaticResource MediumFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource FreshNewsTitleStyle}"></TextBlock>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="Author" Text="{x:Bind Path=Author,Converter={StaticResource authorCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
-                            <TextBlock x:Name="At" Text="@" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
-                            <TextBlock x:Name="Tag" Text="{x:Bind Path=Tag, Converter={StaticResource tagCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                            <TextBlock x:Name="Author" Text="{x:Bind Path=Author,Converter={StaticResource authorCvt}, Mode=OneWay}" FontSize="{Binding Source={StaticResource SmallFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                            <TextBlock x:Name="At" Text="@" FontSize="{Binding Source={StaticResource SmallFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                            <TextBlock x:Name="Tag" Text="{x:Bind Path=Tag, Converter={StaticResource tagCvt}, Mode=OneWay}" FontSize="{Binding Source={StaticResource SmallFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -59,12 +59,12 @@
                         <StackPanel.Background>
                             <SolidColorBrush Color="Black" Opacity="0.5"/>
                         </StackPanel.Background>
-                        <TextBlock x:Name="Date" Text="{x:Bind Path=Date, Converter={StaticResource timeCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
-                        <TextBlock x:Name="Title" Text="{x:Bind Path=Title, Mode=OneWay}" Style="{StaticResource FreshNewsTitleStyle}"></TextBlock>
+                        <TextBlock x:Name="Date" Text="{x:Bind Path=Date, Converter={StaticResource timeCvt}, Mode=OneWay}" FontSize="{Binding Source={StaticResource SmallFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                        <TextBlock x:Name="Title" Text="{x:Bind Path=Title, Mode=OneWay}" FontSize="{Binding Source={StaticResource MediumFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource FreshNewsTitleStyle}"></TextBlock>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="Author" Text="{x:Bind Path=Author,Converter={StaticResource authorCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
-                            <TextBlock x:Name="At" Text="@" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
-                            <TextBlock x:Name="Tag" Text="{x:Bind Path=Tag, Converter={StaticResource tagCvt}, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                            <TextBlock x:Name="Author" Text="{x:Bind Path=Author,Converter={StaticResource authorCvt}, Mode=OneWay}" FontSize="{Binding Source={StaticResource SmallFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                            <TextBlock x:Name="At" Text="@" FontSize="{Binding Source={StaticResource SmallFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
+                            <TextBlock x:Name="Tag" Text="{x:Bind Path=Tag, Converter={StaticResource tagCvt}, Mode=OneWay}" FontSize="{Binding Source={StaticResource SmallFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource FreshNewsAuthorStyle}"></TextBlock>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

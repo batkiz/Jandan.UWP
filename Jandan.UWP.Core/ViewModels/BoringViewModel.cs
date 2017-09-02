@@ -2,7 +2,6 @@
 using Jandan.UWP.Core.HTTP;
 using Jandan.UWP.Core.Models;
 using Jandan.UWP.Core.Tools;
-using Microsoft.Toolkit.Uwp;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,14 +12,15 @@ namespace Jandan.UWP.Core.ViewModels
         private bool _is_loading;
         public bool IsLoading
         {
-            get
-            {
-                return _is_loading;
-            }
-            set
-            {
-                Set(ref _is_loading, value);
-            }
+            get { return _is_loading; }
+            set { Set(ref _is_loading, value); }
+        }
+
+        private BoringIncrementalLoadingCollection _boring;
+        public BoringIncrementalLoadingCollection Boring
+        {
+            get { return _boring; }
+            set { Set(ref _boring, value); }
         }
 
         private bool _is_show_nsfw;
@@ -33,7 +33,6 @@ namespace Jandan.UWP.Core.ViewModels
             set
             {
                 Set(ref _is_show_nsfw, value);
-                //UpdateBoringPics();
                 DataShareManager.Current.UpdateNSFW(_is_show_nsfw);
             }
         }
@@ -48,17 +47,11 @@ namespace Jandan.UWP.Core.ViewModels
             set
             {
                 Set(ref _is_show_unwelcome, value);
-                //UpdateBoringPics();
                 DataShareManager.Current.UpdateUnwelcome(_is_show_unwelcome);
             }
         }
 
-        private BoringIncrementalLoadingCollection _boring;
-        public BoringIncrementalLoadingCollection Boring
-        {
-            get { return _boring; }
-            set { Set(ref _boring, value);  }
-        }
+        
 
         public BoringViewModel()
         {

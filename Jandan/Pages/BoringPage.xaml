@@ -24,15 +24,14 @@
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <RelativePanel Grid.Row="0" Margin="0,4,0,0">
-                        <TextBlock x:Name="BoringAuthor" Text="{x:Bind Author, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"/>
-                        <TextBlock x:Name="BoringID" Text="{x:Bind PicID, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"/>
-                        <TextBlock x:Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
+                        <TextBlock x:Name="BoringAuthor" Text="{x:Bind Author, Mode=OneWay}" FontSize="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource ItemAuthorTextStyle}"/>
+                        <TextBlock x:Name="BoringID" Text="{x:Bind PicID, Mode=OneWay}" FontSize="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"/>
+                        <TextBlock x:Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" FontSize="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
                     <StackPanel Grid.Row="1" Margin="0,0,0,4" >
                         <!--<TextBlock x:Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" MaxHeight="40"/>-->
-                        <TextBlock x:Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" MaxHeight="40"/>
+                        <TextBlock x:Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" FontSize="{Binding Source={StaticResource ContentFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" MaxHeight="40"/>
 
-                        <!--<toolkitcontrol:ImageEx Source="{x:Bind Path=Thumb[0].URL, Mode=OneWay}" />-->
                         <toolkitcontrol:ImageEx VerticalAlignment="Top" MinHeight="240" Source="{x:Bind Thumb, Converter={StaticResource imgCvt}, Mode=OneWay}" />
                     </StackPanel>
                     <RelativePanel Grid.Row="2" Margin="0,5">
@@ -106,7 +105,7 @@
             <SplitView.Content>
                 <Grid Margin="8,4">
                     <pullcontrol:PullToRefreshBox x:Name="BoringPullToRefresh" RefreshInvoked="BoringPullToRefresh_RefreshInvoked">
-                        <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind ViewModel.Boring, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick" SelectionMode="None" IsItemClickEnabled="True" IsMultiSelectCheckBoxEnabled="False">
+                        <toolkitcontrol:AdaptiveGridView x:Name="BoringGridView" ItemHeight="240" DesiredWidth="220" ItemsSource="{x:Bind ViewModel.Boring, Mode=OneWay}" ItemTemplate="{StaticResource BoringPicsDataStyle}" ItemClick="BoringGridView_ItemClick" SelectionMode="None" IsItemClickEnabled="True">
                             <toolkitcontrol:AdaptiveGridView.ItemContainerStyle>
                                 <Style TargetType="GridViewItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>

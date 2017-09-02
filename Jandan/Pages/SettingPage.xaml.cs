@@ -21,7 +21,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Security.Authentication.Web;
 using System.Diagnostics;
 using Jandan.UWP.Core.HTTP;
-using Jandan.UWP.Style;
+using Jandan.UWP.Core.Style;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -48,6 +48,8 @@ namespace Jandan.UWP.UI
                 btnRegLiveTile.Content = "已注册";
                 btnRegLiveTile.IsEnabled = false;
             }
+
+            this.DataContext = ViewModel;
         }
         /// <summary>
         /// 从其他页面导航到“关于”页面
@@ -62,7 +64,8 @@ namespace Jandan.UWP.UI
                 return;
             }
             base.OnNavigatedTo(e);
-            this.DataContext = ViewModel;
+
+            FontSizeSlider.Value = ViewModel.FontSize;
         }
 
         private void PageBackButton_Click(object sender, RoutedEventArgs e)
@@ -309,6 +312,13 @@ namespace Jandan.UWP.UI
             if (Application.Current.Resources["CommentContentFontStyle"] is FontStyle f2) f2.FontSize = ccfs;
             if (Application.Current.Resources["ContentInfoFontStyle"] is FontStyle f3) f3.FontSize = cifs;
             if (Application.Current.Resources["CommentContentInfoFontStyle"] is FontStyle f4) f4.FontSize = cifs;
+        }
+
+        private void FontSizeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {            
+            var scalar = e.NewValue;
+
+            ViewModel.UpdateFontSize(scalar);            
         }
     }
 }

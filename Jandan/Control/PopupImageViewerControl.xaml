@@ -20,6 +20,6 @@
         </Grid.Background>
 
         <toolkit:ImageEx Grid.Row="0" x:Name="PopupImage" Source="" Margin="15" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" DoubleTapped="PopupImage_DoubleTapped"></toolkit:ImageEx>
-        <TextBlock Grid.Row="1" x:Name="PopupInfo" Text="filename" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="White"/>
+        <TextBlock Grid.Row="1" x:Name="PopupInfo" Text="filename" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="White" TextAlignment="Center"/>
     </Grid>
 </UserControl>

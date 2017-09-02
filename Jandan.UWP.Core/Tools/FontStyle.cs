@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
-namespace Jandan.UWP.Style
+namespace Jandan.UWP.Core.Style
 {
     public class FontStyle : DependencyObject
     {

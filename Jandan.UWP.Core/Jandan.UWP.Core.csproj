@@ -134,6 +134,7 @@
     <Compile Include="Tools\ConnectivityHelper.cs" />
     <Compile Include="Tools\DispatcherManager.cs" />
     <Compile Include="Tools\FileHelper.cs" />
+    <Compile Include="Tools\FontStyle.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\BoringViewModel.cs" />
     <Compile Include="ViewModels\DataShareManager.cs" />

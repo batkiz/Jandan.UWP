@@ -15,8 +15,6 @@ namespace Jandan.UWP.Core.Data
 {
     public class BoringIncrementalLoadingCollection : ObservableCollection<BoringPic>, ISupportIncrementalLoading
     {
-        private APIService _api = new APIService();
-
         private bool _buzy = false;
         private bool _has_more_items = false;
 
@@ -24,8 +22,14 @@ namespace Jandan.UWP.Core.Data
         {
             get
             {
-                if (_buzy) { return false; }
-                else { return _has_more_items; }
+                if (_buzy)
+                {
+                    return false;
+                }
+                else
+                {
+                    return _has_more_items;
+                }
             }
             private set
             {

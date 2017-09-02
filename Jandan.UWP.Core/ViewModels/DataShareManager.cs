@@ -3,6 +3,9 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Notifications;
 using Windows.Data.Xml.Dom;
+using Jandan.UWP.Core.Style;
+using Windows.Storage;
+using System.Threading.Tasks;
 
 namespace Jandan.UWP.Core.ViewModels
 {
@@ -48,7 +51,7 @@ namespace Jandan.UWP.Core.ViewModels
 
         // 字号大小
         //public PageFontSize FontSizes { get; private set; } = PageFontSize.Normal;
-        public double FontSize { get; set; } = 20;
+        public int FontSize { get; private set; } = 10;
 
         // 主题模式(夜间模式或日间模式)        
         public ElementTheme AppTheme { get; private set; }
@@ -120,11 +123,11 @@ namespace Jandan.UWP.Core.ViewModels
 
             CheckAppTheme();
 
-            CheckUpdatedContent();
+            CheckUpdatedContentAsync();
         }
 
         // 判断本地存储版本号和关于信息中的当前版本号是否一致,不一致则显示更新内容,并将本地存储版本号更新为关于信息中的版本号
-        private void CheckUpdatedContent()
+        private async void CheckUpdatedContentAsync()
         {
             Jandan.UWP.Core.Models.About a = new Models.About();
             
@@ -137,7 +140,8 @@ namespace Jandan.UWP.Core.ViewModels
                 XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
 
                 XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                var msg = "更新日志：\n1. 更新为煎蛋新评论系统\n注：如有UWP开发者请联系我（邮箱请见关于页面），希望可以帮我解决字号调节问题";
+                var file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Documents/updated-{a.VersionNumber}.txt"));
+                var msg = await FileIO.ReadTextAsync(file);
                 toastTextElements[0].AppendChild(toastXml.CreateTextNode(msg));
 
                 XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
@@ -188,6 +192,8 @@ namespace Jandan.UWP.Core.ViewModels
                     }
                 }
             }
+
+            UpdateFontSize(FontSize/10.0);
         }
 
         // 从本地设置和漫游设置中读取设置参数
@@ -272,11 +278,11 @@ namespace Jandan.UWP.Core.ViewModels
             // Font Size
             if (localSettings.Values.ContainsKey("FONT_SIZE"))
             {
-                FontSize = double.Parse(roamingSettings.Values["FONT_SIZE"].ToString());
+                FontSize = int.Parse(localSettings.Values["FONT_SIZE"].ToString());
             }
             else
             {
-                FontSize = 16;
+                FontSize = 10;
             }
 
             // NSFW = 0 No NSFW images | NSFW = 1 Show NSFW images
@@ -335,9 +341,18 @@ namespace Jandan.UWP.Core.ViewModels
 
         public void UpdateFontSize(double p)
         {
-            FontSize = p;
+            var cfs = 16 * p;
+            var ccfs = 14 * p;
+            var cifs = 12 * p;
+
+            if (Application.Current.Resources["ContentFontStyle"] is FontStyle f1) f1.FontSize = cfs;
+            if (Application.Current.Resources["CommentContentFontStyle"] is FontStyle f2) f2.FontSize = ccfs;
+            if (Application.Current.Resources["ContentInfoFontStyle"] is FontStyle f3) f3.FontSize = cifs;
+            if (Application.Current.Resources["CommentContentInfoFontStyle"] is FontStyle f4) f4.FontSize = cifs;
+
+            FontSize = (int)(p*10);
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            localSettings.Values["FONT_SIZE"] = (int)FontSize;
+            localSettings.Values["FONT_SIZE"] = FontSize;
             OnShareDataChanged();
         }
 

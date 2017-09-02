@@ -285,9 +285,22 @@ namespace Jandan.UWP.Core.HTTP
                                 string id = (j.GetObject())["comment_ID"] == null ? "000" : (j.GetObject())["comment_ID"].GetString();
                                 string author = (j.GetObject())["comment_author"] == null ? "000" : (j.GetObject())["comment_author"].GetString();
                                 string content = (j.GetObject())["text_content"] == null ? "000" : ((j.GetObject())["text_content"].GetString().Replace("\n", "").Replace("\r", ""));
-                                var urls = BoringPic.ParseUrl((j.GetObject())["pics"].ToString(), ImageType.Original);
-                                
-                                if (string.Equals(Path.GetExtension(urls[0].URL).ToUpper(), ".GIF"))
+
+
+                                // 从Json读取到的url不一定可靠，再用正则表达式做一次检查
+                                var url_org = BoringPic.ParseUrl((j.GetObject())["pics"].ToString(), ImageType.Original);
+                                List<ImageItem> urls = new List<ImageItem>();
+                                foreach (var u in url_org)
+                                {
+                                    var r = Regex.Matches(u.URL, @"http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?");
+                                    foreach (var rr in r)
+                                    {
+                                        urls.Add(new ImageItem(rr.ToString()));
+                                    }
+                                }
+
+                                // 如果图片里包含GIF，则在content中增加GIF标签
+                                if (urls.Exists((t) => { t.URL.ToUpper().Contains("GIF"); return true; }))
                                 {
                                     content = $"[GIF]\n{content}";
                                 }
@@ -296,7 +309,6 @@ namespace Jandan.UWP.Core.HTTP
                                 var comment_count = "";
                                 try
                                 {
-                                    //comment_count = ((int)jsonCommentCount["response"].GetObject().GetNamedObject($"comment-{id}").GetNamedNumber("comments")).ToString();
                                     comment_count = j.GetObject().GetNamedString("sub_comment_count");
                                 }
                                 catch (Exception)
