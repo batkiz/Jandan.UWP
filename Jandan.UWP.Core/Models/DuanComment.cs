@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Jandan.UWP.Core.Models
@@ -17,6 +18,10 @@ namespace Jandan.UWP.Core.Models
         public string ThreadKey { get; set; }
         [DataMember]
         public string Message { get; set; }
+        [DataMember]
+        public List<ImageItem> Urls { get; set; }
+        [DataMember]
+        public string ContentType { get; set; }
         [DataMember]
         public string ParentID { get; set; }
         [DataMember]

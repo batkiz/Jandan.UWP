@@ -4,9 +4,11 @@
     xmlns:local="using:Jandan.UWP.UI"
     xmlns:data="using:Jandan.UWP.Core.Models"
     xmlns:viewmodel="using:Jandan.UWP.Core.ViewModels"
-    xmlns:control="using:Microsoft.Toolkit.Uwp.UI.Controls">
+    xmlns:control="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:toolkitcontrol="using:Microsoft.Toolkit.Uwp.UI.Controls">
 
     <local:IntToColorConverter x:Key="IntToColorCvt"></local:IntToColorConverter>
+    <local:CommentDataTemplateSelector x:Key="CommentDTS" CommentTemplate="{StaticResource CommentListDateTemplateStyle}" CommentWithImageTemplate="{StaticResource CommentListDateWithImageTemplateStyle}"/>
 
     <DataTemplate x:Key="CommentListDateTemplateStyle">
         <Grid BorderThickness="0" BorderBrush="{x:Null}">
@@ -28,6 +30,40 @@
                 <TextBlock x:Name="DuanVotePositive" Text="{Binding Like}" RelativePanel.Below="DuanCommentContent" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
                 <TextBlock x:Name="DuanVoteNegativeIcon" Text="{StaticResource CommentRateBarXX}" RelativePanel.Below="DuanCommentContent" RelativePanel.RightOf="DuanVotePositive" MaxWidth="25" MinWidth="25" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
                 <TextBlock x:Name="DuanVoteNegative" Text="{Binding Dislike}" RelativePanel.Below="DuanCommentContent" RelativePanel.RightOf="DuanVoteNegativeIcon" MaxWidth="25" MinWidth="25" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
+            </RelativePanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CommentListDateWithImageTemplateStyle">
+        <Grid BorderThickness="0" BorderBrush="{x:Null}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"></ColumnDefinition>
+                <ColumnDefinition Width="80*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <RelativePanel Grid.Column="0">
+                <Image MinWidth="50" Source="{Binding AuthorAvatarUri}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4" MaxWidth="58"></Image>
+            </RelativePanel>
+            <RelativePanel Grid.Column="1">
+                <TextBlock x:Name="DuanCommentAuthor" Foreground="{Binding VipUser, Mode=OneWay, Converter={StaticResource IntToColorCvt}}" Text="{Binding AuthorName}" FontSize="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource CommentAuthorTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanCommentDate" Text="{Binding PostDate}" RelativePanel.Below="DuanCommentAuthor" FontSize="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource CommentDateTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanCommentFloorLevel" RelativePanel.RightOf="DuanCommentAuthor" RelativePanel.AlignRightWithPanel="True" HorizontalAlignment="Right" Text="{Binding OrderNumber}" FontSize="{Binding Source={StaticResource CommentContentInfoFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource CommentLevelTextStyle}"></TextBlock>
+
+                <TextBlock x:Name="DuanCommentContent" Text="{Binding Message}" RelativePanel.Below="DuanCommentDate" FontSize="{Binding Source={StaticResource CommentContentFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource CommentContentTextStyle}"></TextBlock>
+
+                <ListView x:Name="PicListView" RelativePanel.Below="DuanCommentContent"  ItemsSource="{Binding Urls, Mode=OneWay}" ItemContainerStyle="{StaticResource CommentListViewImageStyle}" IsMultiSelectCheckBoxEnabled="False" HorizontalAlignment="Center" SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="8,4" HorizontalAlignment="Center">
+                                <toolkitcontrol:ImageEx Name="ImageDetail" Source="{Binding Path=URL, Mode=OneWay}" Stretch="Uniform" MaxWidth="600"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <TextBlock x:Name="DuanVotePositiveIcon" Text="{StaticResource CommentRateBarOO}" RelativePanel.Below="PicListView" MaxWidth="25" MinWidth="25" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanVotePositive" Text="{Binding Like}" RelativePanel.Below="PicListView" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanVoteNegativeIcon" Text="{StaticResource CommentRateBarXX}" RelativePanel.Below="PicListView" RelativePanel.RightOf="DuanVotePositive" MaxWidth="25" MinWidth="25" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
+                <TextBlock x:Name="DuanVoteNegative" Text="{Binding Dislike}" RelativePanel.Below="PicListView" RelativePanel.RightOf="DuanVoteNegativeIcon" MaxWidth="25" MinWidth="25" Style="{StaticResource CommentRateTextStyle}"></TextBlock>
             </RelativePanel>
         </Grid>
     </DataTemplate>

@@ -173,7 +173,7 @@
 
 
     <Style x:Key="FreshNewsTitleStyle" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="#FFC50000"/>
+        <Setter Property="Foreground" Value="#FFDD3333"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <!--<Setter Property="FontSize" Value="{Binding Source={StaticResource MediumFontStyle}, Path=FontSize, Mode=OneWay}"/>-->
         <Setter Property="TextTrimming" Value="CharacterEllipsis"/>

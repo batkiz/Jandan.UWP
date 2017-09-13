@@ -55,6 +55,7 @@ namespace Jandan.UWP.Core.HTTP
                             {
                                 var id = (j.GetObject())["id"] == null ? "000" : (j.GetObject())["id"].GetNumber().ToString();
                                 var title = (j.GetObject())["title"] == null ? "" : (j.GetObject())["title"].GetString();
+                                var excerpt = (j.GetObject())["excerpt"] == null ? "" : (j.GetObject())["excerpt"].GetString();
                                 var author = (j.GetObject())["author"] == null ? new Authors() : Authors.parse((j.GetObject())["author"].GetObject().ToString());
                                 var tag = (j.GetObject())["tags"] == null ? new List<Tags>() : Tags.parse((j.GetObject())["tags"].ToString());
                                 var comment_count = (j.GetObject())["comment_count"] == null ? "000" : (j.GetObject())["comment_count"].GetNumber().ToString();
@@ -66,6 +67,7 @@ namespace Jandan.UWP.Core.HTTP
                                 {
                                     ID = id,
                                     Title = title,
+                                    Excerpt = excerpt,
                                     Author = author,
                                     Tag = tag,
                                     Comment_count = comment_count,
@@ -282,11 +284,10 @@ namespace Jandan.UWP.Core.HTTP
                             foreach (var j in ja)
                             {
                                 //var id = (j.GetObject())["id"] == null ? "000" : (j.GetObject())["id"].GetNumber().ToString();
-                                string id = (j.GetObject())["comment_ID"] == null ? "000" : (j.GetObject())["comment_ID"].GetString();
+                                string id = (j.GetObject())["comment_ID"] == null ? "000" : (j.GetObject())["comment_ID"].GetString();                                
                                 string author = (j.GetObject())["comment_author"] == null ? "000" : (j.GetObject())["comment_author"].GetString();
                                 string content = (j.GetObject())["text_content"] == null ? "000" : ((j.GetObject())["text_content"].GetString().Replace("\n", "").Replace("\r", ""));
-
-
+                                
                                 // 从Json读取到的url不一定可靠，再用正则表达式做一次检查
                                 var url_org = BoringPic.ParseUrl((j.GetObject())["pics"].ToString(), ImageType.Original);
                                 List<ImageItem> urls = new List<ImageItem>();
@@ -300,7 +301,11 @@ namespace Jandan.UWP.Core.HTTP
                                 }
 
                                 // 如果图片里包含GIF，则在content中增加GIF标签
-                                if (urls.Exists((t) => { t.URL.ToUpper().Contains("GIF"); return true; }))
+                                if (urls.Exists((t) =>
+                                {
+                                    if (t.URL.ToUpper().Contains("GIF")) { return true; }
+                                    else { return false; }
+                                }))
                                 {
                                     content = $"[GIF]\n{content}";
                                 }
@@ -399,11 +404,33 @@ namespace Jandan.UWP.Core.HTTP
                                     comment_count = "";
                                 }
 
+                                string content = (j.GetObject())["text_content"] == null ? "000" : ((j.GetObject())["text_content"].GetString().Replace("\n", "").Replace("\r", ""));
+                                // 从Json读取到的url不一定可靠，再用正则表达式做一次检查
+                                var url_org = BoringPic.ParseUrl((j.GetObject())["pics"].ToString(), ImageType.Original);
+                                List<ImageItem> urls = new List<ImageItem>();
+                                foreach (var u in url_org)
+                                {
+                                    var r = Regex.Matches(u.URL, @"http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?");
+                                    foreach (var rr in r)
+                                    {
+                                        urls.Add(new ImageItem(rr.ToString()));
+                                    }
+                                }
+                                // 如果图片里包含GIF，则在content中增加GIF标签
+                                if (urls.Exists((t) =>
+                                {
+                                    if (t.URL.ToUpper().Contains("GIF")) { return true; }
+                                    else { return false; }
+                                }))
+                                {
+                                    content = $"[GIF]\n{content}";
+                                }
+
                                 list.Add(new BoringPic
                                 {
                                     PicID = ID,
                                     Author = (j.GetObject())["comment_author"].GetString(),
-                                    Content = (j.GetObject())["text_content"].GetString().Replace("\n", "").Replace("\r", ""),
+                                    Content = content,
                                     Urls = BoringPic.Parse((j.GetObject())["pics"].ToString()),
                                     Thumb = BoringPic.Parse((j.GetObject())["pics"].ToString(), true),
                                     Date = (j.GetObject())["comment_date"].GetString(),
@@ -716,6 +743,26 @@ namespace Jandan.UWP.Core.HTTP
                                     string comment_author = (j.GetObject())["comment_author"].GetString();
                                     string comment_date = (j.GetObject())["comment_date"].GetString();
                                     string comment_content = (j.GetObject())["comment_content"].GetString();
+
+                                    // 正则表达式做一次检查, 是否存在图片url
+                                    string comment_type = "text";
+                                    List<ImageItem> urls = new List<ImageItem>();
+                                    var r = Regex.Matches(comment_content, @"([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?");
+                                    if (r.Count != 0)
+                                    {
+                                        //foreach (var rr in r)
+                                        //{
+                                        //    urls.Add(new ImageItem(rr.ToString()));
+                                        //}
+                                        List<ImageItem> scr_list;
+                                        List<ImageItem> thumb_list;
+                                        BoringPic.ParseURL(comment_content, out scr_list, out thumb_list);
+
+                                        urls = scr_list;
+                                        comment_type = "text_with_image";
+                                    }
+                                    
+
                                     string comment_parent = (j.GetObject())["comment_parent"].GetString();
                                     string comment_reply_ID = (j.GetObject())["comment_reply_ID"].GetString();
                                     string vote_positive = (j.GetObject())["vote_positive"].GetString();
@@ -729,6 +776,8 @@ namespace Jandan.UWP.Core.HTTP
                                         ThreadID = comment_post_id,
                                         ThreadKey = comment_post_id,
                                         Message = comment_content,
+                                        ContentType = comment_type,
+                                        Urls = urls,
                                         ParentID = comment_reply_ID,
                                         PostDate = comment_date,
                                         AuthorName = comment_author,

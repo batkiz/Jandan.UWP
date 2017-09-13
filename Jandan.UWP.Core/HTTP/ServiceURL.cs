@@ -4,7 +4,7 @@
     {
         #region 获取内容类API
         // 获取新鲜事列表
-        public static string API_GET_FRESH_NEWS = "http://i.jandan.net/?oxwlxojflwblxbsapi=get_recent_posts&include=url,date,tags,author,title,comment_count,custom_fields&page={0}&custom_fields=thumb_c,views&dev=1";
+        public static string API_GET_FRESH_NEWS = "http://i.jandan.net/?oxwlxojflwblxbsapi=get_recent_posts&include=url,date,tags,author,title,excerpt,comment_count,comment_status,custom_fields&page={0}&custom_fields=thumb_c,views&dev=1";
         // 获取段子列表
         public static string API_GET_DUANZI = "http://i.jandan.net/?oxwlxojflwblxbsapi=jandan.get_duan_comments&page={0}";
         // 获取无聊图列表

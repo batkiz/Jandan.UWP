@@ -14,6 +14,8 @@ namespace Jandan.UWP.Core.Models
         [DataMember]
         public string Title { get; set; }
         [DataMember]
+        public string Excerpt { get; set; }
+        [DataMember]
         public string Url { get; set; }
         [DataMember]
         public string Date{ get; set; }

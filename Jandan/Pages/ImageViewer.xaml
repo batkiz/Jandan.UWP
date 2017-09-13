@@ -21,7 +21,13 @@
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <ListView Grid.Row="0" Name="DuanCommentListView" Padding="8,10" SelectionMode="None" ItemsSource="{x:Bind CommentList.View, Mode=OneWay}" ItemTemplate="{StaticResource CommentListDateTemplateStyle}" ItemContainerStyle="{StaticResource CommentListViewItemStyle}" ItemClick="DuanCommentListView_ItemClick" IsItemClickEnabled="True" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Top">
+                    <ListView Grid.Row="0" Name="DuanCommentListView" 
+                              Padding="8,10" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Top"
+                              SelectionMode="None" IsItemClickEnabled="True" 
+                              ItemsSource="{x:Bind CommentList.View, Mode=OneWay}" 
+                              ItemTemplateSelector="{StaticResource CommentDTS}"
+                              ItemContainerStyle="{StaticResource CommentListViewItemStyle}" 
+                              ItemClick="DuanCommentListView_ItemClick">
                         <ListView.GroupStyle>
                             <GroupStyle>
                                 <GroupStyle.HeaderTemplate>

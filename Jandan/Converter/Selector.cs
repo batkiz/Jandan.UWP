@@ -35,4 +35,26 @@ namespace Jandan.UWP.UI
             return null;
         }
     }
+
+    public sealed class CommentDataTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate CommentTemplate { get; set; }
+        public DataTemplate CommentWithImageTemplate { get; set; }
+        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        {
+            Tucao list = item as Tucao;
+            if (list != null)
+            {
+                switch (list.ContentType.ToLower())
+                {
+                    default:
+                    case "text":
+                        return CommentTemplate;
+                    case "text_with_image":
+                        return CommentWithImageTemplate;
+                }
+            }
+            return null;
+        }
+    }
 }

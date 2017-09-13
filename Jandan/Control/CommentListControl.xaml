@@ -23,7 +23,12 @@
             <TextBlock Name="CommentTitle" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource CommentListTitleTextStyle}"></TextBlock>
         </RelativePanel>
         <!--评论列表-->
-        <ListView Grid.Row="1" Name="DuanCommentListView" Padding="8,10" SelectionMode="None" ItemsSource="{x:Bind _dViewModel.CommentList.View, Mode=OneWay}" ItemTemplate="{StaticResource CommentListDateTemplateStyle}" ItemContainerStyle="{StaticResource CommentListViewItemStyle}" ItemClick="DuanCommentListView_ItemClick" IsItemClickEnabled="True" Holding="DuanCommentListView_Holding" RightTapped="DuanCommentListView_RightTapped">
+        <ListView Grid.Row="1" Name="DuanCommentListView" Padding="8,10" 
+                  ItemsSource="{x:Bind _dViewModel.CommentList.View, Mode=OneWay}"                   
+                  ItemTemplateSelector="{StaticResource CommentDTS}"
+                  ItemContainerStyle="{StaticResource CommentListViewItemStyle}" 
+                  SelectionMode="None" IsItemClickEnabled="True" 
+                  ItemClick="DuanCommentListView_ItemClick" Holding="DuanCommentListView_Holding" RightTapped="DuanCommentListView_RightTapped">
             <ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
