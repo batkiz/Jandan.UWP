@@ -28,12 +28,16 @@
                         <TextBlock x:Name="BoringID" Text="{x:Bind PicID, Mode=OneWay}" FontSize="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource ItemIDTextStyle}" RelativePanel.AlignRightWithPanel="True"/>
                         <TextBlock x:Name="BoringDate" Text="{x:Bind Date, Mode=OneWay}" FontSize="{Binding Source={StaticResource ContentInfoFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource ItemDateTextStyle}" RelativePanel.Below="BoringAuthor"/>
                     </RelativePanel>
-                    <StackPanel Grid.Row="1" Margin="0,0,0,4" >
+                    <Grid Grid.Row="1" Margin="0,0,0,4" >
                         <!--<TextBlock x:Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" FontSize="{x:Bind viewmodel:DataShareManager.Current.FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" MaxHeight="40"/>-->
-                        <TextBlock x:Name="BoringContent" VerticalAlignment="Top" Text="{x:Bind Content, Mode=OneWay}" FontSize="{Binding Source={StaticResource ContentFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}" MaxHeight="40"/>
-
-                        <toolkitcontrol:ImageEx VerticalAlignment="Top" MinHeight="240" Source="{x:Bind Thumb, Converter={StaticResource imgCvt}, Mode=OneWay}" />
-                    </StackPanel>
+                        <toolkitcontrol:ImageEx VerticalAlignment="Top" MinHeight="200" Source="{x:Bind Thumb, Converter={StaticResource imgCvt}, Mode=OneWay}" />
+                        <StackPanel Margin="0" Padding="3" VerticalAlignment="Bottom">
+                            <StackPanel.Background>
+                                <SolidColorBrush Color="Black" Opacity="0.5"/>
+                            </StackPanel.Background>
+                            <TextBlock x:Name="BoringContent" VerticalAlignment="Top" MaxHeight="100" Text="{x:Bind Content, Mode=OneWay}" FontSize="{Binding Source={StaticResource ContentFontStyle}, Path=FontSize, Mode=OneWay}" Style="{StaticResource ItemContentTextStyle}"/>
+                        </StackPanel>
+                    </Grid>
                     <RelativePanel Grid.Row="2" Margin="0,5">
                         <Button x:Name="DuanVotePositiveIcon" Content="{StaticResource RateBarOO}" RelativePanel.AlignLeftWithPanel="True" MaxWidth="40" MinWidth="40" Style="{StaticResource RateBarButtonStyle}" Click="DuanVotePositiveIcon_Click"/>
                         <TextBlock x:Name="DuanVotePositive" Text="{x:Bind VotePositive, Mode=OneWay}" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="DuanVotePositiveIcon" Style="{StaticResource RateBarTextStyle}"/>

@@ -29,7 +29,7 @@ namespace Jandan.UWP.Core.ViewModels
         {
             _freshDetails = new FreshDetail() { FreshInfo = null, FreshContentSlim = "", FreshContentEx = "" };
 
-            Update(_freshDetails.FreshInfo);
+            //Update(_freshDetails.FreshInfo);
         }
 
         public FreshDetailViewModel(Fresh fresh)
