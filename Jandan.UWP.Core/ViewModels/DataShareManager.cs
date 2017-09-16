@@ -129,9 +129,9 @@ namespace Jandan.UWP.Core.ViewModels
         // 判断本地存储版本号和关于信息中的当前版本号是否一致,不一致则显示更新内容,并将本地存储版本号更新为关于信息中的版本号
         private async void CheckUpdatedContentAsync()
         {
-            Jandan.UWP.Core.Models.About a = new Models.About();
+            //Jandan.UWP.Core.Models.About a = new Models.About();
             
-            Version curr_version = new Version(a.VersionNumber);
+            Version curr_version = new Version(Jandan.UWP.Core.Models.About.Current.VersionNumber);
             Version stor_version = new Version(StoredVersionNumber);
 
             if (curr_version != stor_version)
@@ -140,7 +140,7 @@ namespace Jandan.UWP.Core.ViewModels
                 XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
 
                 XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                var file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Documents/updated-{a.VersionNumber}.txt"));
+                var file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Documents/updated.txt"));
                 var msg = await FileIO.ReadTextAsync(file);
                 toastTextElements[0].AppendChild(toastXml.CreateTextNode(msg));
 
